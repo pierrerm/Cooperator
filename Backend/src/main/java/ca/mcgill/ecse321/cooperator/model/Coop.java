@@ -1,10 +1,11 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
-import java.sql.Date;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Id;
+import java.util.Set;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Coop{
@@ -15,30 +16,6 @@ public void setYear(int value) {
 }
 public int getYear() {
     return this.year;
-}
-private Semester semester;
-
-public void setSemester(Semester value) {
-    this.semester = value;
-}
-public Semester getSemester() {
-    return this.semester;
-}
-private Date startDate;
-
-public void setStartDate(Date value) {
-    this.startDate = value;
-}
-public Date getStartDate() {
-    return this.startDate;
-}
-private Date endDate;
-
-public void setEndDate(Date value) {
-    this.endDate = value;
-}
-public Date getEndDate() {
-    return this.endDate;
 }
 private String location;
 
@@ -72,6 +49,15 @@ public void setEmployerConfirmation(Boolean value) {
 public Boolean getEmployerConfirmation() {
     return this.employerConfirmation;
 }
+private int jobId;
+
+public void setJobId(int value) {
+    this.jobId = value;
+}
+@Id
+public int getJobId() {
+    return this.jobId;
+}
 private Student student;
 
 @ManyToOne(optional=false)
@@ -94,15 +80,26 @@ public void setEmployer(Employer employer) {
    this.employer = employer;
 }
 
-private TasksWorkloadReport tasksWorkloadReport;
+private AcceptanceForm acceptanceForm;
 
 @OneToOne(mappedBy="coop" )
-public TasksWorkloadReport getTasksWorkloadReport() {
-   return this.tasksWorkloadReport;
+public AcceptanceForm getAcceptanceForm() {
+   return this.acceptanceForm;
 }
 
-public void setTasksWorkloadReport(TasksWorkloadReport tasksWorkloadReport) {
-   this.tasksWorkloadReport = tasksWorkloadReport;
+public void setAcceptanceForm(AcceptanceForm acceptanceForm) {
+   this.acceptanceForm = acceptanceForm;
+}
+
+private EmployerContract employerContract;
+
+@OneToOne(mappedBy="coop" )
+public EmployerContract getEmployerContract() {
+   return this.employerContract;
+}
+
+public void setEmployerContract(EmployerContract employerContract) {
+   this.employerContract = employerContract;
 }
 
 private TechnicalReport technicalReport;
@@ -116,6 +113,39 @@ public void setTechnicalReport(TechnicalReport technicalReport) {
    this.technicalReport = technicalReport;
 }
 
+private CoopEvaluation coopEvaluation;
+
+@OneToOne(mappedBy="coop" )
+public CoopEvaluation getCoopEvaluation() {
+   return this.coopEvaluation;
+}
+
+public void setCoopEvaluation(CoopEvaluation coopEvaluation) {
+   this.coopEvaluation = coopEvaluation;
+}
+
+private StudentEvaluation studentEvaluation;
+
+@OneToOne(mappedBy="coop" )
+public StudentEvaluation getStudentEvaluation() {
+   return this.studentEvaluation;
+}
+
+public void setStudentEvaluation(StudentEvaluation studentEvaluation) {
+   this.studentEvaluation = studentEvaluation;
+}
+
+private TasksWorkloadReport tasksWorkloadReport;
+
+@OneToOne(mappedBy="coop" )
+public TasksWorkloadReport getTasksWorkloadReport() {
+   return this.tasksWorkloadReport;
+}
+
+public void setTasksWorkloadReport(TasksWorkloadReport tasksWorkloadReport) {
+   this.tasksWorkloadReport = tasksWorkloadReport;
+}
+
 private CoopPlacementProof coopPlacementProof;
 
 @OneToOne
@@ -127,20 +157,20 @@ public void setCoopPlacementProof(CoopPlacementProof coopPlacementProof) {
    this.coopPlacementProof = coopPlacementProof;
 }
 
-private TaxFormInsruction taxFormInsruction;
+private TaxFormInstruction taxFormInstruction;
 
-@OneToOne(optional=false)
-public TaxFormInsruction getTaxFormInsruction() {
-   return this.taxFormInsruction;
+@OneToOne
+public TaxFormInstruction getTaxFormInstruction() {
+   return this.taxFormInstruction;
 }
 
-public void setTaxFormInsruction(TaxFormInsruction taxFormInsruction) {
-   this.taxFormInsruction = taxFormInsruction;
+public void setTaxFormInstruction(TaxFormInstruction taxFormInstruction) {
+   this.taxFormInstruction = taxFormInstruction;
 }
 
 private TaxForm taxForm;
 
-@ManyToOne(optional=false)
+@OneToOne
 public TaxForm getTaxForm() {
    return this.taxForm;
 }
@@ -149,46 +179,23 @@ public void setTaxForm(TaxForm taxForm) {
    this.taxForm = taxForm;
 }
 
-private AcceptanceForm acceptanceForm;
+private Set<Reminder> reminder;
 
-@OneToOne
-public AcceptanceForm getAcceptanceForm() {
-   return this.acceptanceForm;
+@OneToMany(mappedBy="coop" )
+public Set<Reminder> getReminder() {
+   return this.reminder;
 }
 
-public void setAcceptanceForm(AcceptanceForm acceptanceForm) {
-   this.acceptanceForm = acceptanceForm;
+public void setReminder(Set<Reminder> reminders) {
+   this.reminder = reminders;
 }
 
-private EmployerContract employerContract;
+private Semester semester;
 
-@OneToOne
-public EmployerContract getEmployerContract() {
-   return this.employerContract;
+public void setSemester(Semester value) {
+    this.semester = value;
 }
-
-public void setEmployerContract(EmployerContract employerContract) {
-   this.employerContract = employerContract;
-}
-
-private StudentEvaluation studentEvaluation;
-
-@OneToOne
-public StudentEvaluation getStudentEvaluation() {
-   return this.studentEvaluation;
-}
-
-public void setStudentEvaluation(StudentEvaluation studentEvaluation) {
-   this.studentEvaluation = studentEvaluation;
-}
-
-private int jobID;
-
-public void setJobID(int value) {
-    this.jobID = value;
-}
-@Id
-public int getJobID() {
-    return this.jobID;
+public Semester getSemester() {
+    return this.semester;
 }
 }

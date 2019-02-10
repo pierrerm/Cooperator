@@ -26,7 +26,6 @@ private String email;
 public void setEmail(String value) {
     this.email = value;
 }
-@Id
 public String getEmail() {
     return this.email;
 }
@@ -37,5 +36,14 @@ public void setPassword(String value) {
 }
 public String getPassword() {
     return this.password;
+}
+private int userId;
+
+public void setUserId(int value) {
+    this.userId = value;
+}
+@Id
+public int getUserId() {
+    return this.userId;
 }
 }

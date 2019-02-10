@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 public class EmployerContract extends Form{
    private Coop coop;
    
-   @OneToOne(mappedBy="employerContract" , optional=false)
+   @OneToOne(optional=false)
    public Coop getCoop() {
       return this.coop;
    }

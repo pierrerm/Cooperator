@@ -1,17 +1,20 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Date;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Reminder{
-private Date date;
+   private int reminderId;
 
-public void setDate(Date value) {
-this.date = value;
+public void setReminderId(int value) {
+    this.reminderId = value;
 }
-public Date getDate() {
-return this.date;
+@Id
+public int getReminderId() {
+    return this.reminderId;
 }
 private String subject;
 
@@ -21,6 +24,30 @@ public void setSubject(String value) {
 public String getSubject() {
     return this.subject;
 }
+private Date date;
+
+public void setDate(Date value) {
+    this.date = value;
+}
+public Date getDate() {
+    return this.date;
+}
+private Date deadLine;
+
+public void setDeadLine(Date value) {
+    this.deadLine = value;
+}
+public Date getDeadLine() {
+    return this.deadLine;
+}
+private String description;
+
+public void setDescription(String value) {
+    this.description = value;
+}
+public String getDescription() {
+    return this.description;
+}
 private int urgency;
 
 public void setUrgency(int value) {
@@ -29,31 +56,15 @@ public void setUrgency(int value) {
 public int getUrgency() {
     return this.urgency;
 }
-private String message;
-
-public void setMessage(String value) {
-    this.message = value;
-}
-public String getMessage() {
-    return this.message;
-}
-
-private Student student;
-
-public void setStudent(Student student) {
-	this.student = student;
-}
-public Student getStudent() {
-	return this.student;
-}
-
-private Administrator administrator;
-
-public void setAdministrator(Administrator administrator) {
-	this.administrator = administrator;
-}
-public Administrator getAdministrator() {
-	return this.administrator;
-}
-
-}
+   private Coop coop;
+   
+   @ManyToOne(optional=false)
+   public Coop getCoop() {
+      return this.coop;
+   }
+   
+   public void setCoop(Coop coop) {
+      this.coop = coop;
+   }
+   
+   }

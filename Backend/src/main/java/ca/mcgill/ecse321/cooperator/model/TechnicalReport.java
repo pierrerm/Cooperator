@@ -5,14 +5,6 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class TechnicalReport extends Form{
-   private String subject;
-
-public void setSubject(String value) {
-    this.subject = value;
-}
-public String getSubject() {
-    return this.subject;
-}
    private Coop coop;
    
    @OneToOne(optional=false)

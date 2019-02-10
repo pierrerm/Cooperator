@@ -1,26 +1,33 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
-import java.sql.Date;
 import javax.persistence.Id;
 
 @Entity
-public abstract class Form{
-   private Date submissionDate;
+public class Form{
+   private Boolean submitted;
 
-public void setSubmissionDate(Date value) {
-    this.submissionDate = value;
+public void setSubmitted(Boolean value) {
+    this.submitted = value;
 }
-public Date getSubmissionDate() {
-    return this.submissionDate;
+public Boolean getSubmitted() {
+    return this.submitted;
 }
-private int formID;
+private String filePath;
 
-public void setFormID(int value) {
-    this.formID = value;
+public void setFilePath(String value) {
+    this.filePath = value;
+}
+public String getFilePath() {
+    return this.filePath;
+}
+private String formId;
+
+public void setFormId(String value) {
+    this.formId = value;
 }
 @Id
-public int getFormID() {
-    return this.formID;
+public String getFormId() {
+    return this.formId;
 }
 }

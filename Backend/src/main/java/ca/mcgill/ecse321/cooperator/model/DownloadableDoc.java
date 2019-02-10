@@ -1,16 +1,25 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
-import java.sql.Date;
+import javax.persistence.Id;
 
 @Entity
-public abstract class DownloadableDoc{
-   private Date downloadDate;
+public class DownloadableDoc{
+   private int docId;
 
-public void setDownloadDate(Date value) {
-    this.downloadDate = value;
+public void setDocId(int value) {
+    this.docId = value;
 }
-public Date getDownloadDate() {
-    return this.downloadDate;
+@Id
+public int getDocId() {
+    return this.docId;
+}
+private String filePath;
+
+public void setFilePath(String value) {
+    this.filePath = value;
+}
+public String getFilePath() {
+    return this.filePath;
 }
 }

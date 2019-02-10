@@ -4,10 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
-public class TaxFormInsruction extends DownloadableDoc{
+public class TaxFormInstruction extends DownloadableDoc{
    private Coop coop;
    
-   @OneToOne(mappedBy="taxFormInsruction" , optional=false)
+   @OneToOne(mappedBy="taxFormInstruction" , optional=false)
    public Coop getCoop() {
       return this.coop;
    }

@@ -1,20 +1,19 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
-import java.util.Set;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class TaxForm extends DownloadableDoc{
-   private Set<Coop> coop;
+   private Coop coop;
    
-   @OneToMany(mappedBy="taxForm" )
-   public Set<Coop> getCoop() {
+   @OneToOne(mappedBy="taxForm" , optional=false)
+   public Coop getCoop() {
       return this.coop;
    }
    
-   public void setCoop(Set<Coop> coops) {
-      this.coop = coops;
+   public void setCoop(Coop coop) {
+      this.coop = coop;
    }
    
    }

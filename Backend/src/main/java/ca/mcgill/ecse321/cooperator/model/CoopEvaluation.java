@@ -1,31 +1,19 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
-import java.util.Set;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class CoopEvaluation extends Form{
-   private Set<Course> course;
+   private Coop coop;
    
-   @OneToMany
-   public Set<Course> getCourse() {
-      return this.course;
+   @OneToOne(optional=false)
+   public Coop getCoop() {
+      return this.coop;
    }
    
-   public void setCourse(Set<Course> courses) {
-      this.course = courses;
-   }
-   
-   private Set<Technology> technology;
-   
-   @OneToMany
-   public Set<Technology> getTechnology() {
-      return this.technology;
-   }
-   
-   public void setTechnology(Set<Technology> technologys) {
-      this.technology = technologys;
+   public void setCoop(Coop coop) {
+      this.coop = coop;
    }
    
    }

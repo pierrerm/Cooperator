@@ -1,8 +1,8 @@
 package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import java.util.Set;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -15,13 +15,13 @@ public void setId(int value) {
 public int getId() {
     return this.id;
 }
-private Faculty faculty;
+private int year;
 
-public void setFaculty(Faculty value) {
-    this.faculty = value;
+public void setYear(int value) {
+    this.year = value;
 }
-public Faculty getFaculty() {
-    return this.faculty;
+public int getYear() {
+    return this.year;
 }
 private String major;
 
@@ -39,34 +39,34 @@ public void setMinor(String value) {
 public String getMinor() {
     return this.minor;
 }
-   private Set<Administrator> administrator;
-   
-   @ManyToMany(mappedBy="student" )
-   public Set<Administrator> getAdministrator() {
-      return this.administrator;
-   }
-   
-   public void setAdministrator(Set<Administrator> administrators) {
-      this.administrator = administrators;
-   }
-   
-   private Set<Coop> coop;
-   
-   @OneToMany(mappedBy="student" )
-   public Set<Coop> getCoop() {
-      return this.coop;
-   }
-   
-   public void setCoop(Set<Coop> coops) {
-      this.coop = coops;
-   }
-   
-   private Set<Reminder> reminders;
-   public Set<Reminder> getReminder() {
-	      return this.reminders;
-	   }
-	   
-	   public void setReminder(Set<Reminder> reminders) {
-	      this.reminders = reminders;
-	   }
-   }
+private Administrator administrator;
+
+@ManyToOne
+public Administrator getAdministrator() {
+   return this.administrator;
+}
+
+public void setAdministrator(Administrator administrator) {
+   this.administrator = administrator;
+}
+
+private Set<Coop> coop;
+
+@OneToMany(mappedBy="student" )
+public Set<Coop> getCoop() {
+   return this.coop;
+}
+
+public void setCoop(Set<Coop> coops) {
+   this.coop = coops;
+}
+
+private Faculty faculty;
+
+public void setFaculty(Faculty value) {
+    this.faculty = value;
+}
+public Faculty getFaculty() {
+    return this.faculty;
+}
+}
