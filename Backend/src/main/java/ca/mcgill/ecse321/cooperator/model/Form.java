@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Date;
 
 @Entity
 public class Form{
@@ -29,5 +30,13 @@ public void setFormId(String value) {
 @Id
 public String getFormId() {
     return this.formId;
+}
+private Date submissionDate;
+
+public void setSubmissionDate(Date value) {
+    this.submissionDate = value;
+}
+public Date getSubmissionDate() {
+    return this.submissionDate;
 }
 }
