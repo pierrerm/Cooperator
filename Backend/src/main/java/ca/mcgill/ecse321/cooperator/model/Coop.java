@@ -1,4 +1,5 @@
 package ca.mcgill.ecse321.cooperator.model;
+import javax.persistence.ManyToMany;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,6 +10,28 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Coop{
+private Employer employer;
+   
+   @ManyToOne(optional=false)
+   public Employer getEmployer() {
+      return this.employer;
+   }
+   
+   public void setEmployer(Employer employer) {
+      this.employer = employer;
+   }
+   
+   private Set<Administrator> administrator;
+   
+   @ManyToMany(mappedBy="coop" )
+   public Set<Administrator> getAdministrator() {
+      return this.administrator;
+   }
+   
+   public void setAdministrator(Set<Administrator> administrators) {
+      this.administrator = administrators;
+   }
+   
    private int year;
 
 public void setYear(int value) {
@@ -67,17 +90,6 @@ public Student getStudent() {
 
 public void setStudent(Student student) {
    this.student = student;
-}
-
-private Employer employer;
-
-@ManyToOne(optional=false)
-public Employer getEmployer() {
-   return this.employer;
-}
-
-public void setEmployer(Employer employer) {
-   this.employer = employer;
 }
 
 private AcceptanceForm acceptanceForm;

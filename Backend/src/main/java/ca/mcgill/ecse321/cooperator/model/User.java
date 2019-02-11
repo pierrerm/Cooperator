@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public abstract class User{
+public class User{
    private String firstName;
 
 public void setFirstName(String value) {
