@@ -7,6 +7,14 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Administrator extends User{
+private Faculty faculty;
+
+public void setFaculty(Faculty value) {
+this.faculty = value;
+}
+public Faculty getFaculty() {
+return this.faculty;
+}
    private int id;
 
 public void setId(int value) {
@@ -25,24 +33,5 @@ public Set<Student> getStudent() {
 public void setStudent(Set<Student> students) {
    this.student = students;
 }
-
-private Faculty faculty;
-
-public void setFaculty(Faculty value) {
-    this.faculty = value;
-}
-public Faculty getFaculty() {
-    return this.faculty;
-}
-   private Set<Coop> coop;
-   
-   @ManyToMany
-   public Set<Coop> getCoop() {
-      return this.coop;
-   }
-   
-   public void setCoop(Set<Coop> coops) {
-      this.coop = coops;
-   }
    
    }

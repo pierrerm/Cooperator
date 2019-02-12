@@ -7,15 +7,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Form{
-   private Boolean submitted;
-
-public void setSubmitted(Boolean value) {
-    this.submitted = value;
-}
-public Boolean getSubmitted() {
-    return this.submitted;
-}
-private String filePath;
+   private String filePath;
 
 public void setFilePath(String value) {
     this.filePath = value;

@@ -30,15 +30,23 @@ public void setPhone(int value) {
 public int getPhone() {
     return this.phone;
 }
-   private Set<Coop> coop;
-   
-   @OneToMany(mappedBy="employer" )
-   public Set<Coop> getCoop() {
-      return this.coop;
-   }
-   
-   public void setCoop(Set<Coop> coops) {
-      this.coop = coops;
-   }
-   
-   }
+private Set<Coop> coop;
+
+@OneToMany(mappedBy="employer" )
+public Set<Coop> getCoop() {
+   return this.coop;
+}
+
+public void setCoop(Set<Coop> coops) {
+   this.coop = coops;
+}
+
+private String location;
+
+public void setLocation(String value) {
+    this.location = value;
+}
+public String getLocation() {
+    return this.location;
+}
+}
