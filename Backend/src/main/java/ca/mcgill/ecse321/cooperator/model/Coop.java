@@ -1,4 +1,5 @@
 package ca.mcgill.ecse321.cooperator.model;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,6 +10,66 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Coop{
+private DownloadableDoc downloadableDoc;
+   
+   @OneToOne
+   public DownloadableDoc getDownloadableDoc() {
+      return this.downloadableDoc;
+   }
+   
+   public void setDownloadableDoc(DownloadableDoc downloadableDoc) {
+      this.downloadableDoc = downloadableDoc;
+   }
+   
+   private Form form;
+   
+   @OneToOne
+   public Form getForm() {
+      return this.form;
+   }
+   
+   public void setForm(Form form) {
+      this.form = form;
+   }
+   
+   private Student student;
+   
+   @ManyToOne(optional=false)
+   public Student getStudent() {
+      return this.student;
+   }
+   
+   public void setStudent(Student student) {
+      this.student = student;
+   }
+   
+   private Employer employer;
+   
+   @ManyToOne(optional=false)
+   public Employer getEmployer() {
+      return this.employer;
+   }
+   
+   public void setEmployer(Employer employer) {
+      this.employer = employer;
+   }
+   
+   private Date startDate;
+
+public void setStartDate(Date value) {
+this.startDate = value;
+}
+public Date getStartDate() {
+return this.startDate;
+}
+private Date endDate;
+
+public void setEndDate(Date value) {
+this.endDate = value;
+}
+public Date getEndDate() {
+return this.endDate;
+}
    private int year;
 
 public void setYear(int value) {
@@ -57,126 +118,6 @@ public void setJobId(int value) {
 @Id
 public int getJobId() {
     return this.jobId;
-}
-private Student student;
-
-@ManyToOne(optional=false)
-public Student getStudent() {
-   return this.student;
-}
-
-public void setStudent(Student student) {
-   this.student = student;
-}
-
-private Employer employer;
-
-@ManyToOne(optional=false)
-public Employer getEmployer() {
-   return this.employer;
-}
-
-public void setEmployer(Employer employer) {
-   this.employer = employer;
-}
-
-private AcceptanceForm acceptanceForm;
-
-@OneToOne(mappedBy="coop" )
-public AcceptanceForm getAcceptanceForm() {
-   return this.acceptanceForm;
-}
-
-public void setAcceptanceForm(AcceptanceForm acceptanceForm) {
-   this.acceptanceForm = acceptanceForm;
-}
-
-private EmployerContract employerContract;
-
-@OneToOne(mappedBy="coop" )
-public EmployerContract getEmployerContract() {
-   return this.employerContract;
-}
-
-public void setEmployerContract(EmployerContract employerContract) {
-   this.employerContract = employerContract;
-}
-
-private TechnicalReport technicalReport;
-
-@OneToOne(mappedBy="coop" )
-public TechnicalReport getTechnicalReport() {
-   return this.technicalReport;
-}
-
-public void setTechnicalReport(TechnicalReport technicalReport) {
-   this.technicalReport = technicalReport;
-}
-
-private CoopEvaluation coopEvaluation;
-
-@OneToOne(mappedBy="coop" )
-public CoopEvaluation getCoopEvaluation() {
-   return this.coopEvaluation;
-}
-
-public void setCoopEvaluation(CoopEvaluation coopEvaluation) {
-   this.coopEvaluation = coopEvaluation;
-}
-
-private StudentEvaluation studentEvaluation;
-
-@OneToOne(mappedBy="coop" )
-public StudentEvaluation getStudentEvaluation() {
-   return this.studentEvaluation;
-}
-
-public void setStudentEvaluation(StudentEvaluation studentEvaluation) {
-   this.studentEvaluation = studentEvaluation;
-}
-
-private TasksWorkloadReport tasksWorkloadReport;
-
-@OneToOne(mappedBy="coop" )
-public TasksWorkloadReport getTasksWorkloadReport() {
-   return this.tasksWorkloadReport;
-}
-
-public void setTasksWorkloadReport(TasksWorkloadReport tasksWorkloadReport) {
-   this.tasksWorkloadReport = tasksWorkloadReport;
-}
-
-private CoopPlacementProof coopPlacementProof;
-
-@OneToOne
-public CoopPlacementProof getCoopPlacementProof() {
-   return this.coopPlacementProof;
-}
-
-public void setCoopPlacementProof(CoopPlacementProof coopPlacementProof) {
-   this.coopPlacementProof = coopPlacementProof;
-}
-
-private TaxFormInstruction taxFormInstruction;
-
-@OneToOne
-public TaxFormInstruction getTaxFormInstruction() {
-   return this.taxFormInstruction;
-}
-
-public void setTaxFormInstruction(TaxFormInstruction taxFormInstruction) {
-   this.taxFormInstruction = taxFormInstruction;
-}
-
-private TaxForm taxForm;
-
-@OneToOne
-public TaxForm getTaxForm() {
-   return this.taxForm;
-}
-
-public void setTaxForm(TaxForm taxForm) {
-   this.taxForm = taxForm;
 }
 
 private Set<Reminder> reminder;

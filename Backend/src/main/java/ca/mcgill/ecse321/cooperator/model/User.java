@@ -1,10 +1,14 @@
 package ca.mcgill.ecse321.cooperator.model;
+import javax.persistence.ManyToMany;
+import javax.persistence.MappedSuperclass;
 
-import javax.persistence.Entity;
+import java.util.Set;
+
 import javax.persistence.Id;
 
-@Entity
+@MappedSuperclass
 public abstract class User{
+   
    private String firstName;
 
 public void setFirstName(String value) {

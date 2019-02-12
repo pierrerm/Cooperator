@@ -50,17 +50,6 @@ public void setAdministrator(Administrator administrator) {
    this.administrator = administrator;
 }
 
-private Set<Coop> coop;
-
-@OneToMany(mappedBy="student" )
-public Set<Coop> getCoop() {
-   return this.coop;
-}
-
-public void setCoop(Set<Coop> coops) {
-   this.coop = coops;
-}
-
 private Faculty faculty;
 
 public void setFaculty(Faculty value) {
@@ -69,4 +58,15 @@ public void setFaculty(Faculty value) {
 public Faculty getFaculty() {
     return this.faculty;
 }
-}
+   private Set<Coop> coop;
+   
+   @OneToMany(mappedBy="student" )
+   public Set<Coop> getCoop() {
+      return this.coop;
+   }
+   
+   public void setCoop(Set<Coop> coops) {
+      this.coop = coops;
+   }
+   
+   }

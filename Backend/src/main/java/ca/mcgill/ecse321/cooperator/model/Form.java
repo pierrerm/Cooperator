@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.cooperator.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Form{
@@ -39,4 +40,15 @@ public void setSubmissionDate(Date value) {
 public Date getSubmissionDate() {
     return this.submissionDate;
 }
-}
+   private Coop coop;
+   
+   @OneToOne(mappedBy="form" , optional=false)
+   public Coop getCoop() {
+      return this.coop;
+   }
+   
+   public void setCoop(Coop coop) {
+      this.coop = coop;
+   }
+   
+   }
