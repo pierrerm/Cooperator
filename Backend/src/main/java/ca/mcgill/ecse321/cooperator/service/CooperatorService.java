@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.cooperator.service;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import ca.mcgill.ecse321.cooperator.dao.DownloadableDocRepository;
 import ca.mcgill.ecse321.cooperator.dao.FormRepository;
 import ca.mcgill.ecse321.cooperator.dao.ReminderRepository;
 import ca.mcgill.ecse321.cooperator.model.Coop;
+import ca.mcgill.ecse321.cooperator.model.DocumentType;
 import ca.mcgill.ecse321.cooperator.model.DownloadableDoc;
 import ca.mcgill.ecse321.cooperator.model.Employer;
 import ca.mcgill.ecse321.cooperator.model.Form;
@@ -25,17 +25,17 @@ import ca.mcgill.ecse321.cooperator.model.Student;
 @Service
 public class CooperatorService {
 	
-	@Autowired(required=false)
+	@Autowired
 	CoopRepository coopRepository;
-	@Autowired(required=false)
+	@Autowired
 	DownloadableDocRepository downloadableDocRepository;
-	@Autowired(required=false)
+	@Autowired
 	FormRepository formRepository;
-	@Autowired(required=false)
+	@Autowired
 	ReminderRepository reminderRepository;
 	
 	@Transactional
-	public Coop createCoop(int year, String location, String jobDescription, Boolean needWorkPermit, Boolean employerConfirmation, int jobId, Semester semester, Student student, Employer employer) {
+	public Coop createCoop(String year, String location, String jobDescription, Boolean needWorkPermit, Boolean employerConfirmation, int jobId, Semester semester, Date startDate, Date endDate, Employer employer) {
 		Coop coop = new Coop();
 		coop.setYear(year);
 		coop.setLocation(location);
@@ -44,7 +44,8 @@ public class CooperatorService {
 		coop.setEmployerConfirmation(employerConfirmation);
 		coop.setJobId(jobId);
 		coop.setSemester(semester);
-		coop.setStudent(student);
+		coop.setEndDate(endDate);
+		coop.setStartDate(startDate);
 		coop.setEmployer(employer);
 		coopRepository.save(coop);
 		return coop;
@@ -56,17 +57,17 @@ public class CooperatorService {
 		return coop;
 	}
 	
-//	@Transactional
-//	public List<Coop> getAllCoops() {
-//		//return toList(coopRepository.findAll());
-//	}
+	@Transactional
+	public List<Coop> getAllCoops() {
+		return toList(coopRepository.findAll());
+	}
 	
 	@Transactional
-	public Form createForm(Boolean submitted, String filePath, String formId) {
+	public Form createForm(String filePath, String formId, Date submissionDate) {
 		Form form = new Form();
-		form.setSubmitted(submitted);
 		form.setFilePath(filePath);
 		form.setFormId(formId);
+		form.setSubmissionDate(submissionDate);
 		formRepository.save(form);
 		return form;
 	}
@@ -107,17 +108,18 @@ public class CooperatorService {
 	}
 	
 	@Transactional
-	public DownloadableDoc createDownloadableDoc(int docId, String filePath) {
+	public DownloadableDoc createDownloadableDoc(int docId, String filePath, DocumentType docType) {
 		DownloadableDoc downloadableDoc = new DownloadableDoc();
 		downloadableDoc.setDocId(docId);
 		downloadableDoc.setFilePath(filePath);
+		downloadableDoc.setDocumentType(docType);
 		downloadableDocRepository.save(downloadableDoc);
 		return downloadableDoc;
 	}
 	
 	@Transactional
 	public DownloadableDoc getDownloadableDoc(int docId) {
-		DownloadableDoc downloadableDoc = downloadableDocRepository.findDownloadableFormByDocId(docId);
+		DownloadableDoc downloadableDoc = downloadableDocRepository.findDownloadableDocByDocId(docId);
 		return downloadableDoc;
 	}
 	

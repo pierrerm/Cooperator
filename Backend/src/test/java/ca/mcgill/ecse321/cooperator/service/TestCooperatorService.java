@@ -19,10 +19,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.cooperator.dao.FormRepository;
 import ca.mcgill.ecse321.cooperator.dao.ReminderRepository;
+import ca.mcgill.ecse321.cooperator.dao.StudentRepository;
 import ca.mcgill.ecse321.cooperator.dao.DownloadableDocRepository;
+import ca.mcgill.ecse321.cooperator.dao.EmployerRepository;
+import ca.mcgill.ecse321.cooperator.dao.AdministratorRepository;
 import ca.mcgill.ecse321.cooperator.dao.CoopRepository;
 import ca.mcgill.ecse321.cooperator.model.Form;
 import ca.mcgill.ecse321.cooperator.model.Coop;
+import ca.mcgill.ecse321.cooperator.model.DocumentType;
 import ca.mcgill.ecse321.cooperator.model.Reminder;
 import ca.mcgill.ecse321.cooperator.model.Semester;
 import ca.mcgill.ecse321.cooperator.model.Student;
@@ -33,21 +37,23 @@ import ca.mcgill.ecse321.cooperator.model.Employer;
 @SpringBootTest
 public class TestCooperatorService {
 	
-	@Autowired(required=false)
+	@Autowired
 	private CooperatorService service;
 	
-	@Autowired(required=false)
+	@Autowired
 	private CoopRepository coopRepository;
-	@Autowired(required=false)
+	@Autowired
 	private FormRepository formRepository;
-	@Autowired(required=false)
+	@Autowired
 	private ReminderRepository reminderRepository;
-	@Autowired(required=false)
+	@Autowired
 	private DownloadableDocRepository downloadableDocRepository;
-
-	@Test
-	public void contextLoads() {
-	}
+	@Autowired
+	private StudentRepository studentRepository;
+	@Autowired
+	private AdministratorRepository administratorRepository;
+	@Autowired
+	private EmployerRepository employerRepository;
 	
 	@After
 	public void clearDatabase() {
@@ -62,30 +68,52 @@ public class TestCooperatorService {
 		}
 	}
 	
+//	@Test
+//	public void testCreateCoop() {
+//		assertEquals(0, service.getAllCoops().size());
+//
+//		String year = "1998";
+//		String location = "Montreal";
+//		String jobDescription = "Cool Story Bro";
+//		Boolean needWorkPermit = true;
+//		Boolean employerConfirmation = false;
+//		int jobId = 1;
+//		Semester semester = Semester.Fall;
+//		Date startDate = null;
+//		Date endDate = null;
+//		Employer employer = new Employer();
+//		employer.setUserId(1);
+//
+//		try {
+//			service.createCoop(year, location, jobDescription, needWorkPermit, employerConfirmation, jobId, semester, startDate, endDate, employer);
+//		} catch (IllegalArgumentException e) {
+//			fail();
+//		}
+//
+//		List<Coop> allCoops = service.getAllCoops();
+//
+//		assertEquals(1, allCoops.size());
+//		assertEquals(jobId, allCoops.get(0).getJobId());
+//	}
+	
 	@Test
-	public void testCreateCoop() {
-		//assertEquals(0, service.getAllCoops().size());
+	public void testCreateDownloadableDoc() {
+		assertEquals(0, service.getAllDownloadableDocs().size());
 
-		int year = 1998;
-		String location = "Montreal";
-		String jobDescription = "Cool Story Bro";
-		Boolean needWorkPermit = true;
-		Boolean employerConfirmation = false;
-		int jobId = 1;
-		Semester semester = Semester.Fall;
-		Student student = new Student();
-		Employer employer = new Employer();
+		int docId = 1;
+		String filePath = "Heyo";
+		DocumentType docType = DocumentType.CoopPlacementProof;
 
 		try {
-			//service.createCoop(year, location, jobDescription, needWorkPermit, employerConfirmation, jobId, semester, student, employer);
+			service.createDownloadableDoc(docId, filePath, docType);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 
-		//List<Coop> allCoops = service.getAllCoops();
+		List<DownloadableDoc> allDownloadableDocs = service.getAllDownloadableDocs();
 
-		//assertEquals(1, allCoops.size());
-		//assertEquals(jobId, allCoops.get(0).getJobId());
+		assertEquals(1, allDownloadableDocs.size());
+		assertEquals(docId, allDownloadableDocs.get(0).getDocId());
 	}
 	
 }
