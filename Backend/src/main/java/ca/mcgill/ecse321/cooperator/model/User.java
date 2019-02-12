@@ -6,9 +6,9 @@ import java.util.Set;
 
 import javax.persistence.Id;
 
+<<<<<<< HEAD
 @MappedSuperclass
 public abstract class User{
-   
    private String firstName;
 
 public void setFirstName(String value) {
