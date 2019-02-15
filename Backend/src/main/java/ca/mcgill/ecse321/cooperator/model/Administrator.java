@@ -15,12 +15,12 @@ this.faculty = value;
 public Faculty getFaculty() {
 return this.faculty;
 }
-   private int id;
+   private long id;
 
-public void setId(int value) {
+public void setId(long value) {
     this.id = value;
 }
-public int getId() {
+public long getId() {
     return this.id;
 }
 private Set<Student> student;

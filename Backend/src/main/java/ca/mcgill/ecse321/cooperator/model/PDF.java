@@ -2,10 +2,11 @@ package ca.mcgill.ecse321.cooperator.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import java.sql.Date;
 
 @Entity
-public class DownloadableDoc{
+public class PDF{
    private int docId;
 
 public void setDocId(int value) {
@@ -25,7 +26,7 @@ public String getFilePath() {
 }
 private Coop coop;
 
-@OneToOne(mappedBy="downloadableDoc" , optional=false)
+@ManyToOne(optional=false)
 public Coop getCoop() {
    return this.coop;
 }
@@ -41,5 +42,13 @@ public void setDocumentType(DocumentType value) {
 }
 public DocumentType getDocumentType() {
     return this.documentType;
+}
+private Date submissionDate;
+
+public void setSubmissionDate(Date value) {
+    this.submissionDate = value;
+}
+public Date getSubmissionDate() {
+    return this.submissionDate;
 }
 }

@@ -3,25 +3,17 @@ package ca.mcgill.ecse321.cooperator.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Form{
-   private String filePath;
+   private int formId;
 
-public void setFilePath(String value) {
-    this.filePath = value;
-}
-public String getFilePath() {
-    return this.filePath;
-}
-private String formId;
-
-public void setFormId(String value) {
+public void setFormId(int value) {
     this.formId = value;
 }
 @Id
-public String getFormId() {
+public int getFormId() {
     return this.formId;
 }
 private Date submissionDate;
@@ -34,7 +26,7 @@ public Date getSubmissionDate() {
 }
    private Coop coop;
    
-   @OneToOne(mappedBy="form" , optional=false)
+   @ManyToOne(optional=false)
    public Coop getCoop() {
       return this.coop;
    }

@@ -8,6 +8,14 @@ import javax.persistence.Id;
 
 @MappedSuperclass
 public abstract class User{
+private long phone;
+
+public void setPhone(long value) {
+this.phone = value;
+}
+public long getPhone() {
+return this.phone;
+}
    
    private String firstName;
 

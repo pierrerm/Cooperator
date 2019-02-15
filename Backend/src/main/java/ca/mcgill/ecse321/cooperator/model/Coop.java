@@ -10,26 +10,26 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Coop{
-private DownloadableDoc downloadableDoc;
+private Set<PDF> downloadableDoc;
    
-   @OneToOne
-   public DownloadableDoc getDownloadableDoc() {
+   @OneToMany(mappedBy="coop" )
+   public Set<PDF> getDownloadableDoc() {
       return this.downloadableDoc;
    }
    
-   public void setDownloadableDoc(DownloadableDoc downloadableDoc) {
-      this.downloadableDoc = downloadableDoc;
+   public void setDownloadableDoc(Set<PDF> downloadableDocs) {
+      this.downloadableDoc = downloadableDocs;
    }
    
-   private Form form;
+   private Set<Form> form;
    
-   @OneToOne
-   public Form getForm() {
+   @OneToMany(mappedBy="coop" )
+   public Set<Form> getForm() {
       return this.form;
    }
    
-   public void setForm(Form form) {
-      this.form = form;
+   public void setForm(Set<Form> forms) {
+      this.form = forms;
    }
    
    private Student student;
@@ -78,13 +78,13 @@ this.semester = value;
 public Semester getSemester() {
 return this.semester;
 }
-   private String year;
+private int jobId;
 
-public void setYear(String value) {
-    this.year = value;
+public void setJobId(int value) {
+this.jobId = value;
 }
-public String getYear() {
-    return this.year;
+public int getJobId() {
+return this.jobId;
 }
 private String location;
 
@@ -118,14 +118,14 @@ public void setEmployerConfirmation(Boolean value) {
 public Boolean getEmployerConfirmation() {
     return this.employerConfirmation;
 }
-private int jobId;
+private int coopId;
 
-public void setJobId(int value) {
-    this.jobId = value;
+public void setCoopId(int value) {
+    this.coopId = value;
 }
 @Id
-public int getJobId() {
-    return this.jobId;
+public int getCoopId() {
+    return this.coopId;
 }
 
 private Set<Reminder> reminder;

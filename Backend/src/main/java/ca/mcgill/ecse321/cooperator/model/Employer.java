@@ -22,14 +22,6 @@ public void setCompany(String value) {
 public String getCompany() {
     return this.company;
 }
-private int phone;
-
-public void setPhone(int value) {
-    this.phone = value;
-}
-public int getPhone() {
-    return this.phone;
-}
 private Set<Coop> coop;
 
 @OneToMany(mappedBy="employer" )

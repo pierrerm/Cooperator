@@ -7,21 +7,21 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Student extends User{
-   private int id;
+   private long id;
 
-public void setId(int value) {
+public void setId(long value) {
     this.id = value;
 }
-public int getId() {
+public long getId() {
     return this.id;
 }
-private int year;
+private String academicYear;
 
-public void setYear(int value) {
-    this.year = value;
+public void setAcademicYear(String value) {
+    this.academicYear = value;
 }
-public int getYear() {
-    return this.year;
+public String getAcademicYear() {
+    return this.academicYear;
 }
 private String major;
 
