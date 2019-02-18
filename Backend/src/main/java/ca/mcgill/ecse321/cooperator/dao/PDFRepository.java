@@ -6,5 +6,5 @@ import ca.mcgill.ecse321.cooperator.model.PDF;
 
 public interface PDFRepository extends CrudRepository<PDF, String>{
 
-	PDF findDownloadableDocByDocId(int id);
+	PDF findPDFByDocId(int id);
 }
