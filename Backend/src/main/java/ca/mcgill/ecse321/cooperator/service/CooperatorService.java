@@ -212,7 +212,7 @@ public class CooperatorService {
 		student.setMajor(major);
 		student.setMinor(minor);
 		student.setAcademicYear(academicYear);
-		student.setAdministrator(admin);
+		//student.setAdministrator(admin);
 		studentRepository.save(student);
 		return student;
 	}

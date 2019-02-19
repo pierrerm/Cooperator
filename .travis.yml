@@ -1,8 +1,7 @@
-language: java
-install: true
-
-jdk:
-- oraclejdk8
-
 script:
 - ./gradlew build
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "18f21435-ea95-4281-b34a-000e79b86fee"

@@ -228,6 +228,34 @@ public class TestCooperatorService {
 	}
 	
 	@Test
+	public void testCreateStudentSimple() {
+		assertEquals(0, service.getAllStudents().size());
+		
+		int userIdS = 1;
+		String emailS = "";
+		long phoneS = 3559;
+		String firstNameS = "";
+		String lastNameS = "";
+		String passwordS = "";   
+		Faculty facultyS = Faculty.Engineering;
+		int idS = 1;
+		String majorS = "";
+		String minorS = "";
+		String yearS = "U3";
+
+		try {
+			service.createStudent(userIdS, phoneS, emailS, firstNameS, lastNameS, passwordS, facultyS, idS, majorS, minorS, yearS, null);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+
+		List<Student> allStudents = service.getAllStudents();
+
+		assertEquals(1, allStudents.size());
+		assertEquals(userIdS, allStudents.get(0).getUserId());
+	}
+	
+	@Test
 	public void testCreateAcceptanceForm() {
 		assertEquals(0, service.getAllForms().size());
 
