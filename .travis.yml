@@ -4,4 +4,5 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: "d63b3464-8826-48d4-b52d-a9a16bc39c52"
+    secure: "18f21435-ea95-4281-b34a-000e79b86fee"
+  app: cooperator-backend-3417
