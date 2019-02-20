@@ -16,6 +16,6 @@ public class CooperatorApplication {
 
   @RequestMapping("/")
   public String greeting(){
-    return "Hello world1!";
+    return "Deployed to Heroku";
   }
 }
