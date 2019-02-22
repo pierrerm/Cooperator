@@ -51,8 +51,8 @@ public class CooperatorService {
 
 	// Coop
 	@Transactional
-	public Coop createCoop(int coopId, int jobId, boolean employerConfirmation, Date endDate, String jobDescription,
-			String location, boolean needWorkPermit, Semester semester, Date startDate, Employer employer, Student student) {
+	public Coop createCoop(int coopId, boolean employerConfirmation, Date endDate, String jobDescription, int jobId, String location, boolean needWorkPermit,
+			Semester semester, Date startDate, Student student, Employer employer) {
 		Coop coop = new Coop();
 		coop.setCoopId(coopId);
 		coop.setJobId(jobId);
@@ -230,8 +230,8 @@ public class CooperatorService {
 
 	// Employer
 	@Transactional
-	public Employer createEmployer(int userId, String email, String firstName, String lastName, String password,
-			String company, String location, long phone, String position) {
+	public Employer createEmployer(int userId, long phone, String email, String firstName,  String lastName, String password,  String position,
+			String company, String location) {
 		Employer employer = new Employer();
 		employer.setUserId(userId);
 		employer.setEmail(email);
@@ -291,6 +291,11 @@ public class CooperatorService {
 			resultList.add(t);
 		}
 		return resultList;
+	}
+
+	@Transactional
+	public List<Student> getAllStudentsWithFormError() {
+		return studentRepository.findStudentsWithError();
 	}
 
 }

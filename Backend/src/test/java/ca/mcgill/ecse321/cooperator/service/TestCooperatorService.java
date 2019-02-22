@@ -89,10 +89,11 @@ public class TestCooperatorService {
 		Date startDate = null;
 
 		try {
-			Employer employer = service.createEmployer(1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", 1, "HR");
+			Employer employer = service.createEmployer(1,1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", "HR");
 			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123", Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password", Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			service.createCoop(coopId, jobId, employerConfirmation, endDate, jobDescription, location, needWorkPermit, semester, startDate, employer, student);
+			service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location, needWorkPermit,
+					semester, startDate, student, employer);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
@@ -123,10 +124,11 @@ public class TestCooperatorService {
 		Date startDate = null;
 		
 		try {
-			Employer employer = service.createEmployer(1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", 1, "HR");
+			Employer employer = service.createEmployer(1,1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", "HR");
 			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123", Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password", Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(coopId, jobId, employerConfirmation, endDate, jobDescription, location, needWorkPermit, semester, startDate, employer, student);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location, needWorkPermit,
+					semester, startDate, student, employer);
 			service.createPDF(docId, filePath, docType, submissionDate, coop);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -153,7 +155,8 @@ public class TestCooperatorService {
 		String position = "";
 
 		try {
-			service.createEmployer(userId, email, firstName, lastName, password, company, location, phone, position);
+			service.createEmployer(userId, phone, email, firstName, lastName, password, position,
+					company, location);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
@@ -273,10 +276,11 @@ public class TestCooperatorService {
 		Date startDate = null;
 		
 		try {
-			Employer employer = service.createEmployer(1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", 1, "HR");
+			Employer employer = service.createEmployer(1,1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", "HR");
 			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123", Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password", Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(coopId, jobId, employerConfirmation, endDate, jobDescription, location, needWorkPermit, semester, startDate, employer, student);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location, needWorkPermit,
+					semester, startDate, student, employer);
 			service.createAcceptanceForm(formId, submissionDate, coop);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -310,10 +314,11 @@ public class TestCooperatorService {
 		Date startDate = null;
 		
 		try {
-			Employer employer = service.createEmployer(1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", 1, "HR");
+			Employer employer = service.createEmployer(1,1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", "HR");
 			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123", Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password", Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(coopId, jobId, employerConfirmation, endDate, jobDescription, location, needWorkPermit, semester, startDate, employer, student);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location, needWorkPermit,
+					semester, startDate, student, employer);
 			service.createCoopEvaluation(formId, submissionDate, workExperience, employerEvaluation, softwareTechnologies, usefulCourses, coop);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -345,10 +350,11 @@ public class TestCooperatorService {
 		Date startDate = null;
 		
 		try {
-			Employer employer = service.createEmployer(1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", 1, "HR");
+			Employer employer = service.createEmployer(1,1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", "HR");
 			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123", Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password", Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(coopId, jobId, employerConfirmation, endDate, jobDescription, location, needWorkPermit, semester, startDate, employer, student);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location, needWorkPermit,
+					semester, startDate, student, employer);
 			service.createStudentEvaluation(formId, submissionDate, studentWorkExperience, studentPerformance, coop);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -382,10 +388,11 @@ public class TestCooperatorService {
 		Date startDate = null;
 		
 		try {
-			Employer employer = service.createEmployer(1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", 1, "HR");
+			Employer employer = service.createEmployer(1,1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", "HR");
 			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123", Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password", Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(coopId, jobId, employerConfirmation, endDate, jobDescription, location, needWorkPermit, semester, startDate, employer, student);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location, needWorkPermit,
+					semester, startDate, student, employer);
 			service.createTasksWorkloadReport(formId, submissionDate, tasks, hoursPerWeek, wage, training, coop);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -419,10 +426,11 @@ public class TestCooperatorService {
 		Date startDate = null;
 		
 		try {
-			Employer employer = service.createEmployer(1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", 1, "HR");
+			Employer employer = service.createEmployer(1,1, "google@gmail.com", "Bob", "Bobby", "password", "Google", "Montreal", "HR");
 			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123", Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password", Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(coopId, jobId, employerConfirmation, endDate, jobDescription, location, needWorkPermit, semester, startDate, employer, student);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location, needWorkPermit,
+					semester, startDate, student, employer);
 			service.createReminder(reminderId, subject, date, deadline, description, urgency, coop);
 		} catch (IllegalArgumentException e) {
 			fail();
