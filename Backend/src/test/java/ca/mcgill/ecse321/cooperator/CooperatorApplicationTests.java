@@ -26,36 +26,34 @@ public class CooperatorApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-	
+
 	@Mock
 	private StudentRepository studentDao;
-	
+
 	@InjectMocks
 	private CooperatorService service;
-	
+
 	@Mock
 	private CooperatorService serviceMock;
 
 	@InjectMocks
 	private CooperatorRestController controller;
-	
+
 	private Student student;
 	private static final int STUDENT_KEY = 1;
-	private static final int NONEXISTING_KEY = 0;
-	
 	@Before
 	public void setMockOutput() {
-	  when(studentDao.findStudentByUserId(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
-	    if(invocation.getArgument(0).equals(STUDENT_KEY)) {
-	      Student student = new Student();
-	      student.setUserId(STUDENT_KEY);
-	      return student;
-	    } else {
-	      return null;
-	    }
-	  });
+		when(studentDao.findStudentByUserId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			if (invocation.getArgument(0).equals(STUDENT_KEY)) {
+				Student student = new Student();
+				student.setUserId(STUDENT_KEY);
+				return student;
+			} else {
+				return null;
+			}
+		});
 	}
-	
+
 	@Before
 	public void setupMock() {
 		student = mock(Student.class);
@@ -68,8 +66,7 @@ public class CooperatorApplicationTests {
 
 	@Test
 	public void testParticipantQueryFound() {
-	  assertEquals(STUDENT_KEY, service.getStudent(STUDENT_KEY).getUserId());
+		assertEquals(STUDENT_KEY, service.getStudent(STUDENT_KEY).getUserId());
 	}
 
 }
-

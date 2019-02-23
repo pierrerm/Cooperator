@@ -1,141 +1,158 @@
 package ca.mcgill.ecse321.cooperator.model;
+
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import java.util.Set;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Coop{
-private Set<PDF> downloadableDoc;
-   
-   @OneToMany(mappedBy="coop" )
-   public Set<PDF> getDownloadableDoc() {
-      return this.downloadableDoc;
-   }
-   
-   public void setDownloadableDoc(Set<PDF> downloadableDocs) {
-      this.downloadableDoc = downloadableDocs;
-   }
-   
-   private Set<Form> form;
-   
-   @OneToMany(mappedBy="coop" )
-   public Set<Form> getForm() {
-      return this.form;
-   }
-   
-   public void setForm(Set<Form> forms) {
-      this.form = forms;
-   }
-   
-   private Student student;
-   
-   @ManyToOne(optional=false)
-   public Student getStudent() {
-      return this.student;
-   }
-   
-   public void setStudent(Student student) {
-      this.student = student;
-   }
-   
-   private Employer employer;
-   
-   @ManyToOne(optional=false)
-   public Employer getEmployer() {
-      return this.employer;
-   }
-   
-   public void setEmployer(Employer employer) {
-      this.employer = employer;
-   }
-   
-   private Date startDate;
+public class Coop {
+	private Set<PDF> downloadableDoc;
 
-public void setStartDate(Date value) {
-this.startDate = value;
-}
-public Date getStartDate() {
-return this.startDate;
-}
-private Date endDate;
+	@OneToMany(mappedBy = "coop")
+	public Set<PDF> getDownloadableDoc() {
+		return this.downloadableDoc;
+	}
 
-public void setEndDate(Date value) {
-this.endDate = value;
-}
-public Date getEndDate() {
-return this.endDate;
-}
-private Semester semester;
+	public void setDownloadableDoc(Set<PDF> downloadableDocs) {
+		this.downloadableDoc = downloadableDocs;
+	}
 
-public void setSemester(Semester value) {
-this.semester = value;
-}
-public Semester getSemester() {
-return this.semester;
-}
-private int jobId;
+	private Set<Form> form;
 
-public void setJobId(int value) {
-this.jobId = value;
-}
-public int getJobId() {
-return this.jobId;
-}
-private String location;
+	@OneToMany(mappedBy = "coop")
+	public Set<Form> getForm() {
+		return this.form;
+	}
 
-public void setLocation(String value) {
-    this.location = value;
-}
-public String getLocation() {
-    return this.location;
-}
-private String jobDescription;
+	public void setForm(Set<Form> forms) {
+		this.form = forms;
+	}
 
-public void setJobDescription(String value) {
-    this.jobDescription = value;
-}
-public String getJobDescription() {
-    return this.jobDescription;
-}
-private Boolean needWorkPermit;
+	private Student student;
 
-public void setNeedWorkPermit(Boolean value) {
-    this.needWorkPermit = value;
-}
-public Boolean getNeedWorkPermit() {
-    return this.needWorkPermit;
-}
-private Boolean employerConfirmation;
+	@ManyToOne(optional = false)
+	public Student getStudent() {
+		return this.student;
+	}
 
-public void setEmployerConfirmation(Boolean value) {
-    this.employerConfirmation = value;
-}
-public Boolean getEmployerConfirmation() {
-    return this.employerConfirmation;
-}
-private int coopId;
+	public void setStudent(Student student) {
+		this.student = student;
+	}
 
-public void setCoopId(int value) {
-    this.coopId = value;
-}
-@Id
-public int getCoopId() {
-    return this.coopId;
-}
+	private Employer employer;
 
-private Set<Reminder> reminder;
+	@ManyToOne(optional = false)
+	public Employer getEmployer() {
+		return this.employer;
+	}
 
-@OneToMany(mappedBy="coop" )
-public Set<Reminder> getReminder() {
-   return this.reminder;
-}
+	public void setEmployer(Employer employer) {
+		this.employer = employer;
+	}
 
-public void setReminder(Set<Reminder> reminders) {
-   this.reminder = reminders;
-}
+	private Date startDate;
+
+	public void setStartDate(Date value) {
+		this.startDate = value;
+	}
+
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	private Date endDate;
+
+	public void setEndDate(Date value) {
+		this.endDate = value;
+	}
+
+	public Date getEndDate() {
+		return this.endDate;
+	}
+
+	private Semester semester;
+
+	public void setSemester(Semester value) {
+		this.semester = value;
+	}
+
+	public Semester getSemester() {
+		return this.semester;
+	}
+
+	private int jobId;
+
+	public void setJobId(int value) {
+		this.jobId = value;
+	}
+
+	public int getJobId() {
+		return this.jobId;
+	}
+
+	private String location;
+
+	public void setLocation(String value) {
+		this.location = value;
+	}
+
+	public String getLocation() {
+		return this.location;
+	}
+
+	private String jobDescription;
+
+	public void setJobDescription(String value) {
+		this.jobDescription = value;
+	}
+
+	public String getJobDescription() {
+		return this.jobDescription;
+	}
+
+	private Boolean needWorkPermit;
+
+	public void setNeedWorkPermit(Boolean value) {
+		this.needWorkPermit = value;
+	}
+
+	public Boolean getNeedWorkPermit() {
+		return this.needWorkPermit;
+	}
+
+	private Boolean employerConfirmation;
+
+	public void setEmployerConfirmation(Boolean value) {
+		this.employerConfirmation = value;
+	}
+
+	public Boolean getEmployerConfirmation() {
+		return this.employerConfirmation;
+	}
+
+	private int coopId;
+
+	public void setCoopId(int value) {
+		this.coopId = value;
+	}
+
+	@Id
+	public int getCoopId() {
+		return this.coopId;
+	}
+
+	private Set<Reminder> reminder;
+
+	@OneToMany(mappedBy = "coop")
+	public Set<Reminder> getReminder() {
+		return this.reminder;
+	}
+
+	public void setReminder(Set<Reminder> reminders) {
+		this.reminder = reminders;
+	}
 }

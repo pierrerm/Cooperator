@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.cooperator.model.Reminder;
 
-public interface ReminderRepository extends CrudRepository<Reminder, String>{
+public interface ReminderRepository extends CrudRepository<Reminder, String> {
 
 	Reminder findReminderByReminderId(int id);
 }

@@ -3,7 +3,6 @@ package ca.mcgill.ecse321.cooperator.service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.cooperator.dao.AdministratorRepository;
 import ca.mcgill.ecse321.cooperator.dao.CoopRepository;
-import ca.mcgill.ecse321.cooperator.dao.PDFRepository;
 import ca.mcgill.ecse321.cooperator.dao.EmployerRepository;
 import ca.mcgill.ecse321.cooperator.dao.FormRepository;
+import ca.mcgill.ecse321.cooperator.dao.PDFRepository;
 import ca.mcgill.ecse321.cooperator.dao.ReminderRepository;
 import ca.mcgill.ecse321.cooperator.dao.StudentRepository;
 import ca.mcgill.ecse321.cooperator.model.AcceptanceForm;
@@ -21,10 +20,10 @@ import ca.mcgill.ecse321.cooperator.model.Administrator;
 import ca.mcgill.ecse321.cooperator.model.Coop;
 import ca.mcgill.ecse321.cooperator.model.CoopEvaluation;
 import ca.mcgill.ecse321.cooperator.model.DocumentType;
-import ca.mcgill.ecse321.cooperator.model.PDF;
 import ca.mcgill.ecse321.cooperator.model.Employer;
 import ca.mcgill.ecse321.cooperator.model.Faculty;
 import ca.mcgill.ecse321.cooperator.model.Form;
+import ca.mcgill.ecse321.cooperator.model.PDF;
 import ca.mcgill.ecse321.cooperator.model.Reminder;
 import ca.mcgill.ecse321.cooperator.model.Semester;
 import ca.mcgill.ecse321.cooperator.model.Student;
@@ -51,25 +50,26 @@ public class CooperatorService {
 
 	// Coop
 	@Transactional
-	public Coop createCoop(int coopId, boolean employerConfirmation, Date endDate, String jobDescription, int jobId, String location, boolean needWorkPermit,
-			Semester semester, Date startDate, Student student, Employer employer) {
+	public Coop createCoop(int coopId, boolean employerConfirmation, Date endDate, String jobDescription, int jobId,
+			String location, boolean needWorkPermit, Semester semester, Date startDate, Student student,
+			Employer employer) {
 		String error = "";
 		if (employer == null) {
 			error = error + "Employer cannot be null! ";
 		}
-		if(student == null) {
+		if (student == null) {
 			error = error + "Student cannot be null! ";
 		}
-		if(startDate != null && endDate != null) {
+		if (startDate != null && endDate != null) {
 			if (startDate.after(endDate)) {
 				error = error + "Start date cannot be after end date! ";
 			}
 		}
 		error = error.trim();
-		if(error.length() > 0) {
+		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		Coop coop = new Coop();
 		coop.setCoopId(coopId);
 		coop.setJobId(jobId);
@@ -100,7 +100,7 @@ public class CooperatorService {
 	// Form -- AcceptanceForm
 	@Transactional
 	public AcceptanceForm createAcceptanceForm(int formId, Date submissionDate, Coop coop) {
-		
+
 		if (coop == null) {
 			throw new IllegalArgumentException("Coop cannot be null! ");
 		}
@@ -114,7 +114,8 @@ public class CooperatorService {
 
 	// Form -- CoopEvaluation
 	@Transactional
-	public CoopEvaluation createCoopEvaluation(int formId, Date submissionDate, String workExperience, int employerEvaluation, String softwareTechnologies, String usefulCourses, Coop coop) {
+	public CoopEvaluation createCoopEvaluation(int formId, Date submissionDate, String workExperience,
+			int employerEvaluation, String softwareTechnologies, String usefulCourses, Coop coop) {
 		if (coop == null) {
 			throw new IllegalArgumentException("Coop cannot be null! ");
 		}
@@ -132,7 +133,8 @@ public class CooperatorService {
 
 	// Form -- StudentEvaluation
 	@Transactional
-	public StudentEvaluation createStudentEvaluation(int formId, Date submissionDate, String studentWorkExperience, int studentPerformance, Coop coop) {
+	public StudentEvaluation createStudentEvaluation(int formId, Date submissionDate, String studentWorkExperience,
+			int studentPerformance, Coop coop) {
 		if (coop == null) {
 			throw new IllegalArgumentException("Coop cannot be null! ");
 		}
@@ -148,7 +150,8 @@ public class CooperatorService {
 
 	// Form -- TasksWorkloadReport
 	@Transactional
-	public TasksWorkloadReport createTasksWorkloadReport(int formId, Date submissionDate, String tasks, int hoursPerWeek, int wage, String training, Coop coop) {
+	public TasksWorkloadReport createTasksWorkloadReport(int formId, Date submissionDate, String tasks,
+			int hoursPerWeek, int wage, String training, Coop coop) {
 		if (coop == null) {
 			throw new IllegalArgumentException("Coop cannot be null! ");
 		}
@@ -186,20 +189,20 @@ public class CooperatorService {
 		if (coop == null) {
 			error = error + "Coop cannot be null! ";
 		}
-	
-		if(date != null && deadline != null) {
+
+		if (date != null && deadline != null) {
 			if (date.after(deadline)) {
 				error = error + "Issue date cannot be after deadline! ";
 			}
 		}
-		if(urgency < 0 || urgency >3) {
+		if (urgency < 0 || urgency > 3) {
 			error = error + "Urgency can only be between 0 and 3. ";
 		}
 		error = error.trim();
-		if(error.length() > 0) {
+		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		Reminder reminder = new Reminder();
 		reminder.setReminderId(reminderId);
 		reminder.setSubject(subject);
@@ -252,9 +255,10 @@ public class CooperatorService {
 
 	// Student
 	@Transactional
-	public Student createStudent(int userId, long phone, String email, String firstName, String lastName, String password,
-			Faculty faculty, int id, String major, String minor, String academicYear, Administrator admin) {
-		
+	public Student createStudent(int userId, long phone, String email, String firstName, String lastName,
+			String password, Faculty faculty, int id, String major, String minor, String academicYear,
+			Administrator admin) {
+
 		String error = "";
 		if (firstName == null || firstName.trim().length() == 0) {
 			error = error + "First name cannot be null! ";
@@ -278,10 +282,10 @@ public class CooperatorService {
 			error = error + "Academic year cannot be null! ";
 		}
 		error = error.trim();
-		if(error.length() > 0) {
+		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		Student student = new Student();
 		student.setUserId(userId);
 		student.setEmail(email);
@@ -312,9 +316,9 @@ public class CooperatorService {
 
 	// Employer
 	@Transactional
-	public Employer createEmployer(int userId, long phone, String email, String firstName,  String lastName, String password,  String position,
-			String company, String location) {
-		
+	public Employer createEmployer(int userId, long phone, String email, String firstName, String lastName,
+			String password, String position, String company, String location) {
+
 		String error = "";
 		if (firstName == null || firstName.trim().length() == 0) {
 			error = error + "First name cannot be null! ";
@@ -335,10 +339,10 @@ public class CooperatorService {
 			error = error + "Company cannot be null! ";
 		}
 		error = error.trim();
-		if(error.length() > 0) {
+		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		Employer employer = new Employer();
 		employer.setUserId(userId);
 		employer.setEmail(email);
@@ -368,7 +372,7 @@ public class CooperatorService {
 	@Transactional
 	public Administrator createAdministrator(int userId, long phone, String email, String firstName, String lastName,
 			String password, Faculty faculty, int id) {
-		
+
 		String error = "";
 		if (firstName == null || firstName.trim().length() == 0) {
 			error = error + "First name cannot be null! ";
@@ -385,9 +389,9 @@ public class CooperatorService {
 		if (faculty == null) {
 			error = error + "Faculty cannot be null! ";
 		}
-		
+
 		error = error.trim();
-		if(error.length() > 0) {
+		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
 		Administrator administrator = new Administrator();

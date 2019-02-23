@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.cooperator.model.Form;
 
-public interface FormRepository extends CrudRepository<Form, String>{
+public interface FormRepository extends CrudRepository<Form, String> {
 
 	Form findFormByFormId(String id);
 }

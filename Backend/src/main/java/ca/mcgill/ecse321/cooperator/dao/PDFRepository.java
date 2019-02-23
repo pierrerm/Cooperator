@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.cooperator.model.PDF;
 
-public interface PDFRepository extends CrudRepository<PDF, String>{
+public interface PDFRepository extends CrudRepository<PDF, String> {
 
 	PDF findPDFByDocId(int id);
 }

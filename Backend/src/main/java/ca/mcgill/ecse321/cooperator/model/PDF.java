@@ -6,49 +6,56 @@ import javax.persistence.ManyToOne;
 import java.sql.Date;
 
 @Entity
-public class PDF{
-   private int docId;
+public class PDF {
+	private int docId;
 
-public void setDocId(int value) {
-    this.docId = value;
-}
-@Id
-public int getDocId() {
-    return this.docId;
-}
-private String filePath;
+	public void setDocId(int value) {
+		this.docId = value;
+	}
 
-public void setFilePath(String value) {
-    this.filePath = value;
-}
-public String getFilePath() {
-    return this.filePath;
-}
-private Coop coop;
+	@Id
+	public int getDocId() {
+		return this.docId;
+	}
 
-@ManyToOne(optional=false)
-public Coop getCoop() {
-   return this.coop;
-}
+	private String filePath;
 
-public void setCoop(Coop coop) {
-   this.coop = coop;
-}
+	public void setFilePath(String value) {
+		this.filePath = value;
+	}
 
-private DocumentType documentType;
+	public String getFilePath() {
+		return this.filePath;
+	}
 
-public void setDocumentType(DocumentType value) {
-    this.documentType = value;
-}
-public DocumentType getDocumentType() {
-    return this.documentType;
-}
-private Date submissionDate;
+	private Coop coop;
 
-public void setSubmissionDate(Date value) {
-    this.submissionDate = value;
-}
-public Date getSubmissionDate() {
-    return this.submissionDate;
-}
+	@ManyToOne(optional = false)
+	public Coop getCoop() {
+		return this.coop;
+	}
+
+	public void setCoop(Coop coop) {
+		this.coop = coop;
+	}
+
+	private DocumentType documentType;
+
+	public void setDocumentType(DocumentType value) {
+		this.documentType = value;
+	}
+
+	public DocumentType getDocumentType() {
+		return this.documentType;
+	}
+
+	private Date submissionDate;
+
+	public void setSubmissionDate(Date value) {
+		this.submissionDate = value;
+	}
+
+	public Date getSubmissionDate() {
+		return this.submissionDate;
+	}
 }

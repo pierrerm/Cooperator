@@ -8,27 +8,27 @@ import java.util.Set;
 
 public class CoopDto {
 
-	private Set<PDF> downloadableDoc;
-	private Set<Form> form;
-	private Student student;
-	private Employer employer;
+	private Set<Integer> downloadableDocIds;
+	private Set<Integer> formIds;
+	private int studentId;
+	private int employerId;
 	private Date startDate;
 	private Date endDate;
 	private Semester semester;
-	private Set<Reminder> reminder;
+	private Set<Integer> reminderIds;
 	private int coopId;
 	private Boolean employerConfirmation;
 	private Boolean needWorkPermit;
 	private String jobDescription;
 	private String location;
 	private int jobId;
-	
+
 	public CoopDto() {
-		
+
 	}
-	
-	public CoopDto (int coopId, boolean employerConfirmation, Date endDate, String jobDescription, int jobId, String location, boolean needWorkPermit,
-			Semester semester, Date startDate, Student student, Employer employer) {
+
+	public CoopDto(int coopId, boolean employerConfirmation, Date endDate, String jobDescription, int jobId,
+			String location, boolean needWorkPermit, Semester semester, Date startDate, int studentId, int employerId) {
 		this.coopId = coopId;
 		this.employerConfirmation = employerConfirmation;
 		this.endDate = endDate;
@@ -38,24 +38,24 @@ public class CoopDto {
 		this.needWorkPermit = needWorkPermit;
 		this.semester = semester;
 		this.startDate = startDate;
-		this.student = student;
-		this.employer = employer;
+		this.studentId = studentId;
+		this.employerId = employerId;
 	}
 
-	public Set<PDF> getDownloadableDoc() {
-		return this.downloadableDoc;
+	public Set<Integer> getDownloadableDoc() {
+		return this.downloadableDocIds;
 	}
 
-	public Set<Form> getForm() {
-		return this.form;
+	public Set<Integer> getForm() {
+		return this.formIds;
 	}
 
-	public Student getStudent() {
-		return this.student;
+	public int getStudent() {
+		return this.studentId;
 	}
 
-	public Employer getEmployer() {
-		return this.employer;
+	public int getEmployer() {
+		return this.employerId;
 	}
 
 	public Date getStartDate() {
@@ -94,8 +94,8 @@ public class CoopDto {
 		return this.coopId;
 	}
 
-	public Set<Reminder> getReminder() {
-		return this.reminder;
+	public Set<Integer> getReminder() {
+		return this.reminderIds;
 	}
 
 }

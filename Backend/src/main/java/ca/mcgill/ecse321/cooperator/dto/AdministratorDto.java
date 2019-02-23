@@ -2,9 +2,10 @@ package ca.mcgill.ecse321.cooperator.dto;
 
 import java.util.Set;
 
-import ca.mcgill.ecse321.cooperator.model.Coop;
+import ca.mcgill.ecse321.cooperator.model.Faculty;
+import ca.mcgill.ecse321.cooperator.model.Student;
 
-public class EmployerDto {
+public class AdministratorDto {
 
 	private long phone;
 	private String firstName;
@@ -13,26 +14,25 @@ public class EmployerDto {
 	private String password;
 	private int userId;
 
-	private String position;
-	private String company;
-	private Set<Coop> coop;
-	private String location;
+	private Faculty faculty;
+	private long id;
+	private Set<Student> student;
 
-	public EmployerDto() {
+	public AdministratorDto() {
 
 	}
 
-	public EmployerDto(int userId, long phone, String firstName, String lastName, String email, String password,
-			String position, String company, String location) {
+	public AdministratorDto(long phone, String firstName, String lastName, String email, String password, int userId,
+			Faculty faculty, long id, Set<Student> student) {
 		this.phone = phone;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.userId = userId;
-		this.position = position;
-		this.company = company;
-		this.location = location;
+		this.faculty = faculty;
+		this.id = id;
+		this.student = student;
 	}
 
 	public long getPhone() {
@@ -59,19 +59,16 @@ public class EmployerDto {
 		return userId;
 	}
 
-	public String getPosition() {
-		return this.position;
+	public Faculty getFaculty() {
+		return this.faculty;
 	}
 
-	public String getCompany() {
-		return this.company;
+	public long getId() {
+		return this.id;
 	}
 
-	public Set<Coop> getCoop() {
-		return this.coop;
+	public Set<Student> getStudent() {
+		return this.student;
 	}
 
-	public String getLocation() {
-		return this.location;
-	}
 }

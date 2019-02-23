@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.cooperator.model.Coop;
 
-public interface CoopRepository extends CrudRepository<Coop, String>{
+public interface CoopRepository extends CrudRepository<Coop, String> {
 
 	Coop findCoopByJobId(int jobId);
 }

@@ -1,7 +1,5 @@
 package ca.mcgill.ecse321.cooperator.model;
 
-import javax.persistence.*;
-
-
-public enum Semester{ Fall, Winter, Summer
+public enum Semester {
+	Fall, Winter, Summer
 }
