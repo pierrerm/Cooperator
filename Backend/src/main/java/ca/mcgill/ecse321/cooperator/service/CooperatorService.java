@@ -53,6 +53,23 @@ public class CooperatorService {
 	@Transactional
 	public Coop createCoop(int coopId, boolean employerConfirmation, Date endDate, String jobDescription, int jobId, String location, boolean needWorkPermit,
 			Semester semester, Date startDate, Student student, Employer employer) {
+		String error = "";
+		if (employer == null) {
+			error = error + "Employer cannot be null! ";
+		}
+		if(student == null) {
+			error = error + "Student cannot be null! ";
+		}
+		if(startDate != null && endDate != null) {
+			if (startDate.after(endDate)) {
+				error = error + "Start date cannot be after end date! ";
+			}
+		}
+		error = error.trim();
+		if(error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
 		Coop coop = new Coop();
 		coop.setCoopId(coopId);
 		coop.setJobId(jobId);
@@ -83,6 +100,10 @@ public class CooperatorService {
 	// Form -- AcceptanceForm
 	@Transactional
 	public AcceptanceForm createAcceptanceForm(int formId, Date submissionDate, Coop coop) {
+		
+		if (coop == null) {
+			throw new IllegalArgumentException("Coop cannot be null! ");
+		}
 		AcceptanceForm acceptanceForm = new AcceptanceForm();
 		acceptanceForm.setFormId(formId);
 		acceptanceForm.setSubmissionDate(submissionDate);
@@ -94,6 +115,9 @@ public class CooperatorService {
 	// Form -- CoopEvaluation
 	@Transactional
 	public CoopEvaluation createCoopEvaluation(int formId, Date submissionDate, String workExperience, int employerEvaluation, String softwareTechnologies, String usefulCourses, Coop coop) {
+		if (coop == null) {
+			throw new IllegalArgumentException("Coop cannot be null! ");
+		}
 		CoopEvaluation coopEvaluation = new CoopEvaluation();
 		coopEvaluation.setFormId(formId);
 		coopEvaluation.setSubmissionDate(submissionDate);
@@ -109,6 +133,9 @@ public class CooperatorService {
 	// Form -- StudentEvaluation
 	@Transactional
 	public StudentEvaluation createStudentEvaluation(int formId, Date submissionDate, String studentWorkExperience, int studentPerformance, Coop coop) {
+		if (coop == null) {
+			throw new IllegalArgumentException("Coop cannot be null! ");
+		}
 		StudentEvaluation studentEvaluation = new StudentEvaluation();
 		studentEvaluation.setFormId(formId);
 		studentEvaluation.setSubmissionDate(submissionDate);
@@ -122,6 +149,9 @@ public class CooperatorService {
 	// Form -- TasksWorkloadReport
 	@Transactional
 	public TasksWorkloadReport createTasksWorkloadReport(int formId, Date submissionDate, String tasks, int hoursPerWeek, int wage, String training, Coop coop) {
+		if (coop == null) {
+			throw new IllegalArgumentException("Coop cannot be null! ");
+		}
 		TasksWorkloadReport tasksWorkloadReport = new TasksWorkloadReport();
 		tasksWorkloadReport.setFormId(formId);
 		tasksWorkloadReport.setSubmissionDate(submissionDate);
@@ -136,6 +166,9 @@ public class CooperatorService {
 
 	@Transactional
 	public Form getForm(String formId) {
+		if (formId == null || formId.trim().length() == 0) {
+			throw new IllegalArgumentException("Form ID cannot be empty! ");
+		}
 		Form form = formRepository.findFormByFormId(formId);
 		return form;
 	}
@@ -149,6 +182,24 @@ public class CooperatorService {
 	@Transactional
 	public Reminder createReminder(int reminderId, String subject, Date date, Date deadline, String description,
 			int urgency, Coop coop) {
+		String error = "";
+		if (coop == null) {
+			error = error + "Coop cannot be null! ";
+		}
+	
+		if(date != null && deadline != null) {
+			if (date.after(deadline)) {
+				error = error + "Issue date cannot be after deadline! ";
+			}
+		}
+		if(urgency < 0 || urgency >3) {
+			error = error + "Urgency can only be between 0 and 3. ";
+		}
+		error = error.trim();
+		if(error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
 		Reminder reminder = new Reminder();
 		reminder.setReminderId(reminderId);
 		reminder.setSubject(subject);
@@ -175,6 +226,9 @@ public class CooperatorService {
 	// PDF
 	@Transactional
 	public PDF createPDF(int docId, String filePath, DocumentType docType, Date submissionDate, Coop coop) {
+		if (coop == null) {
+			throw new IllegalArgumentException("Coop cannot be null! ");
+		}
 		PDF pdf = new PDF();
 		pdf.setDocId(docId);
 		pdf.setFilePath(filePath);
@@ -200,6 +254,34 @@ public class CooperatorService {
 	@Transactional
 	public Student createStudent(int userId, long phone, String email, String firstName, String lastName, String password,
 			Faculty faculty, int id, String major, String minor, String academicYear, Administrator admin) {
+		
+		String error = "";
+		if (firstName == null || firstName.trim().length() == 0) {
+			error = error + "First name cannot be null! ";
+		}
+		if (lastName == null || lastName.trim().length() == 0) {
+			error = error + "Last name cannot be null! ";
+		}
+		if (password == null || password.trim().length() == 0) {
+			error = error + "Password cannot be null! ";
+		}
+		if (email == null || email.trim().length() == 0) {
+			error = error + "Email cannot be null! ";
+		}
+		if (faculty == null) {
+			error = error + "Faculty cannot be null! ";
+		}
+		if (major == null || major.trim().length() == 0) {
+			error = error + "Major cannot be null! ";
+		}
+		if (academicYear == null || academicYear.trim().length() == 0) {
+			error = error + "Academic year cannot be null! ";
+		}
+		error = error.trim();
+		if(error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
 		Student student = new Student();
 		student.setUserId(userId);
 		student.setEmail(email);
@@ -212,7 +294,7 @@ public class CooperatorService {
 		student.setMajor(major);
 		student.setMinor(minor);
 		student.setAcademicYear(academicYear);
-		//student.setAdministrator(admin);
+		student.setAdministrator(admin);
 		studentRepository.save(student);
 		return student;
 	}
@@ -232,6 +314,31 @@ public class CooperatorService {
 	@Transactional
 	public Employer createEmployer(int userId, long phone, String email, String firstName,  String lastName, String password,  String position,
 			String company, String location) {
+		
+		String error = "";
+		if (firstName == null || firstName.trim().length() == 0) {
+			error = error + "First name cannot be null! ";
+		}
+		if (lastName == null || lastName.trim().length() == 0) {
+			error = error + "Last name cannot be null! ";
+		}
+		if (password == null || password.trim().length() == 0) {
+			error = error + "Password cannot be null! ";
+		}
+		if (email == null || email.trim().length() == 0) {
+			error = error + "Email cannot be null! ";
+		}
+		if (position == null || position.trim().length() == 0) {
+			error = error + "Position cannot be null! ";
+		}
+		if (company == null || company.trim().length() == 0) {
+			error = error + "Company cannot be null! ";
+		}
+		error = error.trim();
+		if(error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
 		Employer employer = new Employer();
 		employer.setUserId(userId);
 		employer.setEmail(email);
@@ -261,6 +368,28 @@ public class CooperatorService {
 	@Transactional
 	public Administrator createAdministrator(int userId, long phone, String email, String firstName, String lastName,
 			String password, Faculty faculty, int id) {
+		
+		String error = "";
+		if (firstName == null || firstName.trim().length() == 0) {
+			error = error + "First name cannot be null! ";
+		}
+		if (lastName == null || lastName.trim().length() == 0) {
+			error = error + "Last name cannot be null! ";
+		}
+		if (password == null || password.trim().length() == 0) {
+			error = error + "Password cannot be null! ";
+		}
+		if (email == null || email.trim().length() == 0) {
+			error = error + "Email cannot be null! ";
+		}
+		if (faculty == null) {
+			error = error + "Faculty cannot be null! ";
+		}
+		
+		error = error.trim();
+		if(error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
 		Administrator administrator = new Administrator();
 		administrator.setUserId(userId);
 		administrator.setEmail(email);

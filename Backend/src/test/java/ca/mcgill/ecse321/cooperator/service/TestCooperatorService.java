@@ -197,23 +197,23 @@ public class TestCooperatorService {
 		assertEquals(0, service.getAllStudents().size());
 
 		int userIdA = 1;
-		String emailA = "";
+		String emailA = "as";
 		long phoneA = 234;
-		String firstNameA = "";
-		String lastNameA = "";
-		String passwordA = "";
+		String firstNameA = "df";
+		String lastNameA = "rwe";
+		String passwordA = "ewre";
 		Faculty facultyA = Faculty.Engineering;
 		int idA = 1;
 		
 		int userIdS = 1;
-		String emailS = "";
+		String emailS = "ewr";
 		long phoneS = 3559;
-		String firstNameS = "";
-		String lastNameS = "";
-		String passwordS = "";   
+		String firstNameS = "ewr";
+		String lastNameS = "re";
+		String passwordS = "r4r";   
 		Faculty facultyS = Faculty.Engineering;
 		int idS = 1;
-		String majorS = "";
+		String majorS = "4r4";
 		String minorS = "";
 		String yearS = "U3";
 
