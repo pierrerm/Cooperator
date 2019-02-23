@@ -145,14 +145,14 @@ public class TestCooperatorService {
 		assertEquals(0, service.getAllEmployers().size());
 
 		int userId = 1;
-		String email = "";
-		String firstName = "";
-		String lastName = "";
-		String password = "";
-		String company  = "";
-		String location = "";
+		String email = "rger";
+		String firstName = "rg";
+		String lastName = "greg";
+		String password = "erg";
+		String company  = "rgre";
+		String location = "erger";
 		long phone = 1;
-		String position = "";
+		String position = "rgerg";
 
 		try {
 			service.createEmployer(userId, phone, email, firstName, lastName, password, position,
@@ -173,10 +173,10 @@ public class TestCooperatorService {
 
 		int userId = 1;
 		long phone = 1234;
-		String email = "";
-		String firstName = "";
-		String lastName = "";
-		String password = "";
+		String email = "rer";
+		String firstName = "greg";
+		String lastName = "rg";
+		String password = "rg";
 		Faculty faculty = Faculty.Engineering;
 		int id = 134;
 
@@ -235,15 +235,15 @@ public class TestCooperatorService {
 		assertEquals(0, service.getAllStudents().size());
 		
 		int userIdS = 1;
-		String emailS = "";
+		String emailS = "fddf";
 		long phoneS = 3559;
-		String firstNameS = "";
-		String lastNameS = "";
-		String passwordS = "";   
+		String firstNameS = "dfs";
+		String lastNameS = "sdf";
+		String passwordS = "dsf";   
 		Faculty facultyS = Faculty.Engineering;
 		int idS = 1;
-		String majorS = "";
-		String minorS = "";
+		String majorS = "df";
+		String minorS = "re";
 		String yearS = "U3";
 
 		try {
