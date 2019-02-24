@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.cooperator.service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -429,6 +430,49 @@ public class CooperatorService {
 	@Transactional
 	public List<Student> getAllStudentsWithFormError() {
 		return studentRepository.findStudentsWithError();
+	}
+	
+	@Transactional
+	public double[] getSemesterStatistics(Semester semester, int year) {
+		// num students doing coop term this semester, avg num of coops completed per active students, avg coop completion (files submitted) for ongoing coops this semester
+		
+		List<Student> students = getAllStudents();
+		
+		double numActiveStudents = 0;
+		double numCompletedCoops = 0;
+		double numSubmittedForms = 0;
+		List<Coop> ongoingCoops = null;
+		
+		for(Student student : students) {
+			
+			boolean isActive = false;
+			double tempNumCompletedCoops = 0;
+			double tempNumSubmittedForms = 0;
+			Coop ongoingCoop = null;
+			
+			Set<Coop> coops = student.getCoop();
+			if(coops.isEmpty()) break;
+			
+			for(Coop coop : coops) {
+				if(coopRepository.isInSemester(coop, semester, year)) {
+					isActive = true;
+					ongoingCoop = coop;
+					tempNumSubmittedForms = coop.getForm().size();
+				}
+				else if(coop.getForm().size() >= 4) {
+					tempNumCompletedCoops++;
+				}
+			}
+			
+			if(isActive) {
+				numActiveStudents++;
+				numCompletedCoops += tempNumCompletedCoops;
+				numSubmittedForms += tempNumSubmittedForms;
+				ongoingCoops.add(ongoingCoop);
+			}
+		}
+		double[] stats = {numActiveStudents, (numCompletedCoops/numActiveStudents), (numSubmittedForms/numActiveStudents)};
+		return stats;
 	}
 
 }
