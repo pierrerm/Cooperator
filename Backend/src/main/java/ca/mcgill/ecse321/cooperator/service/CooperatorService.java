@@ -238,7 +238,7 @@ public class CooperatorService {
 			Set<Coop> coops = student.getCoop();
 			if(coops.isEmpty()) break;
 			for (Coop coop: coops) {
-				
+				Date startDate = coop.getStartDate();
 			}
 		}
 		return null;	
