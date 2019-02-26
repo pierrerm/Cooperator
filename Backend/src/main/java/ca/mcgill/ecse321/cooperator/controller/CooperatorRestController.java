@@ -58,6 +58,16 @@ public class CooperatorRestController {
 		}
 		return studentDtos;
 	}
+	
+	@GetMapping(value = {"/student/{id}","/student/{id}/" })
+	public StudentDto getStudentById(@PathVariable("id") int id) throws IllegalArgumentException{
+		return convertToDto(service.getStudent(id));
+	}
+	
+	@GetMapping(value = {"/progress/{id}", "/progress/{id}/"})
+	public int getStudentProgressById(@PathVariable("id") int id) throws IllegalArgumentException{
+		return (service.getStudent(id).getCoop().size());
+	}
 
 	private StudentDto convertToDto(Student s) {
 		StudentDto studentDto = new StudentDto(s.getPhone(), s.getFirstName(), s.getLastName(), s.getEmail(),
