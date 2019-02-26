@@ -226,6 +226,23 @@ public class CooperatorService {
 	public List<Reminder> getAllReminders() {
 		return toList(reminderRepository.findAll());
 	}
+	
+	@Transactional
+	public Reminder sendReminder(List<Student> problematicStudents) {
+		int reminderId, urgency; 
+		String subject, description; 
+		Date date, deadline; 
+		Coop coop_problem;
+		
+		for (Student student: problematicStudents) {
+			Set<Coop> coops = student.getCoop();
+			if(coops.isEmpty()) break;
+			for (Coop coop: coops) {
+				
+			}
+		}
+		return null;	
+	}
 
 	// PDF
 	@Transactional
