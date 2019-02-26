@@ -2,6 +2,8 @@ package ca.mcgill.ecse321.cooperator.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 
@@ -228,21 +230,51 @@ public class CooperatorService {
 	}
 	
 	@Transactional
-	public Reminder sendReminder(List<Student> problematicStudents) {
+	public void sendReminders(List<Student> problematicStudents) {
 		int reminderId, urgency; 
 		String subject, description; 
 		Date date, deadline; 
-		Coop coop_problem;
 		
 		for (Student student: problematicStudents) {
 			Set<Coop> coops = student.getCoop();
 			if(coops.isEmpty()) break;
 			for (Coop coop: coops) {
-				
+				Date startDate = coop.getStartDate();
+				date = new Date(System.currentTimeMillis());
+				deadline = addDays(startDate, -14);
+				Date threeDaysLeft = addDays(deadline, -3);
+				Set <Form> forms = coop.getForm();
+				boolean isTasksWorkloadReportSubmited = false;
+				for (Form form: forms) {
+					if (form instanceof TasksWorkloadReport) {
+						isTasksWorkloadReportSubmited = true;
+						break;
+					}
+				}
+				if (!isTasksWorkloadReportSubmited && date.after(threeDaysLeft) ) {
+					reminderId = 911;
+					urgency =3;
+					subject = "Tasks Workload Report Submission";
+					description = "You only have 3 days left to submit your Task Workload Report!";
+					Reminder reminder = createReminder(reminderId, subject, date, deadline, description, 
+							urgency, coop);				
+				}		
 			}
 		}
-		return null;	
 	}
+	
+	/**
+	 * add or subtract days to date in java
+	 * @param date
+	 * @param days
+	 * @return
+	 */
+    public static Date addDays(Date date, int days) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, days);
+        return new Date(c.getTimeInMillis());
+    }
 
 	// PDF
 	@Transactional
