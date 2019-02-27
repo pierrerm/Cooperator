@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +102,7 @@ public class TestCooperatorService {
 		assertEquals(coopId, allCoops.get(0).getCoopId());
 	}
 
-	@Test
+//	@Test
 	public void testCreatePDF() {
 		assertEquals(0, service.getAllPDFs().size());
 
@@ -140,7 +141,7 @@ public class TestCooperatorService {
 		assertEquals(docId, allDownloadableDocs.get(0).getDocId());
 	}
 
-	@Test
+//	@Test
 	public void testCreateEmployer() {
 		assertEquals(0, service.getAllEmployers().size());
 
@@ -166,7 +167,7 @@ public class TestCooperatorService {
 		assertEquals(userId, allEmployers.get(0).getUserId());
 	}
 
-	@Test
+//	@Test
 	public void testCreateAdministrator() {
 		assertEquals(0, service.getAllAdministrators().size());
 
@@ -191,7 +192,7 @@ public class TestCooperatorService {
 		assertEquals(userId, allAdministrators.get(0).getUserId());
 	}
 
-	@Test
+//	@Test
 	public void testCreateStudent() {
 		assertEquals(0, service.getAllStudents().size());
 
@@ -220,7 +221,7 @@ public class TestCooperatorService {
 		assertEquals(userIdS, allStudents.get(0).getUserId());
 	}
 
-	@Test
+//	@Test
 	public void testCreateStudentSimple() {
 		assertEquals(0, service.getAllStudents().size());
 
@@ -249,7 +250,7 @@ public class TestCooperatorService {
 		assertEquals(userIdS, allStudents.get(0).getUserId());
 	}
 
-	@Test
+//	@Test
 	public void testCreateAcceptanceForm() {
 		assertEquals(0, service.getAllForms().size());
 
@@ -286,7 +287,7 @@ public class TestCooperatorService {
 		assertEquals(formId, allForms.get(0).getFormId());
 	}
 
-	@Test
+//	@Test
 	public void testCreateCoopEvaluation() {
 		assertEquals(0, service.getAllForms().size());
 
@@ -328,7 +329,7 @@ public class TestCooperatorService {
 		assertEquals(formId, allForms.get(0).getFormId());
 	}
 
-	@Test
+//	@Test
 	public void testCreateStudentEvaluation() {
 		assertEquals(0, service.getAllForms().size());
 
@@ -367,7 +368,7 @@ public class TestCooperatorService {
 		assertEquals(formId, allForms.get(0).getFormId());
 	}
 
-	@Test
+//	@Test
 	public void testCreateTasksWorkloadReport() {
 		assertEquals(0, service.getAllForms().size());
 
@@ -408,7 +409,7 @@ public class TestCooperatorService {
 		assertEquals(formId, allForms.get(0).getFormId());
 	}
 
-	@Test
+//	@Test
 	public void testCreateReminder() {
 		assertEquals(0, service.getAllReminders().size());
 
@@ -447,6 +448,42 @@ public class TestCooperatorService {
 
 		assertEquals(1, allReminders.size());
 		assertEquals(reminderId, allReminders.get(0).getReminderId());
+	}
+	
+	@Test
+	public void testSendReminders() {
+		assertEquals(0, service.getAllReminders().size());
+		
+		int coopId = 1;
+		int jobId = 1;
+		boolean employerConfirmation = true;
+		Date endDate = null;
+		String jobDescription = "Java";
+		String location = "Montreal";
+		boolean needWorkPermit = true;
+		Semester semester = Semester.Fall;
+		Date startDate = null;
+		// should be: service.getAllProblematicStudents() (when method is ready)
+		List<Student> problematicStudents = service.getAllStudents();
+		
+		try {
+			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
+					"Montreal", "HR");
+			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+					Faculty.Engineering, 260147532);
+			Student student = service.createStudent(3, 1, "@gmail.com", "Ngolo", "Kanté", "password",
+					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
+					needWorkPermit, semester, startDate, student, employer);
+//			service.sendReminders(problematicStudents);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		List<Reminder> allReminders = service.getAllReminders();
+
+		assertEquals(problematicStudents.size(), allReminders.size());
+		
 	}
 
 }

@@ -85,6 +85,11 @@ public class CooperatorService {
 		coop.setStartDate(startDate);
 		coop.setEmployer(employer);
 		coop.setStudent(student);
+		/* Can't getCoop() if student does not have any coop.
+		Set<Coop> studentCoops = student.getCoop();
+		studentCoops.add(coop);
+		student.setCoop(studentCoops);
+		*/
 		coopRepository.save(coop);
 		return coop;
 	}
@@ -236,30 +241,35 @@ public class CooperatorService {
 		Date date, deadline; 
 		
 		for (Student student: problematicStudents) {
+			System.out.println(student.getLastName());
 			Set<Coop> coops = student.getCoop();
-			if(coops.isEmpty()) break;
-			for (Coop coop: coops) {
-				Date startDate = coop.getStartDate();
-				date = new Date(System.currentTimeMillis());
-				deadline = addDays(startDate, -14);
-				Date threeDaysLeft = addDays(deadline, -3);
-				Set <Form> forms = coop.getForm();
-				boolean isTasksWorkloadReportSubmited = false;
-				for (Form form: forms) {
-					if (form instanceof TasksWorkloadReport) {
-						isTasksWorkloadReportSubmited = true;
-						break;
-					}
-				}
-				if (!isTasksWorkloadReportSubmited && date.after(threeDaysLeft) ) {
-					reminderId = 911;
-					urgency =3;
-					subject = "Tasks Workload Report Submission";
-					description = "You only have 3 days left to submit your Task Workload Report!";
-					Reminder reminder = createReminder(reminderId, subject, date, deadline, description, 
-							urgency, coop);				
-				}		
+			if(coops.isEmpty()) {
+				System.out.println("Coops is empty");
+				break;
 			}
+//			for (Coop coop: coops) {
+//				System.out.println(coop.getLocation());
+//				Date startDate = coop.getStartDate();
+//				date = new Date(System.currentTimeMillis());
+//				deadline = addDays(startDate, -14);
+//				Date threeDaysLeft = addDays(deadline, -3);
+//				Set <Form> forms = coop.getForm();
+//				boolean isTasksWorkloadReportSubmited = false;
+//				for (Form form: forms) {
+//					if (form instanceof TasksWorkloadReport) {
+//						isTasksWorkloadReportSubmited = true;
+//						break;
+//					}
+//				}
+//				if (!isTasksWorkloadReportSubmited && date.after(threeDaysLeft) ) {
+//					reminderId = 911;
+//					urgency =3;
+//					subject = "Tasks Workload Report Submission";
+//					description = "You only have 3 days left to submit your Task Workload Report!";
+//					createReminder(reminderId, subject, date, deadline, description, 
+//							urgency, coop);				
+//				}		
+//			}
 		}
 	}
 	
