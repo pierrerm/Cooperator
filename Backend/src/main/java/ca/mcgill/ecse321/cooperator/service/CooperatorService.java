@@ -89,7 +89,7 @@ public class CooperatorService {
 
 	@Transactional
 	public Coop getCoop(int jobId) {
-		Coop coop = coopRepository.findCoopByJobId(jobId);
+		Coop coop = coopRepository.findCoopByCoopId(jobId);
 		return coop;
 	}
 
@@ -169,10 +169,7 @@ public class CooperatorService {
 	}
 
 	@Transactional
-	public Form getForm(String formId) {
-		if (formId == null || formId.trim().length() == 0) {
-			throw new IllegalArgumentException("Form ID cannot be empty! ");
-		}
+	public Form getForm(int formId) {
 		Form form = formRepository.findFormByFormId(formId);
 		return form;
 	}
