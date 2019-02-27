@@ -4,13 +4,16 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.cooperator.dto.CoopDto;
@@ -49,6 +52,21 @@ public class CooperatorRestController {
 				Faculty.Engineering, id, major, minor, academicYear, null);
 		return convertToDto(student);
 	}
+	
+	// Student
+		@PostMapping(value = {
+				"/s",
+				"/s/" })
+		public StudentDto createStudent2(@RequestParam long phone, @RequestParam String firstName,
+				@RequestParam String lastName, @RequestParam String email,
+				@RequestParam String password, @RequestParam int userId, @RequestParam int id,
+				@RequestParam String academicYear, @RequestParam String major, @RequestParam String minor
+				) throws IllegalArgumentException {
+			// @formatter:on
+			Student student = service.createStudent(userId, phone, email, firstName, lastName, password,
+					Faculty.Engineering, id, major, minor, academicYear, null);
+			return convertToDto(student);
+		}
 
 	@GetMapping(value = { "/students", "/students/" })
 	public List<StudentDto> getAllStudents() {
@@ -88,6 +106,7 @@ public class CooperatorRestController {
 
 		Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
 				needWorkPermit, semester, startDate, student, employer);
+		
 		return convertToDto(coop);
 	}
 

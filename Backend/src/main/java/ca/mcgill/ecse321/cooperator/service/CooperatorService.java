@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.cooperator.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -83,6 +84,21 @@ public class CooperatorService {
 		coop.setStartDate(startDate);
 		coop.setEmployer(employer);
 		coop.setStudent(student);
+		
+		if(student.getCoop().size() == 0) {
+			System.out.println("Student has no Coops");
+			Set<Coop> coops = new HashSet<Coop>();
+			coops.add(coop);
+			student.setCoop(coops);
+		} else {
+			System.out.println("Student has a Coop");
+			Set<Coop> coops = student.getCoop();
+			for(Coop c : coops) {
+				System.out.println(c);
+			}
+			coops.add(coop);
+		}
+		
 		coopRepository.save(coop);
 		return coop;
 	}
