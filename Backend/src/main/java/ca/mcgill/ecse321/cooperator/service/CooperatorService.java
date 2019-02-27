@@ -488,5 +488,121 @@ public class CooperatorService {
 		double[] stats = {numActiveStudents, (numCompletedCoops/numActiveStudents), (numSubmittedForms/numActiveStudents)};
 		return stats;
 	}
+	
+	// List of all forms for a given student
+	@Transactional
+	public Set<Form> getAllFormsFromStudent(Student student, Semester semester, int year) {
+		
+		Set<Coop> coops = student.getCoop();
+		Set<Form> forms = null;
+		
+		for(Coop coop : coops) {
+			if(coopRepository.isInSemester(coop, semester, year)) {
+				forms = coop.getForm();
+			}
+		}
+		
+		return forms;
+	}
+	
+	// List of all forms for a given  employer
+	@Transactional
+	public Set<Form> getAllFormsFromEmployer(Employer employer, Semester semester, int year) {
+		
+		Set<Coop> coops = employer.getCoop();
+		Set<Form> forms = null;
+		
+		for(Coop coop : coops) {
+			if(coopRepository.isInSemester(coop, semester, year)) {
+				forms = coop.getForm();
+			}
+		}
+		
+		return forms;
+	}
+	
+	// Edit an acceptance form
+	@Transactional
+	public void editForm(AcceptanceForm acceptanceForm, String attribute, Object value) {
+		// attribute: attribute to be edited, value: value for the new attribute
+		
+		switch(attribute.toLowerCase()) {
+		case "formid" :
+			acceptanceForm.setFormId((int) value);
+			break;
+		case "submissiondate" :
+			acceptanceForm.setSubmissionDate((Date) value);
+			break;
+		}
+	}
+	
+	// Edit and coop evaluation
+	@Transactional
+	public void editForm(CoopEvaluation coopEvaluation, String attribute, Object value) {
+		switch(attribute.toLowerCase()) {
+		case "formId" :
+			coopEvaluation.setFormId((int) value);
+			break;
+		case "submissionDate" :
+			coopEvaluation.setSubmissionDate((Date) value);
+			break;
+		case "workexperience" :
+			coopEvaluation.setWorkExperience(value.toString());	
+			break;
+		case "employerevaluation" :
+			coopEvaluation.setEmployerEvaluation((int) value);	
+			break;
+		case "softwaretechnologies" :
+			coopEvaluation.setSoftwareTechnologies(value.toString());
+			break;
+		case "usefulcourses" :
+			coopEvaluation.setUsefulCourses(value.toString());
+			break;
+		}
+	}
+	
+	// Edit a student evaluation
+	@Transactional
+	public void editForm(StudentEvaluation studentEvaluation, String attribute, Object value) {
+		switch(attribute.toLowerCase()) {
+		case "formId" :
+			studentEvaluation.setFormId((int) value);
+			break;
+		case "submissionDate" :
+			studentEvaluation.setSubmissionDate((Date) value);
+			break;
+		case "studentworkexperience" :
+			studentEvaluation.setStudentWorkExperience(value.toString());	
+			break;
+		case "studentperformance" :
+			studentEvaluation.setStudentPerformance((int) value);
+			break;
+		}
+	}
+	
+	// Edit a tasks workload report
+	@Transactional
+	public void editForm(TasksWorkloadReport tasksWorkloadReport, String attribute, Object value) {
+		switch(attribute.toLowerCase()) {
+		case "formId" :
+			tasksWorkloadReport.setFormId((int) value);
+			break;
+		case "submissionDate" :
+			tasksWorkloadReport.setSubmissionDate((Date) value);
+			break;
+		case "tasks" :
+			tasksWorkloadReport.setTasks(value.toString());	
+			break;
+		case "hoursPerWeek" :
+			tasksWorkloadReport.setHoursPerWeek((int) value);
+			break;
+		case "wage" :
+			tasksWorkloadReport.setWage((int) value); 
+			break;
+		case "training" :
+			tasksWorkloadReport.setTraining(value.toString());
+			break;
+		}
+	}
 
 }
