@@ -2,9 +2,13 @@ package ca.mcgill.ecse321.cooperator.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import ca.mcgill.ecse321.cooperator.CooperatorApplication;
 import ca.mcgill.ecse321.cooperator.model.Student;
 
 @RepositoryRestResource(collectionResourceRel = "participants", path = "participants")
@@ -14,7 +18,7 @@ public interface StudentRepository extends CrudRepository<Student, String> {
 
 	public default List<Student> findStudentsWithError() {
 //		System.out.println("Hello");
-//		EntityManager em = CooperatorApplication.factory.createEntityManager();
+//		EntityManager em = CooperatorApplication.sessionFactory.createEntityManager();
 //		em.getTransaction().begin();
 //
 //		Query q = em.createNativeQuery("SELECT * FROM Student", Student.class);

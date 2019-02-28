@@ -6,5 +6,5 @@ import ca.mcgill.ecse321.cooperator.model.Form;
 
 public interface FormRepository extends CrudRepository<Form, String> {
 
-	Form findFormByFormId(String id);
+	Form findFormByFormId(int id);
 }

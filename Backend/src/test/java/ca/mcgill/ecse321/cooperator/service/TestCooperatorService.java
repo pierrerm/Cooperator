@@ -475,7 +475,7 @@ public class TestCooperatorService {
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
 			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
 					needWorkPermit, semester, startDate, student, employer);
-//			service.sendReminders(problematicStudents);
+			service.sendReminders(problematicStudents);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}

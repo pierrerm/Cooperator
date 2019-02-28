@@ -11,7 +11,7 @@ import ca.mcgill.ecse321.cooperator.model.Semester;
 
 public interface CoopRepository extends CrudRepository<Coop, String> {
 
-	Coop findCoopByJobId(int jobId);
+	Coop findCoopByCoopId(int jobId);
 	
 	public default boolean isInSemester(Coop coop, Semester semester, int year) {
 		int coopYear = 0;

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -85,18 +86,27 @@ public class CooperatorService {
 		coop.setStartDate(startDate);
 		coop.setEmployer(employer);
 		coop.setStudent(student);
-		/* Can't getCoop() if student does not have any coop.
-		Set<Coop> studentCoops = student.getCoop();
-		studentCoops.add(coop);
-		student.setCoop(studentCoops);
-		*/
+
+
+		if (student.getCoop() == null) {
+			System.out.println("Student has no Coops");
+			Set<Coop> coops = new HashSet<Coop>();
+			coops.add(coop);
+			student.setCoop(coops);
+		} else {
+			System.out.println("Student has a Coop");
+			Set<Coop> coops = student.getCoop();
+			coops.add(coop);
+			student.setCoop(coops);
+		}
+		
 		coopRepository.save(coop);
 		return coop;
 	}
 
 	@Transactional
 	public Coop getCoop(int jobId) {
-		Coop coop = coopRepository.findCoopByJobId(jobId);
+		Coop coop = coopRepository.findCoopByCoopId(jobId);
 		return coop;
 	}
 
@@ -176,10 +186,7 @@ public class CooperatorService {
 	}
 
 	@Transactional
-	public Form getForm(String formId) {
-		if (formId == null || formId.trim().length() == 0) {
-			throw new IllegalArgumentException("Form ID cannot be empty! ");
-		}
+	public Form getForm(int formId) {
 		Form form = formRepository.findFormByFormId(formId);
 		return form;
 	}
@@ -243,33 +250,31 @@ public class CooperatorService {
 		for (Student student: problematicStudents) {
 			System.out.println(student.getLastName());
 			Set<Coop> coops = student.getCoop();
-			if(coops.isEmpty()) {
-				System.out.println("Coops is empty");
-				break;
+
+			if(coops.isEmpty()) break;
+			for (Coop coop: coops) {
+				System.out.println(coop.getLocation());
+				Date startDate = coop.getStartDate();
+				date = new Date(System.currentTimeMillis());
+				deadline = addDays(startDate, -14);
+				Date threeDaysLeft = addDays(deadline, -3);
+				Set <Form> forms = coop.getForm();
+				boolean isTasksWorkloadReportSubmited = false;
+				for (Form form: forms) {
+					if (form instanceof TasksWorkloadReport) {
+						isTasksWorkloadReportSubmited = true;
+						break;
+					}
+				}
+				if (!isTasksWorkloadReportSubmited && date.after(threeDaysLeft) ) {
+					reminderId = 911;
+					urgency =3;
+					subject = "Tasks Workload Report Submission";
+					description = "You only have 3 days left to submit your Task Workload Report!";
+					createReminder(reminderId, subject, date, deadline, description, 
+							urgency, coop);				
+				}		
 			}
-//			for (Coop coop: coops) {
-//				System.out.println(coop.getLocation());
-//				Date startDate = coop.getStartDate();
-//				date = new Date(System.currentTimeMillis());
-//				deadline = addDays(startDate, -14);
-//				Date threeDaysLeft = addDays(deadline, -3);
-//				Set <Form> forms = coop.getForm();
-//				boolean isTasksWorkloadReportSubmited = false;
-//				for (Form form: forms) {
-//					if (form instanceof TasksWorkloadReport) {
-//						isTasksWorkloadReportSubmited = true;
-//						break;
-//					}
-//				}
-//				if (!isTasksWorkloadReportSubmited && date.after(threeDaysLeft) ) {
-//					reminderId = 911;
-//					urgency =3;
-//					subject = "Tasks Workload Report Submission";
-//					description = "You only have 3 days left to submit your Task Workload Report!";
-//					createReminder(reminderId, subject, date, deadline, description, 
-//							urgency, coop);				
-//				}		
-//			}
 		}
 	}
 	
@@ -532,6 +537,122 @@ public class CooperatorService {
 		}
 		double[] stats = {numActiveStudents, (numCompletedCoops/numActiveStudents), (numSubmittedForms/numActiveStudents)};
 		return stats;
+	}
+	
+	// List of all forms for a given student
+	@Transactional
+	public Set<Form> getAllFormsFromStudent(Student student, Semester semester, int year) {
+		
+		Set<Coop> coops = student.getCoop();
+		Set<Form> forms = null;
+		
+		for(Coop coop : coops) {
+			if(coopRepository.isInSemester(coop, semester, year)) {
+				forms = coop.getForm();
+			}
+		}
+		
+		return forms;
+	}
+	
+	// List of all forms for a given  employer
+	@Transactional
+	public Set<Form> getAllFormsFromEmployer(Employer employer, Semester semester, int year) {
+		
+		Set<Coop> coops = employer.getCoop();
+		Set<Form> forms = null;
+		
+		for(Coop coop : coops) {
+			if(coopRepository.isInSemester(coop, semester, year)) {
+				forms = coop.getForm();
+			}
+		}
+		
+		return forms;
+	}
+	
+	// Edit an acceptance form
+	@Transactional
+	public void editForm(AcceptanceForm acceptanceForm, String attribute, Object value) {
+		// attribute: attribute to be edited, value: value for the new attribute
+		
+		switch(attribute.toLowerCase()) {
+		case "formid" :
+			acceptanceForm.setFormId((int) value);
+			break;
+		case "submissiondate" :
+			acceptanceForm.setSubmissionDate((Date) value);
+			break;
+		}
+	}
+	
+	// Edit and coop evaluation
+	@Transactional
+	public void editForm(CoopEvaluation coopEvaluation, String attribute, Object value) {
+		switch(attribute.toLowerCase()) {
+		case "formId" :
+			coopEvaluation.setFormId((int) value);
+			break;
+		case "submissionDate" :
+			coopEvaluation.setSubmissionDate((Date) value);
+			break;
+		case "workexperience" :
+			coopEvaluation.setWorkExperience(value.toString());	
+			break;
+		case "employerevaluation" :
+			coopEvaluation.setEmployerEvaluation((int) value);	
+			break;
+		case "softwaretechnologies" :
+			coopEvaluation.setSoftwareTechnologies(value.toString());
+			break;
+		case "usefulcourses" :
+			coopEvaluation.setUsefulCourses(value.toString());
+			break;
+		}
+	}
+	
+	// Edit a student evaluation
+	@Transactional
+	public void editForm(StudentEvaluation studentEvaluation, String attribute, Object value) {
+		switch(attribute.toLowerCase()) {
+		case "formId" :
+			studentEvaluation.setFormId((int) value);
+			break;
+		case "submissionDate" :
+			studentEvaluation.setSubmissionDate((Date) value);
+			break;
+		case "studentworkexperience" :
+			studentEvaluation.setStudentWorkExperience(value.toString());	
+			break;
+		case "studentperformance" :
+			studentEvaluation.setStudentPerformance((int) value);
+			break;
+		}
+	}
+	
+	// Edit a tasks workload report
+	@Transactional
+	public void editForm(TasksWorkloadReport tasksWorkloadReport, String attribute, Object value) {
+		switch(attribute.toLowerCase()) {
+		case "formId" :
+			tasksWorkloadReport.setFormId((int) value);
+			break;
+		case "submissionDate" :
+			tasksWorkloadReport.setSubmissionDate((Date) value);
+			break;
+		case "tasks" :
+			tasksWorkloadReport.setTasks(value.toString());	
+			break;
+		case "hoursPerWeek" :
+			tasksWorkloadReport.setHoursPerWeek((int) value);
+			break;
+		case "wage" :
+			tasksWorkloadReport.setWage((int) value); 
+			break;
+		case "training" :
+			tasksWorkloadReport.setTraining(value.toString());
+			break;
+		}
 	}
 
 }
