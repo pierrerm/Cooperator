@@ -227,8 +227,9 @@ public class CooperatorRestController {
 
 	@GetMapping(value = { "/student/problem/{term}", "/student/problem/{term}" })
 	public List<StudentDto> getAllStudentsWithFormError() {
+		String term = "";
 		List<StudentDto> studentDtos = new ArrayList<>();
-		for (Student student : service.getAllStudentsWithFormError()) {
+		for (Student student : service.getAllStudentsWithFormError(term)) {
 			studentDtos.add(convertToDto(student));
 		}
 		return studentDtos;

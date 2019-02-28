@@ -85,19 +85,20 @@ public class CooperatorService {
 		coop.setEmployer(employer);
 		coop.setStudent(student);
 		
-		if(student.getCoop().size() == 0) {
-			System.out.println("Student has no Coops");
-			Set<Coop> coops = new HashSet<Coop>();
-			coops.add(coop);
-			student.setCoop(coops);
-		} else {
-			System.out.println("Student has a Coop");
-			Set<Coop> coops = student.getCoop();
-			for(Coop c : coops) {
-				System.out.println(c);
-			}
-			coops.add(coop);
-		}
+//		if(student.getCoop().size() == 0) {
+//			System.out.println("Student has no Coops");
+//			Set<Coop> coops = new HashSet<Coop>();
+//			coops.add(coop);
+//			student.setCoop(coops);
+//		} else {
+//			System.out.println("Student has a Coop");
+//			Set<Coop> coops = student.getCoop();
+//			for(Coop c : coops) {
+//				System.out.println(c);
+//			}
+//			coops.add(coop);
+//			student.setCoop(coops);
+//		}
 		
 		coopRepository.save(coop);
 		return coop;
@@ -458,8 +459,49 @@ public class CooperatorService {
 	}
 
 	@Transactional
-	public List<Student> getAllStudentsWithFormError() {
+	public List<Student> getAllStudentsWithFormError(String term) {
+//		term = term.toLowerCase();
+//		
+//		List<Student> students = new ArrayList<>();
+//		List<Coop> coops = new ArrayList<>();
+//		for(Student s : getAllStudents()) {
+//			for(Coop c : s.getCoop()) {
+//				if(term == getTerm(c.getSemester(), c.getStartDate(), c.getEndDate())) {
+//					students.add(s);
+//					coops.add(c);
+//				}
+//			}
+//		}
+//		
+//		List<Student> studentsWithFormError = new ArrayList<>();
+		
+		
 		return studentRepository.findStudentsWithError();
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Transactional
+	public String getTerm(Semester semester, Date startDate, Date endDate) {
+		String year = null;
+		if(startDate.getYear() == endDate.getYear()) {
+			year = Integer.toString(startDate.getYear());
+		} else if (startDate.getYear() == endDate.getYear() - 1) {
+			if(semester == Semester.Fall) {
+				year = Integer.toString(startDate.getYear());
+			} else if (semester == Semester.Winter) {
+				year = Integer.toString(endDate.getYear());
+			} else {
+				year = Integer.toString(startDate.getYear());
+			}
+		}
+		
+		switch(semester) {
+			case Winter: return "winter" + year;
+			case Fall: return "fall" + year;
+			case Summer: return "summer" + year;
+		}
+		
+		return "No Term Found";
 	}
 	
 	@Transactional
