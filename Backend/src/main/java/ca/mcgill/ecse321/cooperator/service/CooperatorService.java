@@ -719,11 +719,12 @@ public class CooperatorService {
 				(numSubmittedForms / numActiveStudents) };
 		return stats;
 	}
-
-	// List of all forms for a given student
+	
+	// List all forms for a given student
 	@Transactional
-	public Set<Form> getAllFormsFromStudent(Student student, Semester semester, int year) {
-
+	public Set<Form> getFormsFromStudent(int userId, Semester semester, int year) {
+		
+		Student student = getStudent(userId);
 		Set<Coop> coops = student.getCoop();
 		Set<Form> forms = null;
 
@@ -732,14 +733,14 @@ public class CooperatorService {
 				forms = coop.getForm();
 			}
 		}
-
 		return forms;
 	}
-
-	// List of all forms for a given employer
+	
+	// List all forms for a given employer
 	@Transactional
-	public Set<Form> getAllFormsFromEmployer(Employer employer, Semester semester, int year) {
-
+	public Set<Form> getFormsFromEmployer(int userId, Semester semester, int year) {
+		
+		Employer employer = getEmployer(userId);
 		Set<Coop> coops = employer.getCoop();
 		Set<Form> forms = null;
 
@@ -748,17 +749,17 @@ public class CooperatorService {
 				forms = coop.getForm();
 			}
 		}
-
 		return forms;
 	}
-
-	// Edit an acceptance form
+	
+	// Edit acceptance form
 	@Transactional
-	public void editForm(AcceptanceForm acceptanceForm, String attribute, Object value) {
+	public void editAcceptanceForm(int formId, String attribute, Object value) {
 		// attribute: attribute to be edited, value: value for the new attribute
-
-		switch (attribute.toLowerCase()) {
-		case "formid":
+		AcceptanceForm acceptanceForm = (AcceptanceForm) formRepository.findFormByFormId(formId);
+		
+		switch(attribute.toLowerCase()) {
+		case "formid" :
 			acceptanceForm.setFormId((int) value);
 			break;
 		case "submissiondate":
@@ -766,12 +767,14 @@ public class CooperatorService {
 			break;
 		}
 	}
-
-	// Edit and coop evaluation
+	
+	// Edit coop evaluation
 	@Transactional
-	public void editForm(CoopEvaluation coopEvaluation, String attribute, Object value) {
-		switch (attribute.toLowerCase()) {
-		case "formId":
+	public void editCoopEvaluation(int formId, String attribute, Object value) {
+		CoopEvaluation coopEvaluation = (CoopEvaluation) formRepository.findFormByFormId(formId);
+		
+		switch(attribute.toLowerCase()) {
+		case "formId" :
 			coopEvaluation.setFormId((int) value);
 			break;
 		case "submissionDate":
@@ -791,12 +794,14 @@ public class CooperatorService {
 			break;
 		}
 	}
-
-	// Edit a student evaluation
+	
+	// Edit student evaluation
 	@Transactional
-	public void editForm(StudentEvaluation studentEvaluation, String attribute, Object value) {
-		switch (attribute.toLowerCase()) {
-		case "formId":
+	public void editStudentEvaluation(int formId, String attribute, Object value) {
+		StudentEvaluation studentEvaluation = (StudentEvaluation) formRepository.findFormByFormId(formId);
+		
+		switch(attribute.toLowerCase()) {
+		case "formId" :
 			studentEvaluation.setFormId((int) value);
 			break;
 		case "submissionDate":
@@ -810,12 +815,14 @@ public class CooperatorService {
 			break;
 		}
 	}
-
-	// Edit a tasks workload report
+	
+	// Edit tasks workload report
 	@Transactional
-	public void editForm(TasksWorkloadReport tasksWorkloadReport, String attribute, Object value) {
-		switch (attribute.toLowerCase()) {
-		case "formId":
+	public void editTasksWorkloadReport(int formId, String attribute, Object value) {
+		TasksWorkloadReport tasksWorkloadReport = (TasksWorkloadReport) formRepository.findFormByFormId(formId);
+		
+		switch(attribute.toLowerCase()) {
+		case "formId" :
 			tasksWorkloadReport.setFormId((int) value);
 			break;
 		case "submissionDate":

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import ca.mcgill.ecse321.cooperator.dto.AdministratorDto;
 import ca.mcgill.ecse321.cooperator.dto.CoopDto;
 import ca.mcgill.ecse321.cooperator.dto.EmployerDto;
@@ -338,6 +339,49 @@ public class CooperatorRestController {
 		return formDto;
 	}
 
+	// Student Forms
+	@GetMapping(value = { "/getStudentForms/{userId}/{semester}/{year}", "/getForms/{userId}/{semester}/{year}/" })
+	public List<FormDto> getFormsFromStudent(@PathVariable("userId") int userId, @PathVariable("semester") Semester semester,
+			@PathVariable("year") int year) throws IllegalArgumentException {
+		List<FormDto> formDtos = new ArrayList<>();
+		for (Form form : service.getFormsFromStudent(userId, semester, year)) {
+			formDtos.add(convertToDto(form));
+		}
+		return formDtos;
+	}
+	
+	// Employer Forms
+	@GetMapping(value = { "/getEmployerForms/{userId}/{semester}/{year}", "/getForms/{userId}/{semester}/{year}/" })
+	public List<FormDto> getFormsFromEmployer(@PathVariable("userId") int userId, @PathVariable("semester") Semester semester,
+			@PathVariable("year") int year) throws IllegalArgumentException {
+		List<FormDto> formDtos = new ArrayList<>();
+		for (Form form : service.getFormsFromEmployer(userId, semester, year)) {
+			formDtos.add(convertToDto(form));
+		}
+		return formDtos;
+	}
+	
+	// Edit Forms
+	@PostMapping(value = { "/editForm/{formId}/{type}/{attribute}/{value}", "/editForm/{coopId}/{type}/{attribute}/{value}/" })
+	public void editForm(@PathVariable("formId") int formId, @PathVariable("type") String type, 
+			@PathVariable("attribute") String attribute, @PathVariable("value") Object value) 
+					throws IllegalArgumentException {
+		switch(type.toLowerCase()) {
+		case "acceptanceform" :
+			service.editAcceptanceForm(formId, attribute, value);
+			break;
+		case "coopevaluation" :
+			service.editCoopEvaluation(formId, attribute, value);
+			break;
+		case "studentevaluation" :
+			service.editStudentEvaluation(formId, attribute, value);
+			break;
+		case "tasksworkloadreport" :
+			service.editTasksWorkloadReport(formId, attribute, value);
+			break;
+		};
+	}
+	
 	@GetMapping(value = { "/student/problem/{term}", "/student/problem/{term}" })
 	public List<StudentDto> getAllStudentsWithFormError(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
