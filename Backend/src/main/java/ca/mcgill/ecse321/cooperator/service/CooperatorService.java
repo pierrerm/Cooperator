@@ -655,8 +655,9 @@ public class CooperatorService {
 	
 	// List of all forms for a given student
 	@Transactional
-	public Set<Form> getAllFormsFromStudent(Student student, Semester semester, int year) {
+	public Set<Form> getFormsFromStudent(int userId, Semester semester, int year) {
 		
+		Student student = getStudent(userId);
 		Set<Coop> coops = student.getCoop();
 		Set<Form> forms = null;
 		
@@ -665,14 +666,14 @@ public class CooperatorService {
 				forms = coop.getForm();
 			}
 		}
-		
 		return forms;
 	}
 	
 	// List of all forms for a given  employer
 	@Transactional
-	public Set<Form> getAllFormsFromEmployer(Employer employer, Semester semester, int year) {
+	public Set<Form> getFormsFromEmployer(int userId, Semester semester, int year) {
 		
+		Employer employer = getEmployer(userId);
 		Set<Coop> coops = employer.getCoop();
 		Set<Form> forms = null;
 		

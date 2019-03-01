@@ -279,6 +279,28 @@ public class CooperatorRestController {
 		return formDto;
 	}
 
+	// Student Forms
+	@GetMapping(value = { "/getStudentForms/{userId}/{semester}/{year}", "/getForms/{userId}/{semester}/{year}/" })
+	public List<FormDto> getFormsFromStudent(@PathVariable("userId") int userId, @PathVariable("semester") Semester semester,
+			@PathVariable("year") int year) throws IllegalArgumentException {
+		List<FormDto> formDtos = new ArrayList<>();
+		for (Form form : service.getFormsFromStudent(userId, semester, year)) {
+			formDtos.add(convertToDto(form));
+		}
+		return formDtos;
+	}
+	
+	// Employer Forms
+	@GetMapping(value = { "/getEmployerForms/{userId}/{semester}/{year}", "/getForms/{userId}/{semester}/{year}/" })
+	public List<FormDto> getFormsFromEmployer(@PathVariable("userId") int userId, @PathVariable("semester") Semester semester,
+			@PathVariable("year") int year) throws IllegalArgumentException {
+		List<FormDto> formDtos = new ArrayList<>();
+		for (Form form : service.getFormsFromEmployer(userId, semester, year)) {
+			formDtos.add(convertToDto(form));
+		}
+		return formDtos;
+	}
+	
 	@GetMapping(value = { "/student/problem/{term}", "/student/problem/{term}" })
 	public List<StudentDto> getAllStudentsWithFormError(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
