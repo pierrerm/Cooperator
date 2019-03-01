@@ -34,6 +34,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Date;
 
 /**
  * @author anudr
@@ -124,21 +125,26 @@ public class CooperatorStudentTests {
 			assertEquals(200, connE.getResponseCode());
 			connE.disconnect();
 			
-			//Create Coop
-			URL urlC = new URL(
-					"http://cooperator-backend-3417.herokuapp.com/coop/-1/true/02-02-2018/Great Job/123/Montreal/false/winter/01-01-2018/-1/-1");
-			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
-			connC.setRequestMethod("POST");
-			assertEquals(200, connC.getResponseCode());
-			connC.disconnect();
+//			//Create Coop
+//			URL urlC = new URL(
+//					"http://cooperator-backend-3417.herokuapp.com/coop/-1/true/02-02-2018/Great Job/123/Montreal/false/winter/01-01-2018/-1/-1");
+//			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
+//			connC.setRequestMethod("POST");
+//			assertEquals(200, connC.getResponseCode());
+//			connC.disconnect();
 			
-			//Create Form
-			URL urlF = new URL(
-					"http://cooperator-backend-3417.herokuapp.com/form/acceptanceForm/-1/02-03-2016/-1");
-			HttpURLConnection connF = (HttpURLConnection) urlF.openConnection();
-			connF.setRequestMethod("POST");
-			assertEquals(200, connF.getResponseCode());
-			connF.disconnect();
+//			Date startDate = new Date(CooperatorRestController.createDate("01-01-2018"));
+//			Date endDate = new Date(CooperatorRestController.createDate("02-02-2018"));
+//			
+//			service.createCoop(-1, true, endDate, "Great Job", 123, "Montreal", false, Semester.Winter, startDate, service.getStudent(-1), service.getEmployer(-1));
+			
+//			//Create Form
+//			URL urlF = new URL(
+//					"http://cooperator-backend-3417.herokuapp.com/form/acceptanceForm/-1/02-03-2016/-1");
+//			HttpURLConnection connF = (HttpURLConnection) urlF.openConnection();
+//			connF.setRequestMethod("POST");
+//			assertEquals(200, connF.getResponseCode());
+//			connF.disconnect();
 
 		} catch (MalformedURLException e) {
 

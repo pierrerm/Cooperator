@@ -300,7 +300,7 @@ public class CooperatorRestController {
 		return null;
 	}
 
-	public long createDate(String date) {
+	public static long createDate(String date) {
 		java.util.Date dateFormat = null;
 		try {
 			dateFormat = new SimpleDateFormat("dd-MM-yyyy").parse(date);
