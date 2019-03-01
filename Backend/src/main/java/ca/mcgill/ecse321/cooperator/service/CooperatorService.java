@@ -307,16 +307,16 @@ public class CooperatorService {
 
 	/**
 	 * 
-	 * @param problematicStudents: list of students without any forms
 	 * @author JulienLesaffre
 	 */
 	@Transactional
-	public void sendReminders() {
+	public List<Reminder> sendReminders() {
 		int reminderId, urgency;
 		String subject, description;
 		Date date, deadline;
 		List<Student> problematicStudents = this.getAllStudents();
-		if (problematicStudents.isEmpty()) return;
+		List<Reminder> remindersSent = new ArrayList<Reminder>();
+		if (problematicStudents.isEmpty()) return remindersSent;
 		for (Student student : problematicStudents) {
 			Set<Coop> coops = student.getCoop();
 
@@ -340,10 +340,12 @@ public class CooperatorService {
 					urgency = 3;
 					subject = "Tasks Workload Report Submission";
 					description = "You only have 3 days left to submit your Task Workload Report!";
-					createReminder(reminderId, subject, date, deadline, description, urgency, coop);
+					remindersSent.add(createReminder(reminderId, subject, date, deadline, 
+							description, urgency, coop));
 				}
 			}
 		}
+		return remindersSent;
 	}
 
 	/**
