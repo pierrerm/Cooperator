@@ -86,15 +86,12 @@ public class CooperatorService {
 		coop.setStartDate(startDate);
 		coop.setEmployer(employer);
 		coop.setStudent(student);
-
-
-		if (student.getCoop() == null) {
-			System.out.println("Student has no Coops");
+		
+		if(student.getCoop() == null) {
 			Set<Coop> coops = new HashSet<Coop>();
 			coops.add(coop);
 			student.setCoop(coops);
 		} else {
-			System.out.println("Student has a Coop");
 			Set<Coop> coops = student.getCoop();
 			coops.add(coop);
 			student.setCoop(coops);
@@ -126,6 +123,17 @@ public class CooperatorService {
 		acceptanceForm.setFormId(formId);
 		acceptanceForm.setSubmissionDate(submissionDate);
 		acceptanceForm.setCoop(coop);
+		
+		if(coop.getForm() == null) {
+			Set<Form> forms = new HashSet<Form>();
+			forms.add(acceptanceForm);
+			coop.setForm(forms);
+		} else {
+			Set<Form> forms = coop.getForm();
+			forms.add(acceptanceForm);
+			coop.setForm(forms);
+		}
+		
 		formRepository.save(acceptanceForm);
 		return acceptanceForm;
 	}
@@ -145,6 +153,17 @@ public class CooperatorService {
 		coopEvaluation.setSoftwareTechnologies(softwareTechnologies);
 		coopEvaluation.setUsefulCourses(usefulCourses);
 		coopEvaluation.setCoop(coop);
+		
+		if(coop.getForm() == null) {
+			Set<Form> forms = new HashSet<Form>();
+			forms.add(coopEvaluation);
+			coop.setForm(forms);
+		} else {
+			Set<Form> forms = coop.getForm();
+			forms.add(coopEvaluation);
+			coop.setForm(forms);
+		}
+		
 		formRepository.save(coopEvaluation);
 		return coopEvaluation;
 	}
@@ -162,6 +181,17 @@ public class CooperatorService {
 		studentEvaluation.setStudentWorkExperience(studentWorkExperience);
 		studentEvaluation.setStudentPerformance(studentPerformance);
 		studentEvaluation.setCoop(coop);
+		
+		if(coop.getForm() == null) {
+			Set<Form> forms = new HashSet<Form>();
+			forms.add(studentEvaluation);
+			coop.setForm(forms);
+		} else {
+			Set<Form> forms = coop.getForm();
+			forms.add(studentEvaluation);
+			coop.setForm(forms);
+		}
+		
 		formRepository.save(studentEvaluation);
 		return studentEvaluation;
 	}
@@ -181,6 +211,17 @@ public class CooperatorService {
 		tasksWorkloadReport.setWage(wage);
 		tasksWorkloadReport.setTraining(training);
 		tasksWorkloadReport.setCoop(coop);
+		
+		if(coop.getForm() == null) {
+			Set<Form> forms = new HashSet<Form>();
+			forms.add(tasksWorkloadReport);
+			coop.setForm(forms);
+		} else {
+			Set<Form> forms = coop.getForm();
+			forms.add(tasksWorkloadReport);
+			coop.setForm(forms);
+		}
+		
 		formRepository.save(tasksWorkloadReport);
 		return tasksWorkloadReport;
 	}
@@ -495,8 +536,78 @@ public class CooperatorService {
 	}
 
 	@Transactional
-	public List<Student> getAllStudentsWithFormError() {
-		return studentRepository.findStudentsWithError();
+	public List<Student> getAllStudentsWithFormError(String term) {
+		
+		term = term.toLowerCase();
+		
+		List<Student> students = new ArrayList<>();
+		for(Student s : getAllStudents()) {
+			for(Coop c : s.getCoop()) {
+				if(term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+					if(c.getForm() == null) {
+						students.add(s);
+					} else if (countForms(c) < 4) {
+						System.out.println(countForms(c));
+						students.add(s);
+					}
+				}
+			}
+		}
+		
+		return students;
+	}
+	
+	public int countForms(Coop c) {
+		Set<Form> forms = c.getForm();
+		int count = 0;
+		boolean aFound = false, cFound = false, sFound = false, tFound = false;
+		
+		for(Form f : forms) {
+			if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.AcceptanceForm") && !aFound) {
+				count++;
+				aFound = true;
+			} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.CoopEvaluation") && !cFound){
+				count++;
+				cFound = true;
+			} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation") && !sFound){
+				count++;
+				sFound = true;
+			} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport") && !tFound){
+				count++;
+				tFound = true;
+			}
+		}
+		
+		if(count > 4) {
+			throw new IllegalArgumentException();
+		}
+		
+		return count;
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Transactional
+	public String getTerm(Semester semester, Date startDate, Date endDate) {
+		String year = null;
+		if(startDate.getYear() == endDate.getYear()) {
+			year = Integer.toString(startDate.getYear() + 1900);
+		} else if (startDate.getYear() == endDate.getYear() - 1) {
+			if(semester == Semester.Fall) {
+				year = Integer.toString(startDate.getYear() + 1900);
+			} else if (semester == Semester.Winter) {
+				year = Integer.toString(endDate.getYear() + 1900);
+			} else {
+				year = Integer.toString(startDate.getYear() + 1900);
+			}
+		}
+		
+		switch(semester) {
+			case Winter: return "winter " + year;
+			case Fall: return "fall " + year;
+			case Summer: return "summer " + year;
+		}
+		
+		return "No Term Found";
 	}
 	
 	@Transactional

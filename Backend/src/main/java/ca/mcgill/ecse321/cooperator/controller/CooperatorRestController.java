@@ -25,6 +25,7 @@ import ca.mcgill.ecse321.cooperator.model.Coop;
 import ca.mcgill.ecse321.cooperator.model.CoopEvaluation;
 import ca.mcgill.ecse321.cooperator.model.Employer;
 import ca.mcgill.ecse321.cooperator.model.Faculty;
+import ca.mcgill.ecse321.cooperator.model.Form;
 import ca.mcgill.ecse321.cooperator.model.Semester;
 import ca.mcgill.ecse321.cooperator.model.Student;
 import ca.mcgill.ecse321.cooperator.model.StudentEvaluation;
@@ -52,21 +53,18 @@ public class CooperatorRestController {
 				Faculty.Engineering, id, major, minor, academicYear, null);
 		return convertToDto(student);
 	}
-	
+
 	// Student
-		@PostMapping(value = {
-				"/s",
-				"/s/" })
-		public StudentDto createStudent2(@RequestParam long phone, @RequestParam String firstName,
-				@RequestParam String lastName, @RequestParam String email,
-				@RequestParam String password, @RequestParam int userId, @RequestParam int id,
-				@RequestParam String academicYear, @RequestParam String major, @RequestParam String minor
-				) throws IllegalArgumentException {
-			// @formatter:on
-			Student student = service.createStudent(userId, phone, email, firstName, lastName, password,
-					Faculty.Engineering, id, major, minor, academicYear, null);
-			return convertToDto(student);
-		}
+	@PostMapping(value = { "/s", "/s/" })
+	public StudentDto createStudent2(@RequestParam long phone, @RequestParam String firstName,
+			@RequestParam String lastName, @RequestParam String email, @RequestParam String password,
+			@RequestParam int userId, @RequestParam int id, @RequestParam String academicYear,
+			@RequestParam String major, @RequestParam String minor) throws IllegalArgumentException {
+		// @formatter:on
+		Student student = service.createStudent(userId, phone, email, firstName, lastName, password,
+				Faculty.Engineering, id, major, minor, academicYear, null);
+		return convertToDto(student);
+	}
 
 	@GetMapping(value = { "/students", "/students/" })
 	public List<StudentDto> getAllStudents() {
@@ -106,7 +104,7 @@ public class CooperatorRestController {
 
 		Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
 				needWorkPermit, semester, startDate, student, employer);
-		
+
 		return convertToDto(coop);
 	}
 
@@ -165,78 +163,126 @@ public class CooperatorRestController {
 	}
 
 	// Form
+	@PostMapping(value = { "/form/acceptanceForm/{formId}/{submissionDate}/{coopId}",
+			"/form/acceptanceForm/{formId}/{submissionDate}/{coopId}/" })
+	public FormDto createForm(@PathVariable("formId") int formId,
+			@PathVariable("submissionDate") String submissionDateStr, @PathVariable("coopId") int coopId)
+			throws IllegalArgumentException {
+		// @formatter:on
+		Coop coop = service.getCoop(coopId);
+		Date submissionDate = new Date(createDate(submissionDateStr));
+
+		AcceptanceForm aForm = service.createAcceptanceForm(formId, submissionDate, coop);
+		return convertToDto(aForm);
+	}
+
+	// Form
 	@PostMapping(value = {
-			"/form/{type}/{formId}/{submissionDate}/{employerEvaluation}/{softwareTechnologies}/{usefulCourses}/{hoursPerWeek}/{tasks}/{training}/{wage}/{studentPerformance}/{studentWorkExperience}/{coopId}",
-			"/form/{type}/{formId}/{submissionDate}/{employerEvaluation}/{softwareTechnologies}/{usefulCourses}/{hoursPerWeek}/{tasks}/{training}/{wage}/{studentPerformance}/{studentWorkExperience}/{coopId}/" })
-	public FormDto createForm(@PathVariable("type") String type, @PathVariable("formId") int formId,
+			"/form/coopEvaluation/{formId}/{submissionDate}/{workExperience}/{employerEvaluation}/{softwareTechnologies}/{usefulCourses}/{coopId}",
+			"/form/coopEvaluation/{formId}/{submissionDate}/{workExperience}/{employerEvaluation}/{softwareTechnologies}/{usefulCourses}/{coopId}/" })
+	public FormDto createForm(@PathVariable("formId") int formId,
 			@PathVariable("submissionDate") String submissionDateStr,
+			@PathVariable("workExperience") String workExperience,
 			@PathVariable("employerEvaluation") int employerEvaluation,
 			@PathVariable("softwareTechnologies") String softwareTechnologies,
-			@PathVariable("usefulCourses") String usefulCourses, @PathVariable("hoursPerWeek") int hoursPerWeek,
-			@PathVariable("tasks") String tasks, @PathVariable("training") String training,
-			@PathVariable("wage") int wage, @PathVariable("studentPerformance") int studentPerformance,
+			@PathVariable("usefulCourses") String usefulCourses, @PathVariable("coopId") int coopId)
+			throws IllegalArgumentException {
+		// @formatter:on
+		Coop coop = service.getCoop(coopId);
+		Date submissionDate = new Date(createDate(submissionDateStr));
+
+		CoopEvaluation cForm = service.createCoopEvaluation(formId, submissionDate, workExperience, employerEvaluation,
+				softwareTechnologies, usefulCourses, coop);
+		return convertToDto(cForm);
+
+	}
+
+	// Form
+	@PostMapping(value = {
+			"/form/studentEvaluation/{formId}/{submissionDate}/{studentPerformance}/{studentWorkExperience}/{coopId}",
+			"/form/studentEvaluation/{formId}/{submissionDate}/{studentPerformance}/{studentWorkExperience}/{coopId}/" })
+	public FormDto createForm(@PathVariable("formId") int formId,
+			@PathVariable("submissionDate") String submissionDateStr,
+			@PathVariable("studentPerformance") int studentPerformance,
 			@PathVariable("studentWorkExperience") String studentWorkExperience, @PathVariable("coopId") int coopId)
 			throws IllegalArgumentException {
 		// @formatter:on
 		Coop coop = service.getCoop(coopId);
 		Date submissionDate = new Date(createDate(submissionDateStr));
 
-		switch (type.toLowerCase()) {
-		case "acceptanceform":
-			AcceptanceForm aForm = service.createAcceptanceForm(formId, submissionDate, coop);
-			return convertToDto(aForm);
-		case "coopevaluation":
-			CoopEvaluation cForm = service.createCoopEvaluation(formId, submissionDate, studentWorkExperience,
-					employerEvaluation, softwareTechnologies, usefulCourses, coop);
-			return convertToDto(cForm);
-		case "studentevaluation":
-			StudentEvaluation sForm = service.createStudentEvaluation(formId, submissionDate, studentWorkExperience,
-					studentPerformance, coop);
-			return convertToDto(sForm);
-		case "tasksworkloadreport":
-			TasksWorkloadReport tForm = service.createTasksWorkloadReport(formId, submissionDate, tasks, hoursPerWeek,
-					wage, training, coop);
-			return convertToDto(tForm);
+		StudentEvaluation sForm = service.createStudentEvaluation(formId, submissionDate, studentWorkExperience,
+				studentPerformance, coop);
+		return convertToDto(sForm);
+
+	}
+
+	// Form
+	@PostMapping(value = {
+			"/form/tasksWorkloadReport/{formId}/{submissionDate}/{hoursPerWeek}/{tasks}/{training}/{wage}/{coopId}",
+			"/form/tasksWorkloadReport/{formId}/{submissionDate}/{hoursPerWeek}/{tasks}/{training}/{wage}/{coopId}/" })
+	public FormDto createForm(@PathVariable("type") String type, @PathVariable("formId") int formId,
+			@PathVariable("submissionDate") String submissionDateStr, @PathVariable("hoursPerWeek") int hoursPerWeek,
+			@PathVariable("tasks") String tasks, @PathVariable("training") String training,
+			@PathVariable("wage") int wage, @PathVariable("coopId") int coopId) throws IllegalArgumentException {
+		// @formatter:on
+		Coop coop = service.getCoop(coopId);
+		Date submissionDate = new Date(createDate(submissionDateStr));
+
+		TasksWorkloadReport tForm = service.createTasksWorkloadReport(formId, submissionDate, tasks, hoursPerWeek, wage,
+				training, coop);
+		return convertToDto(tForm);
+
+	}
+
+	@GetMapping(value = { "/forms", "/forms/" })
+	public List<FormDto> getAllFormss() {
+		List<FormDto> formDtos = new ArrayList<>();
+		for (Form form : service.getAllForms()) {
+			formDtos.add(convertToDto(form));
+		}
+		return formDtos;
+	}
+	
+	private FormDto convertToDto(Form f) {
+		if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.AcceptanceForm")) {
+			return convertToDtoAForm((AcceptanceForm) f);
+		} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.CoopEvaluation")){
+			return convertToDtoCForm((CoopEvaluation) f);
+		} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation")){
+			return convertToDtoSForm((StudentEvaluation) f);
+		} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport")){
+			return convertToDtoTForm((TasksWorkloadReport) f);
 		}
 		return null;
 	}
 
-//	@GetMapping(value = { "/forms", "/forms/" })
-//	public List<FormDto> getAllFormss() {
-//		List<FormDto> formDtos = new ArrayList<>();
-//		for (Form form : service.getAllForms()) {
-//			formDtos.add(convertToDto(form));
-//		}
-//		return formDtos;
-//	}
-
-	private FormDto convertToDto(AcceptanceForm f) {
+	private FormDto convertToDtoAForm(AcceptanceForm f) {
 		FormDto formDto = new FormDto(f.getFormId(), f.getSubmissionDate(), f.getCoop().getCoopId());
 		return formDto;
 	}
 
-	private FormDto convertToDto(CoopEvaluation f) {
+	private FormDto convertToDtoCForm(CoopEvaluation f) {
 		FormDto formDto = new FormDto(f.getFormId(), f.getSubmissionDate(), f.getCoop().getCoopId(),
 				f.getEmployerEvaluation(), f.getSoftwareTechnologies(), f.getUsefulCourses(), f.getWorkExperience());
 		return formDto;
 	}
 
-	private FormDto convertToDto(StudentEvaluation f) {
+	private FormDto convertToDtoSForm(StudentEvaluation f) {
 		FormDto formDto = new FormDto(f.getFormId(), f.getSubmissionDate(), f.getCoop().getCoopId(),
 				f.getStudentWorkExperience(), f.getStudentPerformance());
 		return formDto;
 	}
 
-	private FormDto convertToDto(TasksWorkloadReport f) {
+	private FormDto convertToDtoTForm(TasksWorkloadReport f) {
 		FormDto formDto = new FormDto(f.getFormId(), f.getSubmissionDate(), f.getCoop().getCoopId(), f.getTasks(),
 				f.getHoursPerWeek(), f.getWage(), f.getTraining());
 		return formDto;
 	}
 
 	@GetMapping(value = { "/student/problem/{term}", "/student/problem/{term}" })
-	public List<StudentDto> getAllStudentsWithFormError() {
+	public List<StudentDto> getAllStudentsWithFormError(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
-		for (Student student : service.getAllStudentsWithFormError()) {
+		for (Student student : service.getAllStudentsWithFormError(term)) {
 			studentDtos.add(convertToDto(student));
 		}
 		return studentDtos;
