@@ -28,6 +28,12 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * @author anudr
@@ -36,26 +42,25 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CooperatorStudentTests {
-	
+
 	@Test
 	public void testJUnit4() {
-		
+
 	}
-	
+
 	@Mock
 	private StudentRepository studentDao;
-	
+
 	@InjectMocks
 	private CooperatorService service;
 	@InjectMocks
 	private CooperatorRestController controller;
-	
+
 	private Student student;
-	
+
 	private static final int VALID_STUDENT_KEY = 1;
 	private static final int INVALID_STUDENT_KEY = -1;
-	
-	
+
 	@Before
 	public void setMockOutput() {
 		when(studentDao.findStudentByUserId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
@@ -68,12 +73,12 @@ public class CooperatorStudentTests {
 			}
 		});
 	}
-	
+
 	@Before
 	public void setupMock() {
 		student = mock(Student.class);
 	}
-	
+
 	@Test
 	public void testMockStudentCreation() {
 		assertNotNull(student);
@@ -83,21 +88,67 @@ public class CooperatorStudentTests {
 	public void testStudentQueryFound() {
 		assertEquals(VALID_STUDENT_KEY, service.getStudent(VALID_STUDENT_KEY).getUserId());
 	}
-	
-	@Test 
+
+	@Test
 	public void testStudentQueryNotFound() {
 		assertNull(service.getStudent(INVALID_STUDENT_KEY));
 	}
-	
+
 	@Test
-	public void  testGetAllStudents() {
+	public void testGetAllStudents() {
 		assertNotNull(service.getAllStudents());
 	}
-	
+
 	@Test
 	public void testGetAllStudentsWithFormErrors() {
-	//	assertNotNull(service.getAllStudentsWithFormError());
+		// assertNotNull(service.getAllStudentsWithFormError());
 	}
-	
+
+	@Test
+	public void testRestService() {
+		try {
+
+			// Create User
+			URL urlS = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/testing.student@mail.mcgill.ca/password/-1/260/U1/Software/NA");
+			HttpURLConnection connS = (HttpURLConnection) urlS.openConnection();
+			connS.setRequestMethod("POST");
+			assertEquals(200, connS.getResponseCode());
+			connS.disconnect();
+
+			//Create Employer
+			URL urlE = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/employer/438/TestEmployerFirst/TestEmployerLast/testing.employer@mail.mcgill.ca/password/-1/President/Mcgill/Montreal");
+			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
+			connE.setRequestMethod("POST");
+			assertEquals(200, connE.getResponseCode());
+			connE.disconnect();
+			
+			//Create Coop
+			URL urlC = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/coop/-1/true/02-02-2018/Great Job/123/Montreal/false/winter/01-01-2018/-1/-1");
+			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
+			connC.setRequestMethod("POST");
+			assertEquals(200, connC.getResponseCode());
+			connC.disconnect();
+			
+			//Create Form
+			URL urlF = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/form/acceptanceForm/-1/02-03-2016/-1");
+			HttpURLConnection connF = (HttpURLConnection) urlF.openConnection();
+			connF.setRequestMethod("POST");
+			assertEquals(200, connF.getResponseCode());
+			connF.disconnect();
+
+		} catch (MalformedURLException e) {
+
+			e.printStackTrace();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		}
+	}
 
 }
