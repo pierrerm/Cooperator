@@ -653,7 +653,7 @@ public class CooperatorService {
 		return stats;
 	}
 	
-	// List of all forms for a given student
+	// List all forms for a given student
 	@Transactional
 	public Set<Form> getFormsFromStudent(int userId, Semester semester, int year) {
 		
@@ -669,7 +669,7 @@ public class CooperatorService {
 		return forms;
 	}
 	
-	// List of all forms for a given  employer
+	// List all forms for a given employer
 	@Transactional
 	public Set<Form> getFormsFromEmployer(int userId, Semester semester, int year) {
 		
@@ -682,14 +682,14 @@ public class CooperatorService {
 				forms = coop.getForm();
 			}
 		}
-		
 		return forms;
 	}
 	
-	// Edit an acceptance form
+	// Edit acceptance form
 	@Transactional
-	public void editForm(AcceptanceForm acceptanceForm, String attribute, Object value) {
+	public void editAcceptanceForm(int formId, String attribute, Object value) {
 		// attribute: attribute to be edited, value: value for the new attribute
+		AcceptanceForm acceptanceForm = (AcceptanceForm) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
 		case "formid" :
@@ -701,9 +701,11 @@ public class CooperatorService {
 		}
 	}
 	
-	// Edit and coop evaluation
+	// Edit coop evaluation
 	@Transactional
-	public void editForm(CoopEvaluation coopEvaluation, String attribute, Object value) {
+	public void editCoopEvaluation(int formId, String attribute, Object value) {
+		CoopEvaluation coopEvaluation = (CoopEvaluation) formRepository.findFormByFormId(formId);
+		
 		switch(attribute.toLowerCase()) {
 		case "formId" :
 			coopEvaluation.setFormId((int) value);
@@ -726,9 +728,11 @@ public class CooperatorService {
 		}
 	}
 	
-	// Edit a student evaluation
+	// Edit student evaluation
 	@Transactional
-	public void editForm(StudentEvaluation studentEvaluation, String attribute, Object value) {
+	public void editStudentEvaluation(int formId, String attribute, Object value) {
+		StudentEvaluation studentEvaluation = (StudentEvaluation) formRepository.findFormByFormId(formId);
+		
 		switch(attribute.toLowerCase()) {
 		case "formId" :
 			studentEvaluation.setFormId((int) value);
@@ -745,9 +749,11 @@ public class CooperatorService {
 		}
 	}
 	
-	// Edit a tasks workload report
+	// Edit tasks workload report
 	@Transactional
-	public void editForm(TasksWorkloadReport tasksWorkloadReport, String attribute, Object value) {
+	public void editTasksWorkloadReport(int formId, String attribute, Object value) {
+		TasksWorkloadReport tasksWorkloadReport = (TasksWorkloadReport) formRepository.findFormByFormId(formId);
+		
 		switch(attribute.toLowerCase()) {
 		case "formId" :
 			tasksWorkloadReport.setFormId((int) value);
