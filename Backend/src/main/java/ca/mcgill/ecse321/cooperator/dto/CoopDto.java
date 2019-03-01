@@ -4,18 +4,18 @@ import java.sql.Date;
 
 import ca.mcgill.ecse321.cooperator.model.*;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 public class CoopDto {
 
-	private Set<Integer> downloadableDocIds;
-	private Set<Integer> formIds;
-	private int studentId;
-	private int employerId;
+	private ArrayList<Integer> PDFIds;
+	private ArrayList<Integer> formIds;
+	private StudentDto studentId;
+	private EmployerDto employerId;
 	private Date startDate;
 	private Date endDate;
 	private Semester semester;
-	private Set<Integer> reminderIds;
+	private ArrayList<Integer> reminderIds;
 	private int coopId;
 	private Boolean employerConfirmation;
 	private Boolean needWorkPermit;
@@ -28,7 +28,9 @@ public class CoopDto {
 	}
 
 	public CoopDto(int coopId, boolean employerConfirmation, Date endDate, String jobDescription, int jobId,
-			String location, boolean needWorkPermit, Semester semester, Date startDate, int studentId, int employerId) {
+			String location, boolean needWorkPermit, Semester semester, Date startDate, StudentDto studentId,
+			EmployerDto employerId, ArrayList<Integer> PDFIds, ArrayList<Integer> formIds,
+			ArrayList<Integer> reminderIds) {
 		this.coopId = coopId;
 		this.employerConfirmation = employerConfirmation;
 		this.endDate = endDate;
@@ -40,21 +42,24 @@ public class CoopDto {
 		this.startDate = startDate;
 		this.studentId = studentId;
 		this.employerId = employerId;
+		this.PDFIds = PDFIds;
+		this.formIds = formIds;
+		this.reminderIds = reminderIds;
 	}
 
-	public Set<Integer> getDownloadableDoc() {
-		return this.downloadableDocIds;
+	public ArrayList<Integer> getPDF() {
+		return this.PDFIds;
 	}
 
-	public Set<Integer> getForm() {
+	public ArrayList<Integer> getForm() {
 		return this.formIds;
 	}
 
-	public int getStudent() {
+	public StudentDto getStudent() {
 		return this.studentId;
 	}
 
-	public int getEmployer() {
+	public EmployerDto getEmployer() {
 		return this.employerId;
 	}
 
@@ -94,7 +99,7 @@ public class CoopDto {
 		return this.coopId;
 	}
 
-	public Set<Integer> getReminder() {
+	public ArrayList<Integer> getReminder() {
 		return this.reminderIds;
 	}
 

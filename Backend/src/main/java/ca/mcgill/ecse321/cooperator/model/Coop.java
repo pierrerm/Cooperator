@@ -10,15 +10,15 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Coop {
-	private Set<PDF> downloadableDoc;
+	private Set<PDF> pdf;
 
 	@OneToMany(mappedBy = "coop")
-	public Set<PDF> getDownloadableDoc() {
-		return this.downloadableDoc;
+	public Set<PDF> getPDF() {
+		return this.pdf;
 	}
 
-	public void setDownloadableDoc(Set<PDF> downloadableDocs) {
-		this.downloadableDoc = downloadableDocs;
+	public void setPDF(Set<PDF> pdf) {
+		this.pdf = pdf;
 	}
 
 	private Set<Form> form;
