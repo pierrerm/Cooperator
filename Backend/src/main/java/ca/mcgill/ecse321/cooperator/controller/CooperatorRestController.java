@@ -213,6 +213,12 @@ public class CooperatorRestController {
 	@GetMapping(value = { "/reminders/send", "/reminders/send/" })
 	public void sendReminders() {
 		System.out.println("GET /reminders/send");
+		/* 	List<ReminderDto> reminderDtos = new ArrayList<>();
+		for (Reminder reminder : service.sendReminders()) {
+			reminderDtos.add(convertToDto(reminder));
+		}
+		return reminderDtos;
+		 */
 		service.sendReminders();
 	}
 
