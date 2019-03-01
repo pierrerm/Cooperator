@@ -53,6 +53,7 @@ public class TestCooperatorService {
 	@Autowired
 	private EmployerRepository employerRepository;
 
+	@Before
 	@After
 	public void clearDatabase() {
 		try {
@@ -102,7 +103,7 @@ public class TestCooperatorService {
 		assertEquals(coopId, allCoops.get(0).getCoopId());
 	}
 
-//	@Test
+	@Test
 	public void testCreatePDF() {
 		assertEquals(0, service.getAllPDFs().size());
 
@@ -141,7 +142,7 @@ public class TestCooperatorService {
 		assertEquals(docId, allDownloadableDocs.get(0).getDocId());
 	}
 
-//	@Test
+	@Test
 	public void testCreateEmployer() {
 		assertEquals(0, service.getAllEmployers().size());
 
@@ -167,7 +168,7 @@ public class TestCooperatorService {
 		assertEquals(userId, allEmployers.get(0).getUserId());
 	}
 
-//	@Test
+	@Test
 	public void testCreateAdministrator() {
 		assertEquals(0, service.getAllAdministrators().size());
 
@@ -192,7 +193,7 @@ public class TestCooperatorService {
 		assertEquals(userId, allAdministrators.get(0).getUserId());
 	}
 
-//	@Test
+	@Test
 	public void testCreateStudent() {
 		assertEquals(0, service.getAllStudents().size());
 
@@ -221,7 +222,7 @@ public class TestCooperatorService {
 		assertEquals(userIdS, allStudents.get(0).getUserId());
 	}
 
-//	@Test
+	@Test
 	public void testCreateStudentSimple() {
 		assertEquals(0, service.getAllStudents().size());
 
@@ -250,7 +251,7 @@ public class TestCooperatorService {
 		assertEquals(userIdS, allStudents.get(0).getUserId());
 	}
 
-//	@Test
+	@Test
 	public void testCreateAcceptanceForm() {
 		assertEquals(0, service.getAllForms().size());
 
@@ -287,7 +288,7 @@ public class TestCooperatorService {
 		assertEquals(formId, allForms.get(0).getFormId());
 	}
 
-//	@Test
+	@Test
 	public void testCreateCoopEvaluation() {
 		assertEquals(0, service.getAllForms().size());
 
@@ -329,7 +330,7 @@ public class TestCooperatorService {
 		assertEquals(formId, allForms.get(0).getFormId());
 	}
 
-//	@Test
+	@Test
 	public void testCreateStudentEvaluation() {
 		assertEquals(0, service.getAllForms().size());
 
@@ -368,7 +369,7 @@ public class TestCooperatorService {
 		assertEquals(formId, allForms.get(0).getFormId());
 	}
 
-//	@Test
+	@Test
 	public void testCreateTasksWorkloadReport() {
 		assertEquals(0, service.getAllForms().size());
 
@@ -409,7 +410,7 @@ public class TestCooperatorService {
 		assertEquals(formId, allForms.get(0).getFormId());
 	}
 
-//	@Test
+	@Test
 	public void testCreateReminder() {
 		assertEquals(0, service.getAllReminders().size());
 
@@ -457,14 +458,14 @@ public class TestCooperatorService {
 		int coopId = 1;
 		int jobId = 1;
 		boolean employerConfirmation = true;
-		Date endDate = null;
+
 		String jobDescription = "Java";
 		String location = "Montreal";
 		boolean needWorkPermit = true;
 		Semester semester = Semester.Fall;
-		Date startDate = null;
-		// should be: service.getAllProblematicStudents() (when method is ready)
-		List<Student> problematicStudents = service.getAllStudents();
+		Date today = new Date(System.currentTimeMillis()); // return today's date
+		Date startDate = service.addDays(today, 15); // today + 15 days -> need a reminder if no forms submitted
+		Date endDate =  service.addDays(today, 100);
 		
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
@@ -473,16 +474,16 @@ public class TestCooperatorService {
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Ngolo", "Kanté", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
+			service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
 					needWorkPermit, semester, startDate, student, employer);
-			service.sendReminders(problematicStudents);
+			service.sendReminders();
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		List<Reminder> allReminders = service.getAllReminders();
-
-		assertEquals(problematicStudents.size(), allReminders.size());
+		List<Student> everyStudents = service.getAllStudents();
+		assertEquals(everyStudents.size(), allReminders.size());
 		
 	}
 

@@ -99,8 +99,8 @@ public class CooperatorService {
 			coops.add(coop);
 			student.setCoop(coops);
 		}
-		
 		coopRepository.save(coop);
+		studentRepository.save(student);
 		return coop;
 	}
 
@@ -240,22 +240,24 @@ public class CooperatorService {
 	public List<Reminder> getAllReminders() {
 		return toList(reminderRepository.findAll());
 	}
-	
+	/**
+	 * 
+	 * @param problematicStudents: list of students without any forms
+	 * @author JulienLesaffre
+	 */
 	@Transactional
-	public void sendReminders(List<Student> problematicStudents) {
+	public void sendReminders() {
 		int reminderId, urgency; 
 		String subject, description; 
 		Date date, deadline; 
-		
+		List<Student> problematicStudents = this.getAllStudents();
 		for (Student student: problematicStudents) {
-			System.out.println(student.getLastName());
 			Set<Coop> coops = student.getCoop();
 
 			if(coops.isEmpty()) break;
 			for (Coop coop: coops) {
-				System.out.println(coop.getLocation());
 				Date startDate = coop.getStartDate();
-				date = new Date(System.currentTimeMillis());
+				date = new Date(System.currentTimeMillis()); // return today's date
 				deadline = addDays(startDate, -14);
 				Date threeDaysLeft = addDays(deadline, -3);
 				Set <Form> forms = coop.getForm();
@@ -282,9 +284,10 @@ public class CooperatorService {
 	 * add or subtract days to date in java
 	 * @param date
 	 * @param days
-	 * @return
+	 * @return date + days
+	 * @author JulienLesaffre
 	 */
-    public static Date addDays(Date date, int days) {
+    public Date addDays(Date date, int days) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.add(Calendar.DATE, days);
