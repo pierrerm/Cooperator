@@ -316,6 +316,7 @@ public class CooperatorService {
 		String subject, description;
 		Date date, deadline;
 		List<Student> problematicStudents = this.getAllStudents();
+		if (problematicStudents.isEmpty()) return;
 		for (Student student : problematicStudents) {
 			Set<Coop> coops = student.getCoop();
 

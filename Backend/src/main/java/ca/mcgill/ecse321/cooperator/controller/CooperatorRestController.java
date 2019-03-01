@@ -18,6 +18,7 @@ import ca.mcgill.ecse321.cooperator.dto.AdministratorDto;
 import ca.mcgill.ecse321.cooperator.dto.CoopDto;
 import ca.mcgill.ecse321.cooperator.dto.EmployerDto;
 import ca.mcgill.ecse321.cooperator.dto.FormDto;
+import ca.mcgill.ecse321.cooperator.dto.ReminderDto;
 import ca.mcgill.ecse321.cooperator.dto.StudentDto;
 import ca.mcgill.ecse321.cooperator.model.AcceptanceForm;
 import ca.mcgill.ecse321.cooperator.model.Administrator;
@@ -210,6 +211,7 @@ public class CooperatorRestController {
 
 	@GetMapping(value = { "/reminders/send", "/reminders/send/" })
 	public void sendReminders() {
+		System.out.println("GET /reminders/send");
 		service.sendReminders();
 	}
 
@@ -292,7 +294,7 @@ public class CooperatorRestController {
 	}
 
 	@GetMapping(value = { "/forms", "/forms/" })
-	public List<FormDto> getAllFormss() {
+	public List<FormDto> getAllForms() {
 		List<FormDto> formDtos = new ArrayList<>();
 		for (Form form : service.getAllForms()) {
 			formDtos.add(convertToDto(form));
