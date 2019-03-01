@@ -4,9 +4,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,16 +14,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.cooperator.dto.AdministratorDto;
 import ca.mcgill.ecse321.cooperator.dto.CoopDto;
 import ca.mcgill.ecse321.cooperator.dto.EmployerDto;
 import ca.mcgill.ecse321.cooperator.dto.FormDto;
 import ca.mcgill.ecse321.cooperator.dto.StudentDto;
 import ca.mcgill.ecse321.cooperator.model.AcceptanceForm;
+import ca.mcgill.ecse321.cooperator.model.Administrator;
 import ca.mcgill.ecse321.cooperator.model.Coop;
 import ca.mcgill.ecse321.cooperator.model.CoopEvaluation;
 import ca.mcgill.ecse321.cooperator.model.Employer;
 import ca.mcgill.ecse321.cooperator.model.Faculty;
 import ca.mcgill.ecse321.cooperator.model.Form;
+import ca.mcgill.ecse321.cooperator.model.PDF;
+import ca.mcgill.ecse321.cooperator.model.Reminder;
 import ca.mcgill.ecse321.cooperator.model.Semester;
 import ca.mcgill.ecse321.cooperator.model.Student;
 import ca.mcgill.ecse321.cooperator.model.StudentEvaluation;
@@ -76,10 +78,27 @@ public class CooperatorRestController {
 	}
 
 	private StudentDto convertToDto(Student s) {
+		ArrayList<Integer> coopIds = new ArrayList<Integer>();
+		if (s.getCoop() != null) {
+			for (Coop c : s.getCoop()) {
+				coopIds.add(c.getCoopId());
+			}
+		}
+		AdministratorDto adminDto = null;
+		if (s.getAdministrator() != null) {
+			adminDto = convertToDto(s.getAdministrator());
+		} else {
+			adminDto = new AdministratorDto();
+		}
 		StudentDto studentDto = new StudentDto(s.getPhone(), s.getFirstName(), s.getLastName(), s.getEmail(),
-				s.getPassword(), s.getUserId(), s.getId(), s.getAcademicYear(), s.getMajor(), s.getMinor(), null, null,
-				null);
+				s.getPassword(), s.getUserId(), s.getId(), s.getAcademicYear(), s.getMajor(), s.getMinor(), adminDto,
+				s.getFaculty(), coopIds);
 		return studentDto;
+	}
+
+	private AdministratorDto convertToDto(Administrator administrator) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// Coop
@@ -118,9 +137,44 @@ public class CooperatorRestController {
 	}
 
 	private CoopDto convertToDto(Coop c) {
+		ArrayList<Integer> PDFIds = new ArrayList<Integer>();
+		if (c.getPDF() != null) {
+			for (PDF pdf : c.getPDF()) {
+				PDFIds.add(pdf.getDocId());
+			}
+		}
+
+		ArrayList<Integer> formIds = new ArrayList<Integer>();
+		if (c.getForm() != null) {
+			for (Form f : c.getForm()) {
+				formIds.add(f.getFormId());
+			}
+		}
+
+		ArrayList<Integer> reminderIds = new ArrayList<Integer>();
+		if (c.getReminder() != null) {
+			for (Reminder r : c.getReminder()) {
+				reminderIds.add(r.getReminderId());
+			}
+		}
+
+		StudentDto studentDto = null;
+		if (c.getStudent() != null) {
+			studentDto = convertToDto(c.getStudent());
+		} else {
+			studentDto = new StudentDto();
+		}
+
+		EmployerDto employerDto = null;
+		if (c.getEmployer() != null) {
+			employerDto = convertToDto(c.getEmployer());
+		} else {
+			employerDto = new EmployerDto();
+		}
+
 		CoopDto coopDto = new CoopDto(c.getCoopId(), c.getEmployerConfirmation(), c.getEndDate(), c.getJobDescription(),
-				c.getJobId(), c.getLocation(), c.getNeedWorkPermit(), c.getSemester(), c.getStartDate(),
-				c.getStudent().getUserId(), c.getEmployer().getUserId());
+				c.getJobId(), c.getLocation(), c.getNeedWorkPermit(), c.getSemester(), c.getStartDate(), studentDto,
+				employerDto, PDFIds, formIds, reminderIds);
 		return coopDto;
 	}
 
@@ -134,8 +188,14 @@ public class CooperatorRestController {
 			@PathVariable("position") String position, @PathVariable("company") String company,
 			@PathVariable("location") String location) throws IllegalArgumentException {
 		// @formatter:on
-		Employer employer = service.createEmployer(userId, phone, email, firstName, lastName, password, position,
-				company, location);
+		Employer employer = null;
+		if (service.getEmployer(userId) == null) {
+			employer = service.createEmployer(userId, phone, email, firstName, lastName, password, position, company,
+					location);
+			return convertToDto(employer);
+		} else {
+			employer = service.getEmployer(userId);
+		}
 		return convertToDto(employer);
 	}
 
@@ -147,14 +207,13 @@ public class CooperatorRestController {
 		}
 		return employerDtos;
 	}
-	
+
 	@GetMapping(value = { "/sendReminders", "/sendReminders/" })
 	public void sendReminders() {
 //		List<Student> problematicStudents = service.getAllStudents();
 //		service.sendReminders(problematicStudents);
 		System.out.println("Get sendReminders");
 	}
-	
 
 	private EmployerDto convertToDto(Employer e) {
 		EmployerDto employerDto = new EmployerDto(e.getUserId(), e.getPhone(), e.getEmail(), e.getFirstName(),
@@ -242,15 +301,15 @@ public class CooperatorRestController {
 		}
 		return formDtos;
 	}
-	
+
 	private FormDto convertToDto(Form f) {
 		if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.AcceptanceForm")) {
 			return convertToDtoAForm((AcceptanceForm) f);
-		} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.CoopEvaluation")){
+		} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.CoopEvaluation")) {
 			return convertToDtoCForm((CoopEvaluation) f);
-		} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation")){
+		} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation")) {
 			return convertToDtoSForm((StudentEvaluation) f);
-		} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport")){
+		} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport")) {
 			return convertToDtoTForm((TasksWorkloadReport) f);
 		}
 		return null;

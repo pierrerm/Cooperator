@@ -1,9 +1,7 @@
 package ca.mcgill.ecse321.cooperator.dto;
 
-import java.util.Set;
+import java.util.ArrayList;
 
-import ca.mcgill.ecse321.cooperator.model.Administrator;
-import ca.mcgill.ecse321.cooperator.model.Coop;
 import ca.mcgill.ecse321.cooperator.model.Faculty;
 
 public class StudentDto {
@@ -19,17 +17,17 @@ public class StudentDto {
 	private String academicYear;
 	private String major;
 	private String minor;
-	private Administrator administrator;
+	private AdministratorDto administrator;
 	private Faculty faculty;
-	private Set<Coop> coop;
+	private ArrayList<Integer> coop;
 
 	public StudentDto() {
 
 	}
 
 	public StudentDto(long phone, String firstName, String lastName, String email, String password, int userId, long id,
-			String academicYear, String major, String minor, Administrator administrator, Faculty faculty,
-			Set<Coop> coop) {
+			String academicYear, String major, String minor, AdministratorDto administrator, Faculty faculty,
+			ArrayList<Integer> coop) {
 		this.phone = phone;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -85,7 +83,7 @@ public class StudentDto {
 		return minor;
 	}
 
-	public Administrator getAdministrator() {
+	public AdministratorDto getAdministrator() {
 		return administrator;
 	}
 
@@ -93,7 +91,7 @@ public class StudentDto {
 		return faculty;
 	}
 
-	public Set<Coop> getCoop() {
+	public ArrayList<Integer> getCoopId() {
 		return coop;
 	}
 }
