@@ -28,6 +28,11 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 
 /**
  * @author anudr
@@ -86,5 +91,27 @@ public class CooperatorReminderTests {
 	@Test
 	public void testReminderQueryNotFound() {
 		assertNull(service.getReminder(INVALID_KEY));
+	}
+	@Test
+	public void testRestService() {
+		try {
+
+			//Send Reminders to problematic students
+			URL urlE = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/reminder/send");
+			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
+			connE.setRequestMethod("GET");
+			assertEquals(200, connE.getResponseCode());
+			connE.disconnect();
+
+		} catch (MalformedURLException e) {
+
+			e.printStackTrace();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		}
 	}
 }

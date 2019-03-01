@@ -208,11 +208,9 @@ public class CooperatorRestController {
 		return employerDtos;
 	}
 
-	@GetMapping(value = { "/sendReminders", "/sendReminders/" })
+	@GetMapping(value = { "/reminders/send", "/reminders/send/" })
 	public void sendReminders() {
-//		List<Student> problematicStudents = service.getAllStudents();
-//		service.sendReminders(problematicStudents);
-		System.out.println("Get sendReminders");
+		service.sendReminders();
 	}
 
 	private EmployerDto convertToDto(Employer e) {
