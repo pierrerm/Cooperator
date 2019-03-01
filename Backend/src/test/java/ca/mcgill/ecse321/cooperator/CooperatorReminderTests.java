@@ -98,7 +98,7 @@ public class CooperatorReminderTests {
 
 			//Send Reminders to problematic students
 			URL urlE = new URL(
-					"http://cooperator-backend-3417.herokuapp.com/reminder/send");
+					"http://cooperator-backend-3417.herokuapp.com/reminders/send");
 			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
 			connE.setRequestMethod("GET");
 			assertEquals(200, connE.getResponseCode());
