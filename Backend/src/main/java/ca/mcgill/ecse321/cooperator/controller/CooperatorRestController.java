@@ -211,23 +211,32 @@ public class CooperatorRestController {
 	}
 
 	@GetMapping(value = { "/reminders/send", "/reminders/send/" })
-	public void sendReminders() {
+	public List<ReminderDto> sendReminders() {
 		System.out.println("GET /reminders/send");
 
-		/* 	List<ReminderDto> reminderDtos = new ArrayList<>();
+		 	List<ReminderDto> reminderDtos = new ArrayList<>();
 		for (Reminder reminder : service.sendReminders()) {
 			reminderDtos.add(convertToDto(reminder));
 		}
 		return reminderDtos;
-
-		 */
-		service.sendReminders();
 	}
 
 	private EmployerDto convertToDto(Employer e) {
 		EmployerDto employerDto = new EmployerDto(e.getUserId(), e.getPhone(), e.getEmail(), e.getFirstName(),
 				e.getLastName(), e.getPassword(), e.getPosition(), e.getCompany(), e.getLocation());
 		return employerDto;
+	}
+	
+	private ReminderDto convertToDto(Reminder r) {
+		CoopDto coopDto = null;
+		if (r.getCoop() != null) {
+			coopDto = convertToDto(r.getCoop());
+		} else {
+			coopDto = new CoopDto();
+		}
+		ReminderDto reminderDto = new ReminderDto(r.getReminderId(),r.getSubject(),r.getDate(), r.getDeadLine(),
+				r.getDescription(), r.getUrgency(),coopDto);
+		return reminderDto;
 	}
 
 	// Form

@@ -12,14 +12,14 @@ public class ReminderDto {
 	private Date deadLine;
 	private String description;
 	private int urgency;
-	private Coop coop;
+	private CoopDto coop;
 
 	public ReminderDto() {
 
 	}
 
 	public ReminderDto(int reminderId, String subject, Date date, Date deadLine, String description, int urgency,
-			Coop coop) {
+			CoopDto coop) {
 		this.reminderId = reminderId;
 		this.subject = subject;
 		this.date = date;
@@ -53,7 +53,7 @@ public class ReminderDto {
 		return this.urgency;
 	}
 
-	public Coop getCoop() {
+	public CoopDto getCoop() {
 		return this.coop;
 	}
 
