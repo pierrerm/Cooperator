@@ -50,8 +50,6 @@ public class CooperatorEmployerTests {
 	public void setMockOutput() {
 		when(employerDao.findEmployerByUserId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(VALID_EMPLOYER_KEY)) {
-				Employer employer = new Employer();
-				employer.setUserId(VALID_EMPLOYER_KEY);
 				return employer;
 			} else {
 				return null;
@@ -62,6 +60,7 @@ public class CooperatorEmployerTests {
 	@Before
 	public void setupMock() {
 		employer = mock(Employer.class);
+		employer = service.createEmployer(VALID_EMPLOYER_KEY, 123, "email", "firstName", "lastName", "password", "position", "company", "location");
 	}
 	
 	@Test
@@ -72,6 +71,15 @@ public class CooperatorEmployerTests {
 	@Test
 	public void testEmployerQueryFound() {
 		assertEquals(VALID_EMPLOYER_KEY, service.getEmployer(VALID_EMPLOYER_KEY).getUserId());
+		assertEquals(123, service.getEmployer(VALID_EMPLOYER_KEY).getPhone());
+		assertEquals("email", service.getEmployer(VALID_EMPLOYER_KEY).getEmail());
+		assertEquals("firstName", service.getEmployer(VALID_EMPLOYER_KEY).getFirstName());
+		assertEquals("lastName", service.getEmployer(VALID_EMPLOYER_KEY).getLastName());
+		assertEquals("password", service.getEmployer(VALID_EMPLOYER_KEY).getPassword());
+		assertEquals("position", service.getEmployer(VALID_EMPLOYER_KEY).getPosition());
+		assertEquals("company", service.getEmployer(VALID_EMPLOYER_KEY).getCompany());
+		assertEquals("location", service.getEmployer(VALID_EMPLOYER_KEY).getLocation());
+		
 	}
 	
 	@Test

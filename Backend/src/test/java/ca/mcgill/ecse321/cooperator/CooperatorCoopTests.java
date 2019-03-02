@@ -43,6 +43,10 @@ public class CooperatorCoopTests {
 	
 	@Mock
 	private CoopRepository coopDao;
+	@Mock
+	private StudentRepository studentDao;
+	@Mock
+	private EmployerRepository employerDao;
 	
 	@InjectMocks
 	private CooperatorService service;
@@ -50,16 +54,18 @@ public class CooperatorCoopTests {
 	private CooperatorRestController controller;
 	
 	private Coop coop;
-	
-	private static final int VALID_COOP_KEY = 1;
+	private Employer employer;
+	private Student student;
+
+	private static final int VALID_STUDENT_KEY = 1;
+	private static final int VALID_EMPLOYER_KEY = 2;
+	private static final int VALID_COOP_KEY = 3;
 	private static final int INVALID_COOP_KEY = -1;
 
 	@Before
 	public void setMockOutput() {
 		when(coopDao.findCoopByCoopId(anyInt())).thenAnswer((InvocationOnMock invocation)->{
 			if (invocation.getArgument(0).equals(VALID_COOP_KEY)) {
-				Coop coop = new Coop();
-				coop.setCoopId(VALID_COOP_KEY);
 				return coop;
 			} else {
 				return null;
@@ -69,7 +75,13 @@ public class CooperatorCoopTests {
 	
 	@Before
 	public void setupMock() {
+		student = mock(Student.class);
+		student = service.createStudent(VALID_STUDENT_KEY, 321332, "email", "firstName", "lastName", "password", Faculty.Education, 260, "major", "minor", "academicYear", null);
+		employer = mock(Employer.class);
+		employer = service.createEmployer(VALID_EMPLOYER_KEY, 123, "email", "firstName", "lastName", "password", "position", "company", "location");
 		coop = mock(Coop.class);
+		coop = service.createCoop(VALID_COOP_KEY, true, null, "jobDescription", 12, "location", true , Semester.Fall, null, student, employer);
+
 	}
 	
 	@Test
@@ -80,6 +92,17 @@ public class CooperatorCoopTests {
 	@Test
 	public void testCoopQueryFound() {
 		assertEquals(VALID_COOP_KEY, service.getCoop(VALID_COOP_KEY).getCoopId());
+		assertEquals(true, service.getCoop(VALID_COOP_KEY).getEmployerConfirmation());
+		assertNull(service.getCoop(VALID_COOP_KEY).getEndDate());
+		assertEquals("jobDescription", service.getCoop(VALID_COOP_KEY).getJobDescription());
+		assertEquals(12, service.getCoop(VALID_COOP_KEY).getJobId());
+		assertEquals("location", service.getCoop(VALID_COOP_KEY).getLocation());
+		assertEquals(true, service.getCoop(VALID_COOP_KEY).getNeedWorkPermit());
+		assertEquals(Semester.Fall, service.getCoop(VALID_COOP_KEY).getSemester());
+		assertNull(service.getCoop(VALID_COOP_KEY).getStartDate());
+		assertEquals(student, service.getCoop(VALID_COOP_KEY).getStudent());
+		assertEquals(employer, service.getCoop(VALID_COOP_KEY).getEmployer());
+		
 	}
 	
 	@Test

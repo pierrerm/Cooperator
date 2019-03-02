@@ -42,6 +42,8 @@ public class CooperatorFormTests {
 	
 	@Mock
 	private FormRepository formDao;
+	@Mock
+	private CoopRepository CoopDao;
 	
 	@InjectMocks
 	private CooperatorService service;
@@ -53,6 +55,8 @@ public class CooperatorFormTests {
 	private AcceptanceForm accepForm;
 	private StudentEvaluation studentEval;
 	private TasksWorkloadReport taskReport;
+	private Coop coop;
+
 	
 	private static final int COOPEVAL_KEY = 40;
 	private static final int STUDENTEVAL_KEY = 41;
@@ -64,23 +68,15 @@ public class CooperatorFormTests {
 	public void setMockOutput() {
 		when(formDao.findFormByFormId(anyInt())).thenAnswer((InvocationOnMock invocation)->{
 			if (invocation.getArgument(0).equals(COOPEVAL_KEY)) {
-				CoopEvaluation coopEval = new CoopEvaluation();
-				coopEval.setFormId(COOPEVAL_KEY);
 				return coopEval;
 			} 
 			else if (invocation.getArgument(0).equals(STUDENTEVAL_KEY)) {
-				StudentEvaluation studentEval = new StudentEvaluation();
-				studentEval.setFormId(STUDENTEVAL_KEY);
 				return studentEval;
 			}
 			else if (invocation.getArgument(0).equals(ACCEP_KEY)) {
-				AcceptanceForm accepForm = new AcceptanceForm();
-				accepForm.setFormId(ACCEP_KEY);
 				return accepForm;
 			}
 			else if (invocation.getArgument(0).equals(TASKREP_KEY)) {
-				TasksWorkloadReport taskReport = new TasksWorkloadReport();
-				taskReport.setFormId(TASKREP_KEY);
 				return taskReport;
 			}
 			
@@ -92,10 +88,18 @@ public class CooperatorFormTests {
 	
 	@Before
 	public void setupMock() {
+		
+		coop = mock(Coop.class);
+		coop = new Coop();
+
 		coopEval = mock(CoopEvaluation.class);
+		coopEval = service.createCoopEvaluation(COOPEVAL_KEY, null, "workExperience", 5, "softwareTechnologies", "usefulCourses", coop);	
 		studentEval = mock(StudentEvaluation.class);
+		studentEval = service.createStudentEvaluation(STUDENTEVAL_KEY, null, "studentWorkExperience", 5, coop);
 		accepForm = mock(AcceptanceForm.class);
+		accepForm = service.createAcceptanceForm(ACCEP_KEY, null, coop);
 		taskReport = mock(TasksWorkloadReport.class);
+		taskReport = service.createTasksWorkloadReport(TASKREP_KEY, null, "tasks", 40, 20, "training", coop);
 	}
 	
 	@Test
@@ -106,6 +110,7 @@ public class CooperatorFormTests {
 	@Test
 	public void testCoopEvaluationQueryFound() {
 		assertEquals(COOPEVAL_KEY, service.getForm(COOPEVAL_KEY).getFormId());
+		
 	}
 	
 	@Test 

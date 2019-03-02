@@ -28,12 +28,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+
 import java.sql.Date;
 
 /**
@@ -51,6 +46,8 @@ public class CooperatorStudentTests {
 
 	@Mock
 	private StudentRepository studentDao;
+	@Mock
+	private AdministratorRepository adminDao;
 
 	@InjectMocks
 	private CooperatorService service;
@@ -61,13 +58,16 @@ public class CooperatorStudentTests {
 
 	private static final int VALID_STUDENT_KEY = 1;
 	private static final int INVALID_STUDENT_KEY = -1;
+	
+	private Administrator admin;
+
+	private static final int VALID_ADMIN_KEY = 1;
+	
 
 	@Before
 	public void setMockOutput() {
 		when(studentDao.findStudentByUserId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(VALID_STUDENT_KEY)) {
-				Student student = new Student();
-				student.setUserId(VALID_STUDENT_KEY);
 				return student;
 			} else {
 				return null;
@@ -77,7 +77,11 @@ public class CooperatorStudentTests {
 
 	@Before
 	public void setupMock() {
+		admin = mock(Administrator.class);
+		admin = service.createAdministrator(VALID_ADMIN_KEY, 123, "email", "firstName", "lastName", "password", Faculty.Engineering, 260);
 		student = mock(Student.class);
+		student = service.createStudent(VALID_STUDENT_KEY, 321332, "email", "firstName", "lastName", "password", Faculty.Education, 260, "major", "minor", "academicYear", admin);
+
 	}
 
 	@Test
@@ -88,6 +92,15 @@ public class CooperatorStudentTests {
 	@Test
 	public void testStudentQueryFound() {
 		assertEquals(VALID_STUDENT_KEY, service.getStudent(VALID_STUDENT_KEY).getUserId());
+		assertEquals(321332, service.getStudent(VALID_STUDENT_KEY).getPhone());
+		assertEquals("email", service.getStudent(VALID_STUDENT_KEY).getEmail());
+		assertEquals("firstName", service.getStudent(VALID_STUDENT_KEY).getFirstName());
+		assertEquals("lastName", service.getStudent(VALID_STUDENT_KEY).getLastName());
+		assertEquals("password", service.getStudent(VALID_STUDENT_KEY).getPassword());
+		assertEquals(Faculty.Education, service.getStudent(VALID_STUDENT_KEY).getFaculty());
+		assertEquals("major", service.getStudent(VALID_STUDENT_KEY).getMajor());
+		assertEquals("minor", service.getStudent(VALID_STUDENT_KEY).getMinor());
+		assertEquals("academicYear", service.getStudent(VALID_STUDENT_KEY).getAcademicYear());
 	}
 
 	@Test
@@ -105,56 +118,5 @@ public class CooperatorStudentTests {
 		// assertNotNull(service.getAllStudentsWithFormError());
 	}
 
-	@Test
-	public void testRestService() {
-		try {
-
-			// Create User
-			URL urlS = new URL(
-					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/testing.student@mail.mcgill.ca/password/-1/260/U1/Software/NA");
-			HttpURLConnection connS = (HttpURLConnection) urlS.openConnection();
-			connS.setRequestMethod("POST");
-			assertEquals(200, connS.getResponseCode());
-			connS.disconnect();
-
-			//Create Employer
-			URL urlE = new URL(
-					"http://cooperator-backend-3417.herokuapp.com/employer/438/TestEmployerFirst/TestEmployerLast/testing.employer@mail.mcgill.ca/password/-1/President/Mcgill/Montreal");
-			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
-			connE.setRequestMethod("POST");
-			assertEquals(200, connE.getResponseCode());
-			connE.disconnect();
-			
-//			//Create Coop
-//			URL urlC = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/coop/-1/true/02-02-2018/Great Job/123/Montreal/false/winter/01-01-2018/-1/-1");
-//			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
-//			connC.setRequestMethod("POST");
-//			assertEquals(200, connC.getResponseCode());
-//			connC.disconnect();
-			
-//			Date startDate = new Date(CooperatorRestController.createDate("01-01-2018"));
-//			Date endDate = new Date(CooperatorRestController.createDate("02-02-2018"));
-//			
-//			service.createCoop(-1, true, endDate, "Great Job", 123, "Montreal", false, Semester.Winter, startDate, service.getStudent(-1), service.getEmployer(-1));
-			
-//			//Create Form
-//			URL urlF = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/form/acceptanceForm/-1/02-03-2016/-1");
-//			HttpURLConnection connF = (HttpURLConnection) urlF.openConnection();
-//			connF.setRequestMethod("POST");
-//			assertEquals(200, connF.getResponseCode());
-//			connF.disconnect();
-
-		} catch (MalformedURLException e) {
-
-			e.printStackTrace();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-
-		}
-	}
-
+	
 }

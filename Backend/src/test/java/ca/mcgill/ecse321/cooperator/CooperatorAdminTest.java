@@ -61,8 +61,6 @@ public class CooperatorAdminTest {
 	public void setMockOutput() {
 		when(adminDao.findAdministratorByUserId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(VALID_ADMIN_KEY)) {
-				Administrator admin = new Administrator();
-				admin.setUserId(VALID_ADMIN_KEY);
 				return admin;
 			} else {
 				return null;
@@ -73,6 +71,7 @@ public class CooperatorAdminTest {
 	@Before
 	public void setupMock() {
 		admin = mock(Administrator.class);
+		admin = service.createAdministrator(VALID_ADMIN_KEY, 123, "email", "firstName", "lastName", "password", Faculty.Engineering, 260);
 	}
 	
 	@Test
@@ -83,6 +82,14 @@ public class CooperatorAdminTest {
 	@Test
 	public void testAdministratorQueryFound() {
 		assertEquals(VALID_ADMIN_KEY, service.getAdministrator(VALID_ADMIN_KEY).getUserId());
+		assertEquals(123, service.getAdministrator(VALID_ADMIN_KEY).getPhone());
+		assertEquals("email", service.getAdministrator(VALID_ADMIN_KEY).getEmail());
+		assertEquals("firstName", service.getAdministrator(VALID_ADMIN_KEY).getFirstName());
+		assertEquals("lastName", service.getAdministrator(VALID_ADMIN_KEY).getLastName());
+		assertEquals("password", service.getAdministrator(VALID_ADMIN_KEY).getPassword());
+		assertEquals(Faculty.Engineering, service.getAdministrator(VALID_ADMIN_KEY).getFaculty());
+		assertEquals(260, service.getAdministrator(VALID_ADMIN_KEY).getId());
+		
 	}
 	
 	@Test
