@@ -36,7 +36,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+
+
 
 /**
  * @author anudr
@@ -52,17 +57,34 @@ public class CooperatorReminderTests {
 
 	@Mock
 	private ReminderRepository reminderDao;
+	@Mock
+	private CoopRepository CoopDao;
+	@Mock
+	private StudentRepository studentDao;
+	@Mock
+	private EmployerRepository employerDao;
 
 	@InjectMocks
 	private CooperatorService service;
 
 	@InjectMocks
 	private CooperatorRestController controller;
-
+	private Student student;
+	private Employer employer;
+	private Coop coop;
 	private Reminder reminder;
+	private List<Reminder> remindersSent = new ArrayList<Reminder>();
 
 	private static final int REMINDER_KEY = 60;
 	private static final int INVALID_KEY = -60;
+	private static final int STUDENT_KEY = 1;
+	private static final int EMPLOYER_KEY = 1;
+	private static final int COOP_KEY = 1;
+	private static final int COOPEVAL_KEY = 40;
+	private static final int STUDENTEVAL_KEY = 41;
+	private static final int ACCEP_KEY = 42;
+	private static final int TASKREP_KEY = 43;
+
 
 	@Before
 	public void setMockOutput() {
@@ -75,16 +97,58 @@ public class CooperatorReminderTests {
 				return null;
 			}
 		});
+		
+		when(studentDao.findStudentByUserId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			if (invocation.getArgument(0).equals(STUDENT_KEY)) {
+				return student;
+			} else {
+				return null;
+			}
+		});
+		
+		when(employerDao.findEmployerByUserId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			if (invocation.getArgument(0).equals(EMPLOYER_KEY)) {
+				return employer;
+			} else {
+				return null;
+			}
+		});
+		when(CoopDao.findCoopByCoopId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			if (invocation.getArgument(0).equals(COOP_KEY)) {
+				return coop;
+			} else {
+				return null;
+			}
+		});
 	}
 
 	@Before
 	public void setupMock() {
-		reminder = mock(Reminder.class);
+		Date today = new Date(System.currentTimeMillis());
+		Date startDate = service.addDays(today, 15); // today + 15 days -> need a reminder if no forms submitted
+		Date endDate =  service.addDays(today, 100);
+		student = mock(Student.class);
+		student = service.createStudent(STUDENT_KEY, 321332, "email", "firstName", "lastName",
+				"password", Faculty.Education, 260, "major", "minor", "academicYear", null);
+		employer = mock(Employer.class);
+		employer = service.createEmployer(EMPLOYER_KEY, 123, "email", "firstName", "lastName",
+				"password", "position", "company", "location");
+		coop = mock(Coop.class);
+		coop = service.createCoop(COOP_KEY, true, endDate, "jobDescription", 12, "location",
+				true , Semester.Summer, startDate, student, employer);
+		remindersSent = service.sendReminders();
+
+
 	}
 
 	@Test
 	public void testReminderCreation() {
 		assertNotNull(REMINDER_KEY);
+	}
+	
+	@Test
+	public void testSendReminders() {
+		assertNotNull(remindersSent);
 	}
 
 	@Test
@@ -96,50 +160,16 @@ public class CooperatorReminderTests {
 	public void testReminderQueryNotFound() {
 		assertNull(service.getReminder(INVALID_KEY));
 	}
-
-	@Test
-	public void testSendReminders() {
-		assertEquals(0, service.getAllReminders().size());
-
-		Employer employer;
-		Administrator admin;
-		Student student;
-		Coop coop;
-
-		int coopId = 1;
-		int jobId = 1;
-		boolean employerConfirmation = true;
-
-		String jobDescription = "Java";
-		String location = "Montreal";
-		boolean needWorkPermit = true;
-		Semester semester = Semester.Fall;
-		Date today = new Date(System.currentTimeMillis()); // return today's date
-		Date startDate = service.addDays(today, 15); // today + 15 days -> need a reminder if no forms submitted
-		Date endDate = service.addDays(today, 100);
-
+	
+	public static long createDate(String date) {
+		java.util.Date dateFormat = null;
 		try {
-			employer = mock(Employer.class);
-			employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
-					"Montreal", "HR");
-			admin = mock(Administrator.class);
-			admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
-					Faculty.Engineering, 260147532);
-			student = mock(Student.class);
-			student = service.createStudent(3, 1, "@gmail.com", "Ngolo", "Kanté", "password",
-					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			coop = mock(Coop.class);
-			coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location, needWorkPermit,
-					semester, startDate, student, employer);
-			service.sendReminders();
-		} catch (IllegalArgumentException e) {
-			fail();
+			dateFormat = new SimpleDateFormat("dd-MM-yyyy").parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
-
-		List<Reminder> allReminders = service.getAllReminders();
-		List<Student> everyStudents = service.getAllStudents();
-		assertEquals(everyStudents.size(), allReminders.size());
-
+		return dateFormat.getTime();
 	}
+
 
 }
