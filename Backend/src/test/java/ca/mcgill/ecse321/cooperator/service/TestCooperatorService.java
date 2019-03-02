@@ -486,5 +486,188 @@ public class TestCooperatorService {
 		assertEquals(everyStudents.size(), allReminders.size());
 		
 	}
+	
+	@Test
+	public void testEditAcceptanceForm() {
+		assertEquals(0, service.getAllForms().size());
+
+		int formId = 1;
+		Date submissionDate = null;
+		
+		String attribute = "submissiondate";
+		Date newSubmissionDate = null;
+
+		int coopId = 1;
+		int jobId = 1;
+		boolean employerConfirmation = true;
+		Date endDate = null;
+		String jobDescription = "Java";
+		String location = "Montreal";
+		boolean needWorkPermit = true;
+		Semester semester = Semester.Fall;
+		Date startDate = null;
+
+		try {
+			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
+					"Montreal", "HR");
+			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+					Faculty.Engineering, 260147532);
+			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
+					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
+					needWorkPermit, semester, startDate, student, employer);
+			service.createAcceptanceForm(formId, submissionDate, coop);
+			service.editAcceptanceForm(formId, attribute, newSubmissionDate);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+
+		List<Form> allForms = service.getAllForms();
+		
+		assertEquals(1, allForms.size());
+		assertEquals(formId, allForms.get(0).getFormId());
+		assertEquals(newSubmissionDate, allForms.get(0).getSubmissionDate());
+		// more assertEquals() ...
+	}
+	
+	@Test
+	public void testEditCoopEvaluation() {
+		assertEquals(0, service.getAllForms().size());
+
+		String usefulCourses = "none";
+		String softwareTechnologies = "dialogflow";
+		int employerEvaluation = 9;
+		String workExperience = "great";
+		int formId = 3;
+		Date submissionDate = null;
+		
+		String attribute = "submissiondate";
+		Date newSubmissionDate = null;
+
+		int coopId = 1;
+		int jobId = 1;
+		boolean employerConfirmation = true;
+		Date endDate = null;
+		String jobDescription = "Java";
+		String location = "Montreal";
+		boolean needWorkPermit = true;
+		Semester semester = Semester.Fall;
+		Date startDate = null;
+
+		try {
+			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
+					"Montreal", "HR");
+			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+					Faculty.Engineering, 260147532);
+			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
+					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
+					needWorkPermit, semester, startDate, student, employer);
+			service.createCoopEvaluation(formId, submissionDate, workExperience, employerEvaluation,
+					softwareTechnologies, usefulCourses, coop);
+			service.editCoopEvaluation(formId, attribute, newSubmissionDate);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+
+		List<Form> allForms = service.getAllForms();
+		
+		assertEquals(1, allForms.size());
+		assertEquals(formId, allForms.get(0).getFormId());
+		assertEquals(newSubmissionDate, allForms.get(0).getSubmissionDate());
+		// more assertEquals() ...
+	}
+
+	@Test
+	public void testEditStudentEvaluation() {
+		assertEquals(0, service.getAllForms().size());
+
+		int studentPerformance = 10;
+		String studentWorkExperience = "amazing";
+		int formId = 4;
+		Date submissionDate = null;
+		
+		String attribute = "submissiondate";
+		Date newSubmissionDate = null;
+
+		int coopId = 1;
+		int jobId = 1;
+		boolean employerConfirmation = true;
+		Date endDate = null;
+		String jobDescription = "Java";
+		String location = "Montreal";
+		boolean needWorkPermit = true;
+		Semester semester = Semester.Fall;
+		Date startDate = null;
+
+		try {
+			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
+					"Montreal", "HR");
+			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+					Faculty.Engineering, 260147532);
+			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
+					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
+					needWorkPermit, semester, startDate, student, employer);
+			service.createStudentEvaluation(formId, submissionDate, studentWorkExperience, studentPerformance, coop);
+			service.editStudentEvaluation(formId, attribute, newSubmissionDate);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+
+		List<Form> allForms = service.getAllForms();
+		
+		assertEquals(1, allForms.size());
+		assertEquals(formId, allForms.get(0).getFormId());
+		assertEquals(newSubmissionDate, allForms.get(0).getSubmissionDate());
+		// more assertEquals() ...
+	}
+
+	@Test
+	public void testEditTasksWorkloadReport() {
+		assertEquals(0, service.getAllForms().size());
+
+		String training = "";
+		int wage = 400;
+		int hoursPerWeek = 35;
+		String tasks = "testing";
+		int formId = 5;
+		Date submissionDate = null;
+		
+		String attribute = "submissiondate";
+		Date newSubmissionDate = null;
+
+		int coopId = 1;
+		int jobId = 1;
+		boolean employerConfirmation = true;
+		Date endDate = null;
+		String jobDescription = "Java";
+		String location = "Montreal";
+		boolean needWorkPermit = true;
+		Semester semester = Semester.Fall;
+		Date startDate = null;
+
+		try {
+			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
+					"Montreal", "HR");
+			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+					Faculty.Engineering, 260147532);
+			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
+					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
+			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
+					needWorkPermit, semester, startDate, student, employer);
+			service.createTasksWorkloadReport(formId, submissionDate, tasks, hoursPerWeek, wage, training, coop);
+			service.editTasksWorkloadReport(formId, attribute, newSubmissionDate);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+
+		List<Form> allForms = service.getAllForms();
+		
+		assertEquals(1, allForms.size());
+		assertEquals(formId, allForms.get(0).getFormId());
+		assertEquals(newSubmissionDate, allForms.get(0).getSubmissionDate());
+		// more assertEquals() ...
+	}
 
 }
