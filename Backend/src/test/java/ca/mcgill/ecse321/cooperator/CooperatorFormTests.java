@@ -25,8 +25,17 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author anudr
@@ -44,6 +53,10 @@ public class CooperatorFormTests {
 	private FormRepository formDao;
 	@Mock
 	private CoopRepository CoopDao;
+	@Mock
+	private StudentRepository studentDao;
+	@Mock
+	private EmployerRepository employerDao;
 	
 	@InjectMocks
 	private CooperatorService service;
@@ -51,13 +64,20 @@ public class CooperatorFormTests {
 	@InjectMocks
 	private CooperatorRestController controller;
 	
+	private Student student;
+	private Employer employer;
 	private CoopEvaluation coopEval;
 	private AcceptanceForm accepForm;
 	private StudentEvaluation studentEval;
 	private TasksWorkloadReport taskReport;
 	private Coop coop;
+	private List<Form> returnedForms = new ArrayList<Form>();
+	private Set<Form> formsFromStudent = new HashSet<Form>();
+	private Set<Form> formsFromEmployer = new HashSet<Form>();
 
-	
+	private static final int STUDENT_KEY = 1;
+	private static final int EMPLOYER_KEY = 1;
+	private static final int COOP_KEY = 1;
 	private static final int COOPEVAL_KEY = 40;
 	private static final int STUDENTEVAL_KEY = 41;
 	private static final int ACCEP_KEY = 42;
@@ -84,14 +104,46 @@ public class CooperatorFormTests {
 				return null;
 			}
 		});	
+		
+		when(formDao.findAll()).thenAnswer((InvocationOnMock invocation)->{
+			List<Form> list = new ArrayList<Form>();
+			list.add(coopEval);
+			list.add(studentEval);
+			list.add(accepForm);
+			list.add(taskReport);
+			return list;
+		});
+		
+		when(studentDao.findStudentByUserId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			if (invocation.getArgument(0).equals(STUDENT_KEY)) {
+				return student;
+			} else {
+				return null;
+			}
+		});
+		
+		when(employerDao.findEmployerByUserId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			if (invocation.getArgument(0).equals(EMPLOYER_KEY)) {
+				return employer;
+			} else {
+				return null;
+			}
+		});
+		
+		when(CoopDao.isInSemester(any(), any(), anyInt())).thenAnswer((InvocationOnMock invocation)->{
+			return true;
+		});
 	}
 	
 	@Before
 	public void setupMock() {
 		
+		student = mock(Student.class);
+		student = service.createStudent(STUDENT_KEY, 321332, "email", "firstName", "lastName", "password", Faculty.Education, 260, "major", "minor", "academicYear", null);
+		employer = mock(Employer.class);
+		employer = service.createEmployer(EMPLOYER_KEY, 123, "email", "firstName", "lastName", "password", "position", "company", "location");
 		coop = mock(Coop.class);
-		coop = new Coop();
-
+		coop = service.createCoop(COOP_KEY, true, new Date(createDate("31-08-2018")), "jobDescription", 12, "location", true , Semester.Summer, new Date(createDate("01-05-2018")), student, employer);
 		coopEval = mock(CoopEvaluation.class);
 		coopEval = service.createCoopEvaluation(COOPEVAL_KEY, null, "workExperience", 5, "softwareTechnologies", "usefulCourses", coop);	
 		studentEval = mock(StudentEvaluation.class);
@@ -100,6 +152,16 @@ public class CooperatorFormTests {
 		accepForm = service.createAcceptanceForm(ACCEP_KEY, null, coop);
 		taskReport = mock(TasksWorkloadReport.class);
 		taskReport = service.createTasksWorkloadReport(TASKREP_KEY, null, "tasks", 40, 20, "training", coop);
+		
+		returnedForms.add(coopEval);
+		returnedForms.add(studentEval);
+		returnedForms.add(accepForm);
+		returnedForms.add(taskReport);
+		
+		formsFromStudent.add(coopEval);
+		formsFromStudent.add(studentEval);
+		formsFromStudent.add(accepForm);
+		formsFromStudent.add(taskReport);
 	}
 	
 	@Test
@@ -109,7 +171,15 @@ public class CooperatorFormTests {
 	
 	@Test
 	public void testCoopEvaluationQueryFound() {
+		CoopEvaluation cE = (CoopEvaluation) service.getForm(COOPEVAL_KEY);
 		assertEquals(COOPEVAL_KEY, service.getForm(COOPEVAL_KEY).getFormId());
+		assertEquals(null, cE.getSubmissionDate());
+		assertEquals("workExperience", cE.getWorkExperience());
+		assertEquals(5, cE.getEmployerEvaluation());
+		assertEquals("softwareTechnologies", cE.getSoftwareTechnologies());
+		assertEquals("usefulCourses", cE.getUsefulCourses());
+		assertEquals(coop, cE.getCoop());
+		
 		
 	}
 	
@@ -125,7 +195,11 @@ public class CooperatorFormTests {
 	
 	@Test
 	public void testStudentEvaluationQueryFound() {
-		assertEquals(STUDENTEVAL_KEY, service.getForm(STUDENTEVAL_KEY).getFormId());
+		StudentEvaluation sE = (StudentEvaluation) service.getForm(STUDENTEVAL_KEY);
+		assertEquals(STUDENTEVAL_KEY, sE.getFormId());
+		assertEquals(null, sE.getSubmissionDate());
+		assertEquals("studentWorkExperience", sE.getStudentWorkExperience());
+		assertEquals(5, sE.getStudentPerformance());
 	}
 	
 	@Test
@@ -145,7 +219,58 @@ public class CooperatorFormTests {
 	
 	@Test
 	public void testTasksWorkloadReportQueryFound() {
-		assertEquals(TASKREP_KEY, service.getForm(TASKREP_KEY).getFormId());
+		TasksWorkloadReport tWR = (TasksWorkloadReport) service.getForm(TASKREP_KEY);
+		assertEquals(TASKREP_KEY, tWR.getFormId());
+		assertEquals(null, tWR.getSubmissionDate());
+		assertEquals("tasks", tWR.getTasks());
+		assertEquals(40, tWR.getHoursPerWeek());
+		assertEquals(20, tWR.getWage());
+		assertEquals("training", tWR.getTraining());
+	}
+	
+	@Test
+	public void testGetAllForms() {
+		assertEquals(returnedForms, service.getAllForms());
+	}
+	
+	@Test
+	public void testCountForms() {
+		assertEquals(4, service.countForms(coop));
+	}
+	
+	@Test
+	public void testGetFormsFromStudent() {
+		assertEquals(formsFromStudent, service.getFormsFromStudent(STUDENT_KEY, Semester.Summer, 2018));
+	}
+	
+	@Test
+	public void testGetFormsFromEmployer() {
+		assertEquals(formsFromStudent, service.getFormsFromEmployer(EMPLOYER_KEY, Semester.Summer, 2018));
+	}
+	
+//	@Test
+//	public void testEditAcceptanceForm() {
+//		service.editAcceptanceForm(ACCEP_KEY, "formId", 90);
+//		assertNotNull(service.getForm(90));
+//	}
+	
+//	@Test
+//	public void testEditCoopEvaluation() {
+//		service.editCoopEvaluation(COOPEVAL_KEY, "workexperinece", "work");
+//		CoopEvaluation cE = (CoopEvaluation) service.getForm(COOPEVAL_KEY);
+//		assertEquals("work", cE.getWorkExperience());
+//		
+//		
+//	}
+//	
+	public static long createDate(String date) {
+		java.util.Date dateFormat = null;
+		try {
+			dateFormat = new SimpleDateFormat("dd-MM-yyyy").parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return dateFormat.getTime();
 	}
 	
 

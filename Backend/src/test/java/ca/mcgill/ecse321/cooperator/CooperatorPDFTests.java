@@ -42,6 +42,8 @@ public class CooperatorPDFTests {
 	
 	@Mock
 	private PDFRepository pdfDao;
+	@Mock
+	private CoopRepository coopRepo;
 	@InjectMocks
 	private CooperatorService service;
 
@@ -49,6 +51,7 @@ public class CooperatorPDFTests {
 	private CooperatorRestController controller;
 	
 	private PDF pdf;
+	private Coop coop;
 	
 	private static final int PDF_KEY = 50;
 	private static final int INVALID_KEY = -50;
@@ -57,8 +60,6 @@ public class CooperatorPDFTests {
 	public void setMockOutput() {
 		when(pdfDao.findPDFByDocId(anyInt())).thenAnswer((InvocationOnMock invocation)->{
 			if (invocation.getArgument(0).equals(PDF_KEY)) {
-				PDF pdf = new PDF();
-				pdf.setDocId(PDF_KEY);
 				return pdf;
 			} else {
 				return null;
@@ -68,7 +69,10 @@ public class CooperatorPDFTests {
 	
 	@Before
 	public void setupMock() {
+		coop = mock(Coop.class);
+		coop = new Coop();
 		pdf = mock(PDF.class);
+		pdf = service.createPDF(PDF_KEY, "filePath", DocumentType.TaxForm, null, coop);
 
 	}
 	
@@ -80,6 +84,10 @@ public class CooperatorPDFTests {
 	@Test
 	public void testPDFQueryFound() {
 		assertEquals(PDF_KEY, service.getPDF(PDF_KEY).getDocId());
+		assertEquals("filePath", service.getPDF(PDF_KEY).getFilePath());
+		assertEquals(DocumentType.TaxForm, service.getPDF(PDF_KEY).getDocumentType());
+		assertEquals(null, service.getPDF(PDF_KEY).getSubmissionDate());
+		assertEquals(coop, service.getPDF(PDF_KEY).getCoop());
 	}
 	
 	@Test

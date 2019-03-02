@@ -30,6 +30,10 @@ import static org.mockito.Mockito.when;
 
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author anudr
@@ -48,6 +52,12 @@ public class CooperatorStudentTests {
 	private StudentRepository studentDao;
 	@Mock
 	private AdministratorRepository adminDao;
+	@Mock
+	private FormRepository formDao;
+	@Mock
+	private CoopRepository coopRepo;
+	@Mock
+	private EmployerRepository employerDao;
 
 	@InjectMocks
 	private CooperatorService service;
@@ -55,13 +65,16 @@ public class CooperatorStudentTests {
 	private CooperatorRestController controller;
 
 	private Student student;
-
-	private static final int VALID_STUDENT_KEY = 1;
-	private static final int INVALID_STUDENT_KEY = -1;
-	
 	private Administrator admin;
-
+	private Coop coop;
+	private Employer employer;
+	private List<Student> expectedList = new ArrayList<Student>();
+	
+	private static final int VALID_STUDENT_KEY = 1;
 	private static final int VALID_ADMIN_KEY = 1;
+	private static final int VALID_COOP_KEY = 1;
+	private static final int INVALID_STUDENT_KEY = -1;
+		
 	
 
 	@Before
@@ -73,15 +86,24 @@ public class CooperatorStudentTests {
 				return null;
 			}
 		});
+		when(studentDao.findAll()).thenAnswer((InvocationOnMock invocation)->{
+			List<Student> list = new ArrayList<Student>();
+			list.add(student);
+			return list;
+		});
 	}
 
 	@Before
 	public void setupMock() {
+		employer = mock(Employer.class);
+		employer = new Employer();
 		admin = mock(Administrator.class);
 		admin = service.createAdministrator(VALID_ADMIN_KEY, 123, "email", "firstName", "lastName", "password", Faculty.Engineering, 260);
 		student = mock(Student.class);
 		student = service.createStudent(VALID_STUDENT_KEY, 321332, "email", "firstName", "lastName", "password", Faculty.Education, 260, "major", "minor", "academicYear", admin);
-
+		coop = mock(Coop.class);
+		coop = service.createCoop(VALID_COOP_KEY, true, new Date(createDate("31-08-2018")), "jobDescription", 12, "location", true , Semester.Summer, new Date(createDate("01-05-2018")), student, employer);
+		expectedList.add(student);
 	}
 
 	@Test
@@ -115,8 +137,17 @@ public class CooperatorStudentTests {
 
 	@Test
 	public void testGetAllStudentsWithFormErrors() {
-		// assertNotNull(service.getAllStudentsWithFormError());
+		String term = service.getTerm(Semester.Summer, new Date(createDate("02-05-2018")), new Date(createDate("29-08-2018")));
+		assertEquals(expectedList, service.getAllStudentsWithFormError(term));
 	}
 
-	
+	public static long createDate(String date) {
+		java.util.Date dateFormat = null;
+		try {
+			dateFormat = new SimpleDateFormat("dd-MM-yyyy").parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return dateFormat.getTime();
+	}
 }

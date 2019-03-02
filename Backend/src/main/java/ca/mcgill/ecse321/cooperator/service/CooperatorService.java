@@ -774,10 +774,10 @@ public class CooperatorService {
 		CoopEvaluation coopEvaluation = (CoopEvaluation) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-		case "formId" :
+		case "formid" :
 			coopEvaluation.setFormId((int) value);
 			break;
-		case "submissionDate":
+		case "submissiondate":
 			coopEvaluation.setSubmissionDate((Date) value);
 			break;
 		case "workexperience":
@@ -801,10 +801,10 @@ public class CooperatorService {
 		StudentEvaluation studentEvaluation = (StudentEvaluation) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-		case "formId" :
+		case "formid" :
 			studentEvaluation.setFormId((int) value);
 			break;
-		case "submissionDate":
+		case "submissiondate":
 			studentEvaluation.setSubmissionDate((Date) value);
 			break;
 		case "studentworkexperience":
@@ -822,16 +822,16 @@ public class CooperatorService {
 		TasksWorkloadReport tasksWorkloadReport = (TasksWorkloadReport) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-		case "formId" :
+		case "formid" :
 			tasksWorkloadReport.setFormId((int) value);
 			break;
-		case "submissionDate":
+		case "submissiondate":
 			tasksWorkloadReport.setSubmissionDate((Date) value);
 			break;
 		case "tasks":
 			tasksWorkloadReport.setTasks(value.toString());
 			break;
-		case "hoursPerWeek":
+		case "hoursperweek":
 			tasksWorkloadReport.setHoursPerWeek((int) value);
 			break;
 		case "wage":
