@@ -610,7 +610,7 @@ public class TestCooperatorService {
 			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
 					needWorkPermit, semester, startDate, student, employer);
 			service.createStudentEvaluation(formId, submissionDate, studentWorkExperience, studentPerformance, coop);
-			service.editCoopEvaluation(formId, attribute, newSubmissionDate);
+			service.editStudentEvaluation(formId, attribute, newSubmissionDate);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
@@ -657,7 +657,7 @@ public class TestCooperatorService {
 			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
 					needWorkPermit, semester, startDate, student, employer);
 			service.createTasksWorkloadReport(formId, submissionDate, tasks, hoursPerWeek, wage, training, coop);
-			service.editCoopEvaluation(formId, attribute, newSubmissionDate);
+			service.editTasksWorkloadReport(formId, attribute, newSubmissionDate);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
