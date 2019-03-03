@@ -8,12 +8,12 @@ In teams of four or five students, you will gather requirements, design a multi-
 ## Deliverable 1
 
 |Team member's name   |Total hours|Main Responsibilities  |
-|---------------------|-----------|-----------------------|
-| Romain Couperier    | 12        |Persistence Layer/Build System and Continuous Integration | 
-| Julien Lesaffre     | 8         |Build System and Continuous Integration/Project Report  |
-| Anudruth Manjunath  | 12        |Build System and Continuous Integration/Persistence Layer |
-| Matteo Nunez        | 8         |Requirements Model/Project Report |
-| Pierre Robert       | 8         |Domain Model/Requirements Model |
+|---------------------|-------|-----------------------|
+| Romain Couperier    | 12    |Persistence Layer/Build System and Continuous Integration | 
+| Julien Lesaffre     | 8     |Build System and Continuous Integration/Project Report  |
+| Anudruth Manjunath  | 12    |Build System and Continuous Integration/Persistence Layer |
+| Matteo Nunez        | 8     |Requirements Model/Project Report |
+| Pierre Robert       | 8     |Domain Model/Requirements Model |
 |**Total**|**48**|
 
 The table above shows the two tasks where we contributed the most. But it is important to note that we all worked on every tasks either during the group meetings or at home.
@@ -21,6 +21,20 @@ The table above shows the two tasks where we contributed the most. But it is imp
 [Deliverable 1 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-11/wiki/Deliverable-1-Report)
 
 ***
+
+## Deliverable 2
+
+|Team member's name   |Total hours|Main Responsibilities  |
+|---------------------|-------|-----------------------|
+| Romain Couperier    |  20   |Backend Implementation and Testing of UC4/Evolution of Persistence Layer	 | 
+| Julien Lesaffre     |  20   |Backend Implementation and Testing of UC5/Project Report  |
+| Anudruth Manjunath  |  20   |Backend Implementation and Testing of UC3/Software Quality Assurance Plan |
+| Matteo Nunez        |  20   |Backend Implementation and Testing of UC1/Software Quality Assurance Plan |
+| Pierre Robert       |  20   |Backend Implementation and Testing of UC2/Project Report |
+|**Total**|**100**|
+
+
+[Deliverable 2 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-11/wiki/Deliverable-2-Report)
 
 
 
