@@ -472,7 +472,7 @@ public class TestCooperatorService {
 					"Montreal", "HR");
 			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
-			Student student = service.createStudent(3, 1, "@gmail.com", "Ngolo", "Kanté", "password",
+			Student student = service.createStudent(3, 1, "@gmail.com", "Ngolo", "Kante", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
 			service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
 					needWorkPermit, semester, startDate, student, employer);
