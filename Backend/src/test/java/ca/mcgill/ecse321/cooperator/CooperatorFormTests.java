@@ -248,28 +248,51 @@ public class CooperatorFormTests {
 	
 	@Test
 	public void testEditAcceptanceForm() {
-		service.editAcceptanceForm(ACCEP_KEY, "SubmissionDate", new Date(createDate("31-09-2018")));
+		service.editAcceptanceForm(ACCEP_KEY, "SubmissionDate", new Date(createDate("01-09-2018")));
 		AcceptanceForm aF = (AcceptanceForm) service.getForm(ACCEP_KEY);
 		//assertNotNull(service.getForm(90));
-		assertEquals(new Date(createDate("31-09-2018")), aF.getSubmissionDate());
+		assertEquals(new Date(createDate("01-09-2018")), aF.getSubmissionDate());
 	}
 	
 	@Test
 	public void testEditCoopEvaluation() {
+		service.editCoopEvaluation(COOPEVAL_KEY, "SubmissionDate", new Date(createDate("01-09-2018")));
 		service.editCoopEvaluation(COOPEVAL_KEY, "WorkExperience", "work");
+		service.editCoopEvaluation(COOPEVAL_KEY, "EmployerEvaluation", 10);
+		service.editCoopEvaluation(COOPEVAL_KEY, "SoftwareTechnologies", "software");
+		service.editCoopEvaluation(COOPEVAL_KEY, "UsefulCourses", "course");
+		
 		CoopEvaluation cE = (CoopEvaluation) service.getForm(COOPEVAL_KEY);
-		assertEquals("work", cE.getWorkExperience());	
+		assertEquals(new Date(createDate("01-09-2018")), cE.getSubmissionDate());
+		assertEquals("work", cE.getWorkExperience());
+		assertEquals(10, cE.getEmployerEvaluation());
+		assertEquals("software", cE.getSoftwareTechnologies());
+		assertEquals("course", cE.getUsefulCourses());
 	}
 	
 	public void testEditStudentEvaluation() {
+		service.editAcceptanceForm(STUDENTEVAL_KEY, "SubmissionDate", new Date(createDate("01-09-2018")));
+		service.editStudentEvaluation(STUDENTEVAL_KEY, "StudentWorkExperience", "amazing");
 		service.editStudentEvaluation(STUDENTEVAL_KEY, "StudentPerformance", 10);
+		
 		StudentEvaluation sE = (StudentEvaluation) service.getForm(STUDENTEVAL_KEY);
+		assertEquals(new Date(createDate("01-09-2018")), sE.getSubmissionDate());
+		assertEquals("amazing", sE.getStudentWorkExperience());
 		assertEquals(10, sE.getStudentPerformance());
 	}
 	
 	public void testEditTasksWorkloadReport() {
+		service.editTasksWorkloadReport(TASKREP_KEY, "SubmissionDate", new Date(createDate("01-09-2018")));
+		service.editTasksWorkloadReport(TASKREP_KEY, "Tasks", "task");
+		service.editTasksWorkloadReport(TASKREP_KEY, "HoursPerWeek", 35);
+		service.editTasksWorkloadReport(TASKREP_KEY, "Wage", 21);
 		service.editTasksWorkloadReport(TASKREP_KEY, "Training", "none");
+		
 		TasksWorkloadReport tWR = (TasksWorkloadReport) service.getForm(TASKREP_KEY);
+		assertEquals(new Date(createDate("01-09-2018")), tWR.getSubmissionDate());
+		assertEquals("task", tWR.getTasks());
+		assertEquals(35, tWR.getHoursPerWeek());
+		assertEquals(21, tWR.getWage());
 		assertEquals("none", tWR.getTraining());
 	}
 	
