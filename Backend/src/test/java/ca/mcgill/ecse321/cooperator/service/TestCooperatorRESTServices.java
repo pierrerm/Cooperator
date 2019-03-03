@@ -339,50 +339,44 @@ public class TestCooperatorRESTServices {
 //			e.printStackTrace();
 //		}
 //	}
-//	
-//	@Test
-//	public void testEditForm() {
-//		try {
-//			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
-//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//			conn.setRequestMethod("POST");
-//			assertEquals(200, conn.getResponseCode());
-//			URL urlE = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/employer/438/TestEmployerFirst/TestEmployerLast/testing.employer@mail.mcgill.ca/password/-3/President/Mcgill/Montreal");
-//			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
-//			connE.setRequestMethod("POST");
-//			assertEquals(200, connE.getResponseCode());
-//			URL urlC = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/coop/-4/true/04-06-2019/GreatJob/123/Montreal/false/winter/25-2-2019/-3/-3");
-//			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
-//			connC.setRequestMethod("POST");
-//			assertEquals(200, connC.getResponseCode());
-//			conn.disconnect();
-//			connE.disconnect();
-//			connC.disconnect();
-////			URL urlF = new URL(
-////					"http://cooperator-backend-3417.herokuapp.com/form/acceptanceForm/-10/02-03-2016/-4");
-////			HttpURLConnection connF = (HttpURLConnection) urlF.openConnection();
-////			connF.setRequestMethod("POST");
-////			assertEquals(200, connF.getResponseCode());
-////			connF.disconnect();
-//			URL urlF = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/form/studentEvaluation/-12/02-03-2016/5/work/-4");
-//			HttpURLConnection connF = (HttpURLConnection) urlF.openConnection();
-//			connF.setRequestMethod("POST");
-//			assertEquals(200, connF.getResponseCode());
-//			connF.disconnect();
-//			URL urlF2 = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/editForm/-12/studentEvaluation/workExperience/experience");
-//			HttpURLConnection connF2 = (HttpURLConnection) urlF2.openConnection();
-//			connF2.setRequestMethod("POST");
-//			System.out.print("RESPONSE CODE: " + connF2.getResponseCode());
-//			assertEquals(200, connF2.getResponseCode());
-//			connF2.disconnect();
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	
+	@Test
+	public void testEditForm() {
+		try {
+			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			assertEquals(200, conn.getResponseCode());
+			URL urlE = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/employer/438/TestEmployerFirst/TestEmployerLast/testing.employer@mail.mcgill.ca/password/-3/President/Mcgill/Montreal");
+			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
+			connE.setRequestMethod("POST");
+			assertEquals(200, connE.getResponseCode());
+			URL urlC = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/coop/-4/true/04-06-2019/GreatJob/123/Montreal/false/winter/25-2-2019/-3/-3");
+			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
+			connC.setRequestMethod("POST");
+			assertEquals(200, connC.getResponseCode());
+			conn.disconnect();
+			connE.disconnect();
+			connC.disconnect();
+			URL urlF = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/form/studentEvaluation/-12/02-03-2016/5/work/-4");
+			HttpURLConnection connF = (HttpURLConnection) urlF.openConnection();
+			connF.setRequestMethod("POST");
+			assertEquals(200, connF.getResponseCode());
+			connF.disconnect();
+			URL urlF2 = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/form/-12/studentEvaluation/workExperience/experience");
+			HttpURLConnection connF2 = (HttpURLConnection) urlF2.openConnection();
+			connF2.setRequestMethod("PUT");
+			System.out.print("RESPONSE CODE: " + connF2.getResponseCode());
+			assertEquals(200, connF2.getResponseCode());
+			connF2.disconnect();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
