@@ -179,8 +179,6 @@ public class CooperatorFormTests {
 		assertEquals("softwareTechnologies", cE.getSoftwareTechnologies());
 		assertEquals("usefulCourses", cE.getUsefulCourses());
 		assertEquals(coop, cE.getCoop());
-		
-		
 	}
 	
 	@Test 
@@ -248,21 +246,33 @@ public class CooperatorFormTests {
 		assertEquals(formsFromStudent, service.getFormsFromEmployer(EMPLOYER_KEY, Semester.Summer, 2018));
 	}
 	
-//	@Test
-//	public void testEditAcceptanceForm() {
-//		service.editAcceptanceForm(ACCEP_KEY, "formId", 90);
-//		assertNotNull(service.getForm(90));
-//	}
+	@Test
+	public void testEditAcceptanceForm() {
+		service.editAcceptanceForm(ACCEP_KEY, "SubmissionDate", new Date(createDate("31-09-2018")));
+		AcceptanceForm aF = (AcceptanceForm) service.getForm(ACCEP_KEY);
+		//assertNotNull(service.getForm(90));
+		assertEquals(new Date(createDate("31-09-2018")), aF.getSubmissionDate());
+	}
 	
-//	@Test
-//	public void testEditCoopEvaluation() {
-//		service.editCoopEvaluation(COOPEVAL_KEY, "workexperinece", "work");
-//		CoopEvaluation cE = (CoopEvaluation) service.getForm(COOPEVAL_KEY);
-//		assertEquals("work", cE.getWorkExperience());
-//		
-//		
-//	}
-//	
+	@Test
+	public void testEditCoopEvaluation() {
+		service.editCoopEvaluation(COOPEVAL_KEY, "WorkExperience", "work");
+		CoopEvaluation cE = (CoopEvaluation) service.getForm(COOPEVAL_KEY);
+		assertEquals("work", cE.getWorkExperience());	
+	}
+	
+	public void testEditStudentEvaluation() {
+		service.editStudentEvaluation(STUDENTEVAL_KEY, "StudentPerformance", 10);
+		StudentEvaluation sE = (StudentEvaluation) service.getForm(STUDENTEVAL_KEY);
+		assertEquals(10, sE.getStudentPerformance());
+	}
+	
+	public void testEditTasksWorkloadReport() {
+		service.editTasksWorkloadReport(TASKREP_KEY, "Training", "none");
+		TasksWorkloadReport tWR = (TasksWorkloadReport) service.getForm(TASKREP_KEY);
+		assertEquals("none", tWR.getTraining());
+	}
+	
 	public static long createDate(String date) {
 		java.util.Date dateFormat = null;
 		try {

@@ -759,9 +759,9 @@ public class CooperatorService {
 		AcceptanceForm acceptanceForm = (AcceptanceForm) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-		case "formid" :
-			acceptanceForm.setFormId((int) value);
-			break;
+//		case "formid" :
+//			acceptanceForm.setFormId((int) value);
+//			break;
 		case "submissiondate":
 			acceptanceForm.setSubmissionDate((Date) value);
 			break;
@@ -774,9 +774,9 @@ public class CooperatorService {
 		CoopEvaluation coopEvaluation = (CoopEvaluation) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-		case "formid" :
-			coopEvaluation.setFormId((int) value);
-			break;
+//		case "formid" :
+//			coopEvaluation.setFormId((int) value);
+//			break;
 		case "submissiondate":
 			coopEvaluation.setSubmissionDate((Date) value);
 			break;
@@ -801,9 +801,9 @@ public class CooperatorService {
 		StudentEvaluation studentEvaluation = (StudentEvaluation) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-		case "formid" :
-			studentEvaluation.setFormId((int) value);
-			break;
+//		case "formid" :
+//			studentEvaluation.setFormId((int) value);
+//			break;
 		case "submissiondate":
 			studentEvaluation.setSubmissionDate((Date) value);
 			break;
@@ -822,9 +822,9 @@ public class CooperatorService {
 		TasksWorkloadReport tasksWorkloadReport = (TasksWorkloadReport) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-		case "formid" :
-			tasksWorkloadReport.setFormId((int) value);
-			break;
+//		case "formid" :
+//			tasksWorkloadReport.setFormId((int) value);
+//			break;
 		case "submissiondate":
 			tasksWorkloadReport.setSubmissionDate((Date) value);
 			break;
