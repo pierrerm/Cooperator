@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -361,9 +362,12 @@ public class CooperatorRestController {
 	@GetMapping(value = { "/forms/student/{userId}/{semester}/{year}", "/forms/student/{userId}/{semester}/{year}/" })
 	public List<FormDto> getFormsFromStudent(@PathVariable("userId") int userId, @PathVariable("semester") String semesterStr,
 			@PathVariable("year") int year) throws IllegalArgumentException {
+		
 		List<FormDto> formDtos = new ArrayList<>();
 		Semester semester = getSemester(semesterStr);
-		for (Form form : service.getFormsFromStudent(userId, semester, year)) {
+		Set<Form> forms = service.getFormsFromStudent(userId, semester, year);
+		
+		for (Form form : forms) {
 			formDtos.add(convertToDto(form));
 		}
 		return formDtos;
@@ -373,9 +377,12 @@ public class CooperatorRestController {
 	@GetMapping(value = { "/forms/employer/{userId}/{semester}/{year}", "/forms/employer/{userId}/{semester}/{year}/" })
 	public List<FormDto> getFormsFromEmployer(@PathVariable("userId") int userId, @PathVariable("semester") String semesterStr,
 			@PathVariable("year") int year) throws IllegalArgumentException {
+		
 		List<FormDto> formDtos = new ArrayList<>();
 		Semester semester = getSemester(semesterStr);
-		for (Form form : service.getFormsFromEmployer(userId, semester, year)) {
+		Set<Form> forms = service.getFormsFromEmployer(userId, semester, year);
+		
+		for (Form form : forms) {
 			formDtos.add(convertToDto(form));
 		}
 		return formDtos;

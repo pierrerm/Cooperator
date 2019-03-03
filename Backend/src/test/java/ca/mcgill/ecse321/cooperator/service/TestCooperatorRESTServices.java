@@ -312,19 +312,38 @@ public class TestCooperatorRESTServices {
 		}
 	}
 	
-//	@Test
-//	public void testGetStudentForms() {
-//		try {
-//			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/forms/student/-1/winter/2018");
-//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//			conn.setRequestMethod("GET");
-//			assertEquals(200, conn.getResponseCode());
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@Test
+	public void testGetStudentForms() {
+		try {
+			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			assertEquals(200, conn.getResponseCode());
+			URL urlE = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/employer/438/TestEmployerFirst/TestEmployerLast/testing.employer@mail.mcgill.ca/password/-3/President/Mcgill/Montreal");
+			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
+			connE.setRequestMethod("POST");
+			assertEquals(200, connE.getResponseCode());
+			URL urlC = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/coop/-4/true/04-06-2019/GreatJob/123/Montreal/false/winter/25-2-2019/-3/-3");
+			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
+			connC.setRequestMethod("POST");
+			assertEquals(200, connC.getResponseCode());
+			conn.disconnect();
+			connE.disconnect();
+			connC.disconnect();
+			
+			URL urlF = new URL("http://cooperator-backend-3417.herokuapp.com/forms/student/-1/winter/2019");
+			HttpURLConnection connF = (HttpURLConnection) urlF.openConnection();
+			connF.setRequestMethod("GET");
+			System.out.println("RESPONSE CODE: " + connF.getResponseCode());
+			assertEquals(200, connF.getResponseCode());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 //	
 //	@Test
 //	public void testGetEmployerForms() {
@@ -360,19 +379,35 @@ public class TestCooperatorRESTServices {
 			conn.disconnect();
 			connE.disconnect();
 			connC.disconnect();
-			URL urlF = new URL(
+			
+			URL urlF1 = new URL(
 					"http://cooperator-backend-3417.herokuapp.com/form/studentEvaluation/-12/02-03-2016/5/work/-4");
-			HttpURLConnection connF = (HttpURLConnection) urlF.openConnection();
-			connF.setRequestMethod("POST");
-			assertEquals(200, connF.getResponseCode());
-			connF.disconnect();
+			HttpURLConnection connF1 = (HttpURLConnection) urlF1.openConnection();
+			connF1.setRequestMethod("POST");
+			assertEquals(200, connF1.getResponseCode());
+			connF1.disconnect();
 			URL urlF2 = new URL(
 					"http://cooperator-backend-3417.herokuapp.com/form/-12/studentEvaluation/workExperience/experience");
 			HttpURLConnection connF2 = (HttpURLConnection) urlF2.openConnection();
 			connF2.setRequestMethod("PUT");
-			System.out.print("RESPONSE CODE: " + connF2.getResponseCode());
+			//System.out.println("RESPONSE CODE: " + connF2.getResponseCode());
 			assertEquals(200, connF2.getResponseCode());
 			connF2.disconnect();
+			
+			URL urlF3 = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/form/tasksWorkloadReport/-13/02-03-2016/40/tasks/training/20/-4");
+			HttpURLConnection connF3 = (HttpURLConnection) urlF3.openConnection();
+			connF3.setRequestMethod("POST");
+			assertEquals(200, connF3.getResponseCode());
+			connF3.disconnect();
+			URL urlF4 = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/form/-13/tasksWorkloadReport/training/none");
+			HttpURLConnection connF4 = (HttpURLConnection) urlF4.openConnection();
+			connF4.setRequestMethod("PUT");
+			//System.out.println("RESPONSE CODE: " + connF4.getResponseCode());
+			assertEquals(200, connF4.getResponseCode());
+			connF4.disconnect();
+			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

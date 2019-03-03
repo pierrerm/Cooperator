@@ -724,9 +724,9 @@ public class CooperatorService {
 	@Transactional
 	public Set<Form> getFormsFromStudent(int userId, Semester semester, int year) {
 		
+		Set<Form> forms = new HashSet<Form>();
 		Student student = getStudent(userId);
 		Set<Coop> coops = student.getCoop();
-		Set<Form> forms = null;
 
 		for (Coop coop : coops) {
 			if (coopRepository.isInSemester(coop, semester, year)) {
@@ -740,9 +740,9 @@ public class CooperatorService {
 	@Transactional
 	public Set<Form> getFormsFromEmployer(int userId, Semester semester, int year) {
 		
+		Set<Form> forms = new HashSet<Form>();
 		Employer employer = getEmployer(userId);
 		Set<Coop> coops = employer.getCoop();
-		Set<Form> forms = null;
 
 		for (Coop coop : coops) {
 			if (coopRepository.isInSemester(coop, semester, year)) {

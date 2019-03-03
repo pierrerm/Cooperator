@@ -492,60 +492,6 @@ public class TestCooperatorService {
 		
 	}
 	
-//	@Test
-//	public void testGetFormsFromStudent() {
-//		assertEquals(0, service.getAllForms().size());
-//
-//		String training = "";
-//		int wage = 400;
-//		int hoursPerWeek = 35;
-//		String tasks = "testing";
-//		int formId = 5;
-//		Date submissionDate = null;
-//		int studentPerformance = 10;
-//		String studentWorkExperience = "amazing";
-//		String usefulCourses = "none";
-//		String softwareTechnologies = "dialogflow";
-//		int employerEvaluation = 9;
-//		String workExperience = "great";
-//
-//		int coopId = 1;
-//		int jobId = 1;
-//		boolean employerConfirmation = true;
-//		Date endDate = null;
-//		String jobDescription = "Java";
-//		String location = "Montreal";
-//		boolean needWorkPermit = true;
-//		Semester semester = Semester.Fall;
-//		Date startDate = null;
-//		
-//		Set<Form> formFromStudent = null;
-//
-//		try {
-//			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
-//					"Montreal", "HR");
-//			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
-//					Faculty.Engineering, 260147532);
-//			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
-//					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-//			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
-//					needWorkPermit, semester, startDate, student, employer);
-//			service.createAcceptanceForm(formId, submissionDate, coop);
-//			service.createCoopEvaluation(formId+1, submissionDate, workExperience, employerEvaluation,
-//					softwareTechnologies, usefulCourses, coop);
-//			service.createStudentEvaluation(formId+2, submissionDate, studentWorkExperience, studentPerformance, coop);
-//			service.createTasksWorkloadReport(formId+3, submissionDate, tasks, hoursPerWeek, wage, training, coop);
-//			formFromStudent = service.getFormsFromStudent(3, semester, 2018);
-//		} catch (IllegalArgumentException e) {
-//			fail();
-//		}
-//
-//		List<Form> allForms = service.getAllForms();
-//		assertEquals(4, allForms.size());
-//		assertEquals(4, formFromStudent.size());
-//		//assertEquals(formId, allForms.get(0).getFormId());
-//	}
-	
 	@Test
 	public void testEditAcceptanceForm() {
 		assertEquals(0, service.getAllForms().size());
