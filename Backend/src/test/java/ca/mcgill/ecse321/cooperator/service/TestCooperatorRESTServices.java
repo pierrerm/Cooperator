@@ -217,31 +217,31 @@ public class TestCooperatorRESTServices {
 		}
 	}
 	
-	@Test
-	public void testGetStudentForms() {
-		try {
-			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/getStudentForms/-1/winter/2018");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			assertEquals(200, conn.getResponseCode());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void testGetEmployerForms() {
-		try {
-			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/getEmployerForms/-1/winter/2018");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			assertEquals(200, conn.getResponseCode());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testGetStudentForms() {
+//		try {
+//			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/getStudentForms/-1/winter/2018");
+//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//			conn.setRequestMethod("GET");
+//			assertEquals(200, conn.getResponseCode());
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	@Test
+//	public void testGetEmployerForms() {
+//		try {
+//			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/getEmployerForms/-1/winter/2018");
+//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//			conn.setRequestMethod("GET");
+//			assertEquals(200, conn.getResponseCode());
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }
