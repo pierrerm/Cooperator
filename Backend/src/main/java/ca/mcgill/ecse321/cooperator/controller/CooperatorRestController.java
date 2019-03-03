@@ -297,7 +297,7 @@ public class CooperatorRestController {
 	@PostMapping(value = {
 			"/form/tasksWorkloadReport/{formId}/{submissionDate}/{hoursPerWeek}/{tasks}/{training}/{wage}/{coopId}",
 			"/form/tasksWorkloadReport/{formId}/{submissionDate}/{hoursPerWeek}/{tasks}/{training}/{wage}/{coopId}/" })
-	public FormDto createForm(@PathVariable("type") String type, @PathVariable("formId") int formId,
+	public FormDto createForm(@PathVariable("formId") int formId,
 			@PathVariable("submissionDate") String submissionDateStr, @PathVariable("hoursPerWeek") int hoursPerWeek,
 			@PathVariable("tasks") String tasks, @PathVariable("training") String training,
 			@PathVariable("wage") int wage, @PathVariable("coopId") int coopId) throws IllegalArgumentException {
