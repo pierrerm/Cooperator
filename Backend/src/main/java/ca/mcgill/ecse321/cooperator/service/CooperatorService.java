@@ -325,7 +325,7 @@ public class CooperatorService {
 			for (Coop coop : coops) {
 				Date startDate = coop.getStartDate();
 				date = new Date(System.currentTimeMillis()); // return today's date
-				deadline = addDays(startDate, -14);
+				deadline = addDays(startDate, 14);
 				Date threeDaysLeft = addDays(deadline, -3);
 				Set<Form> forms = coop.getForm();
 				boolean isTasksWorkloadReportSubmited = false;
