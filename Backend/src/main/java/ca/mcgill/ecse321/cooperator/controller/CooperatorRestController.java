@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,17 +59,17 @@ public class CooperatorRestController {
 		return convertToDto(student);
 	}
 
-	// Student
-	@PostMapping(value = { "/s", "/s/" })
-	public StudentDto createStudent2(@RequestParam long phone, @RequestParam String firstName,
-			@RequestParam String lastName, @RequestParam String email, @RequestParam String password,
-			@RequestParam int userId, @RequestParam int id, @RequestParam String academicYear,
-			@RequestParam String major, @RequestParam String minor) throws IllegalArgumentException {
-		// @formatter:on
-		Student student = service.createStudent(userId, phone, email, firstName, lastName, password,
-				Faculty.Engineering, id, major, minor, academicYear, null);
-		return convertToDto(student);
-	}
+//	// Student
+//	@PostMapping(value = { "/s", "/s/" })
+//	public StudentDto createStudent2(@RequestParam long phone, @RequestParam String firstName,
+//			@RequestParam String lastName, @RequestParam String email, @RequestParam String password,
+//			@RequestParam int userId, @RequestParam int id, @RequestParam String academicYear,
+//			@RequestParam String major, @RequestParam String minor) throws IllegalArgumentException {
+//		// @formatter:on
+//		Student student = service.createStudent(userId, phone, email, firstName, lastName, password,
+//				Faculty.Engineering, id, major, minor, academicYear, null);
+//		return convertToDto(student);
+//	}
 
 	@GetMapping(value = { "/students", "/students/" })
 	public List<StudentDto> getAllStudents() {
@@ -357,7 +358,7 @@ public class CooperatorRestController {
 	}
 
 	// Student Forms
-	@GetMapping(value = { "/getStudentForms/{userId}/{semester}/{year}", "/getForms/{userId}/{semester}/{year}/" })
+	@GetMapping(value = { "/forms/student/{userId}/{semester}/{year}", "/forms/student/{userId}/{semester}/{year}/" })
 	public List<FormDto> getFormsFromStudent(@PathVariable("userId") int userId, @PathVariable("semester") String semesterStr,
 			@PathVariable("year") int year) throws IllegalArgumentException {
 		List<FormDto> formDtos = new ArrayList<>();
@@ -369,7 +370,7 @@ public class CooperatorRestController {
 	}
 	
 	// Employer Forms
-	@GetMapping(value = { "/getEmployerForms/{userId}/{semester}/{year}", "/getForms/{userId}/{semester}/{year}/" })
+	@GetMapping(value = { "/forms/employer/{userId}/{semester}/{year}", "/forms/employer/{userId}/{semester}/{year}/" })
 	public List<FormDto> getFormsFromEmployer(@PathVariable("userId") int userId, @PathVariable("semester") String semesterStr,
 			@PathVariable("year") int year) throws IllegalArgumentException {
 		List<FormDto> formDtos = new ArrayList<>();
@@ -381,7 +382,7 @@ public class CooperatorRestController {
 	}
 	
 	// Edit Forms
-	@PostMapping(value = { "/editForm/{formId}/{type}/{attribute}/{value}", "/editForm/{coopId}/{type}/{attribute}/{value}/" })
+	@PutMapping(value = { "/form/{formId}/{type}/{attribute}/{value}", "/form/{coopId}/{type}/{attribute}/{value}/" })
 	public void editForm(@PathVariable("formId") int formId, @PathVariable("type") String type, 
 			@PathVariable("attribute") String attribute, @PathVariable("value") Object value) 
 					throws IllegalArgumentException {
