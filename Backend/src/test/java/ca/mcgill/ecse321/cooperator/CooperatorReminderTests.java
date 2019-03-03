@@ -56,6 +56,8 @@ public class CooperatorReminderTests {
 	}
 
 	@Mock
+	private FormRepository formDao;
+	@Mock
 	private ReminderRepository reminderDao;
 	@Mock
 	private CoopRepository CoopDao;
@@ -72,8 +74,12 @@ public class CooperatorReminderTests {
 	private Student student;
 	private Employer employer;
 	private Coop coop;
+	private CoopEvaluation coopEval;
 	private Reminder reminder;
+	private Reminder reminder1;
 	private List<Reminder> remindersSent = new ArrayList<Reminder>();
+	private List<Reminder> reminders = new ArrayList<Reminder>();
+	private List<Form> returnedForms = new ArrayList<Form>();
 
 	private static final int REMINDER_KEY = 60;
 	private static final int INVALID_KEY = -60;
@@ -90,17 +96,9 @@ public class CooperatorReminderTests {
 	public void setMockOutput() {
 		when(reminderDao.findReminderByReminderId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(REMINDER_KEY)) {
-				Reminder reminder = new Reminder();
+				reminder = new Reminder();
 				reminder.setReminderId(REMINDER_KEY);
 				return reminder;
-			} else {
-				return null;
-			}
-		});
-		
-		when(studentDao.findStudentByUserId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(STUDENT_KEY)) {
-				return student;
 			} else {
 				return null;
 			}
@@ -125,34 +123,42 @@ public class CooperatorReminderTests {
 			list.add(student);
 			return list;
 		});
+		when(formDao.findAll()).thenAnswer((InvocationOnMock invocation)->{
+			List<Form> list = new ArrayList<Form>();
+			list.add(coopEval);
+			return list;
+		});
+		
 	}
 
 	@Before
 	public void setupMock() {
 		Date today = new Date(System.currentTimeMillis());
-		Date startDate = service.addDays(today, 15); // today + 15 days -> need a reminder if no forms submitted
+		Date startDate = service.addDays(today, -12); // today + 15 days -> need a reminder if no forms submitted
 		Date endDate =  service.addDays(today, 100);
+		
 		student = mock(Student.class);
-		student = service.createStudent(STUDENT_KEY, 321332, "email", "firstName", "lastName",
-				"password", Faculty.Education, 260, "major", "minor", "academicYear", null);
+		student = service.createStudent(STUDENT_KEY, 321332, "email", "firstName", "lastName", "password", Faculty.Education, 260, "major", "minor", "academicYear", null);
 		employer = mock(Employer.class);
-		employer = service.createEmployer(EMPLOYER_KEY, 123, "email", "firstName", "lastName",
-				"password", "position", "company", "location");
+		employer = service.createEmployer(EMPLOYER_KEY, 123, "email", "firstName", "lastName", "password", "position", "company", "location");
 		coop = mock(Coop.class);
-		coop = service.createCoop(COOP_KEY, true, endDate, "jobDescription", 12, "location",
-				true , Semester.Summer, startDate, student, employer);
+		coop = service.createCoop(COOP_KEY, true, endDate, "jobDescription", 12, "location", true , Semester.Summer, startDate, student, employer);
+		coopEval = mock(CoopEvaluation.class);
+		coopEval = service.createCoopEvaluation(COOPEVAL_KEY, null, "workExperience", 5, "softwareTechnologies", "usefulCourses", coop);	
 		reminder = mock(Reminder.class);
-		remindersSent = service.sendReminders();
+		
 		
 	}
-
+	
 	@Test
 	public void testReminderCreation() {
 		assertNotNull(REMINDER_KEY);
 	}
 	
+	
 	@Test
 	public void testSendReminders() {
+		remindersSent = service.sendReminders();
 		assertNotNull(remindersSent);
 	}
 
