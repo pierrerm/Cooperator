@@ -469,7 +469,7 @@ public class TestCooperatorService {
 		boolean needWorkPermit = true;
 		Semester semester = Semester.Fall;
 		Date today = new Date(System.currentTimeMillis()); // return today's date
-		Date startDate = service.addDays(today, -12); // today + 15 days -> need a reminder if no forms submitted
+		Date startDate = service.addDays(today, -12); // today - 12 days -> need a reminder if no forms submitted
 		Date endDate =  service.addDays(today, 100);
 		
 		try {

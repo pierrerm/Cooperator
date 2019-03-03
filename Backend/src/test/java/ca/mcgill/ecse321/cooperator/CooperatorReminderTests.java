@@ -44,7 +44,7 @@ import java.util.List;
 
 
 /**
- * @author anudr
+ * @author anudr, JulienLesaffre
  *
  */
 @RunWith(SpringRunner.class)
@@ -120,6 +120,11 @@ public class CooperatorReminderTests {
 				return null;
 			}
 		});
+		when(studentDao.findAll()).thenAnswer((InvocationOnMock invocation)->{
+			List<Student> list = new ArrayList<Student>();
+			list.add(student);
+			return list;
+		});
 	}
 
 	@Before
@@ -136,9 +141,9 @@ public class CooperatorReminderTests {
 		coop = mock(Coop.class);
 		coop = service.createCoop(COOP_KEY, true, endDate, "jobDescription", 12, "location",
 				true , Semester.Summer, startDate, student, employer);
+		reminder = mock(Reminder.class);
 		remindersSent = service.sendReminders();
-
-
+		
 	}
 
 	@Test
