@@ -343,6 +343,25 @@ public class TestCooperatorRESTServices {
 	@Test
 	public void testEditForm() {
 		try {
+			
+			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			assertEquals(200, conn.getResponseCode());
+			URL urlE = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/employer/438/TestEmployerFirst/TestEmployerLast/testing.employer@mail.mcgill.ca/password/-3/President/Mcgill/Montreal");
+			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
+			connE.setRequestMethod("POST");
+			assertEquals(200, connE.getResponseCode());
+			URL urlC = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/coop/-4/true/04-06-2019/GreatJob/123/Montreal/false/winter/25-2-2019/-3/-3");
+			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
+			connC.setRequestMethod("POST");
+			assertEquals(200, connC.getResponseCode());
+			connC.disconnect();
+			conn.disconnect();
+			connE.disconnect();
+			
 //			URL urlF1 = new URL(
 //					"http://cooperator-backend-3417.herokuapp.com/form/acceptanceForm/-10/02-03-2016/-4");
 //			HttpURLConnection connF1 = (HttpURLConnection) urlF1.openConnection();
