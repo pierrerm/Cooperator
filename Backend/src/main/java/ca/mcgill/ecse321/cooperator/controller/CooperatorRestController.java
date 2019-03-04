@@ -390,9 +390,12 @@ public class CooperatorRestController {
 	
 	// Edit Forms
 	@PutMapping(value = { "/form/{formId}/{type}/{attribute}/{value}", "/form/{formId}/{type}/{attribute}/{value}/" })
-	public void editForm(@PathVariable("formId") int formId, @PathVariable("type") String type, 
+	public FormDto editForm(@PathVariable("formId") int formId, @PathVariable("type") String type, 
 			@PathVariable("attribute") String attribute, @PathVariable("value") Object value) 
 					throws IllegalArgumentException {
+		
+		FormDto formDto = new FormDto();
+		
 		if(attribute.toLowerCase().equals("submissiondate")) {
 			value = new Date(createDate(value.toString()));
 		}
@@ -410,6 +413,8 @@ public class CooperatorRestController {
 			service.editTasksWorkloadReport(formId, attribute, value);
 			break;
 		};
+		formDto = convertToDto(service.getForm(formId));
+		return formDto;
 	}
 	
 	@GetMapping(value = { "/student/problem/{term}", "/student/problem/{term}" })
