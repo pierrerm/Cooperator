@@ -389,10 +389,13 @@ public class CooperatorRestController {
 	}
 	
 	// Edit Forms
-	@PutMapping(value = { "/form/{formId}/{type}/{attribute}/{value}", "/form/{coopId}/{type}/{attribute}/{value}/" })
+	@PutMapping(value = { "/form/{formId}/{type}/{attribute}/{value}", "/form/{formId}/{type}/{attribute}/{value}/" })
 	public void editForm(@PathVariable("formId") int formId, @PathVariable("type") String type, 
 			@PathVariable("attribute") String attribute, @PathVariable("value") Object value) 
 					throws IllegalArgumentException {
+		if(attribute.toLowerCase().equals("submissiondate")) {
+			value = new Date(createDate(value.toString()));
+		}
 		switch(type.toLowerCase()) {
 		case "acceptanceform" :
 			service.editAcceptanceForm(formId, attribute, value);
