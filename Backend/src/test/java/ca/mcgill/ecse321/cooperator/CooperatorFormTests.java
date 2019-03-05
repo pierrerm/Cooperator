@@ -270,8 +270,9 @@ public class CooperatorFormTests {
 		assertEquals("course", cE.getUsefulCourses());
 	}
 	
+	@Test
 	public void testEditStudentEvaluation() {
-		service.editAcceptanceForm(STUDENTEVAL_KEY, "SubmissionDate", new Date(createDate("01-09-2018")));
+		service.editStudentEvaluation(STUDENTEVAL_KEY, "SubmissionDate", new Date(createDate("01-09-2018")));
 		service.editStudentEvaluation(STUDENTEVAL_KEY, "StudentWorkExperience", "amazing");
 		service.editStudentEvaluation(STUDENTEVAL_KEY, "StudentPerformance", 10);
 		
@@ -281,6 +282,7 @@ public class CooperatorFormTests {
 		assertEquals(10, sE.getStudentPerformance());
 	}
 	
+	@Test
 	public void testEditTasksWorkloadReport() {
 		service.editTasksWorkloadReport(TASKREP_KEY, "SubmissionDate", new Date(createDate("01-09-2018")));
 		service.editTasksWorkloadReport(TASKREP_KEY, "Tasks", "task");

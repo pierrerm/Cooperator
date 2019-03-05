@@ -172,6 +172,11 @@ public class CooperatorReminderTests {
 		assertNull(service.getReminder(INVALID_KEY));
 	}
 	
+	@Test
+	public void testGetAllReminders() {
+		assertNotNull(service.getAllReminders());
+	}
+	
 	public static long createDate(String date) {
 		java.util.Date dateFormat = null;
 		try {

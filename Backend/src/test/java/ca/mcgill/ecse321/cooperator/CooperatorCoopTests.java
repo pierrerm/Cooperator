@@ -109,4 +109,9 @@ public class CooperatorCoopTests {
 	public void testCoopQueryNotFound() {
 		assertNull(service.getCoop(INVALID_COOP_KEY));
 	}
+	
+	@Test
+	public void testGetAllCoops() {
+		assertNotNull(service.getAllCoops());
+	}
 }

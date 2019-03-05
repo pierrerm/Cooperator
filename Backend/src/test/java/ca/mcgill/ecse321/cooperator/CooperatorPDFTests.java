@@ -95,4 +95,9 @@ public class CooperatorPDFTests {
 		assertNull(service.getPDF(INVALID_KEY));
 	}
 	
+	@Test
+	public void testGetAllPDFs() {
+		assertNotNull(service.getAllPDFs());
+	}
+	
 }

@@ -86,4 +86,9 @@ public class CooperatorEmployerTests {
 	public void testEmployerQueryNotFound() {
 		assertNull(service.getEmployer(INVALID_EMPLOYER_KEY));
 	}
+	
+	@Test
+	public void testGetAllEmployers() {
+		assertNotNull(service.getAllEmployers());
+	}
 }

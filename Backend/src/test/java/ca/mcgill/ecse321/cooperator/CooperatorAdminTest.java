@@ -96,4 +96,9 @@ public class CooperatorAdminTest {
 	public void testAdministratorQueryNotFound() {
 		assertNull(service.getAdministrator(INVALID_ADMIN_KEY));
 	}
+	
+	@Test
+	public void testGetAllAdministrators() {
+		assertNotNull(service.getAllAdministrators());
+	}
 }
