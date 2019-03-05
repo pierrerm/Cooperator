@@ -449,7 +449,7 @@ public class CooperatorRestController {
 	}
 	
 	@GetMapping(value = { "/student/active/{term}", "/student/active/{term}" })
-	public List<StudentDto> getActiveStudents(@PathVariable("term") String term) {
+	public List<StudentDto> getAllActiveStudents(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
 		for (Student student : service.getAllActiveStudents(term)) {
 			studentDtos.add(convertToDto(student));
@@ -458,7 +458,7 @@ public class CooperatorRestController {
 	}
 	
 	@GetMapping(value = { "/coop/active/{term}", "/coop/active/{term}" })
-	public List<CoopDto> getActiveCoops(@PathVariable("term") String term) {
+	public List<CoopDto> getAllActiveCoops(@PathVariable("term") String term) {
 		List<CoopDto> coopDtos = new ArrayList<>();
 		for (Coop coop : service.getAllActiveCoops(term)) {
 			coopDtos.add(convertToDto(coop));
@@ -466,8 +466,8 @@ public class CooperatorRestController {
 		return coopDtos;
 	}
 	
-	@GetMapping(value = { "/coop/completed/{term}", "/coop/completed/{term}" })
-	public List<CoopDto> getCompletedCoops(@PathVariable("term") String term) {
+	@GetMapping(value = { "/coop/active/completed/{term}", "/coop/active/completed/{term}" })
+	public List<CoopDto> getAllCompletedCoops(@PathVariable("term") String term) {
 		List<CoopDto> coopDtos = new ArrayList<>();
 		for (Coop coop : service.getAllCompletedActiveCoops(term)) {
 			coopDtos.add(convertToDto(coop));
@@ -475,8 +475,8 @@ public class CooperatorRestController {
 		return coopDtos;
 	}
 	
-	@GetMapping(value = { "/coop/completed/{student}/{term}", "/coop/completed/{student}/{term}" })
-	public List<CoopDto> getCompletedCoops(@PathVariable("userId") int userId, 
+	@GetMapping(value = { "/coop/active/completed/student/{userId}/{term}", "/coop/active/completed/student/{userId}/{term}" })
+	public List<CoopDto> getCompletedActiveCoops(@PathVariable("userId") int userId, 
 			@PathVariable("term") String term) throws IllegalArgumentException {
 		List<CoopDto> coopDtos = new ArrayList<>();
 		for (Coop coop : service.getCompletedActiveCoops(userId, term)) {
@@ -485,8 +485,8 @@ public class CooperatorRestController {
 		return coopDtos;
 	}
 	
-	@GetMapping(value = { "/coop/prevCompleted/{term}", "/coop/completed/{term}" })
-	public List<CoopDto> getPreviouslyCompletedCoops(@PathVariable("term") String term) {
+	@GetMapping(value = { "/coop/completed/{term}", "/coop/completed/{term}" })
+	public List<CoopDto> getAllPreviouslyCompletedCoops(@PathVariable("term") String term) {
 		List<CoopDto> coopDtos = new ArrayList<>();
 		for (Coop coop : service.getAllPreviouslyCompletedCoops(term)) {
 			coopDtos.add(convertToDto(coop));
@@ -494,7 +494,7 @@ public class CooperatorRestController {
 		return coopDtos;
 	}
 	
-	@GetMapping(value = { "/coop/prevCompleted/{student}/{term}", "/coop/completed/{student}/{term}" })
+	@GetMapping(value = { "/coop/completed/student/{userId}/{term}", "/coop/completed/student/{userId}/{term}" })
 	public List<CoopDto> getPreviouslyCompletedCoops(@PathVariable("userId") int userId, 
 			@PathVariable("term") String term) throws IllegalArgumentException {
 		List<CoopDto> coopDtos = new ArrayList<>();
