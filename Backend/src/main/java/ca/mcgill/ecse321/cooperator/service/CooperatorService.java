@@ -677,53 +677,6 @@ public class CooperatorService {
 		return "No Term Found";
 	}
 	
-	@Transactional
-	public boolean isPriorToTerm(String term, Semester semester, Date startDate, Date endDate) {
-		String limitSemester;
-		int limitYear, i, year = Integer.MAX_VALUE;
-
-		for(i = 0; i < term.length(); i++) {
-			char c = term.charAt(i);
-			if (c >= '0'&& c <= '9') break;
-		}
-		
-		limitSemester = term.substring(0, i-1).replaceAll("\\s","").toLowerCase();
-		limitYear = Integer.parseInt(term.substring(i).replaceAll("\\s","").toLowerCase());
-		
-		Calendar calendarStart = new GregorianCalendar();
-		calendarStart.setTime(startDate);
-		int yearStart = calendarStart.get(Calendar.YEAR);
-
-		Calendar calendarEnd = new GregorianCalendar();
-		calendarEnd.setTime(endDate);
-		int yearEnd = calendarEnd.get(Calendar.YEAR);
-		
-		if (yearStart == yearEnd) {
-			year = yearStart;
-		} else if (yearStart == yearEnd - 1) {
-			if (semester == Semester.Fall) {
-				year = yearStart;
-			} else if (semester == Semester.Winter) {
-				year = yearEnd;
-			} else {
-				year = yearStart;
-			}
-		}
-		
-		if (year < limitYear) return true;
-		else if (year == limitYear){
-			switch(limitSemester.charAt(0)) {
-			case 'w': return false;
-			case 's': if (semester == Semester.Winter) return true;
-				      else return false;
-			case 'f': if (semester == Semester.Fall) return false;
-					  else return true;
-			default: return false;
-			}
-		}
-		return false;
-	}
-	
 //	@SuppressWarnings("null")
 //	@Transactional
 //	public double[] getSemesterStatistics(Semester semester, int year) {
@@ -840,7 +793,7 @@ public class CooperatorService {
 			List<Coop> completedCoops = new ArrayList<Coop>();
 			for(Student s : getAllStudents()) {
 				for (Coop c : s.getCoop()) {
-					if (isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
+					if (coopRepository.isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
 						if (countForms(c) >= 4) {
 							completedCoops.add(c);
 						}
@@ -858,7 +811,7 @@ public class CooperatorService {
 		for(Student s : getAllStudents()) {
 			if(s.getUserId() == userId) {
 				for (Coop c : s.getCoop()) {
-					if (isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
+					if (coopRepository.isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
 						if (countForms(c) >= 4) {
 							completedCoops.add(c);
 						}
