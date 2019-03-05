@@ -28,6 +28,12 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @author anudr
@@ -47,6 +53,8 @@ public class CooperatorCoopTests {
 	private StudentRepository studentDao;
 	@Mock
 	private EmployerRepository employerDao;
+	@Mock
+	private FormRepository formDao;
 	
 	@InjectMocks
 	private CooperatorService service;
@@ -54,13 +62,18 @@ public class CooperatorCoopTests {
 	private CooperatorRestController controller;
 	
 	private Coop coop;
+	private Coop coop2;
 	private Employer employer;
 	private Student student;
-
+	private Student student2;
+	
+	
 	private static final int VALID_STUDENT_KEY = 1;
 	private static final int VALID_EMPLOYER_KEY = 2;
 	private static final int VALID_COOP_KEY = 3;
 	private static final int INVALID_COOP_KEY = -1;
+	private List<Coop> expectedList = new ArrayList<Coop>();
+	private List<Coop> expectedList2 = new ArrayList<Coop>();
 
 	@Before
 	public void setMockOutput() {
@@ -71,6 +84,11 @@ public class CooperatorCoopTests {
 				return null;
 			}
 		});
+		when(coopDao.findAll()).thenAnswer((InvocationOnMock invocation)->{
+			List<Coop> list = new ArrayList<Coop>();
+			list.add(coop);
+			return list;
+		});
 	}
 	
 	@Before
@@ -80,8 +98,8 @@ public class CooperatorCoopTests {
 		employer = mock(Employer.class);
 		employer = service.createEmployer(VALID_EMPLOYER_KEY, 123, "email", "firstName", "lastName", "password", "position", "company", "location");
 		coop = mock(Coop.class);
-		coop = service.createCoop(VALID_COOP_KEY, true, null, "jobDescription", 12, "location", true , Semester.Fall, null, student, employer);
-
+		coop = service.createCoop(VALID_COOP_KEY, true, new Date(createDate("31-12-2018")), "jobDescription", 12, "location", true , Semester.Fall, new Date(createDate("31-08-2018")), student, employer);
+		expectedList.add(coop);
 	}
 	
 	@Test
@@ -90,23 +108,68 @@ public class CooperatorCoopTests {
 	}
 	
 	@Test
+	public void testGetAllCoops() {
+		assertNotNull(service.getAllCoops());
+	}
+	
+	@Test
 	public void testCoopQueryFound() {
 		assertEquals(VALID_COOP_KEY, service.getCoop(VALID_COOP_KEY).getCoopId());
 		assertEquals(true, service.getCoop(VALID_COOP_KEY).getEmployerConfirmation());
-		assertNull(service.getCoop(VALID_COOP_KEY).getEndDate());
+		assertEquals(new Date(createDate("31-12-2018")), service.getCoop(VALID_COOP_KEY).getEndDate());
 		assertEquals("jobDescription", service.getCoop(VALID_COOP_KEY).getJobDescription());
 		assertEquals(12, service.getCoop(VALID_COOP_KEY).getJobId());
 		assertEquals("location", service.getCoop(VALID_COOP_KEY).getLocation());
 		assertEquals(true, service.getCoop(VALID_COOP_KEY).getNeedWorkPermit());
 		assertEquals(Semester.Fall, service.getCoop(VALID_COOP_KEY).getSemester());
-		assertNull(service.getCoop(VALID_COOP_KEY).getStartDate());
+		assertEquals(new Date(createDate("31-08-2018")), service.getCoop(VALID_COOP_KEY).getStartDate());
 		assertEquals(student, service.getCoop(VALID_COOP_KEY).getStudent());
 		assertEquals(employer, service.getCoop(VALID_COOP_KEY).getEmployer());
 		
 	}
 	
 	@Test
+	public void testGetAllActiveCoops() {
+		String term = service.getTerm(Semester.Fall, new Date(createDate("31-08-2018")), new Date(createDate("31-12-2018")));
+		assertEquals(expectedList, service.getAllActiveCoops(term));
+	}
+	
+	@Test
+	public void testGetAllCompletedActiveCoops() {
+		String term = service.getTerm(Semester.Winter, new Date(createDate("06-01-2019")), new Date(createDate("30-04-2019")));
+		assertEquals(expectedList2, service.getAllCompletedActiveCoops(term));
+	}
+	
+	@Test
+	public void testGetCompletedActiveCoops() {
+		String term = service.getTerm(Semester.Winter, new Date(createDate("06-01-2019")), new Date(createDate("30-04-2019")));
+		assertEquals(expectedList2, service.getCompletedActiveCoops(VALID_STUDENT_KEY, term));
+	}
+	
+	@Test
+	public void testGetPreviouslyCompletedCoops() {
+		String term = service.getTerm(Semester.Winter, new Date(createDate("06-01-2019")), new Date(createDate("30-04-2019")));
+		assertEquals(expectedList2, service.getPreviouslyCompletedCoops(VALID_STUDENT_KEY, term));
+	}
+	
+	@Test
+	public void testGetAllPreviouslyCompletedCoops() {
+		String term = service.getTerm(Semester.Winter, new Date(createDate("06-01-2019")), new Date(createDate("30-04-2019")));
+		assertEquals(expectedList2, service.getAllPreviouslyCompletedCoops(term));
+	}
+	
+	@Test
 	public void testCoopQueryNotFound() {
 		assertNull(service.getCoop(INVALID_COOP_KEY));
+	}
+	
+	public static long createDate(String date) {
+		java.util.Date dateFormat = null;
+		try {
+			dateFormat = new SimpleDateFormat("dd-MM-yyyy").parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return dateFormat.getTime();
 	}
 }

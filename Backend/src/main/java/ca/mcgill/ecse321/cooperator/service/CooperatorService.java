@@ -619,24 +619,26 @@ public class CooperatorService {
 		Set<Form> forms = c.getForm();
 		int count = 0;
 		boolean aFound = false, cFound = false, sFound = false, tFound = false;
-
-		for (Form f : forms) {
-			if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.AcceptanceForm")
-					&& !aFound) {
-				count++;
-				aFound = true;
-			} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.CoopEvaluation")
-					&& !cFound) {
-				count++;
-				cFound = true;
-			} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation")
-					&& !sFound) {
-				count++;
-				sFound = true;
-			} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport")
-					&& !tFound) {
-				count++;
-				tFound = true;
+		
+		if (!forms.isEmpty()) {
+			for (Form f : forms) {
+				if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.AcceptanceForm")
+						&& !aFound) {
+					count++;
+					aFound = true;
+				} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.CoopEvaluation")
+						&& !cFound) {
+					count++;
+					cFound = true;
+				} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation")
+						&& !sFound) {
+					count++;
+					sFound = true;
+				} else if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport")
+						&& !tFound) {
+					count++;
+					tFound = true;
+				}
 			}
 		}
 
@@ -678,7 +680,7 @@ public class CooperatorService {
 	@Transactional
 	public boolean isPriorToTerm(String term, Semester semester, Date startDate, Date endDate) {
 		String limitSemester;
-		int limitYear, i;
+		int limitYear, i, year = Integer.MAX_VALUE;
 
 		for(i = 0; i < term.length(); i++) {
 			char c = term.charAt(i);
@@ -691,42 +693,33 @@ public class CooperatorService {
 		Calendar calendarStart = new GregorianCalendar();
 		calendarStart.setTime(startDate);
 		int yearStart = calendarStart.get(Calendar.YEAR);
-		int monthStart = calendarStart.get(Calendar.MONTH);
 
 		Calendar calendarEnd = new GregorianCalendar();
 		calendarEnd.setTime(endDate);
 		int yearEnd = calendarEnd.get(Calendar.YEAR);
-		int monthEnd = calendarEnd.get(Calendar.MONTH);
-
+		
 		if (yearStart == yearEnd) {
-			if (yearStart < limitYear) return true;
-			else if (yearStart == limitYear){
-				switch(limitSemester.charAt(0)) {
-				case 'w': return false;
-				case 's': if (semester == Semester.Winter) return true;
-					      else return false;
-				case 'f': if (semester == Semester.Fall) return false;
-						  else return true;
-				default: return false;
-				}
+			year = yearStart;
+		} else if (yearStart == yearEnd - 1) {
+			if (semester == Semester.Fall) {
+				year = yearStart;
+			} else if (semester == Semester.Winter) {
+				year = yearEnd;
+			} else {
+				year = yearStart;
 			}
-			else return false;
 		}
-		else if (monthStart >= 10 && monthStart <= 2 && semester == Semester.Winter) {
-			if (yearEnd < limitYear) return true;
-			else if (yearEnd == limitYear){
-				switch(limitSemester.charAt(0)) {
-				case 'w': return false;
-				case 's': return true;
-				case 'f': return true;
-				default: return false;
-				}
+		
+		if (year < limitYear) return true;
+		else if (year == limitYear){
+			switch(limitSemester.charAt(0)) {
+			case 'w': return false;
+			case 's': if (semester == Semester.Winter) return true;
+				      else return false;
+			case 'f': if (semester == Semester.Fall) return false;
+					  else return true;
+			default: return false;
 			}
-			else return false;
-		}
-		else if (monthEnd >= 10 && monthEnd < 2 && semester == Semester.Fall) {
-			if (yearStart < limitYear) return true;
-			else return false;
 		}
 		return false;
 	}
@@ -778,11 +771,11 @@ public class CooperatorService {
 //		return stats;
 //	}
 	
-	// US2 - Active Students (currently enrolled in coop term)
+	// US2 - Get all active Students (currently enrolled in coop term)
 	@Transactional
-	public List<Student> getActiveStudents(String term){
+	public List<Student> getAllActiveStudents(String term){
 		term = term.toLowerCase();
-		List<Student> activeStudents = new ArrayList<>();
+		List<Student> activeStudents = new ArrayList<Student>();
 		for (Student s : getAllStudents()) {
 			for (Coop c : s.getCoop()) {
 				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
@@ -793,11 +786,11 @@ public class CooperatorService {
 		return activeStudents;
 	}
 	
-	// US2 - Active Coops (currently ongoing coop term)
+	// US2 - Get all active Coops (currently ongoing coop term)
 	@Transactional
-	public List<Coop> getActiveCoops(String term){
+	public List<Coop> getAllActiveCoops(String term){
 		term = term.toLowerCase();
-		List<Coop> activeCoops = new ArrayList<>();
+		List<Coop> activeCoops = new ArrayList<Coop>();
 		for (Coop c : getAllCoops()) {
 			if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
 				activeCoops.add(c);
@@ -806,11 +799,11 @@ public class CooperatorService {
 		return activeCoops;
 	}
 	
-	// US2 - All Completed active Coops (completed coops for current term)
+	// US2 - Get all Completed active Coops (completed coops for current term)
 	@Transactional
-	public List<Coop> getCompletedCoops(String term){
+	public List<Coop> getAllCompletedActiveCoops(String term){
 		term = term.toLowerCase();
-		List<Coop> completedCoops = new ArrayList<>();
+		List<Coop> completedCoops = new ArrayList<Coop>();
 		for (Coop c : getAllCoops()) {
 			if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
 				if (countForms(c) >= 4) {
@@ -821,47 +814,55 @@ public class CooperatorService {
 		return completedCoops;
 	}
 	
-	// US2 - All Completed active Coops (completed coops for current term)
+	// US2 - Get completed active coops for student (completed coops for current term)
 	@Transactional
-	public List<Coop> getCompletedCoops(int userId, String term){
-		Student s = getStudent(userId);
+	public List<Coop> getCompletedActiveCoops(int userId, String term){
 		term = term.toLowerCase();
-		List<Coop> completedCoops = new ArrayList<>();
-		for (Coop c : s.getCoop()) {
-			if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
-				if (countForms(c) >= 4) {
-					completedCoops.add(c);
+		List<Coop> completedCoops = new ArrayList<Coop>();
+		for(Student s : getAllStudents()) {
+			if(s.getUserId() == userId) {
+				for (Coop c : s.getCoop()) {
+					if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+						if (countForms(c) >= 4) {
+							completedCoops.add(c);
+						}
+					}
 				}
 			}
 		}
 		return completedCoops;
 	}
 	
-	// US2 - Completed coops for student (completed coops prior to current term)
+	// US2 - Get all previously completed coops (completed coops prior to current term)
 		@Transactional
-		public List<Coop> getPreviouslyCompletedCoops(String term){
+		public List<Coop> getAllPreviouslyCompletedCoops(String term){
 			term = term.toLowerCase();
-			List<Coop> completedCoops = new ArrayList<>();
-			for (Coop c : getAllCoops()) {
-				if (isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
-					if (countForms(c) >= 4) {
-						completedCoops.add(c);
+			List<Coop> completedCoops = new ArrayList<Coop>();
+			for(Student s : getAllStudents()) {
+				for (Coop c : s.getCoop()) {
+					if (isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
+						if (countForms(c) >= 4) {
+							completedCoops.add(c);
+						}
 					}
 				}
 			}
 			return completedCoops;
 		}
 	
-	// US2 - Completed coops for student (completed coops prior to current term)
+	// US2 - Get all previously completed coops for student (completed coops prior to current term)
 	@Transactional
 	public List<Coop> getPreviouslyCompletedCoops(int userId, String term){
-		Student s = getStudent(userId);
 		term = term.toLowerCase();
-		List<Coop> completedCoops = new ArrayList<>();
-		for (Coop c : s.getCoop()) {
-			if (isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
-				if (countForms(c) >= 4) {
-					completedCoops.add(c);
+		List<Coop> completedCoops = new ArrayList<Coop>();
+		for(Student s : getAllStudents()) {
+			if(s.getUserId() == userId) {
+				for (Coop c : s.getCoop()) {
+					if (isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
+						if (countForms(c) >= 4) {
+							completedCoops.add(c);
+						}
+					}
 				}
 			}
 		}

@@ -69,6 +69,7 @@ public class CooperatorStudentTests {
 	private Coop coop;
 	private Employer employer;
 	private List<Student> expectedList = new ArrayList<Student>();
+	private List<Student> expectedList2 = new ArrayList<Student>();
 	
 	private static final int VALID_STUDENT_KEY = 1;
 	private static final int VALID_ADMIN_KEY = 1;
@@ -139,6 +140,12 @@ public class CooperatorStudentTests {
 	public void testGetAllStudentsWithFormErrors() {
 		String term = service.getTerm(Semester.Summer, new Date(createDate("02-05-2018")), new Date(createDate("29-08-2018")));
 		assertEquals(expectedList, service.getAllStudentsWithFormError(term));
+	}
+	
+	@Test
+	public void testGetAllActiveStudents() {
+		String term = service.getTerm(Semester.Summer, new Date(createDate("02-05-2018")), new Date(createDate("29-08-2018")));
+		assertEquals(expectedList, service.getAllActiveStudents(term));
 	}
 
 	public static long createDate(String date) {
