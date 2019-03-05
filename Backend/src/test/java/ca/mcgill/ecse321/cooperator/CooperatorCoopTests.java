@@ -163,8 +163,13 @@ public class CooperatorCoopTests {
 		assertNull(service.getCoop(INVALID_COOP_KEY));
 	}
 	
-	@Test
-	public void testGetAllCoops() {
-		assertNotNull(service.getAllCoops());
+	public static long createDate(String date) {
+		java.util.Date dateFormat = null;
+		try {
+			dateFormat = new SimpleDateFormat("dd-MM-yyyy").parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return dateFormat.getTime();
 	}
 }
