@@ -794,7 +794,7 @@ public class CooperatorService {
 			for(Student s : getAllStudents()) {
 				for (Coop c : s.getCoop()) {
 					if (coopRepository.isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
-						if (countForms(c) >= 4) {
+						if (countForms(c) == 4) {
 							completedCoops.add(c);
 						}
 					}
@@ -812,7 +812,7 @@ public class CooperatorService {
 			if(s.getUserId() == userId) {
 				for (Coop c : s.getCoop()) {
 					if (coopRepository.isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
-						if (countForms(c) >= 4) {
+						if (countForms(c) == 4) {
 							completedCoops.add(c);
 						}
 					}

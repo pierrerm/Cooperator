@@ -32,7 +32,9 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -63,6 +65,10 @@ public class CooperatorCoopTests {
 	
 	private Coop coop;
 	private Coop coop2;
+	private CoopEvaluation coopEval;
+	private AcceptanceForm accepForm;
+	private StudentEvaluation studentEval;
+	private TasksWorkloadReport taskReport;
 	private Employer employer;
 	private Student student;
 	private Student student2;
@@ -72,8 +78,13 @@ public class CooperatorCoopTests {
 	private static final int VALID_EMPLOYER_KEY = 2;
 	private static final int VALID_COOP_KEY = 3;
 	private static final int INVALID_COOP_KEY = -1;
+	private static final int COOPEVAL_KEY = 40;
+	private static final int STUDENTEVAL_KEY = 41;
+	private static final int ACCEP_KEY = 42;
+	private static final int TASKREP_KEY = 43;
 	private List<Coop> expectedList = new ArrayList<Coop>();
 	private List<Coop> expectedList2 = new ArrayList<Coop>();
+	private Set<Form> coopForms = new HashSet<Form>();
 
 	@Before
 	public void setMockOutput() {
@@ -99,7 +110,21 @@ public class CooperatorCoopTests {
 		employer = service.createEmployer(VALID_EMPLOYER_KEY, 123, "email", "firstName", "lastName", "password", "position", "company", "location");
 		coop = mock(Coop.class);
 		coop = service.createCoop(VALID_COOP_KEY, true, new Date(createDate("31-12-2018")), "jobDescription", 12, "location", true , Semester.Fall, new Date(createDate("31-08-2018")), student, employer);
+		//coop2 = mock(Coop.class);
+		//coop2 = service.createCoop(VALID_COOP_KEY, true, new Date(createDate("31-12-2018")), "jobDescription", 12, "location", true , Semester.Fall, new Date(createDate("31-08-2018")), student, employer);
+		coopEval = mock(CoopEvaluation.class);
+		coopEval = service.createCoopEvaluation(COOPEVAL_KEY, null, "workExperience", 5, "softwareTechnologies", "usefulCourses", coop);	
+		studentEval = mock(StudentEvaluation.class);
+		studentEval = service.createStudentEvaluation(STUDENTEVAL_KEY, null, "studentWorkExperience", 5, coop);
+		accepForm = mock(AcceptanceForm.class);
+		accepForm = service.createAcceptanceForm(ACCEP_KEY, null, coop);
+		taskReport = mock(TasksWorkloadReport.class);
+		taskReport = service.createTasksWorkloadReport(TASKREP_KEY, null, "tasks", 40, 20, "training", coop);
 		expectedList.add(coop);
+		coopForms.add(coopEval);
+		coopForms.add(studentEval);
+		coopForms.add(accepForm);
+		coopForms.add(taskReport);
 	}
 	
 	@Test
@@ -125,7 +150,7 @@ public class CooperatorCoopTests {
 		assertEquals(new Date(createDate("31-08-2018")), service.getCoop(VALID_COOP_KEY).getStartDate());
 		assertEquals(student, service.getCoop(VALID_COOP_KEY).getStudent());
 		assertEquals(employer, service.getCoop(VALID_COOP_KEY).getEmployer());
-		
+		assertEquals(coopForms, service.getCoop(VALID_COOP_KEY).getForm());
 	}
 	
 	@Test
@@ -136,13 +161,13 @@ public class CooperatorCoopTests {
 	
 	@Test
 	public void testGetAllCompletedActiveCoops() {
-		String term = service.getTerm(Semester.Winter, new Date(createDate("06-01-2019")), new Date(createDate("30-04-2019")));
-		assertEquals(expectedList2, service.getAllCompletedActiveCoops(term));
+		String term = service.getTerm(Semester.Fall, new Date(createDate("31-08-2018")), new Date(createDate("31-12-2018")));
+		assertEquals(expectedList, service.getAllCompletedActiveCoops(term));
 	}
 	
 	@Test
 	public void testGetCompletedActiveCoops() {
-		String term = service.getTerm(Semester.Winter, new Date(createDate("06-01-2019")), new Date(createDate("30-04-2019")));
+		String term = service.getTerm(Semester.Fall, new Date(createDate("31-08-2018")), new Date(createDate("31-12-2018")));
 		assertEquals(expectedList2, service.getCompletedActiveCoops(VALID_STUDENT_KEY, term));
 	}
 	
