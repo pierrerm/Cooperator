@@ -336,13 +336,25 @@ public class CooperatorService {
 						break;
 					}
 				}
-				if (!isTasksWorkloadReportSubmited && date.after(threeDaysLeft)) {
-					reminderId = 911;
-					urgency = 3;
-					subject = "Tasks Workload Report Submission";
-					description = "You only have 3 days left to submit your Task Workload Report!";
-					remindersSent.add(createReminder(reminderId, subject, date, deadline, 
-							description, urgency, coop));
+				if (!isTasksWorkloadReportSubmited && date.after(threeDaysLeft) && deadline.after(date)) {
+					if (deadline.after(date)) {//if there is still time to send the report
+						reminderId = 911;
+						urgency = 3;
+						subject = "Tasks Workload Report Submission";
+						description = "You only have 3 days left to submit your Task Workload Report!";
+						remindersSent.add(createReminder(reminderId, subject, date, deadline, 
+								description, urgency, coop));
+					}
+					else { //today's date is after the deadline -> too late to submit
+						reminderId = 911;
+						urgency = 3;
+						subject = "Tasks Workload Report Submission";
+						description = "It is now too late to submit the Task Workload Report";
+						remindersSent.add(createReminder(reminderId, subject, date, addDays(date, 1), 
+								description, urgency, coop));
+						
+					}
+
 				}
 			}
 		}
