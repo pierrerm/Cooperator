@@ -4,10 +4,10 @@ var path = require('path')
 module.exports = {
   build: {
     env: require('./prod.env'),
-    //host: 'cooperator-frontend-3417.herokuapp.com',
-    //port: 443,
-    //backendHost: 'cooperator-backend-3417.herokuapp.com',
-    //backendPort: 443,
+    host: 'cooperator-frontend-3417.herokuapp.com',
+    port: 443,
+    backendHost: 'cooperator-backend-3417.herokuapp.com',
+    backendPort: 443,
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
