@@ -16,3 +16,6 @@ selenium-debug.log
 
 # IntelliJ files
 Frontend.iml
+
+# Eclipse files
+.project
