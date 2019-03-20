@@ -30,8 +30,8 @@ public class TestGroup19RESTServices {
 	@Test
 	public void testQueryServices() {
 		
-		try {
-			//get all coops
+//		try {
+//			//get all coops
 //			URL url1 = new URL(
 //					"https://cooperator-backend-260.herokuapp.com/coops");
 //			HttpURLConnection conn1 = (HttpURLConnection) url1.openConnection();
@@ -54,13 +54,13 @@ public class TestGroup19RESTServices {
 //			conn3.setRequestMethod("GET");
 //			assertEquals(200, conn3.getResponseCode());
 //			conn3.disconnect();
-
-			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//
+//			
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+}
 
 }
