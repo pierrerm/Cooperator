@@ -27,9 +27,9 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    host: 'cooperator-frontend-3417.herokuapp.com',
+    host: '127.0.0.1',
     port: 8087,
-    backendHost: 'cooperator-backend-3417.herokuapp.com',
+    backendHost: '127.0.0.1',
     backendPort: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
