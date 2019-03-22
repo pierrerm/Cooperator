@@ -8,8 +8,6 @@ var AXIOS = axios.create({
 	baseURL: backendUrl,
 	headers: {
 	  'Access-Control-Allow-Origin': frontendUrl
-    //'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT, OPTIONS',
-    //'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Authorization, Origin, Accept'
 	}
 })
 
@@ -36,7 +34,7 @@ export default {
   },
   methods: {
     createPerson: function (personName) { // Not working
-      AXIOS.post(`/student/`+personName, {}, {})
+      AXIOS.post(`/student/5140001111/`+ personName + `/lastName/email/password/54321/12345/academicYear/major/minor`, {}, {})
         .then(response => {
           // JSON responses are automatically parsed.
           this.people.push(response.data)
@@ -54,8 +52,8 @@ export default {
       AXIOS.get(`/students`)
         .then(response => {
           // JSON responses are automatically parsed.
-          this.people = response.data
-          console.log(response.data[1].firstName)
+          this.people = response.data[0].firstName
+          console.log(this.people)
           console.log('Get students')
         })
         .catch(e => {
