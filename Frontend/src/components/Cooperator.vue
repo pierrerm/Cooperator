@@ -1,6 +1,6 @@
 <template>
   <div id="cooperator">
-    <h2>People</h2>
+    <h2>Cooperator</h2>
     <table>
       <tr v-for="person in people" >
         <td>{{ person.name }}</td>
@@ -14,13 +14,13 @@
       </tr>
       <tr>
         <td>
-          <input type="text" v-model="newPerson" placeholder="Person Name">
+          <input type="text" v-model="newPerson" placeholder="Student Name">
         </td>
         <td>
-          <button @click="createPerson(newPerson)">Create Person</button>
+          <button @click="createPerson(newPerson)">Create Student</button>
         </td>
         <td>
-          <button @click="getPerson()">Get Person</button>
+          <button @click="getPerson()">Get Student</button>
         </td>
       </tr>
     </table>
@@ -37,6 +37,7 @@
   #cooperator {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     color: #2c3e50;
-    background: #f2ece8;
+    /*background: #f2ece8;*/
+    margin-top: 20px;
   }
 </style>
