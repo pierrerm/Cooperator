@@ -99,7 +99,7 @@ public class CooperatorStudentTests {
 		employer = mock(Employer.class);
 		employer = new Employer();
 		admin = mock(Administrator.class);
-		admin = service.createAdministrator(VALID_ADMIN_KEY, 123, "email", "firstName", "lastName", "password", Faculty.Engineering, 260);
+		admin = service.createAdministrator(123, "email", "firstName", "lastName", "password", Faculty.Engineering, 260);
 		student = mock(Student.class);
 		student = service.createStudent(VALID_STUDENT_KEY, 321332, "email", "firstName", "lastName", "password", Faculty.Education, 260, "major", "minor", "academicYear", admin);
 		coop = mock(Coop.class);

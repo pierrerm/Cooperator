@@ -92,7 +92,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -130,7 +130,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -187,7 +187,7 @@ public class TestCooperatorService {
 		int id = 134;
 
 		try {
-			service.createAdministrator(userId, phone, email, firstName, lastName, password, faculty, id);
+			service.createAdministrator(phone, email, firstName, lastName, password, faculty, id);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
@@ -195,7 +195,6 @@ public class TestCooperatorService {
 		List<Administrator> allAdministrators = service.getAllAdministrators();
 
 		assertEquals(1, allAdministrators.size());
-		assertEquals(userId, allAdministrators.get(0).getUserId());
 	}
 
 	@Test
@@ -276,7 +275,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -317,7 +316,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -357,7 +356,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -398,7 +397,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -439,7 +438,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -475,7 +474,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Ngolo", "Kante", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -505,7 +504,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -547,7 +546,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -594,7 +593,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
@@ -640,7 +639,7 @@ public class TestCooperatorService {
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
-			Administrator admin = service.createAdministrator(2, 1, "@gmail.com", "Robert", "njdnfs", "password123",
+			Administrator admin = service.createAdministrator(1, "@gmail.com", "Robert", "njdnfs", "password123",
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);

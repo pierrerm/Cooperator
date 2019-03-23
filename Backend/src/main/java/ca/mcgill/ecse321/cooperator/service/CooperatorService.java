@@ -548,7 +548,7 @@ public class CooperatorService {
 
 	// Administrator
 	@Transactional
-	public Administrator createAdministrator(int userId, long phone, String email, String firstName, String lastName,
+	public Administrator createAdministrator(long phone, String email, String firstName, String lastName,
 			String password, Faculty faculty, int id) {
 
 		String error = "";
@@ -573,7 +573,6 @@ public class CooperatorService {
 			throw new IllegalArgumentException(error);
 		}
 		Administrator administrator = new Administrator();
-		administrator.setUserId(userId);
 		administrator.setEmail(email);
 		administrator.setFirstName(firstName);
 		administrator.setLastName(lastName);

@@ -89,15 +89,13 @@ public class CooperatorRestController {
 
 	// Administrator
 	@PostMapping(value = {
-			"/admin/{phone}/{firstName}/{lastName}/{email}/{password}/{userId}/{id}",
-			"/admin/{phone}/{firstName}/{lastName}/{email}/{password}/{userId}/{id}/" })
-	public AdministratorDto createStudent(@PathVariable("phone") long phone,
-			@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName,
-			@PathVariable("email") String email, @PathVariable("password") String password,
-			@PathVariable("userId") int userId, @PathVariable("id") int id) throws IllegalArgumentException {
+			"/admin/{firstName}/{lastName}/{email}/{password}/",
+			"/admin/{firstName}/{lastName}/{email}/{password}/" })
+	public AdministratorDto createAdministrator(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName,
+			@PathVariable("email") String email, @PathVariable("password") String password) throws IllegalArgumentException {
 		// @formatter:on
-		Administrator admin = service.createAdministrator(userId, phone, email, firstName, lastName, password,
-				Faculty.Engineering, id);
+		Administrator admin = service.createAdministrator(0, email, firstName, lastName, password,
+				Faculty.Engineering, 0);
 		return convertToDto(admin);
 	}
 
