@@ -89,7 +89,7 @@ public class CooperatorRestController {
 
 	// Administrator
 	@PostMapping(value = {
-			"/admin/{firstName}/{lastName}/{email}/{password}/",
+			"/admin/{firstName}/{lastName}/{email}/{password}",
 			"/admin/{firstName}/{lastName}/{email}/{password}/" })
 	public AdministratorDto createAdministrator(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName,
 			@PathVariable("email") String email, @PathVariable("password") String password) throws IllegalArgumentException {
@@ -109,12 +109,8 @@ public class CooperatorRestController {
 	}
 
 	private AdministratorDto convertToDto(Administrator a) {
-		ArrayList<StudentDto> students = new ArrayList<StudentDto>();
-		for(Student s : a.getStudent()) {
-			students.add(convertToDto(s));
-		}
-		AdministratorDto administratorDto = new AdministratorDto(a.getPhone(), a.getFirstName(), a.getLastName(),
-				a.getEmail(), a.getPassword(), a.getUserId(), a.getFaculty(), a.getId(), students);
+		AdministratorDto administratorDto = new AdministratorDto(a.getFirstName(), a.getLastName(),
+				a.getEmail(), a.getPassword(), a.getUserId());
 		return administratorDto;
 	}
 
