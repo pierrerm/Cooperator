@@ -520,4 +520,18 @@ public class CooperatorRestController {
 		}
 		return coopDtos;
 	}
+	
+	@PostMapping(value = { "/login/{email}/{password}", "/login/{email}/{password}/" })
+	public String login(@PathVariable("email") String userEmail, @PathVariable("password") String userPassword)
+			throws IllegalArgumentException {
+		
+		for(Administrator a : service.getAllAdministrators()) {
+			if(a.getEmail().equals(userEmail) && a.getPassword().equals(userPassword)) {
+				return "Accepted";
+			}
+		}
+		return "Not Accepted";
+		
+	}
+	
 }

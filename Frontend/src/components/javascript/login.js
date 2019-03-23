@@ -22,13 +22,13 @@ export default {
     methods: {
         login(username, password) {
             if (username == '') {
-                var errorMsg = "Unvalid username"
+                var errorMsg = "Invalid username"
                 console.log(errorMsg)
                 this.errorLogin = errorMsg
                 return
             }
             if (password == '') {
-                var errorMsg = "Unvalid password"
+                var errorMsg = "Invalid password"
                 console.log(errorMsg)
                 this.errorLogin = errorMsg
                 return
@@ -38,20 +38,13 @@ export default {
                     // JSON responses are automatically parsed.
                     this.response = response.data
                     this.errorLogin = ''
-                    //store username and password in local storage
-                    //localStorage.setItem('username', username)
-                    //localStorage.setItem('password', password)
                     this.$cookie.set("username", username, { expires: '1h' })
                     this.$cookie.set("password", password, { expires: '1h' })
                     this.username = this.$cookie.get("username") || ''
                     this.password = this.$cookie.get("password") || ''
-                    if (this.response == 'TermInstructor') {
-                        localStorage.setItem('loggedIn', "TermInstructor")
+                    if (this.response == 'Accepted') {
+                        localStorage.setItem('loggedIn', "Administrator")
                         window.location.href = "/";           
-                    }
-                    else if (this.response == "ProgramManager") {
-                        localStorage.setItem('loggedIn', "ProgramManager")
-                        window.location.href = "/";
                     }
                     else{
                         this.errorLogin = response.data
