@@ -25,9 +25,14 @@
 </script>
 
 <style>
-  #eventregistration {
+  #cooperator {
+    height: 100%;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     color: #2c3e50;
     background: #f2ece8;
+  }
+  .full-height {
+    height: 100%;
+    background: #f2ece8
   }
 </style>
