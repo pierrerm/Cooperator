@@ -33,11 +33,6 @@
 <script src="./administration.js">
 </script>
 
-<style>
-  #cooperator {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    color: #2c3e50;
-    /*background: #f2ece8;*/
-    margin-top: 20px;
-  }
+<style lang="scss">
+@import '../style/css/style.css';
 </style>
