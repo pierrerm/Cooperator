@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.cooperator.dto;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import ca.mcgill.ecse321.cooperator.model.Faculty;
@@ -16,14 +17,14 @@ public class AdministratorDto {
 
 	private Faculty faculty;
 	private long id;
-	private Set<Student> student;
+	private ArrayList<StudentDto> student;
 
 	public AdministratorDto() {
 
 	}
 
 	public AdministratorDto(long phone, String firstName, String lastName, String email, String password, int userId,
-			Faculty faculty, long id, Set<Student> student) {
+			Faculty faculty, long id, ArrayList<StudentDto> student) {
 		this.phone = phone;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -67,7 +68,7 @@ public class AdministratorDto {
 		return this.id;
 	}
 
-	public Set<Student> getStudent() {
+	public ArrayList<StudentDto> getStudent() {
 		return this.student;
 	}
 
