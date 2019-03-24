@@ -12,27 +12,14 @@ var AXIOS = axios.create({
 export default {
   data() {
     return {
-      students: [],
-      student: '',
-      forms: []
+      form: []
     }
   },
 
   created: function() {
-    AXIOS.get('/students')
+    AXIOS.get('/form/' + this.$route.params.formId)
       .then(response => {
-        this.students = response.data;
-        // Find student by userId
-        for (var i in this.students) {
-          if (this.students[i].userId === this.$route.params.userId) {
-            this.student = this.students[i]
-
-            AXIOS.get('/forms/student/byId/'+ this.student.userId)
-              .then(response => {
-                this.forms = response.data;
-              })
-          }
-        }
+        this.form = response.data;
       })
 
     if ((localStorage.getItem('loggedIn') != null)) {
