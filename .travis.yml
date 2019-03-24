@@ -9,7 +9,7 @@ matrix:
         - npm install
         - npm install axios
         - npm install bootstrap-vue
-        - npm install bootstrap
+        - npm install jquery -D
         - npm install vue
         - npm install aos
         - npm install vue-cookie
