@@ -772,12 +772,12 @@ public class CooperatorService {
 	public double[] getSemesterStatistics(String term) {
 		double[] stats = {0,0,0,0};
 		stats[0] = getAllActiveCoops(term).size();
-		stats[1] = (double)getAllCompletedActiveCoops(term).size()/(double)stats[0];
+		if(stats[0]) stats[1] = (double)getAllCompletedActiveCoops(term).size()/(double)stats[0];
 		double forms = 0;
 		for (Coop c : getAllActiveCoops(term)) {
 			forms += (double)countForms(c);
 		}
-		stats[2] = forms/(double)stats[0];
+		if(stats[0]) stats[2] = forms/(double)stats[0];
 		stats[3] = getAllStudentsWithFormError(term).size();
 		return stats;
 	}
