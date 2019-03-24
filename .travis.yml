@@ -1,8 +1,24 @@
-script:
-- ./gradlew build
-
-deploy:
-  provider: heroku
-  api_key:
-    secure: "18f21435-ea95-4281-b34a-000e79b86fee"
-  app: cooperator-backend-3417
+matrix:
+  include:
+    - language: node_js
+      node_js:
+        - '7'
+      cache: npm
+      before_install:
+        - cd Frontend/
+        - npm install
+      script:
+        - npm run build
+      deploy:
+        provider: heroku
+        app: cooperator-backend-3417
+        api_key:
+          secure: "18f21435-ea95-4281-b34a-000e79b86fee"
+    - language: java
+      script:
+        - "./gradlew build"
+      deploy:
+        provider: heroku
+        api_key:
+          secure: "18f21435-ea95-4281-b34a-000e79b86fee"
+        app: cooperator-backend-3417
