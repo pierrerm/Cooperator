@@ -848,6 +848,21 @@ public class CooperatorService {
 		return forms;
 	}
 	
+	@Transactional
+	public Set<Form> getFormsForStudent(int userId) {
+		
+		Set<Form> forms = new HashSet<Form>();
+		Student student = getStudent(userId);
+		Set<Coop> coops = student.getCoop();
+
+		for (Coop coop : coops) {
+			
+				forms = coop.getForm();
+			
+		}
+		return forms;
+	}
+	
 	// US1 - List all forms for a given employer
 	@Transactional
 	public Set<Form> getFormsFromEmployer(int userId, Semester semester, int year) {

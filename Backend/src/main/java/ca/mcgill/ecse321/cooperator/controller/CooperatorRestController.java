@@ -382,6 +382,21 @@ public class CooperatorRestController {
 		}
 		return formDtos;
 	}
+	
+	// Student Forms
+		@GetMapping(value = { "/forms/student/{userId}", "/forms/student/{userId}/" })
+		public List<FormDto> getFormsForStudent(@PathVariable("userId") int userId)
+				throws IllegalArgumentException {
+
+			List<FormDto> formDtos = new ArrayList<>();
+			
+			Set<Form> forms = service.getFormsForStudent(userId);
+
+			for (Form form : forms) {
+				formDtos.add(convertToDto(form));
+			}
+			return formDtos;
+		}
 
 	// Employer Forms
 	@GetMapping(value = { "/forms/employer/{userId}/{semester}/{year}", "/forms/employer/{userId}/{semester}/{year}/" })
