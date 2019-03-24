@@ -63,7 +63,7 @@
   </div>
 </template>
 
-<script src="./javascript/forms.js">
+<script src="./javascript/editForm.js">
 </script>
 
 <style>

@@ -35,29 +35,18 @@
                 <th style="padding:10px">Form ID</th>
                 <th style="padding:10px">Submission Date</th>
                 <th style="padding:10px">Coop ID</th>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
+
               </tr>
 
               <tr v-for="form in forms">
                 <td style="padding:10px">
-                  <router-link :to="{name: 'ViewForm', params: {formId: form.formId }}">
+                  <router-link :to="{name: 'ViewForm', params: {formId: form.formId, formType: form.formType}}">
                     {{ form.formType }}
                   </router-link>
                 </td>
                 <td style="padding:10px">{{ form.formId }}</td>
                 <td style="padding:10px">{{ form.submissionDate }}</td>
                 <td style="padding:10px">{{ form.coop }}</td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
               </tr>
             </table>
           </div>
