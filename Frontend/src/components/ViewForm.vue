@@ -35,14 +35,25 @@
                 <th style="padding:10px">Form ID</th>
                 <th style="padding:10px">Submission Date</th>
                 <th style="padding:10px">Coop ID</th>
-
+                <td style="padding:10px"></td>
+                <td style="padding:10px"></td>
+                <td style="padding:10px"></td>
+                <td style="padding:10px"></td>
+                <td style="padding:10px"></td>
+                <td style="padding:10px"></td>
               </tr>
 
               <tr v-for="form in forms">
-                <td style="padding:10px">{{ form.formType }}</td>
+                <td style="padding:10px">Acceptance Form</td>
                 <td style="padding:10px">{{ form.formId }}</td>
                 <td style="padding:10px">{{ form.submissionDate }}</td>
                 <td style="padding:10px">{{ form.coop }}</td>
+                <td style="padding:10px"></td>
+                <td style="padding:10px"></td>
+                <td style="padding:10px"></td>
+                <td style="padding:10px"></td>
+                <td style="padding:10px"></td>
+                <td style="padding:10px"></td>
               </tr>
             </table>
           </div>
@@ -52,7 +63,7 @@
   </div>
 </template>
 
-<script src="./javascript/studentForms.js">
+<script src="./javascript/editForm.js">
 </script>
 
 <style>

@@ -21,6 +21,7 @@ import ca.mcgill.ecse321.cooperator.dto.CoopDto;
 import ca.mcgill.ecse321.cooperator.dto.EmployerDto;
 import ca.mcgill.ecse321.cooperator.dto.FormDto;
 import ca.mcgill.ecse321.cooperator.dto.ReminderDto;
+import ca.mcgill.ecse321.cooperator.dto.StatsDto;
 import ca.mcgill.ecse321.cooperator.dto.StudentDto;
 import ca.mcgill.ecse321.cooperator.model.AcceptanceForm;
 import ca.mcgill.ecse321.cooperator.model.Administrator;
@@ -382,6 +383,21 @@ public class CooperatorRestController {
 		}
 		return formDtos;
 	}
+	
+	// Student Forms
+		@GetMapping(value = { "/forms/student/byId/{userId}", "/forms/student/byId/{userId}/" })
+		public List<FormDto> getFormsForStudent(@PathVariable("userId") int userId)
+				throws IllegalArgumentException {
+
+			List<FormDto> formDtos = new ArrayList<>();
+			
+			Set<Form> forms = service.getFormsForStudent(userId);
+
+			for (Form form : forms) {
+				formDtos.add(convertToDto(form));
+			}
+			return formDtos;
+		}
 
 	// Employer Forms
 	@GetMapping(value = { "/forms/employer/{userId}/{semester}/{year}", "/forms/employer/{userId}/{semester}/{year}/" })
@@ -460,6 +476,13 @@ public class CooperatorRestController {
 		return dateFormat.getTime();
 	}
 
+	@GetMapping(value = { "/stats/{term}", "/stats/{term}" })
+	public StatsDto getStats(@PathVariable("term") String term) {
+		double[] stats = service.getSemesterStatistics(term);
+		StatsDto statsDto = new StatsDto(term,stats[0],stats[1],stats[2],stats[3]);
+		return statsDto;
+	}
+	
 	@GetMapping(value = { "/student/active/{term}", "/student/active/{term}" })
 	public List<StudentDto> getAllActiveStudents(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();

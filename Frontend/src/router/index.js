@@ -11,6 +11,7 @@ import ViewAllEmployers from '@/components/ViewAllEmployers'
 import SemesterStats from '@/components/SemesterStats'
 import Reminder from '@/components/Reminder'
 import EmployerForm from '@/components/EmployerForm'
+import ViewForm from '@/components/ViewForm'
 
 Vue.use(Router)
 
@@ -70,6 +71,11 @@ export default new Router({
       path: '/employerForm',
       name: 'EmployerForm',
       component: EmployerForm
+    },
+    {
+      path: '/studentForm',
+      name: 'ViewForm',
+      component: ViewForm
     }
 
   ]
