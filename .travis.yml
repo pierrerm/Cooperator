@@ -11,7 +11,7 @@ matrix:
         - npm run build
       deploy:
         provider: heroku
-        skip_cleanup: true
+        #skip_cleanup: true
         app: cooperator-frontend-3417
         api_key:
           secure: "18f21435-ea95-4281-b34a-000e79b86fee"
