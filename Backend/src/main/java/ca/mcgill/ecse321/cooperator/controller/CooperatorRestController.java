@@ -530,4 +530,13 @@ public class CooperatorRestController {
 		
 	}
 	
+	@GetMapping(value = { "/reminders", "/reminders/" })
+	public List<ReminderDto> getAllReminders() {
+		List<ReminderDto> reminderDtos = new ArrayList<>();
+		for (Reminder reminder : service.getAllReminders()) {
+			reminderDtos.add(convertToDto(reminder));
+		}
+		return reminderDtos;
+	}
+	
 }

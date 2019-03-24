@@ -16,10 +16,13 @@
                             <th style="padding:10px">Minor</th>
                             <th style="padding:10px">Faculty</th>
                             <th style="padding:10px">Phone</th>
-                            <th style="padding:10px">Coop</th>
                         </tr>
                         <tr v-for="student in students">
-                            <td style="padding:10px">{{ student.firstName }}</td>
+                            <td style="padding:10px">
+                              <router-link :to="{name: 'ViewStudentForms', params: {userId: student.userId }}">
+                                {{ student.firstName }}
+                              </router-link>
+                            </td>
                             <td style="padding:10px">{{ student.lastName }}</td>
                             <td style="padding:10px">{{ student.email }}</td>
                             <td style="padding:10px">{{ student.id }}</td>
@@ -28,7 +31,6 @@
                             <td style="padding:10px">{{ student.minor }}</td>
                             <td style="padding:10px">{{ student.faculty }}</td>
                             <td style="padding:10px">{{ student.phone }}</td>
-                            <td style="padding:10px">{{ student.coop }}</td>
                         </tr>
                     </table>
                 </div>

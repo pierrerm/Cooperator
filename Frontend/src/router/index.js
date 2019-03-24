@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import Cooperator from '@/components/Cooperator'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Logout from '@/components/Logout'
@@ -22,11 +21,6 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/app',
-      name: 'Cooperator',
-      component: Cooperator
-    },
-    {
       path: '/login',
       name: 'Login',
       component: Login
@@ -37,7 +31,7 @@ export default new Router({
       component: ViewAllStudents
     },
     {
-      path: '/studentForm',
+      path: '/studentForm/:userId',
       name: 'ViewStudentForms',
       component: ViewStudentForms
     },
@@ -71,6 +65,6 @@ export default new Router({
       name: 'EmployerForm',
       component: EmployerForm
     }
-    
+
   ]
 })
