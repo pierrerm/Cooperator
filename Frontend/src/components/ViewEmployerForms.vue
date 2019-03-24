@@ -3,30 +3,26 @@
     <div class="site-wrap">
       <div class="site-section" style="padding-top:10%">
         <div class="container" style="align:center">
-          <h1 class="page-title">Student Forms</h1>
+          <h1 class="page-title">Employer Forms</h1>
           <div id="table">
             <table class="info-table" style="width: 100%; height: 100%;">
               <tr>
                 <th style="padding:10px">First Name</th>
                 <th style="padding:10px">Last Name</th>
                 <th style="padding:10px">Email</th>
-                <th style="padding:10px">McGill ID</th>
-                <th style="padding:10px">Year</th>
-                <th style="padding:10px">Major</th>
-                <th style="padding:10px">Minor</th>
-                <th style="padding:10px">Faculty</th>
-                <th style="padding:10px">Phone</th>
+                <th style="padding:10px">Position</th>
+                <th style="padding:10px">Company</th>
+                <th style="padding:10px">Location</th>
+                <th style="padding:10px">Phone Number</th>
               </tr>
               <tr>
-                <td style="padding:10px">{{ student.firstName }}</td>
-                <td style="padding:10px">{{ student.lastName }}</td>
-                <td style="padding:10px">{{ student.email }}</td>
-                <td style="padding:10px">{{ student.id }}</td>
-                <td style="padding:10px">{{ student.academicYear }}</td>
-                <td style="padding:10px">{{ student.major }}</td>
-                <td style="padding:10px">{{ student.minor }}</td>
-                <td style="padding:10px">{{ student.faculty }}</td>
-                <td style="padding:10px">{{ student.phone }}</td>
+                <td style="padding:10px">{{ employer.firstName }}</td>
+                <td style="padding:10px">{{ employer.lastName }}</td>
+                <td style="padding:10px">{{ employer.email }}</td>
+                <td style="padding:10px">{{ employer.position }}</td>
+                <td style="padding:10px">{{ employer.company }}</td>
+                <td style="padding:10px">{{ employer.location }}</td>
+                <td style="padding:10px">{{ employer.phone }}</td>
               </tr>
             </table>
             <table class="info-table" style="width: 100%; height: 100%;">
@@ -35,9 +31,6 @@
                 <th style="padding:10px">Form ID</th>
                 <th style="padding:10px">Submission Date</th>
                 <th style="padding:10px">Coop ID</th>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
                 <td style="padding:10px"></td>
                 <td style="padding:10px"></td>
                 <td style="padding:10px"></td>
@@ -51,9 +44,6 @@
                 <td style="padding:10px"></td>
                 <td style="padding:10px"></td>
                 <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
-                <td style="padding:10px"></td>
               </tr>
             </table>
           </div>
@@ -63,7 +53,7 @@
   </div>
 </template>
 
-<script src="./javascript/studentForms.js">
+<script src="./javascript/employerForms.js">
 </script>
 
 <style>

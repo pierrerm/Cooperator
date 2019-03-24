@@ -27,7 +27,7 @@ public class FormDto {
 		this.formId = formId;
 		this.submissionDate = submissionDate;
 		this.coopId = coopId;
-		this.formType = "acceptanceform";
+		this.formType = "AcceptanceForm";
 	}
 
 	// Coop Evaluation
@@ -40,7 +40,7 @@ public class FormDto {
 		this.softwareTechnologies = softwareTechnologies;
 		this.usefulCourses = usefulCourses;
 		this.studentWorkExperience = studentWorkExperience;
-		this.formType = "coopevaluation";
+		this.formType = "Coop Evaluation";
 	}
 
 	// Student Evaluation
@@ -50,7 +50,7 @@ public class FormDto {
 		this.coopId = coopId;
 		this.studentPerformance = studentPerformance;
 		this.studentWorkExperience = studentWorkExperience;
-		this.formType = "studentevaluation";
+		this.formType = "Student Evaluation";
 	}
 
 	// Tasks Workload Report
@@ -63,7 +63,7 @@ public class FormDto {
 		this.hoursPerWeek = hoursPerWeek;
 		this.wage = wage;
 		this.training = training;
-		this.formType = "tasksworkloadreport";
+		this.formType = "Tasks Workload Report";
 	}
 
 	public FormDto(int formId, Date submissionDate, int coopId, String workExperience, int employerEvaluation,
@@ -80,7 +80,7 @@ public class FormDto {
 		this.hoursPerWeek = hoursPerWeek;
 		this.wage = wage;
 		this.training = training;
-		this.formType = "mixed";
+		this.formType = "Mixed Form";
 	}
 
 	public int getFormId() {

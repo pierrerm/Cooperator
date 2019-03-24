@@ -6,6 +6,7 @@ import Register from '@/components/Register'
 import Logout from '@/components/Logout'
 import ViewAllStudents from '@/components/ViewAllStudents'
 import ViewStudentForms from '@/components/ViewStudentForms'
+import ViewEmployerForms from '@/components/ViewEmployerForms'
 import ViewAllEmployers from '@/components/ViewAllEmployers'
 import SemesterStats from '@/components/SemesterStats'
 import Reminder from '@/components/Reminder'
@@ -34,6 +35,11 @@ export default new Router({
       path: '/studentForm/:userId',
       name: 'ViewStudentForms',
       component: ViewStudentForms
+    },
+    {
+      path: '/employerForm/:userId',
+      name: 'ViewEmployerForms',
+      component: ViewEmployerForms
     },
     {
       path: '/register',
