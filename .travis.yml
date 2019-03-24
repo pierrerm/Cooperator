@@ -10,7 +10,8 @@ matrix:
         - npm install --save axios
         - npm install --save bootstrap-vue
         - npm install --save jquery -D
-        - npm install --save vue@2.6.9
+        - npm install --save vue@2.6.10
+        - npm install --save vue-template-compiler@2.6.10
         - npm install --save aos
         - npm install --save vue-cookie
         - npm install --save vue-router
