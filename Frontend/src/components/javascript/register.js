@@ -17,7 +17,6 @@ export default {
             lastName: '',
             email: '',
             password: '',
-            selected: 'Select',
             errorRegister: '',
             response: '',
         }
@@ -53,18 +52,16 @@ export default {
                 return
             }
             this.errorRegister = ''
-            if(selected == "Administrator"){
-                AXIOS.post(`/admin/` + firstName + "/" + lastName + "/" + email + "/" + password, {}, {})
+            AXIOS.post(`/admin/` + firstName + "/" + lastName + "/" + email + "/" + password, {}, {})
                 .then(response => {
                     // JSON responses are automatically parsed.
                     this.response = response.data
                     console.log(this.response)
-                    this.response = "Administrator Created!"
+                    this.response = "Admin Created!"
                     this.firstName= ''
                     this.lastName= ''
                     this.email= ''
                     this.password= ''
-                    this.selected= 'Select'
                 })
                 .catch(e => {
                     var errorMsg = e.message
@@ -72,13 +69,8 @@ export default {
                     this.errorRegister = errorMsg
                     this.response = ''
                 });
-            }
-            else{
-                var errorMsg = "Please select what you want to create"
-                console.log(errorMsg)
-                this.errorRegister = errorMsg
-                this.response = ''
-            }
+
+            
         }
     }
 }

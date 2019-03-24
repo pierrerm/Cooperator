@@ -1,38 +1,35 @@
 <template>
   <div id="cooperator">
-    <h2>Cooperator</h2>
+    <h2>Dummy page</h2>
     <table>
-      <tr v-for="person in people" >
-        <td>{{ person.name }}</td>
-        <td>
-          <ul>
-            <li v-for="event in person.events">
-              {{event.name}}
-            </li>
-          </ul>
-        </td>
+      <tr>
+        <td>Yo dawg</td>
+        <td>Wassap?</td>
       </tr>
       <tr>
         <td>
-          <input type="text" v-model="newPerson" placeholder="Student Name">
+          <input type="text" placeholder="Person Name">
         </td>
         <td>
-          <button @click="createPerson(newPerson)">Create Student</button>
-        </td>
-        <td>
-          <button @click="getPerson()">Get Student</button>
+          <button>Click Me!</button>
         </td>
       </tr>
     </table>
     <p>
-      <span v-if="errorPerson" style="color:red">Error: {{errorPerson}}</span>
+      <span style="color:red">Errorz</span>
     </p>
   </div>
 </template>
-
-<script src="./administration.js">
+<script>
+  export default {
+    name: 'cooperator',
+    data () {
+      return {
+        people: [],
+        newPerson: '',
+        errorPerson: '',
+        response: []
+      }
+    },
+  }
 </script>
-
-<style lang="scss">
-@import '../style/css/style.css';
-</style>

@@ -30,19 +30,17 @@ export default {
                 //reverify login information
                 AXIOS.post(`/login/` + this.$cookie.get("username") + '/' + this.$cookie.get("password"), {}, {})
                     .then(response => {
-                        if (response.data == 'Administrator') {
-                            if(localStorage.getItem('loggedIn') != "Administrator"){
+                        if (response.data == 'Accepted') {
+                            if(localStorage.getItem('loggedIn') != "Administrator") {
                                 localStorage.setItem('loggedIn', "Administrator");
-                                console.log("Not Administrator");
                                 window.location.href = "/";
-                            }
-                            
+                            }                           
                         }
                         else {
                             localStorage.removeItem('loggedIn')
                             this.$cookie.delete('username');
                             this.$cookie.delete('password');
-                            console.log("Wrong log in information");
+                            console.log("Wrong Login Information");
                             window.location.href = "/";
                         }
                     })

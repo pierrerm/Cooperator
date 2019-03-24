@@ -2,7 +2,7 @@ import axios from 'axios'
 var config = require('../../../config')
 
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-var backendUrl = 'https://cooperator-backend-260.herokuapp.com/'
+var backendUrl = 'https://cooperator-backend-3417.herokuapp.com/'
 
 var AXIOS = axios.create({
     baseURL: backendUrl,
