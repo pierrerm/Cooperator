@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -665,6 +666,24 @@ public class TestCooperatorService {
 		assertEquals(newHoursPerWeek, form.getHoursPerWeek());
 		assertEquals(newWage, form.getWage());
 		assertEquals(newTraining, form.getTraining());
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void testIsPriorToTerm() {
+		Date d = new Date(2018, 1, 1);
+		Date d1 = new Date(2018, 4, 1);
+		Date d2 = new Date(2017, 8, 1);
+		Date d3 = new Date(2017, 11, 1);
+		Date d4 = new Date(2018, 5, 1);
+		Date d5 = new Date(2018, 8, 1);
+		Date d6 = new Date(2017, 1, 1);
+		Date d7 = new Date(2017, 4, 1);
+		
+		assertEquals(false, service.isPriorToTerm("winter2018", Semester.Winter, d, d1));
+		//assertEquals(true, service.isPriorToTerm("winter2018", Semester.Fall, d2, d3));
+		assertEquals(false, service.isPriorToTerm("winter2018", Semester.Summer, d4, d5));
+		assertEquals(true, service.isPriorToTerm("winter2018", Semester.Winter, d6, d7));
 	}
 
 }

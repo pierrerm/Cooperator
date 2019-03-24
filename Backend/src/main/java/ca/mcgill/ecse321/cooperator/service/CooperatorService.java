@@ -664,14 +664,14 @@ public class CooperatorService {
 	public String getTerm(Semester semester, Date startDate, Date endDate) {
 		String year = null;
 		if (startDate.getYear() == endDate.getYear()) {
-			year = Integer.toString(startDate.getYear() + 1900);
+			year = Integer.toString(startDate.getYear());
 		} else if (startDate.getYear() == endDate.getYear() - 1) {
 			if (semester == Semester.Fall) {
-				year = Integer.toString(startDate.getYear() + 1900);
+				year = Integer.toString(startDate.getYear());
 			} else if (semester == Semester.Winter) {
-				year = Integer.toString(endDate.getYear() + 1900);
+				year = Integer.toString(endDate.getYear());
 			} else {
-				year = Integer.toString(startDate.getYear() + 1900);
+				year = Integer.toString(startDate.getYear());
 			}
 		}
 
@@ -687,52 +687,100 @@ public class CooperatorService {
 		return "No Term Found";
 	}
 	
-//	@SuppressWarnings("null")
-//	@Transactional
-//	public double[] getSemesterStatistics(Semester semester, int year) {
-//		// num students doing coop term this semester, avg num of coops completed per
-//		// active students, avg coop completion (files submitted) for ongoing coops this
-//		// semester
+	@Transactional
+	public boolean isPriorToTerm(String term, Semester semester, Date startDate, Date endDate) {
+		String coopTerm = getTerm(semester, startDate, endDate);
+		int i;
+		char c1='z',c2='z',c3='z',c4='z';
+		term = term.toLowerCase();
+		coopTerm = coopTerm.toLowerCase();
+		StringBuilder s1 = new StringBuilder();
+		StringBuilder s2 = new StringBuilder();
+		for(i = 0; i < term.length(); i++) {
+			c1 = term.charAt(i);
+			if (c1 >= 'a'&& c1 <= 'z') break;
+		}
+		for(i = 0; i < coopTerm.length(); i++) {
+			c2 = coopTerm.charAt(i);
+			if (c2 >= 'a'&& c2 <= 'z') break;
+		}
+		for(i = 0; i < term.length(); i++) {
+			c3 = term.charAt(i);
+			if (c3 >= '0'&& c3 <= '9') s1.append(c3);
+		}
+		for(i = 0; i < coopTerm.length(); i++) {
+			c4 = coopTerm.charAt(i);
+			if (c4 >= '0'&& c4 <= '9') s2.append(c4);
+		}
+		int limitYear = Integer.parseInt(s1.toString());
+		int coopYear = Integer.parseInt(s2.toString());
+		
+		if (limitYear > coopYear) return true;
+		else if (limitYear == coopYear) {
+			if(c1 == 'f') return !(c2 == 'f');
+			if(c1 == 's') return (c2 == 'w');
+			else return false;
+		}
+		else return false;
+		//		String limitSemester;
+//		int limitYear, i, year = Integer.MAX_VALUE;
 //
-//		List<Student> students = getAllStudents();
+//		for(i = 0; i < term.length(); i++) {
+//			char c = term.charAt(i);
+//			if (c >= '0'&& c <= '9') break;
+//		}
+//		
+//		limitSemester = term.substring(0, i-1).replaceAll("\\s","").toLowerCase();
+//		limitYear = Integer.parseInt(term.substring(i).replaceAll("\\s","").toLowerCase());
+//		
+//		Calendar calendarStart = new GregorianCalendar();
+//		calendarStart.setTime(startDate);
+//		int yearStart = calendarStart.get(Calendar.YEAR);
 //
-//		double numActiveStudents = 0;
-//		double numCompletedCoops = 0;
-//		double numSubmittedForms = 0;
-//		List<Coop> ongoingCoops = null;
-//
-//		for (Student student : students) {
-//
-//			boolean isActive = false;
-//			double tempNumCompletedCoops = 0;
-//			double tempNumSubmittedForms = 0;
-//			Coop ongoingCoop = null;
-//
-//			Set<Coop> coops = student.getCoop();
-//			if (coops.isEmpty())
-//				break;
-//
-//			for (Coop coop : coops) {
-//				if (coopRepository.isInSemester(coop, semester, year)) {
-//					isActive = true;
-//					ongoingCoop = coop;
-//					tempNumSubmittedForms = coop.getForm().size();
-//				} else if (coop.getForm().size() >= 4) {
-//					tempNumCompletedCoops++;
-//				}
-//			}
-//
-//			if (isActive) {
-//				numActiveStudents++;
-//				numCompletedCoops += tempNumCompletedCoops;
-//				numSubmittedForms += tempNumSubmittedForms;
-//				ongoingCoops.add(ongoingCoop);
+//		Calendar calendarEnd = new GregorianCalendar();
+//		calendarEnd.setTime(endDate);
+//		int yearEnd = calendarEnd.get(Calendar.YEAR);
+//		
+//		if (yearStart == yearEnd) {
+//			year = yearStart;
+//		} else if (yearStart == yearEnd - 1) {
+//			if (semester == Semester.Fall) {
+//				year = yearStart;
+//			} else if (semester == Semester.Winter) {
+//				year = yearEnd;
+//			} else {
+//				year = yearStart;
 //			}
 //		}
-//		double[] stats = { numActiveStudents, (numCompletedCoops / numActiveStudents),
-//				(numSubmittedForms / numActiveStudents) };
-//		return stats;
-//	}
+//		
+//		if (year < limitYear) return true;
+//		else if (year == limitYear){
+//			switch(limitSemester.charAt(0)) {
+//			case 'w': return false;
+//			case 's': if (semester == Semester.Winter) return true;
+//				      else return false;
+//			case 'f': if (semester == Semester.Fall) return false;
+//					  else return true;
+//			default: return false;
+//			}
+//		}
+//		return false;
+	}
+	
+
+	@Transactional
+	public double[] getSemesterStatistics(String term) {
+		double[] stats = {0,0,0,0};
+		stats[0] = getAllActiveCoops(term).size();
+		stats[1] = (double)getAllCompletedActiveCoops(term).size()/(double)stats[0];
+		double forms = 0;
+		for (Coop c : getAllActiveCoops(term)) {
+			forms += (double)countForms(c);
+		}
+		stats[2] = forms/(double)stats[0];
+		stats[3] = getAllStudentsWithFormError(term).size();
+		return stats;
+	}
 	
 	// US2 - Get all active Students (currently enrolled in coop term)
 	@Transactional
@@ -803,7 +851,7 @@ public class CooperatorService {
 			List<Coop> completedCoops = new ArrayList<Coop>();
 			for(Student s : getAllStudents()) {
 				for (Coop c : s.getCoop()) {
-					if (coopRepository.isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
+					if (isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
 						if (countForms(c) == 4) {
 							completedCoops.add(c);
 						}
@@ -821,7 +869,7 @@ public class CooperatorService {
 		for(Student s : getAllStudents()) {
 			if(s.getUserId() == userId) {
 				for (Coop c : s.getCoop()) {
-					if (coopRepository.isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
+					if (isPriorToTerm(term, c.getSemester(), c.getStartDate(), c.getEndDate())) {
 						if (countForms(c) == 4) {
 							completedCoops.add(c);
 						}
