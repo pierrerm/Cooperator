@@ -7,6 +7,7 @@ matrix:
       before_install:
         - cd Frontend/
         - npm install
+        - cd ..
       script:
         - npm run build
       deploy:
