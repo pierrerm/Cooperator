@@ -250,7 +250,7 @@ public class CooperatorRestController {
 		return reminderDto;
 	}
 
-	// Form
+	// Form -- Acceptance Form
 	@PostMapping(value = { "/form/acceptanceForm/{formId}/{submissionDate}/{coopId}",
 			"/form/acceptanceForm/{formId}/{submissionDate}/{coopId}/" })
 	public FormDto createForm(@PathVariable("formId") int formId,
@@ -264,7 +264,7 @@ public class CooperatorRestController {
 		return convertToDto(aForm);
 	}
 
-	// Form
+	// Form -- Coop Evaluation
 	@PostMapping(value = {
 			"/form/coopEvaluation/{formId}/{submissionDate}/{workExperience}/{employerEvaluation}/{softwareTechnologies}/{usefulCourses}/{coopId}",
 			"/form/coopEvaluation/{formId}/{submissionDate}/{workExperience}/{employerEvaluation}/{softwareTechnologies}/{usefulCourses}/{coopId}/" })
@@ -285,7 +285,7 @@ public class CooperatorRestController {
 
 	}
 
-	// Form
+	// Form -- Student Evaluation
 	@PostMapping(value = {
 			"/form/studentEvaluation/{formId}/{submissionDate}/{studentPerformance}/{studentWorkExperience}/{coopId}",
 			"/form/studentEvaluation/{formId}/{submissionDate}/{studentPerformance}/{studentWorkExperience}/{coopId}/" })
@@ -304,7 +304,7 @@ public class CooperatorRestController {
 
 	}
 
-	// Form
+	// Form -- Tasks Workload Report
 	@PostMapping(value = {
 			"/form/tasksWorkloadReport/{formId}/{submissionDate}/{hoursPerWeek}/{tasks}/{training}/{wage}/{coopId}",
 			"/form/tasksWorkloadReport/{formId}/{submissionDate}/{hoursPerWeek}/{tasks}/{training}/{wage}/{coopId}/" })

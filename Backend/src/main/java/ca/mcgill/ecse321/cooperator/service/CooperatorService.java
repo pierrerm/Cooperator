@@ -833,7 +833,7 @@ public class CooperatorService {
 		return completedCoops;
 	}
 	
-	// List all forms for a given student
+	// US1 - List all forms for a given student
 	@Transactional
 	public Set<Form> getFormsFromStudent(int userId, Semester semester, int year) {
 		
@@ -849,7 +849,7 @@ public class CooperatorService {
 		return forms;
 	}
 	
-	// List all forms for a given employer
+	// US1 - List all forms for a given employer
 	@Transactional
 	public Set<Form> getFormsFromEmployer(int userId, Semester semester, int year) {
 		
@@ -872,9 +872,6 @@ public class CooperatorService {
 		AcceptanceForm acceptanceForm = (AcceptanceForm) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-//		case "formid" :
-//			acceptanceForm.setFormId((int) value);
-//			break;
 		case "submissiondate":
 			acceptanceForm.setSubmissionDate((Date) value);
 			break;
@@ -887,9 +884,6 @@ public class CooperatorService {
 		CoopEvaluation coopEvaluation = (CoopEvaluation) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-//		case "formid" :
-//			coopEvaluation.setFormId((int) value);
-//			break;
 		case "submissiondate":
 			coopEvaluation.setSubmissionDate((Date) value);
 			break;
@@ -914,9 +908,6 @@ public class CooperatorService {
 		StudentEvaluation studentEvaluation = (StudentEvaluation) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-//		case "formid" :
-//			studentEvaluation.setFormId((int) value);
-//			break;
 		case "submissiondate":
 			studentEvaluation.setSubmissionDate((Date) value);
 			break;
@@ -935,9 +926,6 @@ public class CooperatorService {
 		TasksWorkloadReport tasksWorkloadReport = (TasksWorkloadReport) formRepository.findFormByFormId(formId);
 		
 		switch(attribute.toLowerCase()) {
-//		case "formid" :
-//			tasksWorkloadReport.setFormId((int) value);
-//			break;
 		case "submissiondate":
 			tasksWorkloadReport.setSubmissionDate((Date) value);
 			break;
