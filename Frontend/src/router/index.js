@@ -37,7 +37,7 @@ export default new Router({
       component: ViewAllStudents
     },
     {
-      path: '/studentForm',
+      path: '/studentForm/:userId',
       name: 'ViewStudentForms',
       component: ViewStudentForms
     },
@@ -71,6 +71,6 @@ export default new Router({
       name: 'EmployerForm',
       component: EmployerForm
     }
-    
+
   ]
 })
