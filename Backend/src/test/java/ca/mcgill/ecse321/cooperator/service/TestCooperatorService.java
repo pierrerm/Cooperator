@@ -421,7 +421,6 @@ public class TestCooperatorService {
 		String description = "";
 		int urgency = 3;
 		String subject = "testing";
-		int reminderId = 1;
 		Date date = null;
 		Date deadline = null;
 
@@ -444,7 +443,7 @@ public class TestCooperatorService {
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
 			Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
 					needWorkPermit, semester, startDate, student, employer);
-			service.createReminder(reminderId, subject, date, deadline, description, urgency, coop);
+			service.createReminder(subject, date, deadline, description, urgency, coop);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
@@ -452,7 +451,6 @@ public class TestCooperatorService {
 		List<Reminder> allReminders = service.getAllReminders();
 
 		assertEquals(1, allReminders.size());
-		assertEquals(reminderId, allReminders.get(0).getReminderId());
 	}
 	
 	@Test

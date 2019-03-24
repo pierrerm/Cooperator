@@ -251,7 +251,7 @@ public class CooperatorService {
 
 	// Reminder
 	@Transactional
-	public Reminder createReminder(int reminderId, String subject, Date date, Date deadline, String description,
+	public Reminder createReminder(String subject, Date date, Date deadline, String description,
 			int urgency, Coop coop) {
 		String error = "";
 		if (coop == null) {
@@ -272,7 +272,6 @@ public class CooperatorService {
 		}
 
 		Reminder reminder = new Reminder();
-		reminder.setReminderId(reminderId);
 		reminder.setSubject(subject);
 		reminder.setDate(date);
 		reminder.setDeadLine(deadline);
@@ -312,7 +311,7 @@ public class CooperatorService {
 	 */
 	@Transactional
 	public List<Reminder> sendReminders() {
-		int reminderId, urgency;
+		int urgency;
 		String subject, description;
 		Date date, deadline;
 		List<Student> problematicStudents = getAllStudents();
@@ -339,19 +338,17 @@ public class CooperatorService {
 				}
 				if (!isTasksWorkloadReportSubmited && date.after(threeDaysLeft)) {
 					if (deadline.after(date)) {//if there is still time to send the report
-						reminderId = 911;
 						urgency = 3;
 						subject = "Tasks Workload Report Submission";
 						description = "You only have 3 days left to submit your Task Workload Report!";
-						remindersSent.add(createReminder(reminderId, subject, date, deadline, 
+						remindersSent.add(createReminder(subject, date, deadline, 
 								description, urgency, coop));
 					}
 					else { //today's date is after the deadline -> too late to submit
-						reminderId = 911;
 						urgency = 3;
 						subject = "Tasks Workload Report Submission";
 						description = "It is now too late to submit the Task Workload Report";
-						remindersSent.add(createReminder(reminderId, subject, date, addDays(date, 1), 
+						remindersSent.add(createReminder(subject, date, addDays(date, 1), 
 								description, urgency, coop));
 						
 					}
@@ -359,7 +356,6 @@ public class CooperatorService {
 				}
 			}
 		}
-			else System.out.println("coop is Empty");
 		}
 		return remindersSent;
 	}

@@ -97,7 +97,6 @@ public class CooperatorReminderTests {
 		when(reminderDao.findReminderByReminderId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(REMINDER_KEY)) {
 				reminder = new Reminder();
-				reminder.setReminderId(REMINDER_KEY);
 				return reminder;
 			} else {
 				return null;
