@@ -3,32 +3,8 @@
     <div class="site-wrap">
       <div class="site-section" style="padding-top:10%">
         <div class="container" style="align:center">
-          <h1 class="page-title">Student Forms</h1>
+          <h1 class="page-title">AcceptanceForm Forms</h1>
           <div id="table">
-            <table class="info-table" style="width: 100%; height: 100%;">
-              <tr>
-                <th style="padding:10px">First Name</th>
-                <th style="padding:10px">Last Name</th>
-                <th style="padding:10px">Email</th>
-                <th style="padding:10px">McGill ID</th>
-                <th style="padding:10px">Year</th>
-                <th style="padding:10px">Major</th>
-                <th style="padding:10px">Minor</th>
-                <th style="padding:10px">Faculty</th>
-                <th style="padding:10px">Phone</th>
-              </tr>
-              <tr>
-                <td style="padding:10px">{{ student.firstName }}</td>
-                <td style="padding:10px">{{ student.lastName }}</td>
-                <td style="padding:10px">{{ student.email }}</td>
-                <td style="padding:10px">{{ student.id }}</td>
-                <td style="padding:10px">{{ student.academicYear }}</td>
-                <td style="padding:10px">{{ student.major }}</td>
-                <td style="padding:10px">{{ student.minor }}</td>
-                <td style="padding:10px">{{ student.faculty }}</td>
-                <td style="padding:10px">{{ student.phone }}</td>
-              </tr>
-            </table>
             <table class="info-table" style="width: 100%; height: 100%;">
               <tr>
                 <th style="padding:10px">Form Type</th>
@@ -43,7 +19,7 @@
                 <td style="padding:10px"></td>
               </tr>
 
-              <tr v-for="form in forms">
+              <tr v-for="attribute in form">
                 <td style="padding:10px">Acceptance Form</td>
                 <td style="padding:10px">{{ form.formId }}</td>
                 <td style="padding:10px">{{ form.submissionDate }}</td>
