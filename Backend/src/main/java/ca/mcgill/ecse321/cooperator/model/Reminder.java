@@ -8,9 +8,14 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Reminder {
 	private int reminderId;
+	private static int nextNumber = 1;
+	
+	public Reminder() {
+		this.setReminderId(nextNumber);
+	}
 
 	public void setReminderId(int value) {
-		this.reminderId = value;
+		this.reminderId = value ++;
 	}
 
 	@Id

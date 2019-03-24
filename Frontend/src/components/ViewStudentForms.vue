@@ -16,7 +16,6 @@
                 <th style="padding:10px">Minor</th>
                 <th style="padding:10px">Faculty</th>
                 <th style="padding:10px">Phone</th>
-                <th style="padding:10px">Coop</th>
               </tr>
               <tr>
                 <td style="padding:10px">{{ student.firstName }}</td>
@@ -28,7 +27,6 @@
                 <td style="padding:10px">{{ student.minor }}</td>
                 <td style="padding:10px">{{ student.faculty }}</td>
                 <td style="padding:10px">{{ student.phone }}</td>
-                <td style="padding:10px">{{ student.coop }}</td>
               </tr>
             </table>
             <table class="info-table" style="width: 100%; height: 100%;">

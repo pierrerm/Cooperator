@@ -4,11 +4,25 @@
         <div class="site-section" style="padding-top:10%">
             <div class="container" style="align:center">
                 <h1 class="page-title">Semester Stats</h1>
+                <select v-model="selected">
+                <option value="Active Student">Active Student</option>
+                <option value="Active Coop">Active Coop</option>
+                <option value="Active Coop Completed">Active Coop Completed</option>
+                <option value="Active Coop Completed Student">Active Coop Completed Student</option>
+                <option value="Coop Completed">Coop Completed</option>
+                <option value="Coop Completed Student">Coop Completed Student</option>
+                </select>
                 <input
                     class="login-text"
                     type="text"
                     placeholder="Term"
                     v-model="term"
+                />
+                <input
+                    class="login-text"
+                    type="text"
+                    placeholder="Student"
+                    v-model="student"
                 />
                 <input @click="getStats(term)"
                     type="submit"
@@ -17,7 +31,7 @@
                 />
                 <div id="table">
                     <table class="info-table" style="width: 100%; height: 100%;">
-                        <tr>
+                        <tr v-if="selected">
                             <th style="padding:10px">First Name</th>
                             <th style="padding:10px">Last Name</th>
                             <th style="padding:10px">Email</th>

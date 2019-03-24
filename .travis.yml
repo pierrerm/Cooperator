@@ -7,11 +7,19 @@ matrix:
       before_install:
         - cd Frontend/
         - npm install
+        - npm install --save axios
+        - npm install --save bootstrap-vue
+        - npm install --save jquery -D
+        - npm install --save vue@2.6.10
+        - npm install --save vue-template-compiler@2.6.10
+        - npm install --save aos
+        - npm install --save vue-cookie
+        - npm install --save vue-router
       script:
         - npm run build
       deploy:
         provider: heroku
-        #skip_cleanup: true
+        skip_cleanup: true
         app: cooperator-frontend-3417
         api_key:
           secure: "18f21435-ea95-4281-b34a-000e79b86fee"
