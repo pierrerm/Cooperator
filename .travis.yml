@@ -7,6 +7,7 @@ matrix:
       before_install:
         - cd Frontend/
         - npm install
+        - npm install --save axios
       script:
         - npm run build
       deploy:
