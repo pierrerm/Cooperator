@@ -81,15 +81,13 @@ public class CooperatorReminderTests {
 	private List<Reminder> reminders = new ArrayList<Reminder>();
 	private List<Form> returnedForms = new ArrayList<Form>();
 
-	private static final int REMINDER_KEY = 60;
+	private static final int REMINDER_KEY = 1;
 	private static final int INVALID_KEY = -60;
 	private static final int STUDENT_KEY = 1;
 	private static final int EMPLOYER_KEY = 1;
 	private static final int COOP_KEY = 1;
 	private static final int COOPEVAL_KEY = 40;
-	private static final int STUDENTEVAL_KEY = 41;
-	private static final int ACCEP_KEY = 42;
-	private static final int TASKREP_KEY = 43;
+
 
 
 	@Before
@@ -145,6 +143,7 @@ public class CooperatorReminderTests {
 		coopEval = mock(CoopEvaluation.class);
 		coopEval = service.createCoopEvaluation(COOPEVAL_KEY, null, "workExperience", 5, "softwareTechnologies", "usefulCourses", coop);	
 		reminder = mock(Reminder.class);
+		reminder = service.createReminder("Reminder Subject", startDate, endDate, "This is a Reminder", 3, coop);
 		
 		
 	}
