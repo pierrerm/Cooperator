@@ -7,8 +7,9 @@ matrix:
       before_install:
         - cd Frontend/
         - npm install
-        - npm install --save axios
+        - npm install axios
         - npm install bootstrap-vue
+        - npm install bootstrap
         - npm install vue
         - npm install aos
         - npm install vue-cookie
