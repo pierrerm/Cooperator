@@ -16,7 +16,6 @@
                             <th style="padding:10px">Minor</th>
                             <th style="padding:10px">Faculty</th>
                             <th style="padding:10px">Phone</th>
-                            <th style="padding:10px">Coop</th>
                         </tr>
                         <tr v-for="student in students">
                             <td style="padding:10px">
@@ -32,7 +31,6 @@
                             <td style="padding:10px">{{ student.minor }}</td>
                             <td style="padding:10px">{{ student.faculty }}</td>
                             <td style="padding:10px">{{ student.phone }}</td>
-                            <td style="padding:10px">{{ student.coop }}</td>
                         </tr>
                     </table>
                 </div>

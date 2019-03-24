@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import Cooperator from '@/components/Cooperator'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Logout from '@/components/Logout'
@@ -20,11 +19,6 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Hello
-    },
-    {
-      path: '/app',
-      name: 'Cooperator',
-      component: Cooperator
     },
     {
       path: '/login',
