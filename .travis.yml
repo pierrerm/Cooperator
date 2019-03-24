@@ -1,11 +1,18 @@
 matrix:
   include:
+    - language: java
+      install: true
+      jdk:
+        - oraclejdk8
+      script:
+        - ./gradlew build
+
     - language: node_js
       node_js:
-        - '7'
-      cache: npm
+        - 10.15
       before_install:
-        - cd Frontend/
+        - cd Frontend
+      install:
         - npm install
         - npm install --save axios
         - npm install --save bootstrap-vue
@@ -17,17 +24,17 @@ matrix:
         - npm install --save vue-router
       script:
         - npm run build
+
+    - stage: deploy to backend app
+      script: skip
       deploy:
         provider: heroku
-        skip_cleanup: true
-        app: cooperator-frontend-3417
-        api_key:
-          secure: "18f21435-ea95-4281-b34a-000e79b86fee"
-    - language: java
-      script:
-        - "./gradlew build"
-      deploy:
-        provider: heroku
-        api_key:
-          secure: "18f21435-ea95-4281-b34a-000e79b86fee"
+        api_key: "18f21435-ea95-4281-b34a-000e79b86fee"
         app: cooperator-backend-3417
+
+    - stage: deploy to frontend app
+      script: skip
+      deploy:
+        provider: heroku
+        api_key: "18f21435-ea95-4281-b34a-000e79b86fee"
+        app: cooperator-frontend-3417
