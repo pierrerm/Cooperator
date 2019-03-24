@@ -385,7 +385,7 @@ public class CooperatorRestController {
 	}
 	
 	// Student Forms
-		@GetMapping(value = { "/forms/student/{userId}", "/forms/student/{userId}/" })
+		@GetMapping(value = { "/forms/student/byId/{userId}", "/forms/student/byId/{userId}/" })
 		public List<FormDto> getFormsForStudent(@PathVariable("userId") int userId)
 				throws IllegalArgumentException {
 
