@@ -8,6 +8,11 @@ matrix:
         - cd Frontend/
         - npm install
         - npm install --save axios
+        - npm install bootstrap-vue
+        - npm install vue
+        - npm install aos
+        - npm install vue-cookie
+        - npm install vue-router
       script:
         - npm run build
       deploy:
