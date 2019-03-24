@@ -8,7 +8,7 @@ matrix:
         - cd Frontend/
         - npm install
       script:
-        - npm run dev
+        - npm run build
       deploy:
         provider: heroku
         #skip_cleanup: true
