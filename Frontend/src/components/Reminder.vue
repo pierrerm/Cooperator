@@ -7,10 +7,20 @@
                 <div id="table">
                     <table class="info-table" style="width: 100%; height: 100%;">
                         <tr>
-                            <th style="padding:10px">Urgency</th>
+                            <th style="padding:5px">Urgency</th>
+                            <th style="padding:5px">Subject</th>
+                            <th style="padding:5px">Description</th>
+                            <th style="padding:5px">Coop ID</th>
+                            <th style="padding:5px">Student Name</th>
+                            <th style="padding:5px">Student Id</th>
                         </tr>
                         <tr v-for="reminder in reminders">
-                            <td style="padding:10px">{{ reminder.urgency }}</td>
+                            <td style="padding:5px">{{ reminder.urgency }}</td>
+                            <td style="padding:5px">{{ reminder.subject }}</td>
+                            <td style="padding:5px">{{ reminder.description }}</td>
+                            <td style="padding:5px">{{ reminder.coop.coopId }}</td>
+                            <td style="padding:5px">{{ reminder.coop.student.firstName }}</td>
+                            <td style="padding:5px">{{ reminder.coop.student.id }}</td>
                         </tr>
                     </table>
                 </div>

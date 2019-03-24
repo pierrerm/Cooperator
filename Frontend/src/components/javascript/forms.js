@@ -26,9 +26,8 @@ export default {
         for (var i in this.students) {
           if (this.students[i].userId === this.$route.params.userId) {
             this.student = this.students[i]
-
-            // TODO refactor this function (timing problems)
-            AXIOS.get('/forms/student/'+ this.student.userId +'/Summer/2019')
+            
+            AXIOS.get('/forms/student/'+ this.student.userId)
               .then(response => {
                 this.forms = response.data;
               })
