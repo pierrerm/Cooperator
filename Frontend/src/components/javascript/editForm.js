@@ -12,9 +12,7 @@ var AXIOS = axios.create({
 export default {
   data() {
     return {
-      students: [],
-      student: '',
-      forms: []
+      fields: []
     }
   },
 
