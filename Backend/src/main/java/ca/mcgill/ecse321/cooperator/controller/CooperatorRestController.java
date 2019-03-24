@@ -223,10 +223,10 @@ public class CooperatorRestController {
 
 	@GetMapping(value = { "/reminders/send", "/reminders/send/" })
 	public List<ReminderDto> sendReminders() {
-		System.out.println("GET /reminders/send (JULIEN)");
-
+		System.out.println("GET /reminders/send 2.0");
+		List<Reminder> remindersSent = service.sendReminders();
 		List<ReminderDto> reminderDtos = new ArrayList<>();
-		for (Reminder reminder : service.sendReminders()) {
+		for (Reminder reminder : remindersSent) {
 			reminderDtos.add(convertToDto(reminder));
 		}
 		return reminderDtos;

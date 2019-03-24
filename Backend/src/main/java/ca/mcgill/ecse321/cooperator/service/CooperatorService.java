@@ -315,14 +315,15 @@ public class CooperatorService {
 		int reminderId, urgency;
 		String subject, description;
 		Date date, deadline;
-		List<Student> problematicStudents = this.getAllStudents();
+		List<Student> problematicStudents = getAllStudents();
 		List<Reminder> remindersSent = new ArrayList<Reminder>();
-		if (problematicStudents.isEmpty()) return remindersSent;
-		for (Student student : problematicStudents) {
+		if (problematicStudents.isEmpty()) {
+			return remindersSent;
+		}
+		for (Student student : problematicStudents) {		
 			Set<Coop> coops = student.getCoop();
 
-			if (coops.isEmpty())
-				break;
+			if (!coops.isEmpty()) {				
 			for (Coop coop : coops) {
 				Date startDate = coop.getStartDate();
 				date = new Date(System.currentTimeMillis()); // return today's date
@@ -336,7 +337,7 @@ public class CooperatorService {
 						break;
 					}
 				}
-				if (!isTasksWorkloadReportSubmited && date.after(threeDaysLeft) && deadline.after(date)) {
+				if (!isTasksWorkloadReportSubmited && date.after(threeDaysLeft)) {
 					if (deadline.after(date)) {//if there is still time to send the report
 						reminderId = 911;
 						urgency = 3;
@@ -357,6 +358,8 @@ public class CooperatorService {
 
 				}
 			}
+		}
+			else System.out.println("coop is Empty");
 		}
 		return remindersSent;
 	}
