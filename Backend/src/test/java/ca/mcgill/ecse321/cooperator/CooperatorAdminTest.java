@@ -3,30 +3,27 @@
  */
 package ca.mcgill.ecse321.cooperator;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.mockito.invocation.InvocationOnMock;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.cooperator.controller.CooperatorRestController;
-
+import ca.mcgill.ecse321.cooperator.dao.AdministratorRepository;
+import ca.mcgill.ecse321.cooperator.model.Administrator;
+import ca.mcgill.ecse321.cooperator.model.Faculty;
 import ca.mcgill.ecse321.cooperator.service.CooperatorService;
-
-import ca.mcgill.ecse321.cooperator.model.*;
-
-import ca.mcgill.ecse321.cooperator.dao.*;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
 /**

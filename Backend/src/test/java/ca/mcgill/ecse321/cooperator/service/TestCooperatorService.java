@@ -4,9 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -453,11 +451,11 @@ public class TestCooperatorService {
 
 		assertEquals(1, allReminders.size());
 	}
-	
+
 	@Test
 	public void testSendReminders() {
 		assertEquals(0, service.getAllReminders().size());
-		
+
 		int coopId = 1;
 		int jobId = 1;
 		boolean employerConfirmation = true;
@@ -468,8 +466,8 @@ public class TestCooperatorService {
 		Semester semester = Semester.Fall;
 		Date today = new Date(System.currentTimeMillis()); // return today's date
 		Date startDate = service.addDays(today, -12); // today - 12 days -> need a reminder if no forms submitted
-		Date endDate =  service.addDays(today, 100);
-		
+		Date endDate = service.addDays(today, 100);
+
 		try {
 			Employer employer = service.createEmployer(1, 1, "google@gmail.com", "Bob", "Bobby", "password", "Google",
 					"Montreal", "HR");
@@ -477,26 +475,26 @@ public class TestCooperatorService {
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Ngolo", "Kante", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
-					needWorkPermit, semester, startDate, student, employer);
+			service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location, needWorkPermit,
+					semester, startDate, student, employer);
 			service.sendReminders();
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
+
 		List<Reminder> allReminders = service.getAllReminders();
 		List<Student> everyStudents = service.getAllStudents();
 		assertEquals(everyStudents.size(), allReminders.size());
-		
+
 	}
-	
+
 	@Test
 	public void testEditAcceptanceForm() {
 		assertEquals(0, service.getAllForms().size());
 
 		int formId = 6;
 		Date submissionDate = null;
-		
+
 		int newFormId = 7;
 		Date newSubmissionDate = null;
 
@@ -507,10 +505,10 @@ public class TestCooperatorService {
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(1, true, null, "Java", 1, "Montreal", true, Semester.Fall, null, student, 
+			Coop coop = service.createCoop(1, true, null, "Java", 1, "Montreal", true, Semester.Fall, null, student,
 					employer);
 			service.createAcceptanceForm(newFormId, submissionDate, coop);
-			//service.editAcceptanceForm(formId, "formId", newFormId);
+			// service.editAcceptanceForm(formId, "formId", newFormId);
 			service.editAcceptanceForm(newFormId, "submissionDate", newSubmissionDate);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -518,12 +516,12 @@ public class TestCooperatorService {
 
 		List<Form> allForms = service.getAllForms();
 		AcceptanceForm form = (AcceptanceForm) service.getForm(newFormId);
-		
+
 		assertEquals(1, allForms.size());
 		assertEquals(newFormId, form.getFormId());
 		assertEquals(newSubmissionDate, form.getSubmissionDate());
 	}
-	
+
 	@Test
 	public void testEditCoopEvaluation() {
 		assertEquals(0, service.getAllForms().size());
@@ -534,7 +532,7 @@ public class TestCooperatorService {
 		int employerEvaluation = 9;
 		String softwareTechnologies = "dialogflow";
 		String usefulCourses = "none";
-		
+
 		int newFormId = 9;
 		Date newSubmissionDate = null;
 		String newWorkExperience = "not great";
@@ -549,11 +547,11 @@ public class TestCooperatorService {
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(1, true, null, "Java", 1, "Montreal", true, Semester.Fall, null, student, 
+			Coop coop = service.createCoop(1, true, null, "Java", 1, "Montreal", true, Semester.Fall, null, student,
 					employer);
 			service.createCoopEvaluation(newFormId, submissionDate, workExperience, employerEvaluation,
 					softwareTechnologies, usefulCourses, coop);
-			//service.editCoopEvaluation(formId, "FormId", newFormId);
+			// service.editCoopEvaluation(formId, "FormId", newFormId);
 			service.editCoopEvaluation(newFormId, "SubmissionDate", newSubmissionDate);
 			service.editCoopEvaluation(newFormId, "WorkExperience", newWorkExperience);
 			service.editCoopEvaluation(newFormId, "EmployerEvaluation", newEmployerEvaluation);
@@ -565,7 +563,7 @@ public class TestCooperatorService {
 
 		List<Form> allForms = service.getAllForms();
 		CoopEvaluation form = (CoopEvaluation) service.getForm(newFormId);
-		
+
 		assertEquals(1, allForms.size());
 		assertEquals(newFormId, form.getFormId());
 		assertEquals(newSubmissionDate, form.getSubmissionDate());
@@ -583,7 +581,7 @@ public class TestCooperatorService {
 		Date submissionDate = null;
 		String studentWorkExperience = "amazing";
 		int studentPerformance = 10;
-		
+
 		int newFormId = 11;
 		Date newSubmissionDate = null;
 		String newStudentWorkExperience = "great";
@@ -596,10 +594,10 @@ public class TestCooperatorService {
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(1, true, null, "Java", 1, "Montreal", true, Semester.Fall, null, student, 
+			Coop coop = service.createCoop(1, true, null, "Java", 1, "Montreal", true, Semester.Fall, null, student,
 					employer);
 			service.createStudentEvaluation(newFormId, submissionDate, studentWorkExperience, studentPerformance, coop);
-			//service.editStudentEvaluation(formId, "FormId", newFormId);
+			// service.editStudentEvaluation(formId, "FormId", newFormId);
 			service.editStudentEvaluation(newFormId, "SubmissionDate", newSubmissionDate);
 			service.editStudentEvaluation(newFormId, "StudentWorkExperience", newStudentWorkExperience);
 			service.editStudentEvaluation(newFormId, "StudentPerformance", newStudentPerformance);
@@ -609,7 +607,7 @@ public class TestCooperatorService {
 
 		List<Form> allForms = service.getAllForms();
 		StudentEvaluation form = (StudentEvaluation) service.getForm(newFormId);
-		
+
 		assertEquals(1, allForms.size());
 		assertEquals(newFormId, form.getFormId());
 		assertEquals(newSubmissionDate, form.getSubmissionDate());
@@ -627,7 +625,7 @@ public class TestCooperatorService {
 		int hoursPerWeek = 35;
 		int wage = 400;
 		String training = "";
-		
+
 		int newFormId = 13;
 		Date newSubmissionDate = null;
 		String newTasks = "debugging";
@@ -642,23 +640,23 @@ public class TestCooperatorService {
 					Faculty.Engineering, 260147532);
 			Student student = service.createStudent(3, 1, "@gmail.com", "Terry", "sdfsdf", "password",
 					Faculty.Engineering, 260148654, "Software", "", "U2", admin);
-			Coop coop = service.createCoop(1, true, null, "Java", 1, "Montreal", true, Semester.Fall, null, student, 
+			Coop coop = service.createCoop(1, true, null, "Java", 1, "Montreal", true, Semester.Fall, null, student,
 					employer);
 			service.createTasksWorkloadReport(newFormId, submissionDate, tasks, hoursPerWeek, wage, training, coop);
-			//service.editTasksWorkloadReport(formId, "FormId", newFormId);
+			// service.editTasksWorkloadReport(formId, "FormId", newFormId);
 			service.editTasksWorkloadReport(newFormId, "SubmissionDate", newSubmissionDate);
 			service.editTasksWorkloadReport(newFormId, "Tasks", newTasks);
 			service.editTasksWorkloadReport(newFormId, "HoursPerWeek", newHoursPerWeek);
 			service.editTasksWorkloadReport(newFormId, "Wage", newWage);
 			service.editTasksWorkloadReport(newFormId, "Training", newTraining);
-			
+
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 
 		List<Form> allForms = service.getAllForms();
 		TasksWorkloadReport form = (TasksWorkloadReport) service.getForm(newFormId);
-		
+
 		assertEquals(1, allForms.size());
 		assertEquals(newFormId, form.getFormId());
 		assertEquals(newSubmissionDate, form.getSubmissionDate());
@@ -667,7 +665,7 @@ public class TestCooperatorService {
 		assertEquals(newWage, form.getWage());
 		assertEquals(newTraining, form.getTraining());
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testIsPriorToTerm() {
@@ -679,9 +677,10 @@ public class TestCooperatorService {
 		Date d5 = new Date(2018, 8, 1);
 		Date d6 = new Date(2017, 1, 1);
 		Date d7 = new Date(2017, 4, 1);
-		
+
 		assertEquals(false, service.isPriorToTerm("winter2018", Semester.Winter, d, d1));
-		//assertEquals(true, service.isPriorToTerm("winter2018", Semester.Fall, d2, d3));
+		// assertEquals(true, service.isPriorToTerm("winter2018", Semester.Fall, d2,
+		// d3));
 		assertEquals(false, service.isPriorToTerm("winter2018", Semester.Summer, d4, d5));
 		assertEquals(true, service.isPriorToTerm("winter2018", Semester.Winter, d6, d7));
 	}

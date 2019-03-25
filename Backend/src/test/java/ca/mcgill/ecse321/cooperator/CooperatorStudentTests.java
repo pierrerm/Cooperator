@@ -3,37 +3,41 @@
  */
 package ca.mcgill.ecse321.cooperator;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.mockito.invocation.InvocationOnMock;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import ca.mcgill.ecse321.cooperator.controller.CooperatorRestController;
-
-import ca.mcgill.ecse321.cooperator.service.CooperatorService;
-
-import ca.mcgill.ecse321.cooperator.model.*;
-
-import ca.mcgill.ecse321.cooperator.dao.*;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import ca.mcgill.ecse321.cooperator.controller.CooperatorRestController;
+import ca.mcgill.ecse321.cooperator.dao.AdministratorRepository;
+import ca.mcgill.ecse321.cooperator.dao.CoopRepository;
+import ca.mcgill.ecse321.cooperator.dao.EmployerRepository;
+import ca.mcgill.ecse321.cooperator.dao.FormRepository;
+import ca.mcgill.ecse321.cooperator.dao.StudentRepository;
+import ca.mcgill.ecse321.cooperator.model.Administrator;
+import ca.mcgill.ecse321.cooperator.model.Coop;
+import ca.mcgill.ecse321.cooperator.model.Employer;
+import ca.mcgill.ecse321.cooperator.model.Faculty;
+import ca.mcgill.ecse321.cooperator.model.Semester;
+import ca.mcgill.ecse321.cooperator.model.Student;
+import ca.mcgill.ecse321.cooperator.service.CooperatorService;
 
 /**
  * @author anudr
@@ -66,13 +70,11 @@ public class CooperatorStudentTests {
 
 	private Student student;
 	private Administrator admin;
-	private Coop coop;
 	private Employer employer;
+	private Coop coop;
 	private List<Student> expectedList = new ArrayList<Student>();
-	private List<Student> expectedList2 = new ArrayList<Student>();
 	
 	private static final int VALID_STUDENT_KEY = 1;
-	private static final int VALID_ADMIN_KEY = 1;
 	private static final int VALID_COOP_KEY = 1;
 	private static final int INVALID_STUDENT_KEY = -1;
 		

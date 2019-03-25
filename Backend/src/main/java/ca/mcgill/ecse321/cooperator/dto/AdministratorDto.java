@@ -1,11 +1,5 @@
 package ca.mcgill.ecse321.cooperator.dto;
 
-import java.util.ArrayList;
-import java.util.Set;
-
-import ca.mcgill.ecse321.cooperator.model.Faculty;
-import ca.mcgill.ecse321.cooperator.model.Student;
-
 public class AdministratorDto {
 
 	private String firstName;
@@ -13,7 +7,6 @@ public class AdministratorDto {
 	private String email;
 	private String password;
 	private int userId;
-
 
 	public AdministratorDto() {
 
