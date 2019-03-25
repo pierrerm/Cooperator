@@ -2,8 +2,6 @@ package ca.mcgill.ecse321.cooperator.dto;
 
 import java.sql.Date;
 
-import ca.mcgill.ecse321.cooperator.model.Coop;
-
 public class ReminderDto {
 
 	private int reminderId;

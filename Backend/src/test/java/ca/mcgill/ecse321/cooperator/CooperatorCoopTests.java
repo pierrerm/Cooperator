@@ -3,27 +3,9 @@
  */
 package ca.mcgill.ecse321.cooperator;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.mockito.invocation.InvocationOnMock;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import ca.mcgill.ecse321.cooperator.controller.CooperatorRestController;
-
-import ca.mcgill.ecse321.cooperator.service.CooperatorService;
-
-import ca.mcgill.ecse321.cooperator.model.*;
-
-import ca.mcgill.ecse321.cooperator.dao.*;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -35,6 +17,32 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import ca.mcgill.ecse321.cooperator.controller.CooperatorRestController;
+import ca.mcgill.ecse321.cooperator.dao.CoopRepository;
+import ca.mcgill.ecse321.cooperator.dao.EmployerRepository;
+import ca.mcgill.ecse321.cooperator.dao.FormRepository;
+import ca.mcgill.ecse321.cooperator.dao.StudentRepository;
+import ca.mcgill.ecse321.cooperator.model.AcceptanceForm;
+import ca.mcgill.ecse321.cooperator.model.Coop;
+import ca.mcgill.ecse321.cooperator.model.CoopEvaluation;
+import ca.mcgill.ecse321.cooperator.model.Employer;
+import ca.mcgill.ecse321.cooperator.model.Faculty;
+import ca.mcgill.ecse321.cooperator.model.Form;
+import ca.mcgill.ecse321.cooperator.model.Semester;
+import ca.mcgill.ecse321.cooperator.model.Student;
+import ca.mcgill.ecse321.cooperator.model.StudentEvaluation;
+import ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport;
+import ca.mcgill.ecse321.cooperator.service.CooperatorService;
 
 
 /**
@@ -64,14 +72,12 @@ public class CooperatorCoopTests {
 	private CooperatorRestController controller;
 	
 	private Coop coop;
-	private Coop coop2;
 	private CoopEvaluation coopEval;
 	private AcceptanceForm accepForm;
 	private StudentEvaluation studentEval;
 	private TasksWorkloadReport taskReport;
 	private Employer employer;
 	private Student student;
-	private Student student2;
 	
 	
 	private static final int VALID_STUDENT_KEY = 1;

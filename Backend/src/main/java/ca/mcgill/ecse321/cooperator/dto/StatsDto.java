@@ -1,11 +1,5 @@
 package ca.mcgill.ecse321.cooperator.dto;
 
-import java.util.ArrayList;
-import java.util.Set;
-
-import ca.mcgill.ecse321.cooperator.model.Faculty;
-import ca.mcgill.ecse321.cooperator.model.Student;
-
 public class StatsDto {
 
 	private String term;
@@ -14,12 +8,12 @@ public class StatsDto {
 	private double averageFormSubmission;
 	private double problematicStudents;
 
-
 	public StatsDto() {
 
 	}
 
-	public StatsDto(String term, double activeCoops, double completionIndex, double averageFormSubmission, double problematicStudents) {
+	public StatsDto(String term, double activeCoops, double completionIndex, double averageFormSubmission,
+			double problematicStudents) {
 		this.term = term;
 		this.activeCoops = activeCoops;
 		this.completionIndex = completionIndex;

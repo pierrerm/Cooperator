@@ -27,7 +27,7 @@ public class FormDto {
 		this.formId = formId;
 		this.submissionDate = submissionDate;
 		this.coopId = coopId;
-		this.formType = "AcceptanceForm";
+		this.formType = "Acceptance Form";
 	}
 
 	// Coop Evaluation

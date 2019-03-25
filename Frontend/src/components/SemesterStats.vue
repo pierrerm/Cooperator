@@ -18,6 +18,22 @@
                 <div id="table">
                     <table class="info-table" style="width: 100%; height: 100%;">
                         <tr>
+                            <th style="padding:10px">Active Coops</th>
+                            <th style="padding:10px">Completion Index</th>
+                            <th style="padding:10px">Average Form Submission</th>
+                            <th style="padding:10px">Problematic Students</th>
+                        </tr>
+                        <tr v-for="s in stats">
+                            <td style="padding:10px">{{ s.activeCoops }}</td>
+                            <td style="padding:10px">{{ s.completionIndex }}</td>
+                            <td style="padding:10px">{{ s.averageFormSubmission }}</td>
+                            <td style="padding:10px">{{ s.problematicStudents }}</td>
+                        </tr>
+                    </table>
+                <h3 class="page-title">Incomplete Coops</h3>
+                <div id="table">
+                    <table class="info-table" style="width: 100%; height: 100%;">
+                        <tr>
                             <th style="padding:10px">First Name</th>
                             <th style="padding:10px">Last Name</th>
                             <th style="padding:10px">Email</th>
@@ -29,8 +45,12 @@
                             <th style="padding:10px">Phone</th>
                             <th style="padding:10px">Coop</th>
                         </tr>
-                        <tr v-for="student in stats">
-                            <td style="padding:10px">{{ student.firstName }}</td>
+                        <tr v-for="student in students">
+                            <td style="padding:10px">
+                              <router-link :to="{name: 'ViewStudentForms', params: {userId: student.userId }}">
+                                {{ student.firstName }}
+                              </router-link>
+                            </td>
                             <td style="padding:10px">{{ student.lastName }}</td>
                             <td style="padding:10px">{{ student.email }}</td>
                             <td style="padding:10px">{{ student.id }}</td>
@@ -42,6 +62,7 @@
                             <td style="padding:10px">{{ student.coop }}</td>
                         </tr>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

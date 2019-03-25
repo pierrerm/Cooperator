@@ -1,34 +1,21 @@
 package ca.mcgill.ecse321.cooperator.service;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.sql.Date;
-import java.util.List;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import ca.mcgill.ecse321.cooperator.model.Employer;
 
 public class TestCooperatorRESTServices {
-	
+
 	@Test
 	public void testStudentCreation() {
 		try {
-			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-1/260710646/U2/compEng/eng");
+			URL url = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-1/260710646/U2/compEng/eng");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			assertEquals(200, conn.getResponseCode());
@@ -37,9 +24,9 @@ public class TestCooperatorRESTServices {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testEmployerCreation() {
 		try {
@@ -55,11 +42,12 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testCoopCreation() {
 		try {
-			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-2/260710646/U2/compEng/eng");
+			URL url = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-2/260710646/U2/compEng/eng");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			assertEquals(200, conn.getResponseCode());
@@ -76,18 +64,19 @@ public class TestCooperatorRESTServices {
 			connC.disconnect();
 			conn.disconnect();
 			connE.disconnect();
-			
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	@Test 
+
+	@Test
 	public void testAcceptanceFormCreation() {
 		try {
-			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
+			URL url = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			assertEquals(200, conn.getResponseCode());
@@ -104,8 +93,7 @@ public class TestCooperatorRESTServices {
 			connC.disconnect();
 			conn.disconnect();
 			connE.disconnect();
-			URL urlF = new URL(
-					"http://cooperator-backend-3417.herokuapp.com/form/acceptanceForm/-10/02-03-2016/-4");
+			URL urlF = new URL("http://cooperator-backend-3417.herokuapp.com/form/acceptanceForm/-10/02-03-2016/-4");
 			HttpURLConnection connF = (HttpURLConnection) urlF.openConnection();
 			connF.setRequestMethod("POST");
 			assertEquals(200, connF.getResponseCode());
@@ -117,11 +105,12 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
-	@Test 
+
+	@Test
 	public void testCoopEvaluationFormCreation() {
 		try {
-			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
+			URL url = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			assertEquals(200, conn.getResponseCode());
@@ -151,11 +140,12 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
-	@Test 
+
+	@Test
 	public void testStudentEvaluationFormCreation() {
 		try {
-			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
+			URL url = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			assertEquals(200, conn.getResponseCode());
@@ -185,13 +175,12 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	@Test 
+
+	@Test
 	public void testTasksWorkloadReportFormCreation() {
 		try {
-			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
+			URL url = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			conn.getResponseCode();
@@ -221,11 +210,12 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testSendReminders() {
 		try {
-			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-6/260710646/U2/compEng/eng");
+			URL url = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-6/260710646/U2/compEng/eng");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			conn.getResponseCode();
@@ -243,9 +233,8 @@ public class TestCooperatorRESTServices {
 			conn.disconnect();
 			connE.disconnect();
 
-			//Send Reminders to problematic students
-			URL urlR = new URL(
-					"http://cooperator-backend-3417.herokuapp.com/reminders/send");
+			// Send Reminders to problematic students
+			URL urlR = new URL("http://cooperator-backend-3417.herokuapp.com/reminders/send");
 			HttpURLConnection connR = (HttpURLConnection) urlR.openConnection();
 			connR.setRequestMethod("GET");
 			assertEquals(200, connR.getResponseCode());
@@ -255,7 +244,7 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testGetAllStudents() {
 		try {
@@ -269,7 +258,7 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testGetAllCoops() {
 		try {
@@ -283,7 +272,7 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testGetAllEmployers() {
 		try {
@@ -297,7 +286,7 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testGetAllForms() {
 		try {
@@ -311,7 +300,7 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testGetStudentForms() {
 		try {
@@ -325,7 +314,7 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testGetEmployerForms() {
 		try {
@@ -339,12 +328,13 @@ public class TestCooperatorRESTServices {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testEditForm() {
 		try {
-			
-			URL url = new URL("http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
+
+			URL url = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-3/260710646/U2/compEng/eng");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			assertEquals(200, conn.getResponseCode());
@@ -361,7 +351,7 @@ public class TestCooperatorRESTServices {
 			connC.disconnect();
 			conn.disconnect();
 			connE.disconnect();
-			
+
 //			URL urlF1 = new URL(
 //					"http://cooperator-backend-3417.herokuapp.com/form/acceptanceForm/-10/02-03-2016/-4");
 //			HttpURLConnection connF1 = (HttpURLConnection) urlF1.openConnection();
@@ -374,7 +364,7 @@ public class TestCooperatorRESTServices {
 //			connF2.setRequestMethod("PUT");
 //			assertEquals(200, connF2.getResponseCode());
 //			connF2.disconnect();
-			
+
 //			URL urlF3 = new URL(
 //					"http://cooperator-backend-3417.herokuapp.com/form/coopEvaluation/-11/02-03-2016/workExperince/5/software/courses/-4");
 //			HttpURLConnection connF3 = (HttpURLConnection) urlF3.openConnection();
@@ -387,7 +377,7 @@ public class TestCooperatorRESTServices {
 //			connF4.setRequestMethod("PUT");
 //			assertEquals(200, connF4.getResponseCode());
 //			connF4.disconnect(); 
-			
+
 			URL urlF5 = new URL(
 					"http://cooperator-backend-3417.herokuapp.com/form/studentEvaluation/-12/02-03-2016/5/work/-4");
 			HttpURLConnection connF5 = (HttpURLConnection) urlF5.openConnection();
@@ -400,7 +390,7 @@ public class TestCooperatorRESTServices {
 			connF6.setRequestMethod("PUT");
 			assertEquals(200, connF6.getResponseCode());
 			connF6.disconnect();
-			
+
 			URL urlF7 = new URL(
 					"http://cooperator-backend-3417.herokuapp.com/form/tasksWorkloadReport/-13/02-03-2016/40/tasks/training/20/-4");
 			HttpURLConnection connF7 = (HttpURLConnection) urlF7.openConnection();
@@ -413,7 +403,7 @@ public class TestCooperatorRESTServices {
 			connF8.setRequestMethod("PUT");
 			assertEquals(200, connF8.getResponseCode());
 			connF8.disconnect();
-			
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
