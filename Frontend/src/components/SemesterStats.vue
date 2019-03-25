@@ -7,7 +7,7 @@
                 <input
                     class="login-text"
                     type="text"
-                    placeholder="Term"
+                    placeholder="Term (eg: 'winter2019')"
                     v-model="term"
                 />
                 <input @click="getStats(term)"
