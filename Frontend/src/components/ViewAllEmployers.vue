@@ -16,7 +16,12 @@
                             <th style="padding:10px">Phone Number</th>
                         </tr>
                         <tr v-for="employer in employers">
-                            <td style="padding:10px">{{ employer.firstName }}</td>
+                            <td style="padding:10px">
+                              <router-link :to="{name: 'ViewEmployerForms', params: {userId: employer.userId }}">
+                                {{ employer.firstName }}
+                              </router-link>
+
+                            </td>
                             <td style="padding:10px">{{ employer.lastName }}</td>
                             <td style="padding:10px">{{ employer.email }}</td>
                             <td style="padding:10px">{{ employer.position }}</td>
