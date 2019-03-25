@@ -896,7 +896,7 @@ public class CooperatorService {
 		return forms;
 	}
 	
-	@Transactional
+	@Transactional	// by user ID only
 	public Set<Form> getFormsForStudent(int userId) {
 		
 		Set<Form> forms = new HashSet<Form>();
@@ -923,6 +923,21 @@ public class CooperatorService {
 			if (coopRepository.isInSemester(coop, semester, year)) {
 				forms = coop.getForm();
 			}
+		}
+		return forms;
+	}
+	
+	@Transactional	// by user ID only
+	public Set<Form> getFormsForEmployer(int userId) {
+		
+		Set<Form> forms = new HashSet<Form>();
+		Employer employer = getEmployer(userId);
+		Set<Coop> coops = employer.getCoop();
+
+		for (Coop coop : coops) {
+			
+				forms = coop.getForm();
+			
 		}
 		return forms;
 	}
