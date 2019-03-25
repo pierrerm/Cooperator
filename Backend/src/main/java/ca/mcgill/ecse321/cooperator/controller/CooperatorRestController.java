@@ -203,7 +203,7 @@ public class CooperatorRestController {
 		// @formatter:on
 		Employer employer = null;
 		if (service.getEmployer(userId) == null) {
-			employer = service.createEmployer(userId, phone, email, firstName, lastName, password, position, company,
+			employer = service.createEmployer(userId, phone, firstName, lastName, email, password, position, company,
 					location);
 			return convertToDto(employer);
 		} else {
@@ -233,7 +233,7 @@ public class CooperatorRestController {
 	}
 
 	private EmployerDto convertToDto(Employer e) {
-		EmployerDto employerDto = new EmployerDto(e.getUserId(), e.getPhone(), e.getEmail(), e.getFirstName(),
+		EmployerDto employerDto = new EmployerDto(e.getUserId(), e.getPhone(), e.getFirstName(), e.getEmail(),
 				e.getLastName(), e.getPassword(), e.getPosition(), e.getCompany(), e.getLocation());
 		return employerDto;
 	}

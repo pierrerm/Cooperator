@@ -163,8 +163,7 @@ export default {
           .then(response => {
             this.form = response.data;
           });
-      }
-      this.form.wage = wage
+      } this.form.wage = wage
     }
   }
 }

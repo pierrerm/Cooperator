@@ -490,7 +490,7 @@ public class CooperatorService {
 
 	// Employer
 	@Transactional
-	public Employer createEmployer(int userId, long phone, String email, String firstName, String lastName,
+	public Employer createEmployer(int userId, long phone, String firstName, String lastName, String email,
 			String password, String position, String company, String location) {
 
 		String error = "";
@@ -519,9 +519,9 @@ public class CooperatorService {
 
 		Employer employer = new Employer();
 		employer.setUserId(userId);
-		employer.setEmail(email);
 		employer.setFirstName(firstName);
 		employer.setLastName(lastName);
+		employer.setEmail(email);
 		employer.setPassword(password);
 		employer.setPhone(phone);
 		employer.setCompany(company);
