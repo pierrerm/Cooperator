@@ -130,7 +130,7 @@
                 />
               </div>
 
-              <div v-if="form.formType === 'AcceptanceForm'">
+              <div v-if="form.formType === 'Acceptance Form'">
                 <input @click="editAcceptanceForm(submissionDate)"
                        type="submit"
                        value="Register"
