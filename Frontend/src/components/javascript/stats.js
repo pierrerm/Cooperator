@@ -13,7 +13,8 @@ export default {
     name: 'login',
     data() {
         return {
-            stats: []
+            stats: [],
+            students: []
         }
     },
     methods: {
@@ -24,10 +25,14 @@ export default {
                 this.errorLogin = errorMsg
                 return
             }
-            AXIOS.get(`/student/active/` + term , {}, {})
+            AXIOS.get(`/stats/` + term , {}, {})
                 .then(response => {
                     this.stats = response.data
                 });
+        AXIOS.get(`/student/problem/` + term , {}, {})
+            .then(response => {
+                this.students = response.data
+            });
         }
     }
 }
