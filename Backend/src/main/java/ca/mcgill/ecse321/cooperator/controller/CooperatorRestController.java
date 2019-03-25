@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.cooperator.dto.AdministratorDto;
@@ -89,14 +88,14 @@ public class CooperatorRestController {
 	}
 
 	// Administrator
-	@PostMapping(value = {
-			"/admin/{firstName}/{lastName}/{email}/{password}",
+	@PostMapping(value = { "/admin/{firstName}/{lastName}/{email}/{password}",
 			"/admin/{firstName}/{lastName}/{email}/{password}/" })
-	public AdministratorDto createAdministrator(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName,
-			@PathVariable("email") String email, @PathVariable("password") String password) throws IllegalArgumentException {
+	public AdministratorDto createAdministrator(@PathVariable("firstName") String firstName,
+			@PathVariable("lastName") String lastName, @PathVariable("email") String email,
+			@PathVariable("password") String password) throws IllegalArgumentException {
 		// @formatter:on
-		Administrator admin = service.createAdministrator(0, email, firstName, lastName, password,
-				Faculty.Engineering, 0);
+		Administrator admin = service.createAdministrator(0, email, firstName, lastName, password, Faculty.Engineering,
+				0);
 		return convertToDto(admin);
 	}
 
@@ -110,8 +109,8 @@ public class CooperatorRestController {
 	}
 
 	private AdministratorDto convertToDto(Administrator a) {
-		AdministratorDto administratorDto = new AdministratorDto(a.getFirstName(), a.getLastName(),
-				a.getEmail(), a.getPassword(), a.getUserId());
+		AdministratorDto administratorDto = new AdministratorDto(a.getFirstName(), a.getLastName(), a.getEmail(),
+				a.getPassword(), a.getUserId());
 		return administratorDto;
 	}
 
@@ -384,20 +383,19 @@ public class CooperatorRestController {
 		return formDtos;
 	}
 	
-	// Student Forms
-		@GetMapping(value = { "/forms/student/byId/{userId}", "/forms/student/byId/{userId}/" })
-		public List<FormDto> getFormsForStudent(@PathVariable("userId") int userId)
-				throws IllegalArgumentException {
+	// Student Forms - by user ID only
+	@GetMapping(value = { "/forms/student/byId/{userId}", "/forms/student/byId/{userId}/" })
+	public List<FormDto> getFormsForStudent(@PathVariable("userId") int userId) throws IllegalArgumentException {
 
-			List<FormDto> formDtos = new ArrayList<>();
-			
-			Set<Form> forms = service.getFormsForStudent(userId);
+		List<FormDto> formDtos = new ArrayList<>();
 
-			for (Form form : forms) {
-				formDtos.add(convertToDto(form));
-			}
-			return formDtos;
+		Set<Form> forms = service.getFormsForStudent(userId);
+
+		for (Form form : forms) {
+			formDtos.add(convertToDto(form));
 		}
+		return formDtos;
+	}
 
 	// Employer Forms
 	@GetMapping(value = { "/forms/employer/{userId}/{semester}/{year}", "/forms/employer/{userId}/{semester}/{year}/" })
@@ -408,6 +406,21 @@ public class CooperatorRestController {
 		List<FormDto> formDtos = new ArrayList<>();
 		Semester semester = getSemester(semesterStr);
 		Set<Form> forms = service.getFormsFromEmployer(userId, semester, year);
+
+		for (Form form : forms) {
+			formDtos.add(convertToDto(form));
+		}
+		return formDtos;
+	}
+	
+	// Employer Forms - by user ID only
+	@GetMapping(value = { "/forms/employer/byId/{userId}", "/forms/employer/{userId}/" })
+	public List<FormDto> getFormsForEmployer(@PathVariable("userId") int userId)
+			throws IllegalArgumentException {
+
+		List<FormDto> formDtos = new ArrayList<>();
+		
+		Set<Form> forms = service.getFormsForEmployer(userId);
 
 		for (Form form : forms) {
 			formDtos.add(convertToDto(form));
@@ -479,10 +492,14 @@ public class CooperatorRestController {
 	@GetMapping(value = { "/stats/{term}", "/stats/{term}" })
 	public StatsDto getStats(@PathVariable("term") String term) {
 		double[] stats = service.getSemesterStatistics(term);
-		StatsDto statsDto = new StatsDto(term,stats[0],stats[1],stats[2],stats[3]);
+		String[] stringStats = new String[4];
+		for(int i = 0; i < stats.length; i++){
+			stringStats[i] = String.valueOf(stats[i]);
+		}
+		StatsDto statsDto = new StatsDto(term, stringStats[0], stringStats[1], stringStats[2], stringStats[3]);
 		return statsDto;
 	}
-	
+
 	@GetMapping(value = { "/student/active/{term}", "/student/active/{term}" })
 	public List<StudentDto> getAllActiveStudents(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
@@ -539,20 +556,20 @@ public class CooperatorRestController {
 		}
 		return coopDtos;
 	}
-	
+
 	@PostMapping(value = { "/login/{email}/{password}", "/login/{email}/{password}/" })
 	public String login(@PathVariable("email") String userEmail, @PathVariable("password") String userPassword)
 			throws IllegalArgumentException {
-		
-		for(Administrator a : service.getAllAdministrators()) {
-			if(a.getEmail().equals(userEmail) && a.getPassword().equals(userPassword)) {
+
+		for (Administrator a : service.getAllAdministrators()) {
+			if (a.getEmail().equals(userEmail) && a.getPassword().equals(userPassword)) {
 				return "Accepted";
 			}
 		}
 		return "Not Accepted";
-		
+
 	}
-	
+
 	@GetMapping(value = { "/reminders", "/reminders/" })
 	public List<ReminderDto> getAllReminders() {
 		List<ReminderDto> reminderDtos = new ArrayList<>();
@@ -561,5 +578,5 @@ public class CooperatorRestController {
 		}
 		return reminderDtos;
 	}
-	
+
 }

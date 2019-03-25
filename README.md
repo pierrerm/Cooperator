@@ -5,6 +5,10 @@
 In teams of four or five students, you will gather requirements, design a multi-tier software solution to satisfy those requirements,implement the system, validate that the system is satisfying the requirements, and develop a release pipeline to automate the software delivery process. Viewpoints developed by multiple teams will be integrated with each other via service calls.
 
 ***
+**Our application is available [here](http://cooperator-frontend-3417.herokuapp.com/#/) !<br>**
+[How to use the application ?](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-11/wiki/Guide)
+
+***
 ## Deliverable 1
 
 |Team member's name   |Total hours|Main Responsibilities  |

@@ -3,43 +3,43 @@
  */
 package ca.mcgill.ecse321.cooperator;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.mockito.invocation.InvocationOnMock;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import ca.mcgill.ecse321.cooperator.controller.CooperatorRestController;
-
-import ca.mcgill.ecse321.cooperator.service.CooperatorService;
-
-import ca.mcgill.ecse321.cooperator.model.*;
-
-import ca.mcgill.ecse321.cooperator.dao.*;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import ca.mcgill.ecse321.cooperator.controller.CooperatorRestController;
+import ca.mcgill.ecse321.cooperator.dao.CoopRepository;
+import ca.mcgill.ecse321.cooperator.dao.EmployerRepository;
+import ca.mcgill.ecse321.cooperator.dao.FormRepository;
+import ca.mcgill.ecse321.cooperator.dao.ReminderRepository;
+import ca.mcgill.ecse321.cooperator.dao.StudentRepository;
+import ca.mcgill.ecse321.cooperator.model.Coop;
+import ca.mcgill.ecse321.cooperator.model.CoopEvaluation;
+import ca.mcgill.ecse321.cooperator.model.Employer;
+import ca.mcgill.ecse321.cooperator.model.Faculty;
+import ca.mcgill.ecse321.cooperator.model.Form;
+import ca.mcgill.ecse321.cooperator.model.Reminder;
+import ca.mcgill.ecse321.cooperator.model.Semester;
+import ca.mcgill.ecse321.cooperator.model.Student;
+import ca.mcgill.ecse321.cooperator.service.CooperatorService;
 
 
 
@@ -76,10 +76,7 @@ public class CooperatorReminderTests {
 	private Coop coop;
 	private CoopEvaluation coopEval;
 	private Reminder reminder;
-	private Reminder reminder1;
 	private List<Reminder> remindersSent = new ArrayList<Reminder>();
-	private List<Reminder> reminders = new ArrayList<Reminder>();
-	private List<Form> returnedForms = new ArrayList<Form>();
 
 	private static final int REMINDER_KEY = 1;
 	private static final int INVALID_KEY = -60;

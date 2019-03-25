@@ -67,7 +67,7 @@
                             All rights reserved | This template is made with
                             <i class="icon-heart text-primary" aria-hidden="true"></i> by
                             <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            | @Authors COUPERIER Romain, MANJUNATH Anudruth, 
+                            | @Authors COUPERIER Romain, MANJUNATH Anudruth, LESAFFRE Julien, NUNEZ Matteo, ROBERT-MICHON Pierre 
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>

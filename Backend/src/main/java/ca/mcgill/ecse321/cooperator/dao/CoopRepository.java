@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.cooperator.dao;
 
-import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
