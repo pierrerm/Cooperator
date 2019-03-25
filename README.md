@@ -36,6 +36,22 @@ The table above shows the two tasks where we contributed the most. But it is imp
 
 [Deliverable 2 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-11/wiki/Deliverable-2-Report)
 
+***
+
+## Deliverable 3
+
+|Team member's name   |Total hours|Main Responsibilities  |
+|---------------------|-------|-----------------------|
+| Romain Couperier    |  12   |Implementation of Web Frontend/Integration of Web Frontend with Backend Services	 | 
+| Julien Lesaffre     |  12   |Implementation of Web Frontend/Project Report  |
+| Anudruth Manjunath  |  12   |Implementation of Web Frontend/Integration of Web Frontend with Backend Services |
+| Matteo Nunez        |  12   |Implementation of Web Frontend/Build System, Continous Integration and Delivery |
+| Pierre Robert       |  12   |Architecture Modeling/Implementation of Web Frontend |
+|**Total**|**60**|
+
+
+[Deliverable 3 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-11/wiki/Deliverable-3-Report)
+
 
 
 
