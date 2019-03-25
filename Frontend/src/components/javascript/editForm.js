@@ -68,70 +68,98 @@ export default {
   },
   methods: {
     editAcceptanceForm(submissionDate){
-      AXIOS.put('/form/' + this.form.formId + '/acceptanceForm/submissionDate/' + submissionDate,{},{})
+      if (submissionDate !== undefined) {AXIOS.put('/form/' + this.form.formId + '/acceptanceForm/submissionDate/' + submissionDate,{},{})
         .then(response => {
           this.form = response.data;
         });
+      }
     },
 
     editCoopEvaluation(submissionDate, workExperience, employerEvaluation, softwareTechnologies, usefulCourses){
-      AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/submissionDate/' + submissionDate,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
-      AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/workExperience/' + workExperience,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
-      AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/employerEvaluation/' + employerEvaluation,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
-      AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/softwareTechnologies/' + softwareTechnologies,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
-      AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/usefulCourses/' + usefulCourses,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
+      if (submissionDate !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/submissionDate/' + submissionDate,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
+      if (workExperience !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/workExperience/' + workExperience,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
+      if (employerEvaluation !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/employerEvaluation/' + employerEvaluation,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
+      if (softwareTechnologies !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/softwareTechnologies/' + softwareTechnologies,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
+      if (usefulCourses !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/usefulCourses/' + usefulCourses,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
     },
 
     editStudentEvaluation(submissionDate, studentPerformance, studentWorkExperience){
-      AXIOS.put('/form/' + this.form.formId + '/studentEvaluation/submissionDate/' + submissionDate,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
-    AXIOS.put('/form/' + this.form.formId + '/studentEvaluation/studentPerformance/' + studentPerformance,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
-    AXIOS.put('/form/' + this.form.formId + '/studentEvaluation/studentWorkExperience/' + studentWorkExperience,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
+      if (submissionDate !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/studentEvaluation/submissionDate/' + submissionDate,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
+      if (studentPerformance !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/studentEvaluation/studentPerformance/' + studentPerformance,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
+      if (studentWorkExperience !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/studentEvaluation/studentWorkExperience/' + studentWorkExperience,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
     },
+
     editTasksWorkloadReport(submissionDate, hoursPerWeek, tasks, training, wage){
-      AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/submissionDate/' + submissionDate,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
-    AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/hoursPerWeek/' + hoursPerWeek,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
-    AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/tasks/' + tasks,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
-    AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/training/' + training,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
-    AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/wage/' + wage,{},{})
-        .then(response => {
-          this.form = response.data;
-        });
+      if (submissionDate !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/submissionDate/' + submissionDate,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
+      if (hoursPerWeek !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/hoursPerWeek/' + hoursPerWeek,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
+      if (tasks !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/tasks/' + tasks,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
+      if (training !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/training/' + training,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
+      if (wage !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/wage/' + wage,{},{})
+          .then(response => {
+            this.form = response.data;
+          });
+      }
     }
   }
 }
