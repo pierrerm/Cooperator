@@ -134,7 +134,7 @@ public class CooperatorReminderTests {
 		student = mock(Student.class);
 		student = service.createStudent(STUDENT_KEY, 321332, "email", "firstName", "lastName", "password", Faculty.Education, 260, "major", "minor", "academicYear", null);
 		employer = mock(Employer.class);
-		employer = service.createEmployer(EMPLOYER_KEY, 123, "email", "firstName", "lastName", "password", "position", "company", "location");
+		employer = service.createEmployer(EMPLOYER_KEY, 123, "firstName", "email", "lastName", "password", "position", "company", "location");
 		coop = mock(Coop.class);
 		coop = service.createCoop(COOP_KEY, true, endDate, "jobDescription", 12, "location", true , Semester.Summer, startDate, student, employer);
 		coopEval = mock(CoopEvaluation.class);

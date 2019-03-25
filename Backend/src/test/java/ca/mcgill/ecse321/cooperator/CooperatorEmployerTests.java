@@ -56,7 +56,7 @@ public class CooperatorEmployerTests {
 	@Before
 	public void setupMock() {
 		employer = mock(Employer.class);
-		employer = service.createEmployer(VALID_EMPLOYER_KEY, 123, "email", "firstName", "lastName", "password", "position", "company", "location");
+		employer = service.createEmployer(VALID_EMPLOYER_KEY, 123, "firstName", "lastName", "email", "password", "position", "company", "location");
 	}
 	
 	@Test

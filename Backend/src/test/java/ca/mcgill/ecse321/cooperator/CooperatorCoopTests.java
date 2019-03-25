@@ -113,7 +113,7 @@ public class CooperatorCoopTests {
 		student = mock(Student.class);
 		student = service.createStudent(VALID_STUDENT_KEY, 321332, "email", "firstName", "lastName", "password", Faculty.Education, 260, "major", "minor", "academicYear", null);
 		employer = mock(Employer.class);
-		employer = service.createEmployer(VALID_EMPLOYER_KEY, 123, "email", "firstName", "lastName", "password", "position", "company", "location");
+		employer = service.createEmployer(VALID_EMPLOYER_KEY, 123, "firstName", "lastName", "email", "password", "position", "company", "location");
 		coop = mock(Coop.class);
 		coop = service.createCoop(VALID_COOP_KEY, true, new Date(createDate("31-12-2018")), "jobDescription", 12, "location", true , Semester.Fall, new Date(createDate("31-08-2018")), student, employer);
 		//coop2 = mock(Coop.class);

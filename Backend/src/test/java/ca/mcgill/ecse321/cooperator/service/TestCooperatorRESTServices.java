@@ -35,7 +35,7 @@ public class TestCooperatorRESTServices {
 			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
 			connE.setRequestMethod("POST");
 			assertEquals(200, connE.getResponseCode());
-			connE.disconnect();
+			//connE.disconnect();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
