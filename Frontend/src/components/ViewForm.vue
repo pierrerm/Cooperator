@@ -13,20 +13,20 @@
                 <th style="padding:10px">Submission Date</th>
                 <th style="padding:10px">Coop ID</th>
                 <div v-if="form.formType === 'Coop Evaluation'">
-                  <td style="padding:10px">Employer Evaluation</td>
-                  <td style="padding:10px">Software Technologies</td>
-                  <td style="padding:10px">Work Experience</td>
-                  <td style="padding:10px">Useful Courses</td>
+                  <td style="padding:10px;width: 150px">Employer Evaluation</td>
+                  <td style="padding:10px;width: 150px">Software Technologies</td>
+                  <td style="padding:10px;width: 150px">Work Experience</td>
+                  <td style="padding:10px;width: 150px">Useful Courses</td>
                 </div>
                 <div v-else-if="form.formType === 'Student Evaluation'">
-                  <td style="padding:10px">Student Performance</td>
-                  <td style="padding:10px">Student Work Experience</td>
+                  <td style="padding:10px;width: 180px">Student Performance</td>
+                  <td style="padding:10px;width: 180px">Student Work Experience</td>
                 </div>
                 <div v-else-if="form.formType === 'Tasks Workload Report'">
-                  <td style="padding:10px">Hours per week</td>
-                  <td style="padding:10px">Tasks</td>
-                  <td style="padding:10px">Training</td>
-                  <td style="padding:10px">Wage</td>
+                  <td style="padding:10px;width: 180px">Hours per week</td>
+                  <td style="padding:10px;width: 180px">Tasks</td>
+                  <td style="padding:10px;width: 180px">Training</td>
+                  <td style="padding:10px;width: 180px">Wage</td>
                 </div>
               </tr>
 
@@ -36,20 +36,20 @@
                 <td style="padding:10px">{{ form.submissionDate }}</td>
                 <td style="padding:10px">{{ form.coop }}</td>
                 <div v-if="form.formType === 'Coop Evaluation'">
-                  <td style="padding:10px">{{ form.employerEvaluation }}</td>
-                  <td style="padding:10px">{{ form.softwareTechnologies }}</td>
-                  <td style="padding:10px">{{ form.workExperience }}</td>
-                  <td style="padding:10px">{{ form.usefulCourses }}</td>
+                  <td style="padding:10px;width: 150px">{{ form.employerEvaluation }}</td>
+                  <td style="padding:10px;width: 150px">{{ form.softwareTechnologies }}</td>
+                  <td style="padding:10px;width: 150px">{{ form.workExperience }}</td>
+                  <td style="padding:10px;width: 150px">{{ form.usefulCourses }}</td>
                 </div>
                 <div v-else-if="form.formType === 'Student Evaluation'">
-                  <td style="padding:10px">{{ form.studentPerformance }}</td>
-                  <td style="padding:10px">{{ form.studentWorkExperience }}</td>
+                  <td style="padding:10px;width: 180px">{{ form.studentPerformance }}</td>
+                  <td style="padding:10px;width: 180px">{{ form.studentWorkExperience }}</td>
                 </div>
                 <div v-else-if="form.formType === 'Tasks Workload Report'">
-                  <td style="padding:10px">{{ form.hoursPerWeek }}</td>
-                  <td style="padding:10px">{{ form.tasks }}</td>
-                  <td style="padding:10px">{{ form.training }}</td>
-                  <td style="padding:10px">{{ form.wage }}</td>
+                  <td style="padding:10px;width: 180px">{{ form.hoursPerWeek }}</td>
+                  <td style="padding:10px;width: 180px">{{ form.tasks }}</td>
+                  <td style="padding:10px;width: 180px">{{ form.training }}</td>
+                  <td style="padding:10px;width: 180px">{{ form.wage }}</td>
                 </div>
               </tr>
             </table>
