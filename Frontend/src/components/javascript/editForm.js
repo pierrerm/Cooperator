@@ -65,5 +65,19 @@ export default {
           });
       }
     }
+  },
+  methods: {
+    editAcceptanceForm(submissionDate){
+
+    },
+    editCoopEvaluation(submissionDate, workExperience, employerEvaluation, softwareTechnologies, usefulCourses){
+
+    },
+    editStudentEvaluation(submissionDate, studentPerformance, studentWorkExperience){
+
+    },
+    editTasksWorkloadReport(submissionDate, hoursPerWeek, tasks, training, wage){
+
+    }
   }
 }

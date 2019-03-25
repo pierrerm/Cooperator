@@ -60,32 +60,105 @@
               <input
                 class="login-text"
                 type="text"
-                placeholder="First Name"
-                v-model="firstName"
+                placeholder="Submission Date"
+                v-model="submissionDate"
               />
-              <input
-                class="login-text"
-                type="text"
-                placeholder="Last Name"
-                v-model="lastName"
-              />
-              <input
-                class="login-text"
-                type="text"
-                placeholder="Email"
-                v-model="email"
-              />
-              <input
-                class="login-text"
-                type="password"
-                placeholder="Password"
-                v-model="password"
-              />
-              <input @click="register(firstName, lastName, email, password, selected)"
-                     type="submit"
-                     value="Register"
-                     class="btn btn-primary py-2 px-4 text-white"
-              />
+              <div v-if="form.formType === 'Coop Evaluation'">
+                <input
+                  class="login-text"
+                  type="number"
+                  placeholder="Employer Evaluation"
+                  v-model="employerEvaluation"
+                />
+                <input
+                  class="login-text"
+                  type="text"
+                  placeholder="Software Technologies"
+                  v-model="softwareTechnologies"
+                />
+                <input
+                  class="login-text"
+                  type="text"
+                  placeholder="Work Experience"
+                  v-model="workExperience"
+                />
+                <input
+                  class="login-text"
+                  type="text"
+                  placeholder="Useful Courses"
+                  v-model="usefulCourses"
+                />
+              </div>
+              <div v-else-if="form.formType === 'Student Evaluation'">
+                <input
+                  class="login-text"
+                  type="number"
+                  placeholder="Student Performance"
+                  v-model="studentPerformance"
+                />
+                <input
+                  class="login-text"
+                  type="text"
+                  placeholder="Student Work Experience"
+                  v-model="studentWorkExperience"
+                />
+              </div>
+              <div v-else-if="form.formType === 'Tasks Workload Report'">
+                <input
+                  class="login-text"
+                  type="number"
+                  placeholder="Hours Per Week"
+                  v-model="hoursPerWeek"
+                />
+                <input
+                  class="login-text"
+                  type="text"
+                  placeholder="Tasks"
+                  v-model="tasks"
+                />
+                <input
+                  class="login-text"
+                  type="text"
+                  placeholder="Training"
+                  v-model="training"
+                />
+                <input
+                  class="login-text"
+                  type="number"
+                  placeholder="Wage"
+                  v-model="wage"
+                />
+              </div>
+
+              <div v-if="form.formType === 'AcceptanceForm'">
+                <input @click="editAcceptanceForm(submissionDate)"
+                       type="submit"
+                       value="Register"
+                       class="btn btn-primary py-2 px-4 text-white"
+                />
+              </div>
+              <div v-else-if="form.formType === 'Coop Evaluation'">
+                <input @click="editCoopEvaluation(submissionDate, workExperience, employerEvaluation, softwareTechnologies, usefulCourses)"
+                       type="submit"
+                       value="Register"
+                       class="btn btn-primary py-2 px-4 text-white"
+                />
+              </div>
+              <div v-else-if="form.formType === 'Student Evaluation'">
+                <input @click="editStudentEvaluation(submissionDate, studentPerformance, studentWorkExperience)"
+                       type="submit"
+                       value="Register"
+                       class="btn btn-primary py-2 px-4 text-white"
+                />
+              </div>
+              <div v-else-if="form.formType === 'Tasks Workload Report'">
+                <input @click="editTasksWorkloadReport(submissionDate, hoursPerWeek, tasks, training, wage)"
+                       type="submit"
+                       value="Register"
+                       class="btn btn-primary py-2 px-4 text-white"
+                />
+              </div>
+
               <br>
               <span v-if="errorRegister" style="color:red">Error: {{errorRegister}} </span>
               <span v-if="response" style="color:green">Success: {{response}} </span>
