@@ -492,7 +492,11 @@ public class CooperatorRestController {
 	@GetMapping(value = { "/stats/{term}", "/stats/{term}" })
 	public StatsDto getStats(@PathVariable("term") String term) {
 		double[] stats = service.getSemesterStatistics(term);
-		StatsDto statsDto = new StatsDto(term, stats[0], stats[1], stats[2], stats[3]);
+		String[] stringStats = new String[4];
+		for(int i = 0; i < stats.length; i++){
+			stringStats[i] = String.valueOf(stats[i]);
+		}
+		StatsDto statsDto = new StatsDto(term, stringStats[0], stringStats[1], stringStats[2], stringStats[3]);
 		return statsDto;
 	}
 
