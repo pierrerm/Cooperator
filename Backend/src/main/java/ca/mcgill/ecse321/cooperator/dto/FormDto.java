@@ -8,6 +8,7 @@ public class FormDto {
 	private Date submissionDate;
 	private int coopId;
 	private int employerEvaluation;
+	private String workExperience;
 	private String softwareTechnologies;
 	private String usefulCourses;
 	private String studentWorkExperience;
@@ -31,12 +32,13 @@ public class FormDto {
 	}
 
 	// Coop Evaluation
-	public FormDto(int formId, Date submissionDate, int coopId, int employerEvaluation, String softwareTechnologies,
+	public FormDto(int formId, Date submissionDate, int coopId, int employerEvaluation, String workExperience, String softwareTechnologies,
 			String usefulCourses, String studentWorkExperience) {
 		this.formId = formId;
 		this.submissionDate = submissionDate;
 		this.coopId = coopId;
 		this.employerEvaluation = employerEvaluation;
+		this.workExperience = workExperience;
 		this.softwareTechnologies = softwareTechnologies;
 		this.usefulCourses = usefulCourses;
 		this.studentWorkExperience = studentWorkExperience;

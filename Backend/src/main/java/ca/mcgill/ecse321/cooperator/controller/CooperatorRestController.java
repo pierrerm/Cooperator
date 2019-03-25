@@ -351,7 +351,7 @@ public class CooperatorRestController {
 
 	private FormDto convertToDtoCForm(CoopEvaluation f) {
 		FormDto formDto = new FormDto(f.getFormId(), f.getSubmissionDate(), f.getCoop().getCoopId(),
-				f.getEmployerEvaluation(), f.getSoftwareTechnologies(), f.getUsefulCourses(), f.getWorkExperience());
+				f.getEmployerEvaluation(), f.getWorkExperience(), f.getSoftwareTechnologies(), f.getUsefulCourses(), f.getWorkExperience());
 		return formDto;
 	}
 

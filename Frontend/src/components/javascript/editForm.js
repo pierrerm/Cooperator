@@ -68,7 +68,8 @@ export default {
   },
   methods: {
     editAcceptanceForm(submissionDate){
-      if (submissionDate !== undefined) {AXIOS.put('/form/' + this.form.formId + '/acceptanceForm/submissionDate/' + submissionDate,{},{})
+      if (submissionDate !== undefined) {
+        AXIOS.put('/form/' + this.form.formId + '/acceptanceForm/submissionDate/' + submissionDate,{},{})
         .then(response => {
           this.form = response.data;
         });
@@ -94,6 +95,7 @@ export default {
             this.form = response.data;
           });
       }
+      this.form.employerEvaluation = employerEvaluation
       if (softwareTechnologies !== undefined) {
         AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/softwareTechnologies/' + softwareTechnologies,{},{})
           .then(response => {
@@ -121,6 +123,7 @@ export default {
             this.form = response.data;
           });
       }
+      this.form.studentPerformance = studentPerformance;
       if (studentWorkExperience !== undefined) {
         AXIOS.put('/form/' + this.form.formId + '/studentEvaluation/studentWorkExperience/' + studentWorkExperience,{},{})
           .then(response => {
@@ -136,6 +139,7 @@ export default {
             this.form = response.data;
           });
       }
+      this.form.hoursPerWeek = hoursPerWeek
       if (hoursPerWeek !== undefined) {
         AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/hoursPerWeek/' + hoursPerWeek,{},{})
           .then(response => {
@@ -160,6 +164,7 @@ export default {
             this.form = response.data;
           });
       }
+      this.form.wage = wage
     }
   }
 }
