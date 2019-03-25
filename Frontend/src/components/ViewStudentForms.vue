@@ -39,7 +39,11 @@
               </tr>
 
               <tr v-for="form in forms">
-                <td style="padding:10px">{{ form.formType }}</td>
+                <td style="padding:10px">
+                  <router-link :to="{name: 'ViewForm', params: {formId: form.formId }}">
+                    {{ form.formType }}
+                  </router-link>
+                </td>
                 <td style="padding:10px">{{ form.formId }}</td>
                 <td style="padding:10px">{{ form.submissionDate }}</td>
                 <td style="padding:10px">{{ form.coop }}</td>

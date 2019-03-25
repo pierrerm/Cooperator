@@ -73,7 +73,7 @@ export default new Router({
       component: EmployerForm
     },
     {
-      path: '/studentForm',
+      path: '/studentForm/:formId',
       name: 'ViewForm',
       component: ViewForm
     }
