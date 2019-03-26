@@ -90,12 +90,11 @@ export default {
           });
       }
       if (employerEvaluation !== undefined) {
-        AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/employerEvaluation/' + employerEvaluation,{},{})
+        AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/employerEvaluation/number/' + employerEvaluation,{},{})
           .then(response => {
             this.form = response.data;
           });
       }
-      this.form.employerEvaluation = employerEvaluation
       if (softwareTechnologies !== undefined) {
         AXIOS.put('/form/' + this.form.formId + '/coopEvaluation/softwareTechnologies/' + softwareTechnologies,{},{})
           .then(response => {
@@ -118,12 +117,11 @@ export default {
           });
       }
       if (studentPerformance !== undefined) {
-        AXIOS.put('/form/' + this.form.formId + '/studentEvaluation/studentPerformance/' + studentPerformance,{},{})
+        AXIOS.put('/form/' + this.form.formId + '/studentEvaluation/studentPerformance/number/' + studentPerformance,{},{})
           .then(response => {
             this.form = response.data;
           });
       }
-      this.form.studentPerformance = studentPerformance;
       if (studentWorkExperience !== undefined) {
         AXIOS.put('/form/' + this.form.formId + '/studentEvaluation/studentWorkExperience/' + studentWorkExperience,{},{})
           .then(response => {
@@ -139,9 +137,8 @@ export default {
             this.form = response.data;
           });
       }
-      this.form.hoursPerWeek = hoursPerWeek
       if (hoursPerWeek !== undefined) {
-        AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/hoursPerWeek/' + hoursPerWeek,{},{})
+        AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/hoursPerWeek/number/' + hoursPerWeek,{},{})
           .then(response => {
             this.form = response.data;
           });
@@ -159,11 +156,11 @@ export default {
           });
       }
       if (wage !== undefined) {
-        AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/wage/' + wage,{},{})
+        AXIOS.put('/form/' + this.form.formId + '/tasksWorkloadReport/wage/number/' + wage,{},{})
           .then(response => {
             this.form = response.data;
           });
-      } this.form.wage = wage
+      }
     }
   }
 }

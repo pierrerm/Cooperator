@@ -457,6 +457,30 @@ public class CooperatorRestController {
 		formDto = convertToDto(service.getForm(formId));
 		return formDto;
 	}
+	
+	// Edit Forms
+	@PutMapping(value = { "/form/{formId}/{type}/{attribute}/number/{value}", "/form/{formId}/{type}/{attribute}/number/{value}/" })
+	public FormDto editFormNumber(@PathVariable("formId") int formId, @PathVariable("type") String type,
+			@PathVariable("attribute") String attribute, @PathVariable("value") int value)
+			throws IllegalArgumentException {
+
+		FormDto formDto = new FormDto();
+
+		switch (type.toLowerCase()) {
+		case "coopevaluation":
+			service.editCoopEvaluation(formId, attribute, value);
+			break;
+		case "studentevaluation":
+			service.editStudentEvaluation(formId, attribute, value);
+			break;
+		case "tasksworkloadreport":
+			service.editTasksWorkloadReport(formId, attribute, value);
+			break;
+		}
+		;
+		formDto = convertToDto(service.getForm(formId));
+		return formDto;
+	}
 
 	@GetMapping(value = { "/student/problem/{term}", "/student/problem/{term}" })
 	public List<StudentDto> getAllStudentsWithFormError(@PathVariable("term") String term) {
