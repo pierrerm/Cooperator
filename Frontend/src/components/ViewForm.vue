@@ -3,55 +3,77 @@
     <div class="site-wrap">
       <div class="site-section" style="padding-top:10%">
         <div class="container" style="align:center">
-          <h1 class="page-title">View/Edit Form</h1>
+          <h1 class="page-title">View & Edit Form</h1>
 
-          <div id="table">
-            <table class="info-table" style="width: 100%; height: 100%;">
-              <tr>
-                <th style="padding:10px">Form Type</th>
-                <th style="padding:10px">Form ID</th>
-                <th style="padding:10px">Submission Date</th>
-                <th style="padding:10px">Coop ID</th>
-                <div v-if="form.formType === 'Coop Evaluation'">
-                  <td style="padding:10px;width: 150px">Employer Evaluation</td>
-                  <td style="padding:10px;width: 150px">Software Technologies</td>
-                  <td style="padding:10px;width: 150px">Work Experience</td>
-                  <td style="padding:10px;width: 150px">Useful Courses</td>
-                </div>
-                <div v-else-if="form.formType === 'Student Evaluation'">
-                  <td style="padding:10px;width: 180px">Student Performance</td>
-                  <td style="padding:10px;width: 180px">Student Work Experience</td>
-                </div>
-                <div v-else-if="form.formType === 'Tasks Workload Report'">
-                  <td style="padding:10px;width: 180px">Hours per week</td>
-                  <td style="padding:10px;width: 180px">Tasks</td>
-                  <td style="padding:10px;width: 180px">Training</td>
-                  <td style="padding:10px;width: 180px">Wage</td>
-                </div>
-              </tr>
+          <div class="half left" id="table">
+            <table class="info-table" style="width: 90%; height: 100%;">
+              <div>
+                <tr>
+                  <th style="padding:10px;width: 300px">Form Type</th>
+                  <td style="padding:10px">{{ form.formType }}</td>
+                </tr>
+                <tr>
+                  <th style="padding:10px;width: 300px">Form ID</th>
+                  <td style="padding:10px">{{ form.formId }}</td>
+                </tr>
+                <tr>
+                  <th style="padding:10px;width: 300px">Submission Date</th>
+                  <td style="padding:10px">{{ form.submissionDate }}</td>
+                </tr>
+                <tr>
+                  <th style="padding:10px;width: 300px">Coop ID</th>
+                  <td style="padding:10px">{{ form.coop }}</td>
+                </tr>
+              </div>
 
-              <tr>
-                <td style="padding:10px">{{ form.formType }}</td>
-                <td style="padding:10px">{{ form.formId }}</td>
-                <td style="padding:10px">{{ form.submissionDate }}</td>
-                <td style="padding:10px">{{ form.coop }}</td>
-                <div v-if="form.formType === 'Coop Evaluation'">
-                  <td style="padding:10px;width: 150px">{{ form.employerEvaluation }}</td>
-                  <td style="padding:10px;width: 150px">{{ form.softwareTechnologies }}</td>
-                  <td style="padding:10px;width: 150px">{{ form.workExperience }}</td>
-                  <td style="padding:10px;width: 150px">{{ form.usefulCourses }}</td>
-                </div>
-                <div v-else-if="form.formType === 'Student Evaluation'">
-                  <td style="padding:10px;width: 180px">{{ form.studentPerformance }}</td>
-                  <td style="padding:10px;width: 180px">{{ form.studentWorkExperience }}</td>
-                </div>
-                <div v-else-if="form.formType === 'Tasks Workload Report'">
-                  <td style="padding:10px;width: 180px">{{ form.hoursPerWeek }}</td>
-                  <td style="padding:10px;width: 180px">{{ form.tasks }}</td>
-                  <td style="padding:10px;width: 180px">{{ form.training }}</td>
-                  <td style="padding:10px;width: 180px">{{ form.wage }}</td>
-                </div>
-              </tr>
+              <div v-if="form.formType === 'Coop Evaluation'">
+                <tr>
+                  <th style="padding:10px;width: 300px">Employer Evaluation</th>
+                  <td style="padding:10px">{{ form.employerEvaluation }}</td>
+                </tr>
+                <tr>
+                  <th style="padding:10px;width: 300px">Software Technologies</th>
+                  <td style="padding:10px">{{ form.softwareTechnologies }}</td>
+                </tr>
+                <tr>
+                  <th style="padding:10px;width: 300px">Work Experience</th>
+                  <td style="padding:10px">{{ form.workExperience }}</td>
+                </tr>
+                <tr>
+                  <th style="padding:10px;width: 300px">Useful Courses</th>
+                  <td style="padding:10px">{{ form.usefulCourses }}</td>
+                </tr>
+              </div>
+
+              <div v-else-if="form.formType === 'Student Evaluation'">
+                <tr>
+                  <th style="padding:10px;width: 300px">Student Performance</th>
+                  <td style="padding:10px">{{ form.studentPerformance }}</td>
+                </tr>
+                <tr>
+                  <th style="padding:10px;width: 300px">Student Work Experience</th>
+                  <td style="padding:10px">{{ form.studentWorkExperience }}</td>
+                </tr>
+              </div>
+
+              <div v-else-if="form.formType === 'Tasks Workload Report'">
+                <tr>
+                  <th style="padding:10px;width: 300px">Hours per week</th>
+                  <td style="padding:10px">{{ form.hoursPerWeek }}</td>
+                </tr>
+                <tr>
+                  <th style="padding:10px;width: 300px">Tasks</th>
+                  <td style="padding:10px">{{ form.tasks }}</td>
+                </tr>
+                <tr>
+                  <th style="padding:10px;width: 300px">Training</th>
+                  <td style="padding:10px">{{ form.training }}</td>
+                </tr>
+                <tr>
+                  <th style="padding:10px;width: 300px">Wage</th>
+                  <td style="padding:10px">{{ form.wage }}</td>
+                </tr>
+              </div>
             </table>
           </div>
           <div class="half right" data-aos="fade-up">
@@ -60,7 +82,7 @@
               <input
                 class="login-text"
                 type="text"
-                placeholder="Submission Date"
+                placeholder="Submission Date (dd-mm-yyyy)"
                 v-model="submissionDate"
               />
               <div v-if="form.formType === 'Coop Evaluation'">
@@ -133,28 +155,28 @@
               <div v-if="form.formType === 'Acceptance Form'">
                 <input @click="editAcceptanceForm(submissionDate)"
                        type="submit"
-                       value="Register"
+                       value="Edit"
                        class="btn btn-primary py-2 px-4 text-white"
                 />
               </div>
               <div v-else-if="form.formType === 'Coop Evaluation'">
                 <input @click="editCoopEvaluation(submissionDate, workExperience, employerEvaluation, softwareTechnologies, usefulCourses)"
                        type="submit"
-                       value="Register"
+                       value="Edit"
                        class="btn btn-primary py-2 px-4 text-white"
                 />
               </div>
               <div v-else-if="form.formType === 'Student Evaluation'">
                 <input @click="editStudentEvaluation(submissionDate, studentPerformance, studentWorkExperience)"
                        type="submit"
-                       value="Register"
+                       value="Edit"
                        class="btn btn-primary py-2 px-4 text-white"
                 />
               </div>
               <div v-else-if="form.formType === 'Tasks Workload Report'">
                 <input @click="editTasksWorkloadReport(submissionDate, hoursPerWeek, tasks, training, wage)"
                        type="submit"
-                       value="Register"
+                       value="Edit"
                        class="btn btn-primary py-2 px-4 text-white"
                 />
               </div>
