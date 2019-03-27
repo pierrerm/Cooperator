@@ -131,8 +131,8 @@ public class CooperatorRestController {
 
 		Semester semester = getSemester(semesterStr);
 
-		Date endDate = new Date(createDate(endDateStr));
-		Date startDate = new Date(createDate(startDateStr));
+		Date endDate = createDate(endDateStr);
+		Date startDate = createDate(startDateStr);
 
 		Coop coop = service.createCoop(coopId, employerConfirmation, endDate, jobDescription, jobId, location,
 				needWorkPermit, semester, startDate, student, employer);
@@ -258,7 +258,7 @@ public class CooperatorRestController {
 			throws IllegalArgumentException {
 		// @formatter:on
 		Coop coop = service.getCoop(coopId);
-		Date submissionDate = new Date(createDate(submissionDateStr));
+		Date submissionDate = createDate(submissionDateStr);
 
 		AcceptanceForm aForm = service.createAcceptanceForm(formId, submissionDate, coop);
 		return convertToDto(aForm);
@@ -277,7 +277,7 @@ public class CooperatorRestController {
 			throws IllegalArgumentException {
 		// @formatter:on
 		Coop coop = service.getCoop(coopId);
-		Date submissionDate = new Date(createDate(submissionDateStr));
+		Date submissionDate = createDate(submissionDateStr);
 
 		CoopEvaluation cForm = service.createCoopEvaluation(formId, submissionDate, workExperience, employerEvaluation,
 				softwareTechnologies, usefulCourses, coop);
@@ -296,7 +296,7 @@ public class CooperatorRestController {
 			throws IllegalArgumentException {
 		// @formatter:on
 		Coop coop = service.getCoop(coopId);
-		Date submissionDate = new Date(createDate(submissionDateStr));
+		Date submissionDate = createDate(submissionDateStr);
 
 		StudentEvaluation sForm = service.createStudentEvaluation(formId, submissionDate, studentWorkExperience,
 				studentPerformance, coop);
@@ -314,7 +314,7 @@ public class CooperatorRestController {
 			@PathVariable("wage") int wage, @PathVariable("coopId") int coopId) throws IllegalArgumentException {
 		// @formatter:on
 		Coop coop = service.getCoop(coopId);
-		Date submissionDate = new Date(createDate(submissionDateStr));
+		Date submissionDate = createDate(submissionDateStr);
 
 		TasksWorkloadReport tForm = service.createTasksWorkloadReport(formId, submissionDate, tasks, hoursPerWeek, wage,
 				training, coop);
@@ -437,7 +437,7 @@ public class CooperatorRestController {
 		FormDto formDto = new FormDto();
 
 		if (attribute.toLowerCase().equals("submissiondate")) {
-			value = new Date(createDate(value.toString()));
+			value = createDate(value.toString());
 		}
 		switch (type.toLowerCase()) {
 		case "acceptanceform":
@@ -503,14 +503,15 @@ public class CooperatorRestController {
 		return null;
 	}
 
-	public static long createDate(String date) {
-		java.util.Date dateFormat = null;
-		try {
-			dateFormat = new SimpleDateFormat("dd-MM-yyyy").parse(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
+	@SuppressWarnings("deprecation")
+	public static Date createDate(String date) {
+		String[] parts = date.split("-");
+		int[] intParts = {0,0,0};
+		for(int i = 0; i < intParts.length; i++){
+			intParts[i] = Integer.parseInt(parts[i]);
+			if(i!=2) intParts[i]--;
 		}
-		return dateFormat.getTime();
+		return new Date(intParts[2],intParts[1],intParts[0]);
 	}
 
 	@GetMapping(value = { "/stats/{term}", "/stats/{term}" })
