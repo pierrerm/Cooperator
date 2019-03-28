@@ -58,7 +58,26 @@ public class CooperatorRestController {
 				Faculty.Engineering, id, major, minor, academicYear, null);
 		return convertToDto(student);
 	}
+	
+	@PostMapping(value = {
+			"/reminder/{subject}/{date}/{deadline}/{description}/{urgency}/{coopId}",
+			"/reminder/{subject}/{date}/{deadline}/{description}/{urgency}/{coopId}/"})
+	public ReminderDto createReminder(@PathVariable("subject") String subject, 
+			@PathVariable("date") String date_string, @PathVariable("deadline") String deadline_string,
+			@PathVariable("description") String description, @PathVariable("urgency") int urgency,
+			@PathVariable("coopId") int coopId) throws IllegalArgumentException{
+		Coop coop = service.getCoop(coopId);
 
+		Date date = createDate(date_string);
+		Date deadline = createDate(deadline_string);
+		Reminder reminder = service.createReminder(subject, date, deadline, description, urgency, coop);
+		return convertToDto(reminder);
+		
+	}
+	
+	
+	
+	
 	@GetMapping(value = { "/students", "/students/" })
 	public List<StudentDto> getAllStudents() {
 		List<StudentDto> studentDtos = new ArrayList<>();
