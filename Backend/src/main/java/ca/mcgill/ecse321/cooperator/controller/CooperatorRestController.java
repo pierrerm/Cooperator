@@ -221,7 +221,7 @@ public class CooperatorRestController {
 		return employerDtos;
 	}
 
-	@GetMapping(value = { "/reminders/send", "/reminders/send/" })
+	@PostMapping(value = { "/reminders/send", "/reminders/send/" })
 	public List<ReminderDto> sendReminders() {
 		System.out.println("GET /reminders/send 2.0");
 		List<Reminder> remindersSent = service.sendReminders();

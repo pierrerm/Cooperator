@@ -236,7 +236,7 @@ public class TestCooperatorRESTServices {
 			// Send Reminders to problematic students
 			URL urlR = new URL("http://cooperator-backend-3417.herokuapp.com/reminders/send");
 			HttpURLConnection connR = (HttpURLConnection) urlR.openConnection();
-			connR.setRequestMethod("GET");
+			connR.setRequestMethod("POST");
 			assertEquals(200, connR.getResponseCode());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
