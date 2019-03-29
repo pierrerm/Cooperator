@@ -76,6 +76,11 @@ export default new Router({
       path: '/studentForm/:formId',
       name: 'ViewForm',
       component: ViewForm
+    },
+    {
+      path: '/createReminder',
+      name: 'CreateReminder',
+      component: ViewForm
     }
 
   ]

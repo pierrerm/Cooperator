@@ -4,6 +4,14 @@
         <div class="site-section" style="padding-top:10%">
             <div class="container" style="align:center">
                 <h1 class="page-title">All Reminders</h1>
+
+                <router-link :to="{name: 'CreateReminder'}">
+                <input 
+                    value="Create Reminder"
+                    class="btn btn-primary py-2 px-4 text-white"
+                />
+                </router-link>
+
                 <div id="table">
                     <table class="info-table" style="width: 100%; height: 100%;">
                         <tr>

@@ -29,10 +29,10 @@ export default {
                 .then(response => {
                     this.stats = response.data
                 });
-        AXIOS.get(`/student/problem/` + term , {}, {})
-            .then(response => {
-                this.students = response.data
-            });
+            AXIOS.get(`/student/problem/` + term , {}, {})
+                .then(response => {
+                    this.students = response.data
+                });
         }
     }
 }
