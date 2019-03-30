@@ -534,14 +534,16 @@ public class CooperatorRestController {
 	}
 
 	@GetMapping(value = { "/stats/{term}", "/stats/{term}" })
-	public StatsDto getStats(@PathVariable("term") String term) {
+	public List<StatsDto> getStats(@PathVariable("term") String term) {
+		List<StatsDto> statsDtos = new ArrayList<>();
 		double[] stats = service.getSemesterStatistics(term);
 		String[] stringStats = new String[4];
 		for(int i = 0; i < stats.length; i++){
 			stringStats[i] = String.valueOf(stats[i]);
 		}
 		StatsDto statsDto = new StatsDto(term, stringStats[0], stringStats[1], stringStats[2], stringStats[3]);
-		return statsDto;
+		statsDtos.add(statsDto);
+		return statsDtos;
 	}
 
 	@GetMapping(value = { "/student/active/{term}", "/student/active/{term}" })
