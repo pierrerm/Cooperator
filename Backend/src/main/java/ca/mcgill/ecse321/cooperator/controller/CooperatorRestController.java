@@ -19,6 +19,7 @@ import ca.mcgill.ecse321.cooperator.dto.AdministratorDto;
 import ca.mcgill.ecse321.cooperator.dto.CoopDto;
 import ca.mcgill.ecse321.cooperator.dto.EmployerDto;
 import ca.mcgill.ecse321.cooperator.dto.FormDto;
+import ca.mcgill.ecse321.cooperator.dto.FormStatsDto;
 import ca.mcgill.ecse321.cooperator.dto.ReminderDto;
 import ca.mcgill.ecse321.cooperator.dto.StatsDto;
 import ca.mcgill.ecse321.cooperator.dto.StudentDto;
@@ -544,6 +545,15 @@ public class CooperatorRestController {
 		StatsDto statsDto = new StatsDto(term, stringStats[0], stringStats[1], stringStats[2], stringStats[3]);
 		statsDtos.add(statsDto);
 		return statsDtos;
+	}
+	
+	@GetMapping(value = { "/form/stats/{term}", "/form/stats/{term}" })
+	public List<FormStatsDto> getFormStats(@PathVariable("term") String term) {
+		List<FormStatsDto> formStatsDtos = new ArrayList<>();
+		int[] formStats = service.getFormStatistics(term);
+		FormStatsDto statsDto = new FormStatsDto(formStats[0], formStats[1], formStats[2], formStats[3], formStats[4]);
+		formStatsDtos.add(statsDto);
+		return formStatsDtos;
 	}
 
 	@GetMapping(value = { "/student/active/{term}", "/student/active/{term}" })

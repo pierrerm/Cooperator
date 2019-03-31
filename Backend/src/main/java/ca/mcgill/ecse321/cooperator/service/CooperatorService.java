@@ -787,6 +787,17 @@ public class CooperatorService {
 		stats[3] = getAllStudentsWithFormError(term).size();
 		return stats;
 	}
+	
+	@Transactional
+	public int[] getFormStatistics(String term) {
+		int[] stats = { 0, 0, 0, 0, 0 };
+		stats[0] = getActiveCoopsWithNoForms(term).size();
+		stats[1] = getActiveCoopsWithOneForm(term).size();
+		stats[2] = getActiveCoopsWithTwoForms(term).size();
+		stats[3] = getActiveCoopsWithThreeForms(term).size();
+		stats[4] = getAllCompletedActiveCoops(term).size();
+		return stats;
+	}
 
 	// US2 - Get all active Students (currently enrolled in coop term)
 	@Transactional
@@ -829,6 +840,62 @@ public class CooperatorService {
 			}
 		}
 		return completedCoops;
+	}
+	
+	@Transactional
+	public List<Coop> getActiveCoopsWithNoForms(String term) {
+		term = term.toLowerCase();
+		List<Coop> coopsWithNoForms = new ArrayList<Coop>();
+		for (Coop c : getAllCoops()) {
+			if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+				if (countForms(c) == 0) {
+					coopsWithNoForms.add(c);
+				}
+			}
+		}
+		return coopsWithNoForms;
+	}
+	
+	@Transactional
+	public List<Coop> getActiveCoopsWithOneForm(String term) {
+		term = term.toLowerCase();
+		List<Coop> coopsWithOneForm = new ArrayList<Coop>();
+		for (Coop c : getAllCoops()) {
+			if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+				if (countForms(c) == 1) {
+					coopsWithOneForm.add(c);
+				}
+			}
+		}
+		return coopsWithOneForm;
+	}
+	
+	@Transactional
+	public List<Coop> getActiveCoopsWithTwoForms(String term) {
+		term = term.toLowerCase();
+		List<Coop> coopsWithTwoForms = new ArrayList<Coop>();
+		for (Coop c : getAllCoops()) {
+			if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+				if (countForms(c) == 2) {
+					coopsWithTwoForms.add(c);
+				}
+			}
+		}
+		return coopsWithTwoForms;
+	}
+	
+	@Transactional
+	public List<Coop> getActiveCoopsWithThreeForms(String term) {
+		term = term.toLowerCase();
+		List<Coop> coopsWithThreeForms = new ArrayList<Coop>();
+		for (Coop c : getAllCoops()) {
+			if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+				if (countForms(c) == 3) {
+					coopsWithThreeForms.add(c);
+				}
+			}
+		}
+		return coopsWithThreeForms;
 	}
 
 	// US2 - Get completed active coops for student (completed coops for current
