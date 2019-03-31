@@ -14,7 +14,8 @@ export default {
     data() {
         return {
             stats: [],
-            students: []
+            students: [],
+			formStats: []
         }
     },
     methods: {
@@ -29,10 +30,14 @@ export default {
                 .then(response => {
                     this.stats = response.data
                 });
-        AXIOS.get(`/student/problem/` + term , {}, {})
-            .then(response => {
-                this.students = response.data
-            });
+			AXIOS.get(`/student/problem/` + term , {}, {})
+				.then(response => {
+					this.students = response.data
+				});
+			AXIOS.get(`/form/stats/` + term , {}, {})
+				.then(response => {
+					this.formStats = response.data
+				});
         }
     }
 }

@@ -63,6 +63,23 @@
                         </tr>
                     </table>
                     </div>
+					<h3 class="page-title">Form Submission</h3>
+                <div id="table">
+                    <table class="info-table" style="width: 100%; height: 100%;">
+                        <tr>
+                            <th style="padding:10px">No Forms</th>
+                            <th style="padding:10px">One Form</th>
+                            <th style="padding:10px">Two Forms</th>
+                            <th style="padding:10px">Three Forms</th>
+                        </tr>
+                        <tr v-for="fs in formStats">
+                            <td style="padding:10px">{{ fs.noForms }}</td>
+                            <td style="padding:10px">{{ fs.oneForm }}</td>
+                            <td style="padding:10px">{{ fs.twoForms }}</td>
+                            <td style="padding:10px">{{ fs.threeForms }}</td>
+                        </tr>
+                    </table>
+                    </div>
                 </div>
             </div>
         </div>
