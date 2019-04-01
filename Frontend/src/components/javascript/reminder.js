@@ -62,14 +62,14 @@ export default {
             }
             AXIOS.post(`/reminder/` + subject + '/' + date + '/' + deadline + '/' + description + '/' + urgency + '/' + coopId, {}, {})
                 .then(response => {
-                    this.reminders = response.data;
+                    console.log(response.data)
+                    window.location.reload(true);
                 })
                 .catch(e => {
                     var errorMsg = e.message
                     console.log(errorMsg)
                     this.errorLogin = errorMsg
                 });
-            window.location.reload(true);
         }
     },
 

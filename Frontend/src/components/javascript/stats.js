@@ -15,7 +15,8 @@ export default {
         return {
             stats: [],
             students: [],
-			formStats: []
+            formStats: [],
+            term: ''
         }
     },
     methods: {
