@@ -27,8 +27,14 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/newperson_name"
+            android:id="@+id/newperson_firstname"
             android:hint="@string/newperson_hint"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newperson_lastname"
+            android:hint="@string/newperson_hint2"/>
 
         <Button
             android:layout_width="wrap_content"

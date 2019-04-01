@@ -75,8 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void addPerson(View v) {
         error = "";
-        final TextView tv = (TextView) findViewById(R.id.newperson_name);
-        HttpUtils.post("persons/" + tv.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+        final TextView tv = (TextView) findViewById(R.id.newperson_firstname);
+        final TextView tv2 = (TextView) findViewById(R.id.newperson_lastname);
+        HttpUtils.post("employer/810/" + tv.getText().toString() + "/" + tv2.getText().toString() + "/m@mail.ca/password/-2/position/company/location", new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
