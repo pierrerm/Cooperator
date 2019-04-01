@@ -60,9 +60,14 @@ export default {
                 this.errorLogin = errorMsg
                 return
             }
-            AXIOS.post(`/reminder/` + subject + '/' + date + '/' + deadline + '/' + description + '/' + urgency + '/' + coopId, {}, {})
+            var datearray = date.split("-");
+            var newdate = datearray[2] + '-' + datearray[1] + '-' + datearray[0];
+
+            var deadlinearray = deadline.split("-");
+            var newdeadline = deadlinearray[2] + '-' + deadlinearray[1] + '-' + deadlinearray[0];
+            AXIOS.post(`/reminder/` + subject + '/' + newdate + '/' + newdeadline + '/' + description + '/' + urgency + '/' + coopId, {}, {})
                 .then(response => {
-                    console.log(response.data)
+                    //console.log(response.data)
                     window.location.reload(true);
                 })
                 .catch(e => {

@@ -23,7 +23,7 @@
                 <h6 align="left" color="#ffffff">Deadline</h6>
                 <input
                     class="login-text"
-                    type="date"
+                    type="date"             
                     placeholder="Deadline"
                     v-model="deadline"
                     />
