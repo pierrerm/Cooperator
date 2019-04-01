@@ -20,6 +20,7 @@ import ca.mcgill.ecse321.cooperator.dto.CoopDto;
 import ca.mcgill.ecse321.cooperator.dto.EmployerDto;
 import ca.mcgill.ecse321.cooperator.dto.FormDto;
 import ca.mcgill.ecse321.cooperator.dto.FormStatsDto;
+import ca.mcgill.ecse321.cooperator.dto.FormTypesDto;
 import ca.mcgill.ecse321.cooperator.dto.ReminderDto;
 import ca.mcgill.ecse321.cooperator.dto.StatsDto;
 import ca.mcgill.ecse321.cooperator.dto.StudentDto;
@@ -75,9 +76,6 @@ public class CooperatorRestController {
 		return convertToDto(reminder);
 		
 	}
-	
-	
-	
 	
 	@GetMapping(value = { "/students", "/students/" })
 	public List<StudentDto> getAllStudents() {
@@ -531,7 +529,7 @@ public class CooperatorRestController {
 			intParts[i] = Integer.parseInt(parts[i]);
 			if(i!=2) intParts[i]--;
 		}
-		return new Date(intParts[2],intParts[1],intParts[0]);
+		return new Date(intParts[2]-1900,intParts[1],intParts[0]);
 	}
 
 	@GetMapping(value = { "/stats/{term}", "/stats/{term}" })
@@ -554,6 +552,15 @@ public class CooperatorRestController {
 		FormStatsDto statsDto = new FormStatsDto(formStats[0], formStats[1], formStats[2], formStats[3], formStats[4]);
 		formStatsDtos.add(statsDto);
 		return formStatsDtos;
+	}
+	
+	@GetMapping(value = { "/form/type/{term}", "/form/type/{term}" })
+	public List<FormTypesDto> getFormTypes(@PathVariable("term") String term) {
+		List<FormTypesDto> formTypesDtos = new ArrayList<>();
+		int[] formTypes = service.getFormTypeStatistics(term);
+		FormTypesDto typesDto = new FormTypesDto(formTypes[0], formTypes[1], formTypes[2], formTypes[3]);
+		formTypesDtos.add(typesDto);
+		return formTypesDtos;
 	}
 
 	@GetMapping(value = { "/student/active/{term}", "/student/active/{term}" })
