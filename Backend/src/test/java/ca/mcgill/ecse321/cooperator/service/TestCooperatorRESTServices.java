@@ -72,46 +72,46 @@ public class TestCooperatorRESTServices {
 		}
 	}
 	
-//	@Test
-//	public void testReminderCreation() {
-//		try {
-//			URL urlS = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-2/260710646/U2/compEng/eng");
-//			HttpURLConnection connS = (HttpURLConnection) urlS.openConnection();
-//			connS.setRequestMethod("POST");
-//			assertEquals(200, connS.getResponseCode());
-//			
-//			URL urlE = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/employer/438/TestEmployerFirst/TestEmployerLast/testing.employer@mail.mcgill.ca/password/-2/President/Mcgill/Montreal");
-//			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
-//			connE.setRequestMethod("POST");
-//			assertEquals(200, connE.getResponseCode());
-//			
-//			URL urlC = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/coop/-3/true/04-06-2019/GreatJob/123/Montreal/false/winter/25-2-2019/-2/-2");
-//			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
-//			connC.setRequestMethod("POST");
-//			assertEquals(200, connC.getResponseCode());
-//			
-//			URL urlR = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/reminder/Reminder/04-06-2019/10-06-2019/This_is_a_reminder/2/-3");
-//			HttpURLConnection connR = (HttpURLConnection) urlR.openConnection();
-//			connR.setRequestMethod("POST");
-//			assertEquals(200, connR.getResponseCode());
-//			
-//			
-//			connC.disconnect();
-//			connS.disconnect();
-//			connE.disconnect();
-//			connR.disconnect();
-//
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
+	@Test
+	public void testReminderCreation() {
+		try {
+			URL urlS = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-2/260710646/U2/compEng/eng");
+			HttpURLConnection connS = (HttpURLConnection) urlS.openConnection();
+			connS.setRequestMethod("POST");
+			assertEquals(200, connS.getResponseCode());
+			
+			URL urlE = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/employer/438/TestEmployerFirst/TestEmployerLast/testing.employer@mail.mcgill.ca/password/-2/President/Mcgill/Montreal");
+			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
+			connE.setRequestMethod("POST");
+			assertEquals(200, connE.getResponseCode());
+			
+			URL urlC = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/coop/-3/true/04-06-2019/GreatJob/123/Montreal/false/winter/25-2-2019/-2/-2");
+			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
+			connC.setRequestMethod("POST");
+			assertEquals(200, connC.getResponseCode());
+			
+			URL urlR = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/reminder/Reminder/04-06-2019/10-06-2019/This_is_a_reminder/2/-3");
+			HttpURLConnection connR = (HttpURLConnection) urlR.openConnection();
+			connR.setRequestMethod("POST");
+			assertEquals(200, connR.getResponseCode());
+			
+			
+			connC.disconnect();
+			connS.disconnect();
+			connE.disconnect();
+			connR.disconnect();
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 
 	@Test
@@ -253,39 +253,39 @@ public class TestCooperatorRESTServices {
 		}
 	}
 
-//	@Test
-//	public void testSendReminders() {
-//		try {
-//			URL url = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-6/260710646/U2/compEng/eng");
-//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//			conn.setRequestMethod("POST");
-//			conn.getResponseCode();
-//			URL urlE = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/employer/438/TestEmployerFirst/TestEmployerLast/testing.employer@mail.mcgill.ca/password/-3/President/Mcgill/Montreal");
-//			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
-//			connE.setRequestMethod("POST");
-//			connE.getResponseCode();
-//			URL urlC = new URL(
-//					"http://cooperator-backend-3417.herokuapp.com/coop/-6/true/30-05-2019/GreatJob/123/Montreal/false/winter/25-02-2019/-6/-3");
-//			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
-//			connC.setRequestMethod("POST");
-//			connC.getResponseCode();
-//			connC.disconnect();
-//			conn.disconnect();
-//			connE.disconnect();
-//
-//			// Send Reminders to problematic students
-//			URL urlR = new URL("http://cooperator-backend-3417.herokuapp.com/reminders/send");
-//			HttpURLConnection connR = (HttpURLConnection) urlR.openConnection();
-//			connR.setRequestMethod("POST");
-//			assertEquals(200, connR.getResponseCode());
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@Test
+	public void testSendReminders() {
+		try {
+			URL url = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/student/438/TestStudentFirstName/TestStudentLastName/a@gmail.com/password/-6/260710646/U2/compEng/eng");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.getResponseCode();
+			URL urlE = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/employer/438/TestEmployerFirst/TestEmployerLast/testing.employer@mail.mcgill.ca/password/-3/President/Mcgill/Montreal");
+			HttpURLConnection connE = (HttpURLConnection) urlE.openConnection();
+			connE.setRequestMethod("POST");
+			connE.getResponseCode();
+			URL urlC = new URL(
+					"http://cooperator-backend-3417.herokuapp.com/coop/-6/true/30-05-2019/GreatJob/123/Montreal/false/winter/25-02-2019/-6/-3");
+			HttpURLConnection connC = (HttpURLConnection) urlC.openConnection();
+			connC.setRequestMethod("POST");
+			connC.getResponseCode();
+			connC.disconnect();
+			conn.disconnect();
+			connE.disconnect();
+
+			// Send Reminders to problematic students
+			URL urlR = new URL("http://cooperator-backend-3417.herokuapp.com/reminders/send");
+			HttpURLConnection connR = (HttpURLConnection) urlR.openConnection();
+			connR.setRequestMethod("POST");
+			assertEquals(200, connR.getResponseCode());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Test
 	public void testGetAllStudents() {

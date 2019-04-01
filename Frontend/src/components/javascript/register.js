@@ -15,6 +15,7 @@ export default {
         return {
             firstName: '',
             lastName: '',
+            userId: '',
             email: '',
             password: '',
             errorRegister: '',
@@ -25,16 +26,21 @@ export default {
     
     },
     methods: {
-        register(firstName, lastName, email, password, selected) {
-            console.log(selected)
+        register(firstName, lastName, userId, email, password) {
             if (firstName == '') {
-                var errorMsg = "Invalid first name"
+                var errorMsg = "Invalid last name"
                 console.log(errorMsg)
                 this.errorRegister = errorMsg
                 return
             }
             if (lastName == '') {
                 var errorMsg = "Invalid last name"
+                console.log(errorMsg)
+                this.errorRegister = errorMsg
+                return
+            }
+            if (userId == '') {
+                var errorMsg = "Invalid User ID"
                 console.log(errorMsg)
                 this.errorRegister = errorMsg
                 return
@@ -60,6 +66,7 @@ export default {
                     this.response = "Admin Created!"
                     this.firstName= ''
                     this.lastName= ''
+                    this.userId = ''
                     this.email= ''
                     this.password= ''
                 })

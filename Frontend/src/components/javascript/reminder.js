@@ -12,7 +12,64 @@ var AXIOS = axios.create({
 export default {
     data() {
         return {
-            reminders: []
+            reminders: [],
+            subject: '',
+            date: '',
+            deadline: '',
+            description: '',
+            urgency: '',
+            coopId: '',
+        }
+    },
+
+    methods: {
+        sendReminder(subject, date, deadline, description, urgency, coopId) {
+            if (subject == '') {
+                var errorMsg = "Invalid Subject"
+                console.log(errorMsg)
+                this.errorLogin = errorMsg
+                return
+            }
+            if (date == '') {
+                var errorMsg = "Invalid Date"
+                console.log(errorMsg)
+                this.errorLogin = errorMsg
+                return
+            }
+            if (description == '') {
+                var errorMsg = "Invalid Date"
+                console.log(errorMsg)
+                this.errorLogin = errorMsg
+                return
+            }
+            if (urgency == '') {
+                var errorMsg = "Invalid Date"
+                console.log(errorMsg)
+                this.errorLogin = errorMsg
+                return
+            }
+            if (deadline == '') {
+                var errorMsg = "Invalid Date"
+                console.log(errorMsg)
+                this.errorLogin = errorMsg
+                return
+            }
+            if (coopId == '') {
+                var errorMsg = "Invalid Date"
+                console.log(errorMsg)
+                this.errorLogin = errorMsg
+                return
+            }
+            AXIOS.post(`/reminder/` + subject + '/' + date + '/' + deadline + '/' + description + '/' + urgency + '/' + coopId, {}, {})
+                .then(response => {
+                    this.reminders = response.data;
+                })
+                .catch(e => {
+                    var errorMsg = e.message
+                    console.log(errorMsg)
+                    this.errorLogin = errorMsg
+                });
+            window.location.reload(true);
         }
     },
 
@@ -57,5 +114,6 @@ export default {
                         });
                 }
             }
-    }
+    },
+
 }

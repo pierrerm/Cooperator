@@ -8,8 +8,8 @@
                     <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200">Coop-erator {{loginType}}</h1>
                     <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Group 11</span>
                     <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">COUPERIER Romain</span>
-                    <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">MANJUNATH Anudruth</span>
                     <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">LESAFFRE Julien</span>
+                    <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">MANJUNATH Anudruth</span>
                     <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">NUNEZ Matteo</span>
                     <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">ROBERT-MICHON Pierre</span>
                 </div>

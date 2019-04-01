@@ -4,6 +4,7 @@
         <div class="site-section" style="padding-top:10%">
             <div class="container" style="align:center">
                 <h1 class="page-title">Semester Stats</h1>
+                <div align="center" style="padding-bottom:5%">
                 <input
                     class="login-text"
                     type="text"
@@ -15,6 +16,7 @@
                     value="Submit"
                     class="btn btn-primary py-2 px-4 text-white"
                 />
+                </div>
                 <div id="table">
                     <table class="info-table" style="width: 100%; height: 100%;">
                         <tr>
