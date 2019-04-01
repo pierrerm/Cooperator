@@ -31,6 +31,12 @@
                     <input
                         class="login-text"
                         type="text"
+                        placeholder="User ID"
+                        v-model="userId"
+                    />
+                    <input
+                        class="login-text"
+                        type="text"
                         placeholder="Email"
                         v-model="email"
                         />
@@ -40,7 +46,7 @@
                         placeholder="Password"
                         v-model="password"
                         />
-                    <input @click="register(firstName, lastName, email, password, selected)"
+                    <input @click="register(firstName, lastName, userId, email, password)"
                         type="submit"
                         value="Register"
                         class="btn btn-primary py-2 px-4 text-white"

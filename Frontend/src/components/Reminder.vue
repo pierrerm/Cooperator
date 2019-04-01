@@ -4,14 +4,59 @@
         <div class="site-section" style="padding-top:10%">
             <div class="container" style="align:center">
                 <h1 class="page-title">All Reminders</h1>
+                <div align="center" style="padding-bottom:5%">
+                <input
+                    class="login-text"
+                    type="text"
+                    placeholder="Subject"
+                    v-model="subject"
+                    />
+                
+                <h6 align="left" color="#ffffff">Date</h6>
+                <input
+                    class="login-text"
+                    type="date"
+                    placeholder="Date"
+                    v-model="date"
+                    />
 
-                <router-link :to="{name: 'CreateReminder'}">
-                <input 
-                    value="Create Reminder"
-                    class="btn btn-primary py-2 px-4 text-white"
-                />
-                </router-link>
+                <h6 align="left" color="#ffffff">Deadline</h6>
+                <input
+                    class="login-text"
+                    type="date"
+                    placeholder="Deadline"
+                    v-model="deadline"
+                    />
+                
+                <input
+                    class="login-text"
+                    type="text"
+                    placeholder="Description"
+                    v-model="description"
+                    />
+                
+                <input
+                    class="login-text"
+                    type="number"
+                    min="1"
+                    max = "3"
+                    placeholder="Urgency"
+                    v-model="urgency"
+                    />
 
+                <input
+                    class="login-text"
+                    type="number"
+                    placeholder="CoopID"
+                    v-model="coopId"
+                    />
+
+                <input @click="sendReminder(subject, date, deadline, description, urgency, coopId)"
+                        type="submit"
+                        value="Send Reminder"
+                        class="btn btn-primary py-2 px-4 text-white"
+                        />
+                </div>
                 <div id="table">
                     <table class="info-table" style="width: 100%; height: 100%;">
                         <tr>
@@ -32,6 +77,7 @@
                         </tr>
                     </table>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -41,5 +87,8 @@
 <script src="./javascript/reminder.js">
 </script>
 
-<style>
+<style scoped>
+  h6 {
+      color: #ffffff;
+  }
 </style>

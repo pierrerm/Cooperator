@@ -26,6 +26,15 @@
                                 <li>
                                     <router-link :to="{name: 'Home'}">Home</router-link>
                                 </li>
+                                <li v-if="!loggedIn">
+                                    <a href="https://sturegistration-front-009b01.herokuapp.com/#/">Student-Viewpoint</a>
+                                </li>
+                                <li v-if="!loggedIn">
+                                    <a href="https://cooperator-frontend-060606.herokuapp.com/#/">Company-Viewpoint</a>
+                                </li>
+                                <li v-if="!loggedIn">
+                                    <a href="https://cooperator-web-frontend-260.herokuapp.com/#/">Academic Manager-Viewpoint</a>
+                                </li>
                                 <li v-if="loggedIn">
                                     <router-link :to="{name: 'ViewAllStudents'}">Students</router-link>
                                 </li>
@@ -67,7 +76,7 @@
                             All rights reserved | This template is made with
                             <i class="icon-heart text-primary" aria-hidden="true"></i> by
                             <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            | @Authors COUPERIER Romain, MANJUNATH Anudruth, LESAFFRE Julien, NUNEZ Matteo, ROBERT-MICHON Pierre 
+                            | @Authors COUPERIER Romain, LESAFFRE Julien, MANJUNATH Anudruth, NUNEZ Matteo, ROBERT-MICHON Pierre 
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>
