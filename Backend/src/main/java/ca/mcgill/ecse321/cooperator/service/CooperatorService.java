@@ -661,14 +661,14 @@ public class CooperatorService {
 	public String getTerm(Semester semester, Date startDate, Date endDate) {
 		String year = null;
 		if (startDate.getYear() == endDate.getYear()) {
-			year = Integer.toString(startDate.getYear() - 1900);
+			year = Integer.toString(startDate.getYear() + 1900);
 		} else if (startDate.getYear() == endDate.getYear() - 1) {
 			if (semester == Semester.Fall) {
-				year = Integer.toString(startDate.getYear() - 1900);
+				year = Integer.toString(startDate.getYear() + 1900);
 			} else if (semester == Semester.Winter) {
-				year = Integer.toString(endDate.getYear() - 1900);
+				year = Integer.toString(endDate.getYear() + 1900);
 			} else {
-				year = Integer.toString(startDate.getYear() - 1900);
+				year = Integer.toString(startDate.getYear() + 1900);
 			}
 		}
 
