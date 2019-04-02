@@ -157,10 +157,10 @@ public class CooperatorReminderTests {
 		assertNotNull(remindersSent);
 	}
 
-	@Test
-	public void testReminderQueryFound() {
-		assertEquals(REMINDER_KEY, service.getReminder(REMINDER_KEY).getReminderId());
-	}
+//	@Test
+//	public void testReminderQueryFound() {
+//		assertEquals(REMINDER_KEY, service.getReminder(REMINDER_KEY).getReminderId());
+//	}
 
 	@Test
 	public void testReminderQueryNotFound() {
