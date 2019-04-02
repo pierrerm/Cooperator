@@ -609,7 +609,7 @@ public class CooperatorRestController {
 		return formTypesDtos;
 	}
 	
-	@GetMapping(value = { "/student/Aform/{term}", "/Student/Aform/{term}" })
+	@GetMapping(value = { "/student/Aform/{term}", "/student/Aform/{term}" })
 	public List<StudentDto> getStudentAForm(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
 		for (Student student : service.getActiveStudentsWithAForms(term)) {
@@ -618,7 +618,7 @@ public class CooperatorRestController {
 		return studentDtos;
 	}
 	
-	@GetMapping(value = { "/student/CEform/{term}", "/Student/CEform/{term}" })
+	@GetMapping(value = { "/student/CEform/{term}", "/student/CEform/{term}" })
 	public List<StudentDto> getStudentCEForm(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
 		for (Student student : service.getActiveStudentsWithCEForms(term)) {
@@ -627,7 +627,7 @@ public class CooperatorRestController {
 		return studentDtos;
 	}
 	
-	@GetMapping(value = { "/student/SEform/{term}", "/Student/SEform/{term}" })
+	@GetMapping(value = { "/student/SEform/{term}", "/student/SEform/{term}" })
 	public List<StudentDto> getStudentSEForm(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
 		for (Student student : service.getActiveStudentsWithSEForms(term)) {
@@ -636,7 +636,7 @@ public class CooperatorRestController {
 		return studentDtos;
 	}
 	
-	@GetMapping(value = { "/student/TWRform/{term}", "/Student/TWRform/{term}" })
+	@GetMapping(value = { "/student/TWRform/{term}", "/student/TWRform/{term}" })
 	public List<StudentDto> getStudentTWRForm(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
 		for (Student student : service.getActiveStudentsWithTWRForms(term)) {
