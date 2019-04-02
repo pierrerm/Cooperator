@@ -58,12 +58,18 @@ export default {
                 return
             }
             this.errorRegister = ''
-            AXIOS.post(`/admin/` + firstName + "/" + lastName + "/" + email + "/" + password, {}, {})
+            AXIOS.post(`/admin/` + firstName + "/" + lastName + "/" + userId + "/" + email + "/" + password, {}, {})
                 .then(response => {
                     // JSON responses are automatically parsed.
-                    this.response = response.data
+                    this.response = response.data  
                     console.log(this.response)
-                    this.response = "Admin Created!"
+                    if(this.response.firstName == null) {
+                        this.errorRegister = 'UserID is not a Valid Admin ID!'
+                        this.response = ''
+                    } else {
+                        this.response = 'Admin Created!'
+                        this.errorRegister = ''
+                    }
                     this.firstName= ''
                     this.lastName= ''
                     this.userId = ''
