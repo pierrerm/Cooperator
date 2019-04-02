@@ -6,7 +6,7 @@
           <h1 class="page-title">View & Edit Form</h1>
 
           <div class="half left" id="table">
-            <table class="info-table" style="width: 90%; height: 100%;">
+            <table class="info-table" style="width: 90%;">
               <div>
                 <tr>
                   <th style="padding:10px;width: 300px">Form Type</th>
@@ -186,8 +186,7 @@
               <span v-if="response" style="color:green">Success: {{response}} </span>
             </div>
           </div>
-        </div>
-        </div>
+          </div>
       </div>
     </div>
   </div>

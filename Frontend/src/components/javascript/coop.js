@@ -12,22 +12,22 @@ var AXIOS = axios.create({
 export default {
   data() {
     return {
-      students: [],
-      student: '',
+      coops: [],
+      coop: '',
       forms: []
     }
   },
 
   created: function() {
-    AXIOS.get('/students')
+    AXIOS.get('/coops')
       .then(response => {
-        this.students = response.data;
-        // Find student by userId
-        for (var i in this.students) {
-          if (this.students[i].userId === this.$route.params.userId) {
-            this.student = this.students[i]
+        this.coops = response.data;
+        // Find coop by coopId
+        for (var i in this.coops) {
+          if (this.coops[i].coopId === this.$route.params.coopId) {
+            this.coop = this.coops[i]
 
-            AXIOS.get('/forms/student/byId/'+ this.student.userId)
+            AXIOS.get('/forms/'+ this.coop.coopId)
               .then(response => {
                 this.forms = response.data;
               })

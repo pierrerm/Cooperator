@@ -33,7 +33,7 @@
                         </tr>
                         <tr v-for="student in students">
                             <td style="padding:10px">
-                              <router-link :to="{name: 'ViewStudentForms', params: {userId: student.userId }}">
+                              <router-link :to="{name: 'ViewStudentCoops', params: {userId: student.userId }}">
                                 {{ student.firstName }}
                               </router-link>
                             </td>

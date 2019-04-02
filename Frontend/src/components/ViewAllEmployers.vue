@@ -31,7 +31,7 @@
                         </tr>
                         <tr v-for="employer in employers">
                             <td style="padding:10px">
-                              <router-link :to="{name: 'ViewEmployerForms', params: {userId: employer.userId }}">
+                              <router-link :to="{name: 'ViewEmployerCoops', params: {userId: employer.userId }}">
                                 {{ employer.firstName }}
                               </router-link>
                             </td>

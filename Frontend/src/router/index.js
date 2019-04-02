@@ -6,12 +6,15 @@ import Register from '@/components/Register'
 import Logout from '@/components/Logout'
 import ViewAllStudents from '@/components/ViewAllStudents'
 import ViewStudentForms from '@/components/ViewStudentForms'
+import ViewStudentCoops from '@/components/ViewStudentCoops'
 import ViewEmployerForms from '@/components/ViewEmployerForms'
+import ViewEmployerCoops from '@/components/ViewEmployerCoops'
 import ViewAllEmployers from '@/components/ViewAllEmployers'
 import SemesterStats from '@/components/SemesterStats'
 import Reminder from '@/components/Reminder'
 import EmployerForm from '@/components/EmployerForm'
 import ViewForm from '@/components/ViewForm'
+import ViewCoop from '@/components/ViewCoop'
 
 Vue.use(Router)
 
@@ -33,14 +36,29 @@ export default new Router({
       component: ViewAllStudents
     },
     {
-      path: '/studentForm/:userId',
+      path: '/studentForms/:userId',
       name: 'ViewStudentForms',
       component: ViewStudentForms
     },
     {
-      path: '/employerForm/:userId',
+      path: '/studentCoops/:userId',
+      name: 'ViewStudentCoops',
+      component: ViewStudentCoops
+    },
+    {
+      path: '/employerForms/:userId',
       name: 'ViewEmployerForms',
       component: ViewEmployerForms
+    },
+    {
+      path: '/employerCoops/:userId',
+      name: 'ViewEmployerCoops',
+      component: ViewEmployerCoops
+    },
+    {
+      path: '/coop/:coopId',
+      name: 'ViewCoop',
+      component: ViewCoop
     },
     {
       path: '/register',

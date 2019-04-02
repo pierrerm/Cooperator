@@ -14,7 +14,7 @@ export default {
     return {
       students: [],
       student: '',
-      forms: []
+      coops: []
     }
   },
 
@@ -26,10 +26,10 @@ export default {
         for (var i in this.students) {
           if (this.students[i].userId === this.$route.params.userId) {
             this.student = this.students[i]
-
-            AXIOS.get('/forms/student/byId/'+ this.student.userId)
+            console.log("Student ID: " + this.student.userId)
+            AXIOS.get('/coops/'+ this.student.userId)
               .then(response => {
-                this.forms = response.data;
+                this.coops = response.data;
               })
           }
         }
