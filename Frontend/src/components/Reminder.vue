@@ -72,7 +72,7 @@
                             <td style="padding:5px">{{ reminder.subject }}</td>
                             <td style="padding:5px">{{ reminder.description }}</td>
                             <td style="padding:5px">{{ reminder.coop.coopId }}</td>
-                            <td style="padding:5px">{{ reminder.coop.student.firstName }}</td>
+                            <td style="padding:5px">{{ reminder.coop.student.firstName + " " + reminder.coop.student.lastName}}</td>
                             <td style="padding:5px">{{ reminder.coop.student.id }}</td>
                         </tr>
                     </table>

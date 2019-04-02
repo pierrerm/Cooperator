@@ -12,15 +12,27 @@ var AXIOS = axios.create({
 export default {
     data() {
         return {
-            students: []
+            students: [],
+            term: ''
+        }
+    },
+
+    methods: {
+        getActiveStudents(term) {
+            if (term == '') {
+                AXIOS.get('/students')
+                    .then(response => {
+                        this.students = response.data;
+            })
+            }
+            AXIOS.get(`/student/active/` + term , {}, {})
+                .then(response => {
+                    this.students = response.data
+                });
         }
     },
 
     created: function() {
-        AXIOS.get('/students')
-            .then(response => {
-                this.students = response.data;
-            })
             if ((localStorage.getItem('loggedIn') != null)) {
                 //if cookies expired, refresh
                 if (this.$cookie.get("username") == null || this.$cookie.get("password") == null) {

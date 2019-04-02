@@ -962,6 +962,7 @@ public class CooperatorService {
 			for (Coop c : s.getCoop()) {
 				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
 					activeStudents.add(s);
+					break;
 				}
 			}
 		}

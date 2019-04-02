@@ -582,11 +582,12 @@ public class CooperatorRestController {
 	public List<StatsDto> getStats(@PathVariable("term") String term) {
 		List<StatsDto> statsDtos = new ArrayList<>();
 		double[] stats = service.getSemesterStatistics(term);
+		stats[1] = stats[1] * 100;
 		String[] stringStats = new String[4];
 		for(int i = 0; i < stats.length; i++){
 			stringStats[i] = String.valueOf(stats[i]);
 		}
-		StatsDto statsDto = new StatsDto(term, Integer.parseInt(stringStats[0]), stringStats[1], stringStats[2], Integer.parseInt(stringStats[3]));
+		StatsDto statsDto = new StatsDto(term, (int)Double.parseDouble(stringStats[0]), String.valueOf((int)Double.parseDouble(stringStats[1])).concat("%"), stringStats[2], (int)Double.parseDouble(stringStats[3]));
 		statsDtos.add(statsDto);
 		return statsDtos;
 	}

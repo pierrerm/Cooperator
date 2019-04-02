@@ -4,6 +4,20 @@
         <div class="site-section" style="padding-top:10%">
             <div class="container" style="align:center">
                 <h1 class="page-title">All Students</h1>
+                <div align="center" style="padding-bottom:5%">
+                <input
+                    class="login-text"
+                    type="text"
+                    placeholder="Term (eg: 'winter2019')"
+                    v-model="term"
+                />
+                <h6 align="left">Leave empty to view all students </h6>
+                <input @click="getActiveStudents(term)"
+                    type="submit"
+                    value="Submit"
+                    class="btn btn-primary py-2 px-4 text-white"
+                />
+                </div>
                 <div id="table">
                     <table class="info-table" style="width: 100%; height: 100%;">
                         <tr>
@@ -33,6 +47,7 @@
                             <td style="padding:10px">{{ student.phone }}</td>
                         </tr>
                     </table>
+                    <h6 align="left" style="padding-top:1.6%">Click student name to view individual coops and forms</h6>
                 </div>
             </div>
         </div>
@@ -43,5 +58,9 @@
 <script src="./javascript/students.js">
 </script>
 
-<style>
+
+<style scoped>
+  h6 {
+      color: #ffffff;
+  }
 </style>
