@@ -33,6 +33,10 @@ export default {
     },
 
     created: function() {
+        AXIOS.get('/students')
+                    .then(response => {
+                        this.students = response.data;
+            })
             if ((localStorage.getItem('loggedIn') != null)) {
                 //if cookies expired, refresh
                 if (this.$cookie.get("username") == null || this.$cookie.get("password") == null) {

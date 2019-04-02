@@ -968,6 +968,21 @@ public class CooperatorService {
 		}
 		return activeStudents;
 	}
+	
+	@Transactional
+	public List<Employer> getAllActiveEmployers(String term) {
+		term = term.toLowerCase();
+		List<Employer> activeEmployers = new ArrayList<Employer>();
+		for (Employer e : getAllEmployers()) {
+			for (Coop c : e.getCoop()) {
+				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+					activeEmployers.add(e);
+					break;
+				}
+			}
+		}
+		return activeEmployers;
+	}
 
 	// US2 - Get all active Coops (currently ongoing coop term)
 	@Transactional

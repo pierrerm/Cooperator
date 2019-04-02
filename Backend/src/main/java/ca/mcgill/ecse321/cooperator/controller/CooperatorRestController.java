@@ -298,8 +298,14 @@ public class CooperatorRestController {
 	}
 
 	private EmployerDto convertToDto(Employer e) {
+		ArrayList<Integer> coopIds = new ArrayList<Integer>();
+		if (e.getCoop() != null) {
+			for (Coop c : e.getCoop()) {
+				coopIds.add(c.getCoopId());
+			}
+		}
 		EmployerDto employerDto = new EmployerDto(e.getUserId(), e.getPhone(), e.getFirstName(), e.getLastName(),
-				e.getEmail(), e.getPassword(), e.getPosition(), e.getCompany(), e.getLocation());
+				e.getEmail(), e.getPassword(), e.getPosition(), e.getCompany(), e.getLocation(), coopIds);
 		return employerDto;
 	}
 
@@ -653,6 +659,15 @@ public class CooperatorRestController {
 			studentDtos.add(convertToDto(student));
 		}
 		return studentDtos;
+	}
+	
+	@GetMapping(value = { "/employer/active/{term}", "/employer/active/{term}" })
+	public List<EmployerDto> getAllActiveEmployers(@PathVariable("term") String term) {
+		List<EmployerDto> employerDtos = new ArrayList<>();
+		for (Employer employer : service.getAllActiveEmployers(term)) {
+			employerDtos.add(convertToDto(employer));
+		}
+		return employerDtos;
 	}
 
 	@GetMapping(value = { "/coop/active/{term}", "/coop/active/{term}" })

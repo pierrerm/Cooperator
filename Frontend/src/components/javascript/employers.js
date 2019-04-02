@@ -16,6 +16,21 @@ export default {
         }
     },
 
+    methods: {
+        getActiveStudents(term) {
+            if (term == '') {
+                AXIOS.get('/employers')
+                    .then(response => {
+                        this.employers = response.data;
+                    })
+            }
+            AXIOS.get(`/employer/active/` + term , {}, {})
+                .then(response => {
+                    this.employers = response.data
+                });
+        }
+    },
+
     created: function() {
         AXIOS.get('/employers')
             .then(response => {
