@@ -575,7 +575,7 @@ public class CooperatorRestController {
 		for(int i = 0; i < intParts.length; i++){
 			intParts[i] = Integer.parseInt(parts[i]);
 		}
-		return new Date(intParts[2]-1900,intParts[1],intParts[0]);
+		return new Date(intParts[2]-1900,intParts[1]-1,intParts[0]);
 	}
 
 	@GetMapping(value = { "/stats/{term}", "/stats/{term}" })
@@ -586,7 +586,7 @@ public class CooperatorRestController {
 		for(int i = 0; i < stats.length; i++){
 			stringStats[i] = String.valueOf(stats[i]);
 		}
-		StatsDto statsDto = new StatsDto(term, stringStats[0], stringStats[1], stringStats[2], stringStats[3]);
+		StatsDto statsDto = new StatsDto(term, Integer.parseInt(stringStats[0]), stringStats[1], stringStats[2], Integer.parseInt(stringStats[3]));
 		statsDtos.add(statsDto);
 		return statsDtos;
 	}

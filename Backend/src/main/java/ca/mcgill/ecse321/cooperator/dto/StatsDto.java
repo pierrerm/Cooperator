@@ -3,17 +3,17 @@ package ca.mcgill.ecse321.cooperator.dto;
 public class StatsDto {
 
 	private String term;
-	private String activeCoops;
+	private int activeCoops;
 	private String completionIndex;
 	private String averageFormSubmission;
-	private String problematicStudents;
+	private int problematicStudents;
 
 	public StatsDto() {
 
 	}
 
-	public StatsDto(String term, String activeCoops, String completionIndex, String averageFormSubmission,
-			String problematicStudents) {
+	public StatsDto(String term, int activeCoops, String completionIndex, String averageFormSubmission,
+			int problematicStudents) {
 		this.term = term;
 		this.activeCoops = activeCoops;
 		this.completionIndex = completionIndex;
@@ -25,7 +25,7 @@ public class StatsDto {
 		return term;
 	}
 
-	public String getActiveCoops() {
+	public int getActiveCoops() {
 		return activeCoops;
 	}
 
@@ -37,7 +37,7 @@ public class StatsDto {
 		return averageFormSubmission;
 	}
 
-	public String getProblematicStudents() {
+	public int getProblematicStudents() {
 		return problematicStudents;
 	}
 

@@ -39,7 +39,7 @@
                                     <router-link :to="{name: 'ViewAllStudents'}">Students</router-link>
                                 </li>
                                 <li v-if="loggedIn">
-                                    <router-link :to="{name: 'Reminder'}">Reminder</router-link>
+                                    <router-link :to="{name: 'Reminder'}">Reminders</router-link>
                                 </li>
                                 <li v-if="loggedIn">
                                     <router-link :to="{name: 'ViewAllEmployers'}">Employers</router-link>
