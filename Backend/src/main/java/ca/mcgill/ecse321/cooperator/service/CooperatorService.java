@@ -876,6 +876,82 @@ public class CooperatorService {
 		}
 		return coopsWithTWRForms;
 	}
+	
+	@Transactional
+	public List<Student> getActiveStudentsWithAForms(String term) {
+		term = term.toLowerCase();
+		List<Student> students = new ArrayList<Student>();
+		for(Student s : getAllStudents()) {
+			for (Coop c : s.getCoop()) {
+				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+					for (Form f : c.getForm()) {
+						if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.AcceptanceForm")) {
+							students.add(s);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return students;
+	}
+	
+	@Transactional
+	public List<Student> getActiveStudentsWithCEForms(String term) {
+		term = term.toLowerCase();
+		List<Student> students = new ArrayList<Student>();
+		for(Student s : getAllStudents()) {
+			for (Coop c : s.getCoop()) {
+				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+					for (Form f : c.getForm()) {
+						if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.CoopEvaluation")) {
+							students.add(s);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return students;
+	}
+	
+	@Transactional
+	public List<Student> getActiveStudentsWithSEForms(String term) {
+		term = term.toLowerCase();
+		List<Student> students = new ArrayList<Student>();
+		for(Student s : getAllStudents()) {
+			for (Coop c : s.getCoop()) {
+				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+					for (Form f : c.getForm()) {
+						if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation")) {
+							students.add(s);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return students;
+	}
+	
+	@Transactional
+	public List<Student> getActiveStudentsWithTWRForms(String term) {
+		term = term.toLowerCase();
+		List<Student> students = new ArrayList<Student>();
+		for(Student s : getAllStudents()) {
+			for (Coop c : s.getCoop()) {
+				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+					for (Form f : c.getForm()) {
+						if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport")) {
+							students.add(s);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return students;
+	}
 
 	// US2 - Get all active Students (currently enrolled in coop term)
 	@Transactional
