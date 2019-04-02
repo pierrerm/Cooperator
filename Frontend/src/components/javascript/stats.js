@@ -35,7 +35,7 @@ export default {
 				.then(response => {
 					this.students = response.data
 				});
-			AXIOS.get(`/form/stats/` + term , {}, {})
+			AXIOS.get(`/form/type/` + term , {}, {})
 				.then(response => {
 					this.formStats = response.data
 				});

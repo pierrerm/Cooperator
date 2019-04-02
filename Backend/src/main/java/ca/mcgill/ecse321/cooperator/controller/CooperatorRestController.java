@@ -552,7 +552,6 @@ public class CooperatorRestController {
 		int[] intParts = {0,0,0};
 		for(int i = 0; i < intParts.length; i++){
 			intParts[i] = Integer.parseInt(parts[i]);
-			if(i!=2) intParts[i]--;
 		}
 		return new Date(intParts[2]-1900,intParts[1],intParts[0]);
 	}
@@ -586,6 +585,42 @@ public class CooperatorRestController {
 		FormTypesDto typesDto = new FormTypesDto(formTypes[0], formTypes[1], formTypes[2], formTypes[3]);
 		formTypesDtos.add(typesDto);
 		return formTypesDtos;
+	}
+	
+	@GetMapping(value = { "/student/Aform/{term}", "/Student/Aform/{term}" })
+	public List<StudentDto> getStudentAForm(@PathVariable("term") String term) {
+		List<StudentDto> studentDtos = new ArrayList<>();
+		for (Student student : service.getActiveStudentsWithAForms(term)) {
+			studentDtos.add(convertToDto(student));
+		}
+		return studentDtos;
+	}
+	
+	@GetMapping(value = { "/student/CEform/{term}", "/Student/CEform/{term}" })
+	public List<StudentDto> getStudentCEForm(@PathVariable("term") String term) {
+		List<StudentDto> studentDtos = new ArrayList<>();
+		for (Student student : service.getActiveStudentsWithCEForms(term)) {
+			studentDtos.add(convertToDto(student));
+		}
+		return studentDtos;
+	}
+	
+	@GetMapping(value = { "/student/SEform/{term}", "/Student/SEform/{term}" })
+	public List<StudentDto> getStudentSEForm(@PathVariable("term") String term) {
+		List<StudentDto> studentDtos = new ArrayList<>();
+		for (Student student : service.getActiveStudentsWithSEForms(term)) {
+			studentDtos.add(convertToDto(student));
+		}
+		return studentDtos;
+	}
+	
+	@GetMapping(value = { "/student/TWRform/{term}", "/Student/TWRform/{term}" })
+	public List<StudentDto> getStudentTWRForm(@PathVariable("term") String term) {
+		List<StudentDto> studentDtos = new ArrayList<>();
+		for (Student student : service.getActiveStudentsWithTWRForms(term)) {
+			studentDtos.add(convertToDto(student));
+		}
+		return studentDtos;
 	}
 
 	@GetMapping(value = { "/student/active/{term}", "/student/active/{term}" })

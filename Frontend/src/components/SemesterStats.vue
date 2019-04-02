@@ -69,10 +69,10 @@
                 <div id="table">
                     <table class="info-table" style="width: 100%; height: 100%;">
                         <tr>
-                            <th style="padding:10px">No Forms</th>
-                            <th style="padding:10px">One Form</th>
-                            <th style="padding:10px">Two Forms</th>
-                            <th style="padding:10px">Three Forms</th>
+                            <th style="padding:10px">Acceptance Forms</th>
+                            <th style="padding:10px">Coop Evaluation Forms</th>
+                            <th style="padding:10px">Student Evaluation Forms</th>
+                            <th style="padding:10px">Tasks and Workload Reports</th>
                         </tr>
                         <tr v-for="fs in formStats">
                             <td style="padding:10px">{{ fs.noForms }}</td>
