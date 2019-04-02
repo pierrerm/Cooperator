@@ -11,11 +11,12 @@ public class Reminder {
 	private static int nextNumber = 1;
 	
 	public Reminder() {
+		nextNumber++;
 		this.setReminderId(nextNumber);
 	}
 
 	public void setReminderId(int value) {
-		this.reminderId = value ++;
+		this.reminderId = value;
 	}
 
 	@Id

@@ -191,6 +191,28 @@ public class CooperatorRestController {
 		}
 		return coopDtos;
 	}
+	
+	@GetMapping(value = { "/coops/{studentId}", "/coops/{studentId}/" })
+	public List<CoopDto> getCoopsForStudent(@PathVariable("studentId") int studentId) {
+		List<CoopDto> coopDtos = new ArrayList<>();
+		for (Coop coop : service.getAllCoops()) {
+			if(coop.getStudent().getUserId() == studentId) {
+				coopDtos.add(convertToDto(coop));
+			}
+		}
+		return coopDtos;
+	}
+	
+	@GetMapping(value = { "/forms/{coopId}", "/forms/{coopId}/" })
+	public List<FormDto> getFormsForCoop(@PathVariable("coopId") int coopId) {
+		List<FormDto> formDtos = new ArrayList<>();
+		for (Form form : service.getAllForms()) {
+			if(form.getCoop().getCoopId() == coopId) {
+				formDtos.add(convertToDto(form));
+			}
+		}
+		return formDtos;
+	}
 
 	private CoopDto convertToDto(Coop c) {
 		ArrayList<Integer> PDFIds = new ArrayList<Integer>();
@@ -276,8 +298,8 @@ public class CooperatorRestController {
 	}
 
 	private EmployerDto convertToDto(Employer e) {
-		EmployerDto employerDto = new EmployerDto(e.getUserId(), e.getPhone(), e.getFirstName(), e.getEmail(),
-				e.getLastName(), e.getPassword(), e.getPosition(), e.getCompany(), e.getLocation());
+		EmployerDto employerDto = new EmployerDto(e.getUserId(), e.getPhone(), e.getFirstName(), e.getLastName(),
+				e.getEmail(), e.getPassword(), e.getPosition(), e.getCompany(), e.getLocation());
 		return employerDto;
 	}
 
