@@ -1,5 +1,11 @@
 package ca.mcgill.ecse321.cooperator.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -106,12 +112,31 @@ public class CooperatorRestController {
 	}
 
 	// Administrator
-	@PostMapping(value = { "/admin/{firstName}/{lastName}/{email}/{password}",
-			"/admin/{firstName}/{lastName}/{email}/{password}/" })
+	@PostMapping(value = { "/admin/{firstName}/{lastName}/{userId}/{email}/{password}",
+			"/admin/{firstName}/{lastName}/{userId}/{email}/{password}/" })
 	public AdministratorDto createAdministrator(@PathVariable("firstName") String firstName,
-			@PathVariable("lastName") String lastName, @PathVariable("email") String email,
+			@PathVariable("lastName") String lastName, @PathVariable("userId") int userId, @PathVariable("email") String email,
 			@PathVariable("password") String password) throws IllegalArgumentException {
 		// @formatter:on
+		URL url;
+		try {
+			url = new URL(
+					"http://cooperator-backend-3417-admin.herokuapp.com/admin/".concat(Integer.toString(userId)));
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					(conn.getInputStream())));
+			String output = br.readLine();
+			if(!output.equals("Accepted")) {
+				return null;
+			}
+			conn.disconnect();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		
 		Administrator admin = service.createAdministrator(0, email, firstName, lastName, password, Faculty.Engineering,
 				0);
 		return convertToDto(admin);
