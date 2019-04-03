@@ -621,6 +621,26 @@ public class CooperatorService {
 		return students;
 	}
 
+	@Transactional
+	public List<Coop> getAllProblematicCoop(String term) {
+
+		term = term.toLowerCase();
+
+		List<Coop> coops = new ArrayList<>();
+		for (Coop c : getAllCoops()) {
+			if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
+				if (c.getForm() == null) {
+					coops.add(c);
+				} else if (countForms(c) < 4) {
+					System.out.println(countForms(c));
+					coops.add(c);
+				}
+			}
+		}
+
+		return coops;
+	}
+
 	// US2-5 - Get forms submitted for coop
 	public int countForms(Coop c) {
 		Set<Form> forms = c.getForm();
@@ -787,7 +807,7 @@ public class CooperatorService {
 		stats[3] = getAllStudentsWithFormError(term).size();
 		return stats;
 	}
-	
+
 	@Transactional
 	public int[] getFormStatistics(String term) {
 		int[] stats = { 0, 0, 0, 0, 0 };
@@ -798,7 +818,7 @@ public class CooperatorService {
 		stats[4] = getAllCompletedActiveCoops(term).size();
 		return stats;
 	}
-	
+
 	@Transactional
 	public int[] getFormTypeStatistics(String term) {
 		int[] stats = { 0, 0, 0, 0 };
@@ -808,7 +828,7 @@ public class CooperatorService {
 		stats[3] = getActiveCoopsWithTWRForms(term).size();
 		return stats;
 	}
-	
+
 	@Transactional
 	public List<Coop> getActiveCoopsWithAForms(String term) {
 		term = term.toLowerCase();
@@ -825,7 +845,7 @@ public class CooperatorService {
 		}
 		return coopsWithAForms;
 	}
-	
+
 	@Transactional
 	public List<Coop> getActiveCoopsWithCEForms(String term) {
 		term = term.toLowerCase();
@@ -842,7 +862,7 @@ public class CooperatorService {
 		}
 		return coopsWithCEForms;
 	}
-	
+
 	@Transactional
 	public List<Coop> getActiveCoopsWithSEForms(String term) {
 		term = term.toLowerCase();
@@ -850,7 +870,8 @@ public class CooperatorService {
 		for (Coop c : getAllCoops()) {
 			if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
 				for (Form f : c.getForm()) {
-					if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation")) {
+					if (f.getClass().getName()
+							.equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation")) {
 						coopsWithSEForms.add(c);
 						break;
 					}
@@ -859,7 +880,7 @@ public class CooperatorService {
 		}
 		return coopsWithSEForms;
 	}
-	
+
 	@Transactional
 	public List<Coop> getActiveCoopsWithTWRForms(String term) {
 		term = term.toLowerCase();
@@ -867,7 +888,8 @@ public class CooperatorService {
 		for (Coop c : getAllCoops()) {
 			if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
 				for (Form f : c.getForm()) {
-					if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport")) {
+					if (f.getClass().getName()
+							.equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport")) {
 						coopsWithTWRForms.add(c);
 						break;
 					}
@@ -876,16 +898,17 @@ public class CooperatorService {
 		}
 		return coopsWithTWRForms;
 	}
-	
+
 	@Transactional
 	public List<Student> getActiveStudentsWithAForms(String term) {
 		term = term.toLowerCase();
 		List<Student> students = new ArrayList<Student>();
-		for(Student s : getAllStudents()) {
+		for (Student s : getAllStudents()) {
 			for (Coop c : s.getCoop()) {
 				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
 					for (Form f : c.getForm()) {
-						if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.AcceptanceForm")) {
+						if (f.getClass().getName()
+								.equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.AcceptanceForm")) {
 							students.add(s);
 							break;
 						}
@@ -895,16 +918,17 @@ public class CooperatorService {
 		}
 		return students;
 	}
-	
+
 	@Transactional
 	public List<Student> getActiveStudentsWithCEForms(String term) {
 		term = term.toLowerCase();
 		List<Student> students = new ArrayList<Student>();
-		for(Student s : getAllStudents()) {
+		for (Student s : getAllStudents()) {
 			for (Coop c : s.getCoop()) {
 				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
 					for (Form f : c.getForm()) {
-						if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.CoopEvaluation")) {
+						if (f.getClass().getName()
+								.equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.CoopEvaluation")) {
 							students.add(s);
 							break;
 						}
@@ -914,16 +938,17 @@ public class CooperatorService {
 		}
 		return students;
 	}
-	
+
 	@Transactional
 	public List<Student> getActiveStudentsWithSEForms(String term) {
 		term = term.toLowerCase();
 		List<Student> students = new ArrayList<Student>();
-		for(Student s : getAllStudents()) {
+		for (Student s : getAllStudents()) {
 			for (Coop c : s.getCoop()) {
 				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
 					for (Form f : c.getForm()) {
-						if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation")) {
+						if (f.getClass().getName()
+								.equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.StudentEvaluation")) {
 							students.add(s);
 							break;
 						}
@@ -933,16 +958,17 @@ public class CooperatorService {
 		}
 		return students;
 	}
-	
+
 	@Transactional
 	public List<Student> getActiveStudentsWithTWRForms(String term) {
 		term = term.toLowerCase();
 		List<Student> students = new ArrayList<Student>();
-		for(Student s : getAllStudents()) {
+		for (Student s : getAllStudents()) {
 			for (Coop c : s.getCoop()) {
 				if (term.equalsIgnoreCase(getTerm(c.getSemester(), c.getStartDate(), c.getEndDate()))) {
 					for (Form f : c.getForm()) {
-						if (f.getClass().getName().equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport")) {
+						if (f.getClass().getName()
+								.equalsIgnoreCase("ca.mcgill.ecse321.cooperator.model.TasksWorkloadReport")) {
 							students.add(s);
 							break;
 						}
@@ -968,7 +994,7 @@ public class CooperatorService {
 		}
 		return activeStudents;
 	}
-	
+
 	@Transactional
 	public List<Employer> getAllActiveEmployers(String term) {
 		term = term.toLowerCase();
@@ -1011,7 +1037,7 @@ public class CooperatorService {
 		}
 		return completedCoops;
 	}
-	
+
 	@Transactional
 	public List<Coop> getActiveCoopsWithNoForms(String term) {
 		term = term.toLowerCase();
@@ -1025,7 +1051,7 @@ public class CooperatorService {
 		}
 		return coopsWithNoForms;
 	}
-	
+
 	@Transactional
 	public List<Coop> getActiveCoopsWithOneForm(String term) {
 		term = term.toLowerCase();
@@ -1039,7 +1065,7 @@ public class CooperatorService {
 		}
 		return coopsWithOneForm;
 	}
-	
+
 	@Transactional
 	public List<Coop> getActiveCoopsWithTwoForms(String term) {
 		term = term.toLowerCase();
@@ -1053,7 +1079,7 @@ public class CooperatorService {
 		}
 		return coopsWithTwoForms;
 	}
-	
+
 	@Transactional
 	public List<Coop> getActiveCoopsWithThreeForms(String term) {
 		term = term.toLowerCase();
@@ -1141,8 +1167,8 @@ public class CooperatorService {
 		}
 		return forms;
 	}
-	
-	@Transactional	// by user ID only
+
+	@Transactional // by user ID only
 	public Set<Form> getFormsForStudent(int userId) {
 
 		Set<Form> forms = new HashSet<Form>();
@@ -1172,22 +1198,22 @@ public class CooperatorService {
 		}
 		return forms;
 	}
-	
-	@Transactional	// by user ID only
+
+	@Transactional // by user ID only
 	public Set<Form> getFormsForEmployer(int userId) {
-		
+
 		Set<Form> forms = new HashSet<Form>();
 		Employer employer = getEmployer(userId);
 		Set<Coop> coops = employer.getCoop();
 
 		for (Coop coop : coops) {
-			
-				forms = coop.getForm();
-			
+
+			forms = coop.getForm();
+
 		}
 		return forms;
 	}
-	
+
 	// Edit acceptance form
 	@Transactional
 	public void editAcceptanceForm(int formId, String attribute, Object value) {
