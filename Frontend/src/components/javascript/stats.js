@@ -14,7 +14,7 @@ export default {
     data() {
         return {
             stats: [],
-            students: [],
+            coops: [],
             formStats: [],
             term: ''
         }
@@ -31,9 +31,9 @@ export default {
                 .then(response => {
                     this.stats = response.data
                 });
-			AXIOS.get(`/student/problem/` + term , {}, {})
+			AXIOS.get(`/coop/problem/` + term , {}, {})
 				.then(response => {
-					this.students = response.data
+					this.coops = response.data
 				});
 			AXIOS.get(`/form/type/` + term , {}, {})
 				.then(response => {
