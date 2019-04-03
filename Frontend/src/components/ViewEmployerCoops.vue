@@ -31,8 +31,9 @@
                 <th style="padding:10px">Semester</th>
                 <th style="padding:10px">Start Date</th>
                 <th style="padding:10px">End Date</th>
-                <th style="padding:10px">Employer Name</th>
-                <th style="padding:10px">Company</th>
+                <th style="padding:10px">Student Name</th>
+                <th style="padding:10px">Location</th>
+				<th style="padding:10px">Reminders</th>
               </tr>
 
               <tr v-for="coop in coops">
@@ -44,8 +45,13 @@
                 <td style="padding:10px">{{ coop.semester }}</td>
                 <td style="padding:10px">{{ coop.startDate }}</td>
                 <td style="padding:10px">{{ coop.endDate }}</td>
-                <td style="padding:10px">{{ coop.employer.firstName + " " + coop.employer.lastName }}</td>
-                <td style="padding:10px">{{ coop.employer.company }}</td>
+                <td style="padding:10px">{{ coop.student.firstName + " " + coop.student.lastName }}</td>
+                <td style="padding:10px">{{ coop.location }}</td>
+				<td style="padding:10px">
+                  <router-link :to="{name: 'StudentReminder', params: {coopId: coop.coopId }}">
+                    {{ "View Reminders" }}
+                  </router-link>
+				</td>
               </tr>
             </table>
 			<h6 align="left" style="padding-top:1.6%">Click coop ID to view and edit forms</h6>

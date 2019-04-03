@@ -15,6 +15,7 @@ import Reminder from '@/components/Reminder'
 import EmployerForm from '@/components/EmployerForm'
 import ViewForm from '@/components/ViewForm'
 import ViewCoop from '@/components/ViewCoop'
+import ViewReminders from '@/components/ViewReminders'
 
 Vue.use(Router)
 
@@ -99,7 +100,11 @@ export default new Router({
       path: '/createReminder',
       name: 'CreateReminder',
       component: ViewForm
+    },
+	{
+      path: '/studentReminder',
+      name: 'StudentReminder',
+      component: ViewReminders
     }
-
   ]
 })
