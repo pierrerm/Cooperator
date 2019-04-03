@@ -59,5 +59,8 @@
 <script src="./javascript/studentForms.js">
 </script>
 
-<style>
+<style scoped>
+  h6 {
+      color: #ffffff;
+  }
 </style>

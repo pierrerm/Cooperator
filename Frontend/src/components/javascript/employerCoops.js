@@ -26,8 +26,8 @@ export default {
         for (var i in this.employers) {
           if (this.employers[i].userId === this.$route.params.userId) {
             this.employer = this.employers[i]
-
-            AXIOS.get('/coops/'+ this.employer.userId)
+            console.log("Employer ID: " + this.employer.userId)
+            AXIOS.get('/coops/employer/'+ this.employer.userId)
               .then(response => {
                 this.coops = response.data;
               })

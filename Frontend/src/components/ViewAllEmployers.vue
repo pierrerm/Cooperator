@@ -43,6 +43,7 @@
                             <td style="padding:10px">{{ employer.phone }}</td>
                         </tr>
                     </table>
+					<h6 align="left" style="padding-top:1.6%">Click employer name to view individual coops and forms</h6>
                 </div>
             </div>
         </div>
@@ -53,5 +54,8 @@
 <script src="./javascript/employers.js">
 </script>
 
-<style>
+<style scoped>
+  h6 {
+      color: #ffffff;
+  }
 </style>

@@ -48,6 +48,7 @@
                 <td style="padding:10px">{{ coop.employer.company }}</td>
               </tr>
             </table>
+			<h6 align="left" style="padding-top:1.6%">Click coop ID to view and edit forms</h6>
           </div>
         </div>
       </div>
@@ -58,5 +59,8 @@
 <script src="./javascript/employerCoops.js">
 </script>
 
-<style>
+<style scoped>
+  h6 {
+      color: #ffffff;
+  }
 </style>

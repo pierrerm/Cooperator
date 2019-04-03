@@ -47,6 +47,7 @@
                 <td style="padding:10px">{{ form.coop }}</td>
               </tr>
             </table>
+			<h6 align="left" style="padding-top:1.6%">Click form ID to edit form</h6>
           </div>
         </div>
       </div>
@@ -57,5 +58,8 @@
 <script src="./javascript/coop.js">
 </script>
 
-<style>
+<style scoped>
+  h6 {
+      color: #ffffff;
+  }
 </style>

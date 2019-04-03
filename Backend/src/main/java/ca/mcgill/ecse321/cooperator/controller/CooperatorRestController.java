@@ -203,6 +203,28 @@ public class CooperatorRestController {
 		return coopDtos;
 	}
 	
+	@GetMapping(value = { "/reminder/coop/{coopID}", "/reminder/coop/{coopID}" })
+	public List<ReminderDto> getRemindersForCoop(@PathVariable("coopID") int coopID) {
+		List<ReminderDto> reminderDtos = new ArrayList<>();
+		for (Reminder r : service.getAllReminders()) {
+			if(r.getCoop().getCoopId() == coopID) {
+				reminderDtos.add(convertToDto(r));
+			}
+		}
+		return reminderDtos;
+	}
+	
+	@GetMapping(value = { "/coops/employer/{employerId}", "/coops/employer/{employerId}/" })
+	public List<CoopDto> getCoopsForEmployer(@PathVariable("employerId") int employerId) {
+		List<CoopDto> coopDtos = new ArrayList<>();
+		for (Coop coop : service.getAllCoops()) {
+			if(coop.getEmployer().getUserId() == employerId) {
+				coopDtos.add(convertToDto(coop));
+			}
+		}
+		return coopDtos;
+	}
+	
 	@GetMapping(value = { "/forms/{coopId}", "/forms/{coopId}/" })
 	public List<FormDto> getFormsForCoop(@PathVariable("coopId") int coopId) {
 		List<FormDto> formDtos = new ArrayList<>();
