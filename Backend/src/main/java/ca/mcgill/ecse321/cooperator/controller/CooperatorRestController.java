@@ -583,6 +583,15 @@ public class CooperatorRestController {
 		}
 		return studentDtos;
 	}
+	
+	@GetMapping(value = { "/coop/problem/{term}", "/coop/problem/{term}" })
+	public List<CoopDto> getProblematicCoop(@PathVariable("term") String term) {
+		List<CoopDto> coopDtos = new ArrayList<>();
+		for (Coop coop : service.getAllProblematicCoop(term)) {
+			coopDtos.add(convertToDto(coop));
+		}
+		return coopDtos;
+	}
 
 	public Semester getSemester(String input) {
 		switch (input.toLowerCase()) {
