@@ -21,9 +21,17 @@
                 <td style="padding:10px">{{ coop.semester }}</td>
                 <td style="padding:10px">{{ coop.startDate }}</td>
                 <td style="padding:10px">{{ coop.endDate }}</td>
-                <td style="padding:10px">{{ coop.student.firstName + " " + coop.student.lastName }}</td>
+                <router-link :to="{name: 'ViewStudentCoops', params: {userId: coop.student.userId }}">
+                  <td style="padding:10px">
+                    {{ coop.student.firstName + " " + coop.student.lastName }}
+                  </td>
+                </router-link>
                 <td style="padding:10px">{{ coop.student.id }}</td>
-                <td style="padding:10px">{{ coop.employer.firstName + " " + coop.employer.lastName }}</td>
+                <router-link :to="{name: 'ViewEmployerCoops', params: {userId: coop.employer.userId }}">
+                  <td style="padding:10px">
+                    {{ coop.employer.firstName + " " + coop.employer.lastName }}
+                  </td>
+                </router-link>
                 <td style="padding:10px">{{ coop.employer.company }}</td>
               </tr>
             </table>
