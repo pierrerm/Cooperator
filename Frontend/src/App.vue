@@ -70,13 +70,13 @@
 
                 <div class="text-center">
                     <div class="border-top pt-5">
-                        <p>
+                        <p style="color: #ffffff;">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;
                             All rights reserved | This template is made with
                             <i class="icon-heart text-primary" aria-hidden="true"></i> by
                             <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            | @Authors COUPERIER Romain, LESAFFRE Julien, MANJUNATH Anudruth, NUNEZ Matteo, ROBERT-MICHON Pierre 
+                            | @Authors COUPERIER Romain, LESAFFRE Julien, MANJUNATH Anudruth, NUNEZ Matteo, ROBERT-MICHON Pierre
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>

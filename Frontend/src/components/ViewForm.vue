@@ -1,7 +1,7 @@
 <template>
   <div id="id">
     <div class="site-wrap">
-      <div class="site-section" style="padding-top:10%">
+      <div class="site-section" style="padding-top:10%; padding-bottom: 33%">
         <div class="container" style="align:center">
           <h1 class="page-title">View & Edit Form</h1>
 
@@ -22,7 +22,9 @@
                 </tr>
                 <tr>
                   <th style="padding:10px;width: 300px">Coop ID</th>
-                  <td style="padding:10px">{{ form.coop }}</td>
+                  <router-link :to="{name: 'ViewCoop', params: {coopId: form.coop }}">
+                    <td style="padding:10px">{{ form.coop }}</td>
+                  </router-link>
                 </tr>
               </div>
 
@@ -76,6 +78,7 @@
               </div>
             </table>
           </div>
+          <h6 align="left" style="color: #ffffff">Enter values to edit the form parameters</h6>
           <div class="half right" data-aos="fade-up">
             <div class="container" align="center">
               <hr>
