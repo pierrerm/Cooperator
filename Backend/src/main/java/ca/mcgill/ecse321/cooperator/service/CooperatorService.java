@@ -51,11 +51,37 @@ public class CooperatorService {
 	@Autowired
 	AdministratorRepository administratorRepository;
 
-	// Coop
+	/**
+	 * Create a Coop and save it to the database table
+	 * <p>
+	 * In this method we get all the necessary information to create a coop. We make
+	 * sure the inputs are valid (Employer/Student cannot be null, Dates cannot be
+	 * null etc.). If the inputs pass all the tests then we create a new Coop
+	 * object, and set its attributes to the desired inputs. Finally we update the
+	 * student coops attribute and employers coops, and save all the objects to the
+	 * database.
+	 * </p>
+	 * 
+	 * @param coopId               The coops unique identifier
+	 * @param employerConfirmation If the employer has confirmed this coop
+	 * @param endDate              The coops end date
+	 * @param jobDescription       The description of the job linked to this coop
+	 * @param jobId                The id of the job from myFuture
+	 * @param location             Where the coop is located
+	 * @param needWorkPermit       If the student requires a work permit to work in
+	 *                             this country
+	 * @param semester             Which semester the coop is happening
+	 * @param startDate            The coops start date
+	 * @param student              The student object taking the coop
+	 * @param employer             The employer object who is hiring the student
+	 * @return Coop object with input attributes
+	 */
 	@Transactional
 	public Coop createCoop(int coopId, boolean employerConfirmation, Date endDate, String jobDescription, int jobId,
 			String location, boolean needWorkPermit, Semester semester, Date startDate, Student student,
 			Employer employer) {
+
+		// Check the inputs are valid
 		String error = "";
 		if (employer == null) {
 			error = error + "Employer cannot be null! ";
@@ -73,6 +99,7 @@ public class CooperatorService {
 			throw new IllegalArgumentException(error);
 		}
 
+		// Create the new coop and update attributes
 		Coop coop = new Coop();
 		coop.setCoopId(coopId);
 		coop.setJobId(jobId);
@@ -86,6 +113,7 @@ public class CooperatorService {
 		coop.setEmployer(employer);
 		coop.setStudent(student);
 
+		// Update student/employer attributes to reflect new coop
 		if (student.getCoop() == null) {
 			Set<Coop> coops = new HashSet<Coop>();
 			coops.add(coop);
@@ -106,35 +134,65 @@ public class CooperatorService {
 			employer.setCoop(coops);
 		}
 
+		// Add objects to the database
 		coopRepository.save(coop);
 		studentRepository.save(student);
 		employerRepository.save(employer);
 		return coop;
 	}
 
+	/**
+	 * Find a Coop in the database given a coopId
+	 * 
+	 * @param coopId The coopId of the coop you want to retrieve from the database
+	 * @return A single coop with the desired coopId
+	 */
 	@Transactional
-	public Coop getCoop(int jobId) {
-		Coop coop = coopRepository.findCoopByCoopId(jobId);
+	public Coop getCoop(int coopId) {
+		Coop coop = coopRepository.findCoopByCoopId(coopId);
 		return coop;
 	}
 
+	/**
+	 * Get all coops stored in the database
+	 * 
+	 * @return A list of coops
+	 */
 	@Transactional
 	public List<Coop> getAllCoops() {
 		return toList(coopRepository.findAll());
 	}
 
-	// Form -- AcceptanceForm
+	/**
+	 * Create an Acceptance Form and save it to the database
+	 * <p>
+	 * In this method we get all the necessary information to create an acceptance
+	 * form. We make sure the inputs are valid (Coop cannot be null). If the inputs
+	 * pass all the tests then we create a new Acceptance Form object, and set its
+	 * attributes to the desired inputs. Finally we update the coops form attribute,
+	 * and save all the objects to the database.
+	 * </p>
+	 * 
+	 * @param formId         The forms unique identifier
+	 * @param submissionDate The date this form was submitted online
+	 * @param coop           The coop this form is linked to
+	 * @return An acceptance form with the desired attributes
+	 */
 	@Transactional
 	public AcceptanceForm createAcceptanceForm(int formId, Date submissionDate, Coop coop) {
 
+		// Make sure the inputs are valid
 		if (coop == null) {
 			throw new IllegalArgumentException("Coop cannot be null! ");
 		}
+
+		// Create an Acceptance form object and set its attributes
 		AcceptanceForm acceptanceForm = new AcceptanceForm();
 		acceptanceForm.setFormId(formId);
 		acceptanceForm.setSubmissionDate(submissionDate);
 		acceptanceForm.setCoop(coop);
 
+		// Update the Coop object to reflect the new form
 		if (coop.getForm() == null) {
 			Set<Form> forms = new HashSet<Form>();
 			forms.add(acceptanceForm);
@@ -145,17 +203,41 @@ public class CooperatorService {
 			coop.setForm(forms);
 		}
 
+		// Add object to the database
 		formRepository.save(acceptanceForm);
 		return acceptanceForm;
 	}
 
-	// Form -- CoopEvaluation
+	/**
+	 * Create a Coop Evaluation Form and save it to the database
+	 * <p>
+	 * In this method we get all the necessary information to create a coop
+	 * evaluation form. We make sure the inputs are valid (Coop cannot be null). If
+	 * the inputs pass all the tests then we create a new CoopEvaluation Form
+	 * object, and set its attributes to the desired inputs. Finally we update the
+	 * coops form attribute, and save all the objects to the database.
+	 * </p>
+	 * 
+	 * @param formId               The forms unique identifier
+	 * @param submissionDate       The date the form was submitted online
+	 * @param workExperience       What kind of work experience was needed
+	 * @param employerEvaluation   A grade on the employers performance
+	 * @param softwareTechnologies Description of the software technologies used
+	 * @param usefulCourses        Description of the courses which were useful for
+	 *                             the coop
+	 * @param coop                 The coop this form is linked to
+	 * @return A CoopEvaluation object with desired attributes
+	 */
 	@Transactional
 	public CoopEvaluation createCoopEvaluation(int formId, Date submissionDate, String workExperience,
 			int employerEvaluation, String softwareTechnologies, String usefulCourses, Coop coop) {
+
+		// Make sure the inputs are valid
 		if (coop == null) {
 			throw new IllegalArgumentException("Coop cannot be null! ");
 		}
+
+		// Create a CoopEvaluation object and set the attributes
 		CoopEvaluation coopEvaluation = new CoopEvaluation();
 		coopEvaluation.setFormId(formId);
 		coopEvaluation.setSubmissionDate(submissionDate);
@@ -165,6 +247,7 @@ public class CooperatorService {
 		coopEvaluation.setUsefulCourses(usefulCourses);
 		coopEvaluation.setCoop(coop);
 
+		// Update the coop to reflect the new form
 		if (coop.getForm() == null) {
 			Set<Form> forms = new HashSet<Form>();
 			forms.add(coopEvaluation);
@@ -175,17 +258,38 @@ public class CooperatorService {
 			coop.setForm(forms);
 		}
 
+		// Add object to the database
 		formRepository.save(coopEvaluation);
 		return coopEvaluation;
 	}
 
-	// Form -- StudentEvaluation
+	/**
+	 * Create a Student Evaluation Form and save it to the database
+	 * <p>
+	 * In this method we get all the necessary information to create a student
+	 * evaluation form. We make sure the inputs are valid (Coop cannot be null). If
+	 * the inputs pass all the tests then we create a new StudentEvaluation Form
+	 * object, and set its attributes to the desired inputs. Finally we update the
+	 * coops form attribute, and save all the objects to the database.
+	 * </p>
+	 * 
+	 * @param formId                The forms unique identifier
+	 * @param submissionDate        The date the form was submitted online
+	 * @param studentWorkExperience The work experience of the student
+	 * @param studentPerformance    A grade representing the students performance
+	 * @param coop                  The coop the form is linked to
+	 * @return A StudentEvaluation object with the desired attributes
+	 */
 	@Transactional
 	public StudentEvaluation createStudentEvaluation(int formId, Date submissionDate, String studentWorkExperience,
 			int studentPerformance, Coop coop) {
+
+		// Make sure the inputs are valid
 		if (coop == null) {
 			throw new IllegalArgumentException("Coop cannot be null! ");
 		}
+
+		// Create a StudentEvaluation object and set the attributes
 		StudentEvaluation studentEvaluation = new StudentEvaluation();
 		studentEvaluation.setFormId(formId);
 		studentEvaluation.setSubmissionDate(submissionDate);
@@ -193,6 +297,7 @@ public class CooperatorService {
 		studentEvaluation.setStudentPerformance(studentPerformance);
 		studentEvaluation.setCoop(coop);
 
+		// Update the Coop to reflect the new form
 		if (coop.getForm() == null) {
 			Set<Form> forms = new HashSet<Form>();
 			forms.add(studentEvaluation);
@@ -203,17 +308,41 @@ public class CooperatorService {
 			coop.setForm(forms);
 		}
 
+		// Save the object to the database
 		formRepository.save(studentEvaluation);
 		return studentEvaluation;
 	}
 
-	// Form -- TasksWorkloadReport
+	/**
+	 * Create a Tasks Workload Report Form and save it to the database
+	 * <p>
+	 * In this method we get all the necessary information to create a tasks
+	 * workload report form. We make sure the inputs are valid (Coop cannot be
+	 * null). If the inputs pass all the tests then we create a new
+	 * TasksWorkloadReport Form object, and set its attributes to the desired
+	 * inputs. Finally we update the coops form attribute, and save all the objects
+	 * to the database.
+	 * </p>
+	 * 
+	 * @param formId         The forms unique identifier
+	 * @param submissionDate The date the form was submitted online
+	 * @param tasks          The tasks completed by the student
+	 * @param hoursPerWeek   The hours worked by the student
+	 * @param wage           The wage of the student ($/hour)
+	 * @param training       The training the student had to go through
+	 * @param coop           The coop this form is linked to
+	 * @return A TasksWorkloadReport object with the desired attributes
+	 */
 	@Transactional
 	public TasksWorkloadReport createTasksWorkloadReport(int formId, Date submissionDate, String tasks,
 			int hoursPerWeek, int wage, String training, Coop coop) {
+
+		// Make sure the inputs are valid
 		if (coop == null) {
 			throw new IllegalArgumentException("Coop cannot be null! ");
 		}
+
+		// Create a TasksWorkloadReport object and set the attributes
 		TasksWorkloadReport tasksWorkloadReport = new TasksWorkloadReport();
 		tasksWorkloadReport.setFormId(formId);
 		tasksWorkloadReport.setSubmissionDate(submissionDate);
@@ -223,6 +352,7 @@ public class CooperatorService {
 		tasksWorkloadReport.setTraining(training);
 		tasksWorkloadReport.setCoop(coop);
 
+		// Update the Coop object to reflect the changes
 		if (coop.getForm() == null) {
 			Set<Form> forms = new HashSet<Form>();
 			forms.add(tasksWorkloadReport);
@@ -233,25 +363,56 @@ public class CooperatorService {
 			coop.setForm(forms);
 		}
 
+		// Save the object to the database
 		formRepository.save(tasksWorkloadReport);
 		return tasksWorkloadReport;
 	}
 
+	/**
+	 * Retrieve a form from the database with the given formId
+	 * 
+	 * @param formId The desired forms formId
+	 * @return A form
+	 */
 	@Transactional
 	public Form getForm(int formId) {
 		Form form = formRepository.findFormByFormId(formId);
 		return form;
 	}
 
+	/**
+	 * Get all forms stored in the database
+	 * 
+	 * @return A list of forms stored in the database
+	 */
 	@Transactional
 	public List<Form> getAllForms() {
 		return toList(formRepository.findAll());
 	}
 
-	// Reminder
+	/**
+	 * Create a Reminder and save it to the database
+	 * <p>
+	 * In this method we get all the necessary information to create a reminder. We
+	 * make sure the inputs are valid (Coop cannot be null, Dates cannot be null,
+	 * etc.). If the inputs pass all the tests then we create a new Reminder object,
+	 * and set its attributes to the desired inputs. Finally we update the coops
+	 * reminder attribute, and save all the objects to the database.
+	 * </p>
+	 * 
+	 * @param subject     The subject of the reminder
+	 * @param date        The date the reminder was created
+	 * @param deadline    The deadline by which the form has to be submitted
+	 * @param description A brief description of the reminder
+	 * @param urgency     How urgent is the email (between 1 and 3)
+	 * @param coop        The coop this reminder is linked to
+	 * @return A reminder object with the desired attributes
+	 */
 	@Transactional
 	public Reminder createReminder(String subject, Date date, Date deadline, String description, int urgency,
 			Coop coop) {
+
+		// Make sure the inputs are valid
 		String error = "";
 		if (coop == null) {
 			error = error + "Coop cannot be null! ";
@@ -270,6 +431,7 @@ public class CooperatorService {
 			throw new IllegalArgumentException(error);
 		}
 
+		// Create a Reminder object and set the attributes
 		Reminder reminder = new Reminder();
 		reminder.setSubject(subject);
 		reminder.setDate(date);
@@ -278,6 +440,7 @@ public class CooperatorService {
 		reminder.setUrgency(urgency);
 		reminder.setCoop(coop);
 
+		// Update the coop to reflect the new Reminder
 		if (coop.getReminder() == null) {
 			Set<Reminder> reminders = new HashSet<>();
 			reminders.add(reminder);
@@ -288,17 +451,29 @@ public class CooperatorService {
 			coop.setReminder(reminders);
 		}
 
+		// Save the objects to the database
 		reminderRepository.save(reminder);
 		coopRepository.save(coop);
 		return reminder;
 	}
 
+	/**
+	 * Get a specific reminder from the database using the reminderId
+	 * 
+	 * @param reminderId The reminderId of the desired reminder
+	 * @return A reminder object
+	 */
 	@Transactional
 	public Reminder getReminder(int reminderId) {
 		Reminder reminder = reminderRepository.findReminderByReminderId(reminderId);
 		return reminder;
 	}
 
+	/**
+	 * A list of all the reminders stored in the database
+	 * 
+	 * @return A list of reminders
+	 */
 	@Transactional
 	public List<Reminder> getAllReminders() {
 		return toList(reminderRepository.findAll());
@@ -306,7 +481,7 @@ public class CooperatorService {
 
 	/**
 	 * 
-	 * @author JulienLesaffre
+	 * @return
 	 */
 	@Transactional
 	public List<Reminder> sendReminders() {
@@ -358,12 +533,11 @@ public class CooperatorService {
 	}
 
 	/**
-	 * add or subtract days to date in java
+	 * Add or subtract a desired number of days to a Date
 	 * 
-	 * @param date
-	 * @param days
-	 * @return date + days
-	 * @author JulienLesaffre
+	 * @param date The initial date
+	 * @param days The number of days to add or subtract
+	 * @return A date object with the new date
 	 */
 	public Date addDays(Date date, int days) {
 		Calendar c = Calendar.getInstance();
@@ -372,12 +546,32 @@ public class CooperatorService {
 		return new Date(c.getTimeInMillis());
 	}
 
-	// PDF
+	/**
+	 * Create a PDF and save it to the database
+	 * <p>
+	 * In this method we get all the necessary information to create a PDF. We make
+	 * sure the inputs are valid (Coop cannot be null). If the inputs pass all the
+	 * tests then we create a new PDF object, and set its attributes to the desired
+	 * inputs. Finally we update the coops pdf attribute, and save all the objects
+	 * to the database.
+	 * </p>
+	 * 
+	 * @param docId          The documents unique identifier
+	 * @param filePath       The link to the file online
+	 * @param docType        What kind of document this is
+	 * @param submissionDate The date the document was submitted online
+	 * @param coop           The coop the PDF is linked to
+	 * @return A PDF object with the desired attributes
+	 */
 	@Transactional
 	public PDF createPDF(int docId, String filePath, DocumentType docType, Date submissionDate, Coop coop) {
+
+		// Make sure the inputs are valid
 		if (coop == null) {
 			throw new IllegalArgumentException("Coop cannot be null! ");
 		}
+
+		// Create a new PDF object and update the attibutes
 		PDF pdf = new PDF();
 		pdf.setDocId(docId);
 		pdf.setFilePath(filePath);
@@ -385,6 +579,7 @@ public class CooperatorService {
 		pdf.setSubmissionDate(submissionDate);
 		pdf.setCoop(coop);
 
+		// Update the coop to reflect the new PDF
 		if (coop.getPDF() == null) {
 			Set<PDF> pdfs = new HashSet<>();
 			pdfs.add(pdf);
@@ -395,28 +590,64 @@ public class CooperatorService {
 			coop.setPDF(pdfs);
 		}
 
+		// Save the objects to the database
 		PDFRepository.save(pdf);
 		coopRepository.save(coop);
 		return pdf;
 	}
 
+	/**
+	 * Get a PDF with a given docId
+	 * 
+	 * @param docId The id of the desired PDF
+	 * @return A PDF object
+	 */
 	@Transactional
 	public PDF getPDF(int docId) {
 		PDF pdf = PDFRepository.findPDFByDocId(docId);
 		return pdf;
 	}
 
+	/**
+	 * A list of all the PDFs in the database
+	 * 
+	 * @return A list of PDFs
+	 */
 	@Transactional
 	public List<PDF> getAllPDFs() {
 		return toList(PDFRepository.findAll());
 	}
 
-	// Student
+	/**
+	 * Create a Student and save it to the database
+	 * <p>
+	 * In this method we get all the necessary information to create a student. We
+	 * make sure the inputs are valid. If the inputs pass all the tests then we
+	 * create a new Student object, and set its attributes to the desired inputs.
+	 * Finally we update the administrators student attribute, and save all the
+	 * objects to the database.
+	 * </p>
+	 * 
+	 * @param userId       The students unique identifier
+	 * @param phone        The students phone number
+	 * @param email        The students email
+	 * @param firstName    The students first name
+	 * @param lastName     The students last name
+	 * @param password     The students password
+	 * @param faculty      The students faculty
+	 * @param id           The students McGill id
+	 * @param major        The students major
+	 * @param minor        The students minor
+	 * @param academicYear The students academic year (ex. U3)
+	 * @param admin        The administrator linked to the student
+	 * @return A student object with the desired attributes
+	 */
 	@Transactional
 	public Student createStudent(int userId, long phone, String email, String firstName, String lastName,
 			String password, Faculty faculty, int id, String major, String minor, String academicYear,
 			Administrator admin) {
 
+		// Make sure the inputs are valid
 		String error = "";
 		if (firstName == null || firstName.trim().length() == 0) {
 			error = error + "First name cannot be null! ";
@@ -444,6 +675,7 @@ public class CooperatorService {
 			throw new IllegalArgumentException(error);
 		}
 
+		// Create a new Student object and set the attributes
 		Student student = new Student();
 		student.setUserId(userId);
 		student.setEmail(email);
@@ -458,6 +690,7 @@ public class CooperatorService {
 		student.setAcademicYear(academicYear);
 		student.setAdministrator(admin);
 
+		// Update the administrator to reflect the new student
 		if (admin != null) {
 			if (admin.getStudent() == null) {
 				Set<Student> students = new HashSet<>();
@@ -470,6 +703,7 @@ public class CooperatorService {
 			}
 		}
 
+		// Save the objects to the database
 		studentRepository.save(student);
 		if (admin != null) {
 			administratorRepository.save(admin);
@@ -477,22 +711,53 @@ public class CooperatorService {
 		return student;
 	}
 
+	/**
+	 * Get a student with a given userId
+	 * 
+	 * @param userId The id of the desired student
+	 * @return A student object
+	 */
 	@Transactional
 	public Student getStudent(int userId) {
 		Student student = studentRepository.findStudentByUserId(userId);
 		return student;
 	}
 
+	/**
+	 * A list of all the students in the database
+	 * 
+	 * @return A list of students
+	 */
 	@Transactional
 	public List<Student> getAllStudents() {
 		return toList(studentRepository.findAll());
 	}
 
-	// Employer
+	/**
+	 * Create an Employer and save it to the database
+	 * <p>
+	 * In this method we get all the necessary information to create a Employer . We
+	 * make sure the inputs are valid. If the inputs pass all the tests then we
+	 * create a new Employer object, and set its attributes to the desired inputs.
+	 * Finally we save the new employer to the database.
+	 * </p>
+	 * 
+	 * @param userId    The employers unique identifier
+	 * @param phone     The employers phone number
+	 * @param firstName The employers first name
+	 * @param lastName  The employers last name
+	 * @param email     The employers email
+	 * @param password  The employers password
+	 * @param position  The employers position within the company
+	 * @param company   The company the employer works at
+	 * @param location  The location of the company
+	 * @return An Employer object with the desired attributes
+	 */
 	@Transactional
 	public Employer createEmployer(int userId, long phone, String firstName, String lastName, String email,
 			String password, String position, String company, String location) {
 
+		// Make sure the inputs are valid
 		String error = "";
 		if (firstName == null || firstName.trim().length() == 0) {
 			error = error + "First name cannot be null! ";
@@ -517,6 +782,7 @@ public class CooperatorService {
 			throw new IllegalArgumentException(error);
 		}
 
+		// Create a new Employer object and set the attributes
 		Employer employer = new Employer();
 		employer.setUserId(userId);
 		employer.setFirstName(firstName);
@@ -527,26 +793,58 @@ public class CooperatorService {
 		employer.setCompany(company);
 		employer.setLocation(location);
 		employer.setPosition(position);
+
+		// Save the employer to the database
 		employerRepository.save(employer);
 		return employer;
 	}
 
+	/**
+	 * Get an employer from the database with the given id
+	 * 
+	 * @param userId The id of the desired employer
+	 * @return An employer object
+	 */
 	@Transactional
 	public Employer getEmployer(int userId) {
 		Employer employer = employerRepository.findEmployerByUserId(userId);
 		return employer;
 	}
 
+	/**
+	 * Get all the employers stored in the database
+	 * 
+	 * @return A list of Employers
+	 */
 	@Transactional
 	public List<Employer> getAllEmployers() {
 		return toList(employerRepository.findAll());
 	}
 
-	// Administrator
+	/**
+	 * Create an Administrator and save it to the database
+	 * <p>
+	 * In this method we get all the necessary information to create a
+	 * Administrator. We make sure the inputs are valid. If the inputs pass all the
+	 * tests then we create a new Administrator object, and set its attributes to
+	 * the desired inputs. Finally we update save the new Administrator to the
+	 * database.
+	 * </p>
+	 * 
+	 * @param phone     The administrators phone number
+	 * @param email     The administrators email
+	 * @param firstName The administrators first name
+	 * @param lastName  the administrators last name
+	 * @param password  The administrators password
+	 * @param faculty   The administrators faculty
+	 * @param id        The administrators McGill ID
+	 * @return A Administrator object with the desired attributes
+	 */
 	@Transactional
 	public Administrator createAdministrator(long phone, String email, String firstName, String lastName,
 			String password, Faculty faculty, int id) {
 
+		// Make sure the inputs are valid
 		String error = "";
 		if (firstName == null || firstName.trim().length() == 0) {
 			error = error + "First name cannot be null! ";
@@ -568,6 +866,8 @@ public class CooperatorService {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
+
+		// Create a new administrator object and set the attributes
 		Administrator administrator = new Administrator();
 		administrator.setEmail(email);
 		administrator.setFirstName(firstName);
@@ -576,32 +876,52 @@ public class CooperatorService {
 		administrator.setPhone(phone);
 		administrator.setFaculty(faculty);
 		administrator.setId(id);
+
+		// Save the object to the database
 		administratorRepository.save(administrator);
 		return administrator;
 	}
 
+	/**
+	 * Get a administrator from the database with a given userId
+	 * 
+	 * @param userId The id of the desired administrator
+	 * @return An administrator object
+	 */
 	@Transactional
 	public Administrator getAdministrator(int userId) {
 		Administrator administrator = administratorRepository.findAdministratorByUserId(userId);
 		return administrator;
 	}
 
+	/**
+	 * Get all the administrators stored in the database
+	 * 
+	 * @return A list of Administrators
+	 */
 	@Transactional
 	public List<Administrator> getAllAdministrators() {
 		return toList(administratorRepository.findAll());
 	}
 
-	private <T> List<T> toList(Iterable<T> iterable) {
-		List<T> resultList = new ArrayList<T>();
-		for (T t : iterable) {
-			resultList.add(t);
-		}
-		return resultList;
-	}
-
+	/**
+	 * Get all the students that have a coop which is missing a form from a given
+	 * term
+	 * <p>
+	 * This method is used to retrieve all the students who have coops in the given
+	 * term which are missing one or more forms. First it gets all the students from
+	 * the database. For each student it gets its coops. For each coop it makes sure
+	 * its during the desired term. If yes then it counts the number of forms. If it
+	 * is inferior to 4 then the student is added to the list of return students
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of problematic students
+	 */
 	@Transactional
 	public List<Student> getAllStudentsWithFormError(String term) {
 
+		//Tur
 		term = term.toLowerCase();
 
 		List<Student> students = new ArrayList<>();
@@ -1291,6 +1611,14 @@ public class CooperatorService {
 			tasksWorkloadReport.setTraining(value.toString());
 			break;
 		}
+	}
+
+	private <T> List<T> toList(Iterable<T> iterable) {
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
 	}
 
 }

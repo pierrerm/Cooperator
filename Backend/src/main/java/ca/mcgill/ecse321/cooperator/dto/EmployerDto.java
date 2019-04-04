@@ -1,9 +1,6 @@
 package ca.mcgill.ecse321.cooperator.dto;
 
 import java.util.ArrayList;
-import java.util.Set;
-
-import ca.mcgill.ecse321.cooperator.model.Coop;
 
 public class EmployerDto {
 
@@ -11,8 +8,6 @@ public class EmployerDto {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String password;
-	private int userId;
 
 	private String position;
 	private String company;
@@ -23,14 +18,12 @@ public class EmployerDto {
 
 	}
 
-	public EmployerDto(int userId, long phone, String firstName, String lastName, String email, String password,
-			String position, String company, String location, ArrayList<Integer> coop) {
+	public EmployerDto(long phone, String firstName, String lastName, String email, String position, String company,
+			String location, ArrayList<Integer> coop) {
 		this.phone = phone;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.password = password;
-		this.userId = userId;
 		this.position = position;
 		this.company = company;
 		this.location = location;
@@ -51,14 +44,6 @@ public class EmployerDto {
 
 	public String getEmail() {
 		return email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public int getUserId() {
-		return userId;
 	}
 
 	public String getPosition() {

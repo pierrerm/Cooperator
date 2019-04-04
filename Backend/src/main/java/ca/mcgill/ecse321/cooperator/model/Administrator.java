@@ -8,11 +8,11 @@ import javax.persistence.OneToMany;
 @Entity
 public class Administrator extends User {
 	private static int nextNumber = 1;
-	
+
 	public Administrator() {
 		this.setUserId(nextNumber++);
 	}
-	
+
 	private Faculty faculty;
 
 	public void setFaculty(Faculty value) {
