@@ -5,7 +5,7 @@
 In teams of four or five students, you will gather requirements, design a multi-tier software solution to satisfy those requirements,implement the system, validate that the system is satisfying the requirements, and develop a release pipeline to automate the software delivery process. Viewpoints developed by multiple teams will be integrated with each other via service calls.
 
 ***
-**Our application is available [here](http://cooperator-frontend-3417.herokuapp.com/#/) !<br>**
+ ## **Our application is available [here](http://cooperator-frontend-3417.herokuapp.com/#/) !**
 [How to use the application ?](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-11/wiki/Guide)
 
 ***
@@ -55,6 +55,23 @@ The table above shows the two tasks where we contributed the most. But it is imp
 
 
 [Deliverable 3 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-11/wiki/Deliverable-3-Report)
+
+
+***
+
+## Deliverable 4
+
+|Team member's name   |Total hours|Main Responsibilities  |
+|---------------------|-------|-----------------------|
+| Romain Couperier    |  13   |Code Quality/Integrated System	 | 
+| Julien Lesaffre     |  13   |User Documentation/Project Report  |
+| Anudruth Manjunath  |  13   |Integrated System/User Experience |
+| Matteo Nunez        |  13   |Mobile Frontend/ User Experience|
+| Pierre Robert       |  13   |Code Quality/User Documentation |
+|**Total**|**65**|
+
+
+[Deliverable 4 Report](https://github.com/McGill-ECSE321-Winter2019/ecse321-group-project-11/wiki/Deliverable-4-Report)
 
 
 
