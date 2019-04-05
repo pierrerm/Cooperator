@@ -1071,6 +1071,26 @@ public class CooperatorService {
 		return "No Term Found";
 	}
 	
+	/**
+	 * /**
+	 * Determine if the corresponding academic term of a semester and dates is prior to a given term
+	 * <p>
+	 * This method is used to determine if the corresponding academic term of a semester,
+	 * start date and end date is prior to a given term. It is most often used to determine
+	 * the if the academic term of a coop is prior to a given term, using its semester and
+	 * date attributes. First it determines corresponding term from the given start date,
+	 * end date and semester. Then it extracts the semester and year from both terms and
+	 * compares them to determine if the corresponding term is prior to the given term. It
+	 * returns the result as a boolean value.
+	 * </p>
+	 *
+	 * @param term The academic term wished to be compared
+	 * @param semester The semester from which the term is to be compared
+	 * @param startDate The start date from which the term is to be compared
+	 * @param endDate The end date from which the term is to be compared
+	 * @return
+	 */
+	
 	@Transactional
 	public boolean isPriorToTerm(String term, Semester semester, Date startDate, Date endDate) {
 		String coopTerm = getTerm(semester, startDate, endDate);
@@ -1735,10 +1755,19 @@ public class CooperatorService {
 	}
 	
 	/**
+	 * Get all the completed coops for a given student that are during a given term
+	 * <p>
+	 * This method is used to retrieve all the coops that are being taken during the 
+	 * given term by a given student and are completed, meaning they have all four
+	 * forms. First it gets all students from the database. For each student it checks
+	 * if the userId is correct. If yes, it get all the coops for that student. For each
+	 * coop, it checks that it is during the desired term. If yes, it checks that the coop
+	 * has four forms. If yes, then the coop is added to the list of returned coops.
+	 * </p>
 	 * 
-	 * @param userId
-	 * @param term
-	 * @return
+	 * @param userId The userId of the desired student
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that are completed during the given term by the given student
 	 */
 
 	// US2 - Get completed active coops for student (completed coops for current
@@ -1762,9 +1791,18 @@ public class CooperatorService {
 	}
 	
 	/**
+	 * Get all the completed coops prior to the given term
+	 * <p>
+	 * This method is used to retrieve all the coops that were taken prior to the 
+	 * given term and are completed, meaning they have all four forms. First it gets
+	 * all students from the database. For each student it gets all the coops for that 
+	 * student. For each coop, it checks that it is prior to the desired term. If yes,
+	 * it checks that the coop has four forms. If yes, then the coop is added to the list
+	 * of returned coops.	
+	 * </p>
 	 * 
-	 * @param term
-	 * @return
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that are completed prior to the given term
 	 */
 
 	// US2 - Get all previously completed coops (completed coops prior to current
@@ -1786,10 +1824,19 @@ public class CooperatorService {
 	}
 	
 	/**
+	 * Get all the completed coops for a given student prior to the given term
+	 * <p>
+	 * This method is used to retrieve all the coops that were taken prior to the 
+	 * given term by a given student and are completed, meaning they have all four
+	 * forms. First it gets all students from the database. For each student it checks
+	 * if the userId is correct. If yes, it get all the coops for that student. For each
+	 * coop, it checks that it is prior to the desired term. If yes, it checks that the coop
+	 * has four forms. If yes, then the coop is added to the list of returned coops.
+	 * </p>
 	 * 
-	 * @param userId
-	 * @param term
-	 * @return
+	 * @param userId The userId of the desired student
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that are completed during the given term by the given student
 	 */
 
 	// US2 - Get all previously completed coops for student (completed coops prior
@@ -1813,11 +1860,19 @@ public class CooperatorService {
 	}
 	
 	/**
+	 * Get all the forms for a given student for a given term
+	 * <p>
+	 * This method is used to retrieve all the forms from all the coops taken by the 
+	 * given student in a given term. First it gets the student from the database using
+	 * the userId. Then it gets all coops for that student. For each coop, it checks that
+	 * it is prior to the desired term. If yes, gets all of the forms from that coop and
+	 * adds them to the list of returned forms.
+	 * </p>
 	 * 
-	 * @param userId
-	 * @param semester
-	 * @param year
-	 * @return
+	 * @param userId The userId of the desired student
+	 * @param semester The semester the coops have to be from
+	 * @param year The year the coops have to be in
+	 * @return A list of forms from the given term for the given student
 	 */
 
 	// US1 - List all forms for a given student
@@ -1837,9 +1892,16 @@ public class CooperatorService {
 	}
 	
 	/**
-	 * 
-	 * @param userId
-	 * @return
+	 * Get all the forms for a given student
+	 * <p>
+	 * This method is used to retrieve all the forms from all the coops taken by the 
+	 * given student. First it gets the student from the database using the userId. 
+	 * Then it gets all coops for that student. For each coop, it gets all of the forms
+	 * from that coop and adds them to the list of returned forms.
+	 * </p>
+	 *  
+	 * @param userId The userId of the desired student
+	 * @return A list of forms for the given student
 	 */
 
 	@Transactional // by user ID only
@@ -1858,11 +1920,19 @@ public class CooperatorService {
 	}
 	
 	/**
+	 *  Get all the forms for a given employer for a given term
+	 * <p>
+	 * This method is used to retrieve all the forms from all the coops taken by the 
+	 * given employer in a given term. First it gets the employer from the database using
+	 * the userId. Then it gets all coops for that employer. For each coop, it checks that
+	 * it is prior to the desired term. If yes, gets all of the forms from that coop and
+	 * adds them to the list of returned forms.
+	 * </p>
 	 * 
-	 * @param userId
-	 * @param semester
-	 * @param year
-	 * @return
+	 * @param userId The userId of the desired employer
+	 * @param semester The semester the coops have to be from
+	 * @param year The year the coops have to be in
+	 * @return A list of forms from the given term for the given employer
 	 */
 
 	// US1 - List all forms for a given employer
@@ -1882,9 +1952,16 @@ public class CooperatorService {
 	}
 	
 	/**
-	 * 
-	 * @param userId
-	 * @return
+	 * Get all the forms for a given employer
+	 * <p>
+	 * This method is used to retrieve all the forms from all the coops taken by the 
+	 * given employer. First it gets the employer from the database using the userId. 
+	 * Then it gets all coops for that employer. For each coop, it gets all of the forms
+	 * from that coop and adds them to the list of returned forms.
+	 * </p>
+	 *  
+	 * @param userId The userId of the desired employer
+	 * @return A list of forms for the given employer
 	 */
 
 	@Transactional // by user ID only
@@ -1903,10 +1980,17 @@ public class CooperatorService {
 	}
 	
 	/**
+	 * Edit an attribute from a desired acceptance form
+	 * <p>
+	 * This method is used to edit the value of a given attribute for a given
+	 * acceptance form. First it gets the form from the database using the formId. 
+	 * Then it matches the attribute to be changed with the specified attribute.
+	 * It then updates the value of the attribute with the given value.
+	 * </p>
 	 * 
-	 * @param formId
-	 * @param attribute
-	 * @param value
+	 * @param formId The formId of the desired acceptance form
+	 * @param attribute The name of the attribute to be changed
+	 * @param value The new value of the attribute
 	 */
 
 	// Edit acceptance form
@@ -1923,10 +2007,17 @@ public class CooperatorService {
 	}
 	
 	/**
+	 * Edit an attribute from a desired coop evaluation form
+	 * <p>
+	 * This method is used to edit the value of a given attribute for a given
+	 * coop evaluation form. First it gets the form from the database using the formId. 
+	 * Then it matches the attribute to be changed with the specified attribute.
+	 * It then updates the value of the attribute with the given value.
+	 * </p>
 	 * 
-	 * @param formId
-	 * @param attribute
-	 * @param value
+	 * @param formId The formId of the desired coop evaluation form
+	 * @param attribute The name of the attribute to be changed
+	 * @param value The new value of the attribute
 	 */
 
 	// Edit coop evaluation
@@ -1954,10 +2045,17 @@ public class CooperatorService {
 	}
 	
 	/**
+	 * Edit an attribute from a desired student evaluation form
+	 * <p>
+	 * This method is used to edit the value of a given attribute for a given
+	 * student evaluation form. First it gets the form from the database using the formId. 
+	 * Then it matches the attribute to be changed with the specified attribute.
+	 * It then updates the value of the attribute with the given value.
+	 * </p>
 	 * 
-	 * @param formId
-	 * @param attribute
-	 * @param value
+	 * @param formId The formId of the desired student evaluation form
+	 * @param attribute The name of the attribute to be changed
+	 * @param value The new value of the attribute
 	 */
 
 	// Edit student evaluation
@@ -1979,10 +2077,17 @@ public class CooperatorService {
 	}
 	
 	/**
+	 * Edit an attribute from a desired task & workload report form
+	 * <p>
+	 * This method is used to edit the value of a given attribute for a given
+	 * task & workload report form. First it gets the form from the database using
+	 * the formId. Then it matches the attribute to be changed with the specified 
+	 * attribute. It then updates the value of the attribute with the given value.
+	 * </p>
 	 * 
-	 * @param formId
-	 * @param attribute
-	 * @param value
+	 * @param formId The formId of the desired task & workload report form
+	 * @param attribute The name of the attribute to be changed
+	 * @param value The new value of the attribute
 	 */
 
 	// Edit tasks workload report
