@@ -46,6 +46,17 @@
                             <td style="padding:10px">{{ student.faculty }}</td>
                             <td style="padding:10px">{{ student.phone }}</td>
                         </tr>
+                        <tr v-for="student in studentsGroup3">
+                            <td style="padding:10px">{{ student.name }}</td>
+                            <td style="padding:10px">{{ student.lastName }}</td>
+                            <td style="padding:10px">{{ student.email }}</td>
+                            <td style="padding:10px">{{ student.id }}</td>
+                            <td style="padding:10px">{{ student.academicYear }}</td>
+                            <td style="padding:10px">{{ student.major }}</td>
+                            <td style="padding:10px">{{ student.minor }}</td>
+                            <td style="padding:10px">{{ student.faculty }}</td>
+                            <td style="padding:10px">{{ student.phone }}</td>
+                        </tr>
                     </table>
                     <h6 align="left" style="padding-top:1.6%">Click student name to view individual coops and forms</h6>
                 </div>

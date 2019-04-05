@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 var config = require('../../../config')
 
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
@@ -7,7 +7,7 @@ var backendUrl = 'https://cooperator-backend-3417.herokuapp.com/'
 var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
-})
+});
 
 export default {
   data() {
@@ -25,7 +25,7 @@ export default {
         // Find coop by coopId
         for (var i in this.coops) {
           if (this.coops[i].coopId === this.$route.params.coopId) {
-            this.coop = this.coops[i]
+            this.coop = this.coops[i];
 
             AXIOS.get('/forms/'+ this.coop.coopId)
               .then(response => {
