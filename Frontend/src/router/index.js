@@ -156,7 +156,9 @@ router.beforeEach((to, from, next) => {
       if (localStorage.getItem('loggedIn') == "Administrator") {
           next()
       } else {
-        from()
+        next({
+          path: '/login'
+        })
       }
   } else {
       next() 
