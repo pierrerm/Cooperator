@@ -8,6 +8,7 @@ public class EmployerDto {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private int userId;
 
 	private String position;
 	private String company;
@@ -18,7 +19,7 @@ public class EmployerDto {
 
 	}
 
-	public EmployerDto(long phone, String firstName, String lastName, String email, String position, String company,
+	public EmployerDto(int userId, long phone, String firstName, String lastName, String email, String position, String company,
 			String location, ArrayList<Integer> coop) {
 		this.phone = phone;
 		this.firstName = firstName;
@@ -44,6 +45,10 @@ public class EmployerDto {
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public int getUserId() {
+		return userId;
 	}
 
 	public String getPosition() {

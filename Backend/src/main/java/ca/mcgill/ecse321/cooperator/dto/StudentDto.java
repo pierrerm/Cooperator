@@ -10,6 +10,7 @@ public class StudentDto {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private int userId;
 
 	private long id;
 	private String academicYear;
@@ -23,7 +24,7 @@ public class StudentDto {
 
 	}
 
-	public StudentDto(long phone, String firstName, String lastName, String email, long id, String academicYear,
+	public StudentDto(long phone, String firstName, String lastName, String email, int userId, long id, String academicYear,
 			String major, String minor, AdministratorDto administrator, Faculty faculty, ArrayList<Integer> coop) {
 		this.phone = phone;
 		this.firstName = firstName;
@@ -52,6 +53,10 @@ public class StudentDto {
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public int getUserId() {
+		return userId;
 	}
 
 	public long getId() {

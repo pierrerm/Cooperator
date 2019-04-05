@@ -101,7 +101,7 @@ public class CooperatorRestController {
 		} else {
 			adminDto = new AdministratorDto();
 		}
-		StudentDto studentDto = new StudentDto(s.getPhone(), s.getFirstName(), s.getLastName(), s.getEmail(), s.getId(),
+		StudentDto studentDto = new StudentDto(s.getPhone(), s.getFirstName(), s.getLastName(), s.getEmail(), s.getUserId(), s.getId(),
 				s.getAcademicYear(), s.getMajor(), s.getMinor(), adminDto, s.getFaculty(), coopIds);
 		return studentDto;
 	}
@@ -320,7 +320,7 @@ public class CooperatorRestController {
 				coopIds.add(c.getCoopId());
 			}
 		}
-		EmployerDto employerDto = new EmployerDto(e.getPhone(), e.getFirstName(), e.getLastName(), e.getEmail(),
+		EmployerDto employerDto = new EmployerDto(e.getUserId(), e.getPhone(), e.getFirstName(), e.getLastName(), e.getEmail(),
 				e.getPosition(), e.getCompany(), e.getLocation(), coopIds);
 		return employerDto;
 	}
