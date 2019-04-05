@@ -12,7 +12,6 @@ import ViewEmployerCoops from '@/components/ViewEmployerCoops'
 import ViewAllEmployers from '@/components/ViewAllEmployers'
 import SemesterStats from '@/components/SemesterStats'
 import Reminder from '@/components/Reminder'
-import EmployerForm from '@/components/EmployerForm'
 import ViewForm from '@/components/ViewForm'
 import ViewCoop from '@/components/ViewCoop'
 import ViewReminders from '@/components/ViewReminders'
@@ -112,14 +111,6 @@ let router = new Router({
       path: '/reminder',
       name: 'Reminder',
       component: Reminder,
-      meta:{
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/employerForm',
-      name: 'EmployerForm',
-      component: EmployerForm,
       meta:{
         requiresAuth: true
       }

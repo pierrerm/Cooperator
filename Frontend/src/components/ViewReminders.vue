@@ -56,7 +56,4 @@
 </script>
 
 <style scoped>
-  h6 {
-      color: #ffffff;
-  }
 </style>

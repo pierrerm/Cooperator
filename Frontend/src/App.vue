@@ -16,9 +16,7 @@
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col-11 col-xl-2">
-                        <h1 class="mb-0">
-                            <router-link :to="{name: 'Home'}" class="text-white h2 mb-0">Co<span class="text-primary">operator</span> </router-link>
-                        </h1>
+                        <img src="nameLogo.svg">
                     </div>
                     <div class="col-12 col-md-10">
                         <nav class="site-navigation position-relative text-right" role="navigation">
@@ -91,12 +89,8 @@
 
 <style>
 @import url(https://fonts.googleapis.com/css?family=Roboto+Mono);
-@import 'style/fonts/icomoon/style.css';
 @import 'style/css/bootstrap.min.css';
 @import 'style/css/magnific-popup.css';
-@import 'style/css/owl.theme.default.min.css';
-@import 'style/css/bootstrap-datepicker.css';
-@import 'style/fonts/flaticon/font/flaticon.css';
 @import 'style/css/aos.css';
 @import 'style/css/style.css';
 </style>
