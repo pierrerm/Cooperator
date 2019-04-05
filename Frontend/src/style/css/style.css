@@ -825,10 +825,11 @@ h1, h2, h3, h4, h5,
   .info-table{
     color: #565a5c;
     border: solid black 2px;
+    background: white;
   }
 
   th {
-    background: #EBF5FC
+    background: #ebebeb
   }
 
   .page-title{
