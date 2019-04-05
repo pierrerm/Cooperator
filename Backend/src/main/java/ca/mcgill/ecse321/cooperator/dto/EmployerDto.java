@@ -21,6 +21,7 @@ public class EmployerDto {
 
 	public EmployerDto(int userId, long phone, String firstName, String lastName, String email, String position, String company,
 			String location, ArrayList<Integer> coop) {
+		this.userId = userId;
 		this.phone = phone;
 		this.firstName = firstName;
 		this.lastName = lastName;
