@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 public class Reminder {
 	private int reminderId;
 	private static int nextNumber = 1;
-	
+
 	public Reminder() {
 		nextNumber++;
 		this.setReminderId(nextNumber);

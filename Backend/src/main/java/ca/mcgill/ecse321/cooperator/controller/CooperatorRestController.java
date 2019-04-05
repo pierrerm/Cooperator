@@ -7,8 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -66,23 +64,21 @@ public class CooperatorRestController {
 				Faculty.Engineering, id, major, minor, academicYear, null);
 		return convertToDto(student);
 	}
-	
-	@PostMapping(value = {
-			"/reminder/{subject}/{date}/{deadline}/{description}/{urgency}/{coopId}",
-			"/reminder/{subject}/{date}/{deadline}/{description}/{urgency}/{coopId}/"})
-	public ReminderDto createReminder(@PathVariable("subject") String subject, 
-			@PathVariable("date") String date_string, @PathVariable("deadline") String deadline_string,
-			@PathVariable("description") String description, @PathVariable("urgency") int urgency,
-			@PathVariable("coopId") int coopId) throws IllegalArgumentException{
+
+	@PostMapping(value = { "/reminder/{subject}/{date}/{deadline}/{description}/{urgency}/{coopId}",
+			"/reminder/{subject}/{date}/{deadline}/{description}/{urgency}/{coopId}/" })
+	public ReminderDto createReminder(@PathVariable("subject") String subject, @PathVariable("date") String date_string,
+			@PathVariable("deadline") String deadline_string, @PathVariable("description") String description,
+			@PathVariable("urgency") int urgency, @PathVariable("coopId") int coopId) throws IllegalArgumentException {
 		Coop coop = service.getCoop(coopId);
 
 		Date date = createDate(date_string);
 		Date deadline = createDate(deadline_string);
 		Reminder reminder = service.createReminder(subject, date, deadline, description, urgency, coop);
 		return convertToDto(reminder);
-		
+
 	}
-	
+
 	@GetMapping(value = { "/students", "/students/" })
 	public List<StudentDto> getAllStudents() {
 		List<StudentDto> studentDtos = new ArrayList<>();
@@ -105,9 +101,8 @@ public class CooperatorRestController {
 		} else {
 			adminDto = new AdministratorDto();
 		}
-		StudentDto studentDto = new StudentDto(s.getPhone(), s.getFirstName(), s.getLastName(), s.getEmail(),
-				s.getPassword(), s.getUserId(), s.getId(), s.getAcademicYear(), s.getMajor(), s.getMinor(), adminDto,
-				s.getFaculty(), coopIds);
+		StudentDto studentDto = new StudentDto(s.getPhone(), s.getFirstName(), s.getLastName(), s.getEmail(), s.getUserId(), s.getId(),
+				s.getAcademicYear(), s.getMajor(), s.getMinor(), adminDto, s.getFaculty(), coopIds);
 		return studentDto;
 	}
 
@@ -115,19 +110,18 @@ public class CooperatorRestController {
 	@PostMapping(value = { "/admin/{firstName}/{lastName}/{userId}/{email}/{password}",
 			"/admin/{firstName}/{lastName}/{userId}/{email}/{password}/" })
 	public AdministratorDto createAdministrator(@PathVariable("firstName") String firstName,
-			@PathVariable("lastName") String lastName, @PathVariable("userId") int userId, @PathVariable("email") String email,
-			@PathVariable("password") String password) throws IllegalArgumentException {
+			@PathVariable("lastName") String lastName, @PathVariable("userId") int userId,
+			@PathVariable("email") String email, @PathVariable("password") String password)
+			throws IllegalArgumentException {
 		// @formatter:on
 		URL url;
 		try {
-			url = new URL(
-					"http://cooperator-backend-3417-admin.herokuapp.com/admin/".concat(Integer.toString(userId)));
+			url = new URL("http://cooperator-backend-3417-admin.herokuapp.com/admin/".concat(Integer.toString(userId)));
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					(conn.getInputStream())));
+			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 			String output = br.readLine();
-			if(!output.equals("Accepted")) {
+			if (!output.equals("Accepted")) {
 				return null;
 			}
 			conn.disconnect();
@@ -135,8 +129,8 @@ public class CooperatorRestController {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
-		
+		}
+
 		Administrator admin = service.createAdministrator(0, email, firstName, lastName, password, Faculty.Engineering,
 				0);
 		return convertToDto(admin);
@@ -153,7 +147,7 @@ public class CooperatorRestController {
 
 	private AdministratorDto convertToDto(Administrator a) {
 		AdministratorDto administratorDto = new AdministratorDto(a.getFirstName(), a.getLastName(), a.getEmail(),
-				a.getPassword(), a.getUserId());
+				a.getUserId());
 		return administratorDto;
 	}
 
@@ -191,45 +185,45 @@ public class CooperatorRestController {
 		}
 		return coopDtos;
 	}
-	
+
 	@GetMapping(value = { "/coops/{studentId}", "/coops/{studentId}/" })
 	public List<CoopDto> getCoopsForStudent(@PathVariable("studentId") int studentId) {
 		List<CoopDto> coopDtos = new ArrayList<>();
 		for (Coop coop : service.getAllCoops()) {
-			if(coop.getStudent().getUserId() == studentId) {
+			if (coop.getStudent().getUserId() == studentId) {
 				coopDtos.add(convertToDto(coop));
 			}
 		}
 		return coopDtos;
 	}
-	
+
 	@GetMapping(value = { "/reminder/coop/{coopID}", "/reminder/coop/{coopID}" })
 	public List<ReminderDto> getRemindersForCoop(@PathVariable("coopID") int coopID) {
 		List<ReminderDto> reminderDtos = new ArrayList<>();
 		for (Reminder r : service.getAllReminders()) {
-			if(r.getCoop().getCoopId() == coopID) {
+			if (r.getCoop().getCoopId() == coopID) {
 				reminderDtos.add(convertToDto(r));
 			}
 		}
 		return reminderDtos;
 	}
-	
+
 	@GetMapping(value = { "/coops/employer/{employerId}", "/coops/employer/{employerId}/" })
 	public List<CoopDto> getCoopsForEmployer(@PathVariable("employerId") int employerId) {
 		List<CoopDto> coopDtos = new ArrayList<>();
 		for (Coop coop : service.getAllCoops()) {
-			if(coop.getEmployer().getUserId() == employerId) {
+			if (coop.getEmployer().getUserId() == employerId) {
 				coopDtos.add(convertToDto(coop));
 			}
 		}
 		return coopDtos;
 	}
-	
+
 	@GetMapping(value = { "/forms/{coopId}", "/forms/{coopId}/" })
 	public List<FormDto> getFormsForCoop(@PathVariable("coopId") int coopId) {
 		List<FormDto> formDtos = new ArrayList<>();
 		for (Form form : service.getAllForms()) {
-			if(form.getCoop().getCoopId() == coopId) {
+			if (form.getCoop().getCoopId() == coopId) {
 				formDtos.add(convertToDto(form));
 			}
 		}
@@ -326,8 +320,8 @@ public class CooperatorRestController {
 				coopIds.add(c.getCoopId());
 			}
 		}
-		EmployerDto employerDto = new EmployerDto(e.getUserId(), e.getPhone(), e.getFirstName(), e.getLastName(),
-				e.getEmail(), e.getPassword(), e.getPosition(), e.getCompany(), e.getLocation(), coopIds);
+		EmployerDto employerDto = new EmployerDto(e.getUserId(), e.getPhone(), e.getFirstName(), e.getLastName(), e.getEmail(),
+				e.getPosition(), e.getCompany(), e.getLocation(), coopIds);
 		return employerDto;
 	}
 
@@ -475,7 +469,7 @@ public class CooperatorRestController {
 		}
 		return formDtos;
 	}
-	
+
 	// Student Forms - by user ID only
 	@GetMapping(value = { "/forms/student/byId/{userId}", "/forms/student/byId/{userId}/" })
 	public List<FormDto> getFormsForStudent(@PathVariable("userId") int userId) throws IllegalArgumentException {
@@ -505,14 +499,13 @@ public class CooperatorRestController {
 		}
 		return formDtos;
 	}
-	
+
 	// Employer Forms - by user ID only
 	@GetMapping(value = { "/forms/employer/byId/{userId}", "/forms/employer/{userId}/" })
-	public List<FormDto> getFormsForEmployer(@PathVariable("userId") int userId)
-			throws IllegalArgumentException {
+	public List<FormDto> getFormsForEmployer(@PathVariable("userId") int userId) throws IllegalArgumentException {
 
 		List<FormDto> formDtos = new ArrayList<>();
-		
+
 		Set<Form> forms = service.getFormsForEmployer(userId);
 
 		for (Form form : forms) {
@@ -550,9 +543,10 @@ public class CooperatorRestController {
 		formDto = convertToDto(service.getForm(formId));
 		return formDto;
 	}
-	
+
 	// Edit Forms
-	@PutMapping(value = { "/form/{formId}/{type}/{attribute}/number/{value}", "/form/{formId}/{type}/{attribute}/number/{value}/" })
+	@PutMapping(value = { "/form/{formId}/{type}/{attribute}/number/{value}",
+			"/form/{formId}/{type}/{attribute}/number/{value}/" })
 	public FormDto editFormNumber(@PathVariable("formId") int formId, @PathVariable("type") String type,
 			@PathVariable("attribute") String attribute, @PathVariable("value") int value)
 			throws IllegalArgumentException {
@@ -583,7 +577,7 @@ public class CooperatorRestController {
 		}
 		return studentDtos;
 	}
-	
+
 	@GetMapping(value = { "/coop/problem/{term}", "/coop/problem/{term}" })
 	public List<CoopDto> getProblematicCoop(@PathVariable("term") String term) {
 		List<CoopDto> coopDtos = new ArrayList<>();
@@ -608,11 +602,11 @@ public class CooperatorRestController {
 	@SuppressWarnings("deprecation")
 	public static Date createDate(String date) {
 		String[] parts = date.split("-");
-		int[] intParts = {0,0,0};
-		for(int i = 0; i < intParts.length; i++){
+		int[] intParts = { 0, 0, 0 };
+		for (int i = 0; i < intParts.length; i++) {
 			intParts[i] = Integer.parseInt(parts[i]);
 		}
-		return new Date(intParts[2]-1900,intParts[1]-1,intParts[0]);
+		return new Date(intParts[2] - 1900, intParts[1] - 1, intParts[0]);
 	}
 
 	@GetMapping(value = { "/stats/{term}", "/stats/{term}" })
@@ -621,14 +615,16 @@ public class CooperatorRestController {
 		double[] stats = service.getSemesterStatistics(term);
 		stats[1] = stats[1] * 100;
 		String[] stringStats = new String[4];
-		for(int i = 0; i < stats.length; i++){
+		for (int i = 0; i < stats.length; i++) {
 			stringStats[i] = String.valueOf(stats[i]);
 		}
-		StatsDto statsDto = new StatsDto(term, (int)Double.parseDouble(stringStats[0]), String.valueOf((int)Double.parseDouble(stringStats[1])).concat("%"), stringStats[2], (int)Double.parseDouble(stringStats[3]));
+		StatsDto statsDto = new StatsDto(term, (int) Double.parseDouble(stringStats[0]),
+				String.valueOf((int) Double.parseDouble(stringStats[1])).concat("%"), stringStats[2],
+				(int) Double.parseDouble(stringStats[3]));
 		statsDtos.add(statsDto);
 		return statsDtos;
 	}
-	
+
 	@GetMapping(value = { "/form/stats/{term}", "/form/stats/{term}" })
 	public List<FormStatsDto> getFormStats(@PathVariable("term") String term) {
 		List<FormStatsDto> formStatsDtos = new ArrayList<>();
@@ -637,7 +633,7 @@ public class CooperatorRestController {
 		formStatsDtos.add(statsDto);
 		return formStatsDtos;
 	}
-	
+
 	@GetMapping(value = { "/form/type/{term}", "/form/type/{term}" })
 	public List<FormTypesDto> getFormTypes(@PathVariable("term") String term) {
 		List<FormTypesDto> formTypesDtos = new ArrayList<>();
@@ -646,7 +642,7 @@ public class CooperatorRestController {
 		formTypesDtos.add(typesDto);
 		return formTypesDtos;
 	}
-	
+
 	@GetMapping(value = { "/student/Aform/{term}", "/student/Aform/{term}" })
 	public List<StudentDto> getStudentAForm(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
@@ -655,7 +651,7 @@ public class CooperatorRestController {
 		}
 		return studentDtos;
 	}
-	
+
 	@GetMapping(value = { "/student/CEform/{term}", "/student/CEform/{term}" })
 	public List<StudentDto> getStudentCEForm(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
@@ -664,7 +660,7 @@ public class CooperatorRestController {
 		}
 		return studentDtos;
 	}
-	
+
 	@GetMapping(value = { "/student/SEform/{term}", "/student/SEform/{term}" })
 	public List<StudentDto> getStudentSEForm(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
@@ -673,7 +669,7 @@ public class CooperatorRestController {
 		}
 		return studentDtos;
 	}
-	
+
 	@GetMapping(value = { "/student/TWRform/{term}", "/student/TWRform/{term}" })
 	public List<StudentDto> getStudentTWRForm(@PathVariable("term") String term) {
 		List<StudentDto> studentDtos = new ArrayList<>();
@@ -691,7 +687,7 @@ public class CooperatorRestController {
 		}
 		return studentDtos;
 	}
-	
+
 	@GetMapping(value = { "/employer/active/{term}", "/employer/active/{term}" })
 	public List<EmployerDto> getAllActiveEmployers(@PathVariable("term") String term) {
 		List<EmployerDto> employerDtos = new ArrayList<>();

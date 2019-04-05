@@ -12,8 +12,8 @@ public class FormStatsDto {
 
 	}
 
-	public FormStatsDto(int coopsWithNoForms, int coopsWithOneForm, int coopsWithTwoForms,
-			int coopsWithThreeForms, int completedCoops) {
+	public FormStatsDto(int coopsWithNoForms, int coopsWithOneForm, int coopsWithTwoForms, int coopsWithThreeForms,
+			int completedCoops) {
 		this.coopsWithNoForms = coopsWithNoForms;
 		this.coopsWithOneForm = coopsWithOneForm;
 		this.coopsWithTwoForms = coopsWithTwoForms;
@@ -36,7 +36,7 @@ public class FormStatsDto {
 	public int getThreeForms() {
 		return coopsWithThreeForms;
 	}
-	
+
 	public int completedCoop() {
 		return completedCoops;
 	}

@@ -16,6 +16,7 @@
                     type="submit"
                     value="Submit"
                     class="btn btn-primary py-2 px-4 text-white"
+                    background-color="#ffffff"
                 />
                 </div>
                 <div id="table">

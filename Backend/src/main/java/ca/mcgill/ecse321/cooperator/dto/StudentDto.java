@@ -10,7 +10,6 @@ public class StudentDto {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String password;
 	private int userId;
 
 	private long id;
@@ -25,15 +24,12 @@ public class StudentDto {
 
 	}
 
-	public StudentDto(long phone, String firstName, String lastName, String email, String password, int userId, long id,
-			String academicYear, String major, String minor, AdministratorDto administrator, Faculty faculty,
-			ArrayList<Integer> coop) {
+	public StudentDto(long phone, String firstName, String lastName, String email, int userId, long id, String academicYear,
+			String major, String minor, AdministratorDto administrator, Faculty faculty, ArrayList<Integer> coop) {
 		this.phone = phone;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.password = password;
-		this.userId = userId;
 		this.id = id;
 		this.academicYear = academicYear;
 		this.major = major;
@@ -58,11 +54,7 @@ public class StudentDto {
 	public String getEmail() {
 		return email;
 	}
-
-	public String getPassword() {
-		return password;
-	}
-
+	
 	public int getUserId() {
 		return userId;
 	}

@@ -11,8 +11,7 @@ public class FormTypesDto {
 
 	}
 
-	public FormTypesDto(int AForms, int CEForms, int SEForms,
-			int TWRForms) {
+	public FormTypesDto(int AForms, int CEForms, int SEForms, int TWRForms) {
 		this.AForms = AForms;
 		this.CEForms = CEForms;
 		this.SEForms = SEForms;

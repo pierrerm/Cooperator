@@ -32,8 +32,8 @@ public class FormDto {
 	}
 
 	// Coop Evaluation
-	public FormDto(int formId, Date submissionDate, int coopId, String workExperience, int employerEvaluation, String softwareTechnologies,
-			String usefulCourses) {
+	public FormDto(int formId, Date submissionDate, int coopId, String workExperience, int employerEvaluation,
+			String softwareTechnologies, String usefulCourses) {
 		this.formId = formId;
 		this.submissionDate = submissionDate;
 		this.coopId = coopId;
@@ -104,7 +104,7 @@ public class FormDto {
 	public String getWorkExperience() {
 		return this.workExperience;
 	}
-	
+
 	public int getEmployerEvaluation() {
 		return this.employerEvaluation;
 	}
@@ -136,7 +136,7 @@ public class FormDto {
 	public String getTraining() {
 		return this.training;
 	}
-	
+
 	public String getFormType() {
 		return this.formType;
 	}
