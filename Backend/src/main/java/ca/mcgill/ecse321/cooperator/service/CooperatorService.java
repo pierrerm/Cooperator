@@ -940,6 +940,20 @@ public class CooperatorService {
 
 		return students;
 	}
+	
+	/**
+	 * Get all the coops that are missing a form from a given term
+	 * <p>
+	 * This method is used to retrieve all the coops in the given term which are
+	 * missing one or more forms. First it gets all the coops from the database.
+	 * For each coop it makes sure it is during the desired term. If yes, then it
+	 * counts the number of forms. If it is inferior to 4 the the coop is added to
+	 * the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of problematic coops
+	 */
 
 	@Transactional
 	public List<Coop> getAllProblematicCoop(String term) {
@@ -960,6 +974,21 @@ public class CooperatorService {
 
 		return coops;
 	}
+	
+	/**
+	 * Get the number of forms for a given coop
+	 * <p>
+	 * This method is used to retrieve the number of forms of different type for a
+	 * given coop. First it gets all the forms from the given coop. Then it counts
+	 * the number of forms, ensuring only to count forms of the same type once. If
+	 * there are 2 acceptance forms for the given coop for example, only one will
+	 * be counted. Once all forms have been counted, the number is returned as an
+	 * integer.
+	 * </p>
+	 * 
+	 * @param c The desired coop
+	 * @return An integer of the number of forms
+	 */
 
 	// US2-5 - Get forms submitted for coop
 	public int countForms(Coop c) {
@@ -995,6 +1024,24 @@ public class CooperatorService {
 
 		return count;
 	}
+	
+	/**
+	 * Get the corresponding academic term of a semester and dates
+	 * <p>
+	 * This method is used to retrieve the corresponding academic term of a semester,
+	 * start date and end date. It is most often used to get the academic term of a
+	 * coop, using its semester and date attributes. First it determines the year of
+	 * the term by comparing the start date and end date. If they are not in the same
+	 * year, it uses the semester to determine which date to use. It the constructs
+	 * and returns the string value of the academic term, composed of the semester
+	 * and year.
+	 * </p>
+	 * 
+	 * @param semester The semester from which the term is to be extracted
+	 * @param startDate The start date from which the term is to be extracted
+	 * @param endDate The end date from which the term is to be extracted
+	 * @return
+	 */
 
 	@SuppressWarnings("deprecation")
 	@Transactional
@@ -1023,7 +1070,7 @@ public class CooperatorService {
 
 		return "No Term Found";
 	}
-
+	
 	@Transactional
 	public boolean isPriorToTerm(String term, Semester semester, Date startDate, Date endDate) {
 		String coopTerm = getTerm(semester, startDate, endDate);
@@ -1067,7 +1114,7 @@ public class CooperatorService {
 				return false;
 		} else
 			return false;
-		// String limitSemester;
+//		String limitSemester;
 //		int limitYear, i, year = Integer.MAX_VALUE;
 //
 //		for(i = 0; i < term.length(); i++) {
@@ -1112,6 +1159,23 @@ public class CooperatorService {
 //		return false;
 	}
 
+	/**
+	 * Get the general statistics of the coop program for a given term
+	 * <p>
+	 * This method is used to retrieve the general statistics of the coop program
+	 * for a given term. It constructs four distinct statistics: the number of coops
+	 * that are taking place during the given semester, the ratio of coops taking place
+	 * during the given semester that have been completed, the average number of forms
+	 * per coop taking place during the given semester and the number of problematic 
+	 * students for the given semester. It returns these statistics as an array of
+	 * doubles, to take into account possible decimals for the completion index and
+	 * average number of forms.
+	 * </p>
+	 * 
+	 * @param term The academic term for which the statistics have to be constructed
+	 * @return A double array with length 4, each corresponding to a statistic (in order mentioned above)
+	 */
+	
 	@Transactional
 	public double[] getSemesterStatistics(String term) {
 		double[] stats = { 0, 0, 0, 0 };
@@ -1127,6 +1191,21 @@ public class CooperatorService {
 		stats[3] = getAllStudentsWithFormError(term).size();
 		return stats;
 	}
+	
+	/**
+	 * Get the form statistics of the coop program for a given term
+	 * <p>
+	 * This method is used to retrieve the form statistics of the coop program
+	 * for a given term. It constructs five distinct statistics: the number of active
+	 * coops that have no forms, the number of active coops that have one form, the 
+	 * number of active coops that have two forms, the number of active coops that 
+	 * have three forms, the number of active coops that have all four forms (completed
+	 * coops). It returns these statistics as an array of integers.
+	 * </p>
+	 * 
+	 * @param term The academic term for which the statistics have to be constructed
+	 * @return An int array with length 5, each corresponding to a statistic (in order mentioned above)
+	 */
 
 	@Transactional
 	public int[] getFormStatistics(String term) {
@@ -1139,6 +1218,22 @@ public class CooperatorService {
 		return stats;
 	}
 
+	/**
+	 * /**
+	 * Get the form type statistics of the coop program for a given term
+	 * <p>
+	 * This method is used to retrieve the form type statistics of the coop program
+	 * for a given term. It constructs four distinct statistics: the number of active
+	 * coops that have acceptance forms, the number of active coops that have coop
+	 * evaluation forms, the number of active coops that have student evaluation forms,
+	 * the number of active coops that have task & workload report forms. It returns 
+	 * these statistics as an array of integers.
+	 * </p>
+	 * 
+	 * @param term The academic term for which the statistics have to be constructed
+	 * @return An int array with length 4, each corresponding to a statistic (in order mentioned above)
+	 */
+	
 	@Transactional
 	public int[] getFormTypeStatistics(String term) {
 		int[] stats = { 0, 0, 0, 0 };
@@ -1149,6 +1244,20 @@ public class CooperatorService {
 		return stats;
 	}
 
+	/**
+	 * Get all the coops that have an acceptance form from a given term
+	 * <p>
+	 * This method is used to retrieve all the coops in the given term which have
+	 * an acceptance form. First it gets all the coops from the database. For each
+	 * coop it makes sure it is during the desired term. If yes, then it gets all
+	 * forms from the coop. It then checks the types of the forms. If one of them
+	 * is an acceptance form then the coop is added to the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that have acceptance forms
+	 */
+	
 	@Transactional
 	public List<Coop> getActiveCoopsWithAForms(String term) {
 		term = term.toLowerCase();
@@ -1165,6 +1274,20 @@ public class CooperatorService {
 		}
 		return coopsWithAForms;
 	}
+	
+	/**
+	 * Get all the coops that have a coop evaluation form from a given term
+	 * <p>
+	 * This method is used to retrieve all the coops in the given term which have
+	 * a coop evaluation form. First it gets all the coops from the database. For
+	 * each coop it makes sure it is during the desired term. If yes, then it gets
+	 * all forms from the coop. It then checks the types of the forms. If one of them
+	 * is a coop evaluation form then the coop is added to the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that have coop evaluation forms
+	 */
 
 	@Transactional
 	public List<Coop> getActiveCoopsWithCEForms(String term) {
@@ -1182,6 +1305,20 @@ public class CooperatorService {
 		}
 		return coopsWithCEForms;
 	}
+	
+	/**
+	 * Get all the coops that have a student evaluation form from a given term
+	 * <p>
+	 * This method is used to retrieve all the coops in the given term which have
+	 * a student evaluation form. First it gets all the coops from the database. For
+	 * each coop it makes sure it is during the desired term. If yes, then it gets
+	 * all forms from the coop. It then checks the types of the forms. If one of them
+	 * is a student evaluation form then the coop is added to the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that have student evaluation forms
+	 */
 
 	@Transactional
 	public List<Coop> getActiveCoopsWithSEForms(String term) {
@@ -1201,6 +1338,20 @@ public class CooperatorService {
 		return coopsWithSEForms;
 	}
 
+	/**
+	 * Get all the coops that have a task & workload report form from a given term
+	 * <p>
+	 * This method is used to retrieve all the coops in the given term which have
+	 * a task & workload report form. First it gets all the coops from the database. For
+	 * each coop it makes sure it is during the desired term. If yes, then it gets
+	 * all forms from the coop. It then checks the types of the forms. If one of them
+	 * is a task & workload report form then the coop is added to the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that have task & workload report forms
+	 */
+	
 	@Transactional
 	public List<Coop> getActiveCoopsWithTWRForms(String term) {
 		term = term.toLowerCase();
@@ -1218,6 +1369,21 @@ public class CooperatorService {
 		}
 		return coopsWithTWRForms;
 	}
+	
+	/**
+	 * Get all the students that have a coop which has an acceptance form from a given term
+	 * <p>
+	 * This method is used to retrieve all the students in the given term which have a coop
+	 * that has an acceptance form. First it gets all the students from the database. For each
+	 * student it gets its coops. For each coop it makes sure it is during the desired
+	 * term. If yes, then it gets all forms from the coop. It then checks the types of
+	 * the forms. If one of them is an acceptance form then the student is added to the list
+	 * of returned students.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of students that have a coop which has an acceptance form
+	 */
 
 	@Transactional
 	public List<Student> getActiveStudentsWithAForms(String term) {
@@ -1239,6 +1405,21 @@ public class CooperatorService {
 		return students;
 	}
 
+	/**
+	 * Get all the students that have a coop which has a coop evaluation form from a given term
+	 * <p>
+	 * This method is used to retrieve all the students in the given term which have a
+	 * coop that has a coop evaluation form. First it gets all the students from the database.
+	 * For each student it gets its coops. For each coop it makes sure it is during the desired
+	 * term. If yes, then it gets all forms from the coop. It then checks the types of the 
+	 * forms. If one of them is a coop evaluation form then the student is added to the list
+	 * of returned students.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of students that have a coop which has a coop evaluation form
+	 */
+	
 	@Transactional
 	public List<Student> getActiveStudentsWithCEForms(String term) {
 		term = term.toLowerCase();
@@ -1258,6 +1439,21 @@ public class CooperatorService {
 		}
 		return students;
 	}
+	
+	/**
+	 * Get all the students that have a coop which has a student evaluation form from a given term
+	 * <p>
+	 * This method is used to retrieve all the students in the given term which have a
+	 * coop that has a student evaluation form. First it gets all the students from the database.
+	 * For each student it gets its coops. For each coop it makes sure it is during the desired
+	 * term. If yes, then it gets all forms from the coop. It then checks the types of the 
+	 * forms. If one of them is a student evaluation form then the student is added to the list
+	 * of returned students.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of students that have a coop which has a student evaluation form
+	 */
 
 	@Transactional
 	public List<Student> getActiveStudentsWithSEForms(String term) {
@@ -1278,6 +1474,21 @@ public class CooperatorService {
 		}
 		return students;
 	}
+	
+	/**
+	 * Get all the students that have a coop which has a task & workload report form from a given term
+	 * <p>
+	 * This method is used to retrieve all the students in the given term which have a
+	 * coop that has a task & workload report form. First it gets all the students from the database.
+	 * For each student it gets its coops. For each coop it makes sure it is during the desired
+	 * term. If yes, then it gets all forms from the coop. It then checks the types of the 
+	 * forms. If one of them is a task & workload report form then the student is added to the list
+	 * of returned students.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of students that have a coop which has a task & workload report form
+	 */
 
 	@Transactional
 	public List<Student> getActiveStudentsWithTWRForms(String term) {
@@ -1298,6 +1509,19 @@ public class CooperatorService {
 		}
 		return students;
 	}
+	
+	/**
+	 * Get all the students that have a coop during a given term (active)
+	 * <p>
+	 * This method is used to retrieve all the students in the given term which have a
+	 * coop during that term. First it gets all the students from the database. For each
+	 * student it gets its coops. For each coop it makes sure it is during the desired
+	 * term. If yes, then the student is added to the list of returned students.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of students that have a coop during the given term
+	 */
 
 	// US2 - Get all active Students (currently enrolled in coop term)
 	@Transactional
@@ -1314,6 +1538,19 @@ public class CooperatorService {
 		}
 		return activeStudents;
 	}
+	
+	/**
+	 * Get all the employers that have a coop during a given term (active)
+	 * <p>
+	 * This method is used to retrieve all the employers in the given term which have a
+	 * coop during that term. First it gets all the employers from the database. For each
+	 * employer it gets its coops. For each coop it makes sure it is during the desired
+	 * term. If yes, then the employer is added to the list of returned employers.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of employers that have a coop during the given term
+	 */
 
 	@Transactional
 	public List<Employer> getAllActiveEmployers(String term) {
@@ -1329,6 +1566,19 @@ public class CooperatorService {
 		}
 		return activeEmployers;
 	}
+	
+	/**
+	 * Get all the coops that are during a given term (active)
+	 * <p>
+	 * This method is used to retrieve all the coops that are being taken during the 
+	 * given term. First it gets all the coops from the database. For each coop it 
+	 * makes sure it is during the desired term. If yes, then the coop is added
+	 * to the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that are during the given term
+	 */
 
 	// US2 - Get all active Coops (currently ongoing coop term)
 	@Transactional
@@ -1343,6 +1593,20 @@ public class CooperatorService {
 		return activeCoops;
 	}
 
+	/**
+	 * Get all the coops that are during a given term and have all forms (completed and active)
+	 * <p>
+	 * This method is used to retrieve all the coops that are being taken during the 
+	 * given term and have all four forms, meaning they are completed and active. 
+	 * First it gets all the coops from the database. For each coop it makes sure it
+	 * is during the desired term. If yes, it checks that the coop has four distinct
+	 * forms. If yes, then the coop is added to the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that are completed and during the given term
+	 */
+	
 	// US2 - Get all Completed active Coops (completed coops for current term)
 	@Transactional
 	public List<Coop> getAllCompletedActiveCoops(String term) {
@@ -1358,6 +1622,20 @@ public class CooperatorService {
 		return completedCoops;
 	}
 
+	/**
+	 * Get all the coops that are during a given term and have no forms (incomplete and active)
+	 * <p>
+	 * This method is used to retrieve all the coops that are being taken during the 
+	 * given term and have no forms, meaning they are incomplete and active. 
+	 * First it gets all the coops from the database. For each coop it makes sure it
+	 * is during the desired term. If yes, it checks that the coop has no forms.
+	 * If yes, then the coop is added to the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that have no forms and are during the given term
+	 */
+	
 	@Transactional
 	public List<Coop> getActiveCoopsWithNoForms(String term) {
 		term = term.toLowerCase();
@@ -1371,6 +1649,20 @@ public class CooperatorService {
 		}
 		return coopsWithNoForms;
 	}
+	
+	/**
+	 * Get all the coops that are during a given term and have one form (incomplete and active)
+	 * <p>
+	 * This method is used to retrieve all the coops that are being taken during the 
+	 * given term and have one form, meaning they are incomplete and active. 
+	 * First it gets all the coops from the database. For each coop it makes sure it
+	 * is during the desired term. If yes, it checks that the coop has one forms.
+	 * If yes, then the coop is added to the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that have one form and are during the given term
+	 */
 
 	@Transactional
 	public List<Coop> getActiveCoopsWithOneForm(String term) {
@@ -1385,6 +1677,20 @@ public class CooperatorService {
 		}
 		return coopsWithOneForm;
 	}
+	
+	/**
+	 * Get all the coops that are during a given term and have two forms (incomplete and active)
+	 * <p>
+	 * This method is used to retrieve all the coops that are being taken during the 
+	 * given term and have two forms, meaning they are incomplete and active. 
+	 * First it gets all the coops from the database. For each coop it makes sure it
+	 * is during the desired term. If yes, it checks that the coop has two forms.
+	 * If yes, then the coop is added to the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that have two forms and are during the given term
+	 */
 
 	@Transactional
 	public List<Coop> getActiveCoopsWithTwoForms(String term) {
@@ -1399,6 +1705,20 @@ public class CooperatorService {
 		}
 		return coopsWithTwoForms;
 	}
+	
+	/**
+	 * Get all the coops that are during a given term and have three forms (incomplete and active)
+	 * <p>
+	 * This method is used to retrieve all the coops that are being taken during the 
+	 * given term and have three forms, meaning they are incomplete and active. 
+	 * First it gets all the coops from the database. For each coop it makes sure it
+	 * is during the desired term. If yes, it checks that the coop has three forms.
+	 * If yes, then the coop is added to the list of returned coops.
+	 * </p>
+	 * 
+	 * @param term The academic term the coops have to be from
+	 * @return A list of coops that have three forms and are during the given term
+	 */
 
 	@Transactional
 	public List<Coop> getActiveCoopsWithThreeForms(String term) {
@@ -1413,6 +1733,13 @@ public class CooperatorService {
 		}
 		return coopsWithThreeForms;
 	}
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param term
+	 * @return
+	 */
 
 	// US2 - Get completed active coops for student (completed coops for current
 	// term)
@@ -1433,6 +1760,12 @@ public class CooperatorService {
 		}
 		return completedCoops;
 	}
+	
+	/**
+	 * 
+	 * @param term
+	 * @return
+	 */
 
 	// US2 - Get all previously completed coops (completed coops prior to current
 	// term)
@@ -1451,6 +1784,13 @@ public class CooperatorService {
 		}
 		return completedCoops;
 	}
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param term
+	 * @return
+	 */
 
 	// US2 - Get all previously completed coops for student (completed coops prior
 	// to current term)
@@ -1471,6 +1811,14 @@ public class CooperatorService {
 		}
 		return completedCoops;
 	}
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param semester
+	 * @param year
+	 * @return
+	 */
 
 	// US1 - List all forms for a given student
 	@Transactional
@@ -1487,6 +1835,12 @@ public class CooperatorService {
 		}
 		return forms;
 	}
+	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
 
 	@Transactional // by user ID only
 	public Set<Form> getFormsForStudent(int userId) {
@@ -1502,6 +1856,14 @@ public class CooperatorService {
 		}
 		return forms;
 	}
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param semester
+	 * @param year
+	 * @return
+	 */
 
 	// US1 - List all forms for a given employer
 	@Transactional
@@ -1518,6 +1880,12 @@ public class CooperatorService {
 		}
 		return forms;
 	}
+	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
 
 	@Transactional // by user ID only
 	public Set<Form> getFormsForEmployer(int userId) {
@@ -1533,6 +1901,13 @@ public class CooperatorService {
 		}
 		return forms;
 	}
+	
+	/**
+	 * 
+	 * @param formId
+	 * @param attribute
+	 * @param value
+	 */
 
 	// Edit acceptance form
 	@Transactional
@@ -1546,6 +1921,13 @@ public class CooperatorService {
 			break;
 		}
 	}
+	
+	/**
+	 * 
+	 * @param formId
+	 * @param attribute
+	 * @param value
+	 */
 
 	// Edit coop evaluation
 	@Transactional
@@ -1570,6 +1952,13 @@ public class CooperatorService {
 			break;
 		}
 	}
+	
+	/**
+	 * 
+	 * @param formId
+	 * @param attribute
+	 * @param value
+	 */
 
 	// Edit student evaluation
 	@Transactional
@@ -1588,6 +1977,13 @@ public class CooperatorService {
 			break;
 		}
 	}
+	
+	/**
+	 * 
+	 * @param formId
+	 * @param attribute
+	 * @param value
+	 */
 
 	// Edit tasks workload report
 	@Transactional
