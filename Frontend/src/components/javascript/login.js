@@ -1,4 +1,5 @@
 import axios from 'axios'
+import forge from 'node-forge'
 var config = require('../../../config')
 
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
@@ -33,13 +34,16 @@ export default {
                 this.errorLogin = errorMsg
                 return
             }
-            AXIOS.post(`/login/` + username + '/' + password, {}, {})
+            var md = forge.md.sha384.create();
+            md.update(password);
+            var hash = md.digest().toHex();
+            AXIOS.post(`/login/` + username + '/' + hash, {}, {})
                 .then(response => {
                     // JSON responses are automatically parsed.
                     this.response = response.data
                     this.errorLogin = ''
-                    this.$cookie.set("username", username, { expires: '1h' })
-                    this.$cookie.set("password", password, { expires: '1h' })
+                    this.$cookie.set("username", username, { expires: '30min' })
+                    this.$cookie.set("password", hash, { expires: '30min' })
                     this.username = this.$cookie.get("username") || ''
                     this.password = this.$cookie.get("password") || ''
                     if (this.response == 'Accepted') {

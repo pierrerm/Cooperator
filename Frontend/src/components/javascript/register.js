@@ -1,4 +1,5 @@
 import axios from 'axios'
+import forge from 'node-forge'
 var config = require('../../../config')
 
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
@@ -57,8 +58,10 @@ export default {
                 this.errorRegister = errorMsg
                 return
             }
-            this.errorRegister = ''
-            AXIOS.post(`/admin/` + firstName + "/" + lastName + "/" + userId + "/" + email + "/" + password, {}, {})
+            var md = forge.md.sha384.create();
+            md.update(password);
+            var hash = md.digest().toHex();
+            AXIOS.post(`/admin/` + firstName + "/" + lastName + "/" + userId + "/" + email + "/" + hash, {}, {})
                 .then(response => {
                     // JSON responses are automatically parsed.
                     this.response = response.data  

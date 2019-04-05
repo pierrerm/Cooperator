@@ -78,7 +78,7 @@
               </div>
             </table>
           </div>
-          <h6 align="left" style="color: #ffffff">Enter values to edit the form parameters</h6>
+          <h6 align="left">Enter values to edit the form parameters</h6>
           <div class="half right" data-aos="fade-up">
             <div class="container" align="center">
               <hr>
