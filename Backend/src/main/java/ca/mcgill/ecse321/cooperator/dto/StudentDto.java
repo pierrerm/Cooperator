@@ -30,6 +30,7 @@ public class StudentDto {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.userId = userId;
 		this.id = id;
 		this.academicYear = academicYear;
 		this.major = major;

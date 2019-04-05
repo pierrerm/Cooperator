@@ -20,7 +20,8 @@ export default {
         return {
             students: [],
             term: '',
-            studentsGroup3: []
+            studentsGroup3: [],
+            list1Id: []
         }
     },
 
@@ -30,60 +31,75 @@ export default {
                 AXIOS.get('/students')
                     .then(response => {
                         this.students = response.data;
-            })
+                    })
             }
-            AXIOS.get(`/student/active/` + term , {}, {})
+            AXIOS.get(`/student/active/` + term, {}, {})
                 .then(response => {
                     this.students = response.data
                 });
         }
     },
 
-    created: function() {
+    created: function () {
         AXIOS.get('/students')
-                .then(response => {
-                        this.students = response.data;
-                })
+            .then(response => {
+                this.students = response.data;
+                this.list1Id = [];
+                for (var i = 0; i < this.students.length; i++) {
+                    this.list1Id.push(this.students[i].userId);
+                }
+            })
+
         AXIOS2.get('/allStudents')
             .then(response => {
-                this.studentsGroup3 = response.data;
-            })
-            
-            if ((localStorage.getItem('loggedIn') != null)) {
-                //if cookies expired, refresh
-                if (this.$cookie.get("username") == null || this.$cookie.get("password") == null) {
-                    localStorage.removeItem('loggedIn')
-                    this.$cookie.delete('username');
-                    this.$cookie.delete('password');
-                    window.location.href = "/";
+                for (var i = 0; i < response.data.length; i++) {
+                    var s = response.data[i];
+                    var nameArray = s.coopUserName.split(" ");
+                    s.firstName = nameArray[0];
+                    s.lastName = nameArray[1];
+                    s.email = s.coopUserEmail;
+                    var found = this.list1Id.includes(s.userId);
+                    if (s.roleType == "Student" && !found) {
+                        this.studentsGroup3.push(s);
+                    }
                 }
-                else {
-                    //reverify login information
-                    AXIOS.post(`/login/` + this.$cookie.get("username") + '/' + this.$cookie.get("password"), {}, {})
-                        .then(response => {
-                            if (response.data == 'Accepted') {
-                                if(localStorage.getItem('loggedIn') != "Administrator"){
-                                    localStorage.setItem('loggedIn', "Administrator");
-                                    window.location.href = "/";
-                                }
-                                
-                            }
-                            else {
-                                localStorage.removeItem('loggedIn')
-                                this.$cookie.delete('username');
-                                this.$cookie.delete('password');
-                                console.log("bad log in information");
+            })
+
+        if ((localStorage.getItem('loggedIn') != null)) {
+            //if cookies expired, refresh
+            if (this.$cookie.get("username") == null || this.$cookie.get("password") == null) {
+                localStorage.removeItem('loggedIn')
+                this.$cookie.delete('username');
+                this.$cookie.delete('password');
+                window.location.href = "/";
+            }
+            else {
+                //reverify login information
+                AXIOS.post(`/login/` + this.$cookie.get("username") + '/' + this.$cookie.get("password"), {}, {})
+                    .then(response => {
+                        if (response.data == 'Accepted') {
+                            if (localStorage.getItem('loggedIn') != "Administrator") {
+                                localStorage.setItem('loggedIn', "Administrator");
                                 window.location.href = "/";
                             }
-                        })
-                        .catch(e => {
+
+                        }
+                        else {
                             localStorage.removeItem('loggedIn')
                             this.$cookie.delete('username');
                             this.$cookie.delete('password');
-                            console.log("error in post request: " + e);
+                            console.log("bad log in information");
                             window.location.href = "/";
-                        });
-                }
+                        }
+                    })
+                    .catch(e => {
+                        localStorage.removeItem('loggedIn')
+                        this.$cookie.delete('username');
+                        this.$cookie.delete('password');
+                        console.log("error in post request: " + e);
+                        window.location.href = "/";
+                    });
             }
+        }
     }
 }
