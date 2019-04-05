@@ -19,7 +19,7 @@ import ViewReminders from '@/components/ViewReminders'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -34,32 +34,50 @@ export default new Router({
     {
       path: '/students',
       name: 'ViewAllStudents',
-      component: ViewAllStudents
+      component: ViewAllStudents,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/studentForms/:userId',
       name: 'ViewStudentForms',
-      component: ViewStudentForms
+      component: ViewStudentForms,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/studentCoops/:userId',
       name: 'ViewStudentCoops',
-      component: ViewStudentCoops
+      component: ViewStudentCoops,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/employerForms/:userId',
       name: 'ViewEmployerForms',
-      component: ViewEmployerForms
+      component: ViewEmployerForms,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/employerCoops/:userId',
       name: 'ViewEmployerCoops',
-      component: ViewEmployerCoops
+      component: ViewEmployerCoops,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/coop/:coopId',
       name: 'ViewCoop',
-      component: ViewCoop
+      component: ViewCoop,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/register',
@@ -69,42 +87,80 @@ export default new Router({
     {
       path: '/logout',
       name: 'Logout',
-      component: Logout
+      component: Logout,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/employers',
       name: 'ViewAllEmployers',
-      component: ViewAllEmployers
+      component: ViewAllEmployers,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/stats',
       name: 'SemesterStats',
-      component: SemesterStats
+      component: SemesterStats,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/reminder',
       name: 'Reminder',
-      component: Reminder
+      component: Reminder,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/employerForm',
       name: 'EmployerForm',
-      component: EmployerForm
+      component: EmployerForm,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/studentForm/:formId',
       name: 'ViewForm',
-      component: ViewForm
+      component: ViewForm,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/createReminder',
       name: 'CreateReminder',
-      component: ViewForm
+      component: ViewForm,
+      meta:{
+        requiresAuth: true
+      }
     },
 	{
       path: '/studentReminder',
       name: 'StudentReminder',
-      component: ViewReminders
+      component: ViewReminders,
+      meta:{
+        requiresAuth: true
+      }
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+      if (localStorage.getItem('loggedIn') == "Administrator") {
+          next()
+      } else {
+        from()
+      }
+  } else {
+      next() 
+  }
+})
+
+export default router
