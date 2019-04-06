@@ -7,6 +7,8 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.sql.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +20,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.cooperator.controller.CooperatorRestController;
 import ca.mcgill.ecse321.cooperator.dao.EmployerRepository;
+import ca.mcgill.ecse321.cooperator.model.Coop;
 import ca.mcgill.ecse321.cooperator.model.Employer;
+import ca.mcgill.ecse321.cooperator.model.Semester;
 import ca.mcgill.ecse321.cooperator.service.CooperatorService;
 
 @RunWith(SpringRunner.class)
@@ -38,6 +42,7 @@ public class CooperatorEmployerTests {
 	private CooperatorRestController controller;
 	
 	private Employer employer;
+	private Employer emp;
 	
 	private static final int VALID_EMPLOYER_KEY = 1;
 	private static final int INVALID_EMPLOYER_KEY = 3;
@@ -86,5 +91,12 @@ public class CooperatorEmployerTests {
 	@Test
 	public void testGetAllEmployers() {
 		assertNotNull(service.getAllEmployers());
+	}
+	
+	@Test (expected = IllegalArgumentException.class) 
+	public void testIllegalArgument() {
+		emp = mock(Employer.class);
+		employer = service.createEmployer(VALID_EMPLOYER_KEY, 123, "", "", "", "", "", "", "location");
+
 	}
 }

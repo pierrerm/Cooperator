@@ -75,9 +75,13 @@ public class CooperatorFormTests {
 	private Student student;
 	private Employer employer;
 	private CoopEvaluation coopEval;
+	private CoopEvaluation coopEval2;
 	private AcceptanceForm accepForm;
+	private AcceptanceForm accepForm2;
 	private StudentEvaluation studentEval;
+	private StudentEvaluation studentEval2;
 	private TasksWorkloadReport taskReport;
+	private TasksWorkloadReport taskReport2;
 	private Coop coop;
 	private List<Form> returnedForms = new ArrayList<Form>();
 	private Set<Form> formsFromStudent = new HashSet<Form>();
@@ -187,6 +191,7 @@ public class CooperatorFormTests {
 		assertEquals("usefulCourses", cE.getUsefulCourses());
 		assertEquals(coop, cE.getCoop());
 	}
+	
 	
 	@Test 
 	public void formQueryNotFound() {
@@ -303,6 +308,26 @@ public class CooperatorFormTests {
 		assertEquals(35, tWR.getHoursPerWeek());
 		assertEquals(21, tWR.getWage());
 		assertEquals("none", tWR.getTraining());
+	}
+	
+	@Test
+	public void testGetActiveStudentsWithAForms() {
+		assertNotNull(service.getActiveStudentsWithAForms("Fall2018"));
+	}
+
+	@Test
+	public void testGetActiveStudentsWithCEForms() {
+		assertNotNull(service.getActiveStudentsWithCEForms("Fall2018"));
+	}
+	
+	@Test
+	public void testGetActiveStudentsWithSEForms() {
+		assertNotNull(service.getActiveStudentsWithSEForms("Fall2018"));
+	}
+	
+	@Test
+	public void testGetActiveStudentsWithTWRForms() {
+		assertNotNull(service.getActiveStudentsWithTWRForms("Fall2018"));
 	}
 	
 	public static long createDate(String date) {

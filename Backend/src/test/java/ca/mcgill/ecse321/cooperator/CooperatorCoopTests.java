@@ -6,6 +6,7 @@ package ca.mcgill.ecse321.cooperator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -72,6 +73,7 @@ public class CooperatorCoopTests {
 	private CooperatorRestController controller;
 	
 	private Coop coop;
+	private Coop coop2;
 	private CoopEvaluation coopEval;
 	private AcceptanceForm accepForm;
 	private StudentEvaluation studentEval;
@@ -159,6 +161,13 @@ public class CooperatorCoopTests {
 		assertEquals(coopForms, service.getCoop(VALID_COOP_KEY).getForm());
 	}
 	
+	@Test (expected = IllegalArgumentException.class) 
+	public void testIllegalArgument() {
+		coop2 = mock(Coop.class);
+		coop2 = service.createCoop(VALID_COOP_KEY, true, new Date(createDate("31-08-2018")), "jobDescription", 12, "location", true , Semester.Fall, new Date(createDate("31-12-2018")), null, null);
+
+	}
+	
 	@Test
 	public void testGetAllActiveCoops() {
 		String term = service.getTerm(Semester.Fall, new Date(createDate("31-08-2018")), new Date(createDate("31-12-2018")));
@@ -192,6 +201,26 @@ public class CooperatorCoopTests {
 	@Test
 	public void testCoopQueryNotFound() {
 		assertNull(service.getCoop(INVALID_COOP_KEY));
+	}
+	
+	@Test
+	public void testIsPriorToTerm() {
+		assertTrue(service.isPriorToTerm("Fall2019", Semester.Winter, new Date(createDate("31-08-2018")), new Date(createDate("31-12-2018"))));
+	}
+	
+	@Test
+	public void testGetSemesterStatistics() {
+		assertNotNull(service.getSemesterStatistics("Fall2018"));
+	}
+	
+	@Test
+	public void testGetFormStatistics() {
+		assertNotNull(service.getFormStatistics("Fall2018"));
+	}
+	
+	@Test
+	public void testGetFormTypeStatistics() {
+		assertNotNull(service.getFormTypeStatistics("Fall2018"));
 	}
 	
 	public static long createDate(String date) {

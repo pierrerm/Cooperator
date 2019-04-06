@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ca.mcgill.ecse321.cooperator.controller.CooperatorRestController;
 import ca.mcgill.ecse321.cooperator.dao.AdministratorRepository;
 import ca.mcgill.ecse321.cooperator.model.Administrator;
+import ca.mcgill.ecse321.cooperator.model.Employer;
 import ca.mcgill.ecse321.cooperator.model.Faculty;
 import ca.mcgill.ecse321.cooperator.service.CooperatorService;
 
@@ -49,7 +50,7 @@ public class CooperatorAdminTest {
 	@InjectMocks
 	private CooperatorRestController controller;
 	
-	private Administrator admin;
+	private Administrator admin, admin2;
 
 	private static final int VALID_ADMIN_KEY = 1;
 	private static final int INVALID_ADMIN_KEY = -1;
@@ -97,5 +98,12 @@ public class CooperatorAdminTest {
 	@Test
 	public void testGetAllAdministrators() {
 		assertNotNull(service.getAllAdministrators());
+	}
+	
+	@Test (expected = IllegalArgumentException.class) 
+	public void testIllegalArgument() {
+		admin2 = mock(Administrator.class);
+		admin2 = service.createAdministrator(123, "", "", "", "", null, 260);
+
 	}
 }
