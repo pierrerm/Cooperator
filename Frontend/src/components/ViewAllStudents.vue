@@ -48,7 +48,11 @@
                             <td style="padding:10px">{{ student.phone }}</td>
                         </tr>
                         <tr v-for="student in studentsGroup3">
-                            <td style="padding:10px">{{ student.firstName }}</td>
+                            <td style="padding:10px">
+                                <router-link :to="{name: 'ViewGroup3StudentCoops', params: {userId: student.userID }}">
+                                    {{ student.firstName }}
+                                </router-link>    
+                            </td>
                             <td style="padding:10px">{{ student.lastName }}</td>
                             <td style="padding:10px">{{ student.email }}</td>
                             <td style="padding:10px"></td>

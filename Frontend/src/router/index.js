@@ -15,6 +15,7 @@ import Reminder from '@/components/Reminder'
 import ViewForm from '@/components/ViewForm'
 import ViewCoop from '@/components/ViewCoop'
 import ViewReminders from '@/components/ViewReminders'
+import ViewGroup3StudentCoops from '@/components/ViewGroup3StudentCoops'
 
 Vue.use(Router)
 
@@ -135,6 +136,14 @@ let router = new Router({
       path: '/studentReminder',
       name: 'StudentReminder',
       component: ViewReminders,
+      meta:{
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/studentCoopGroup3',
+      name: 'ViewGroup3StudentCoops',
+      component: ViewGroup3StudentCoops,
       meta:{
         requiresAuth: true
       }

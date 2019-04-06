@@ -15,13 +15,14 @@ var AXIOS2 = axios.create({
     headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
+var listID = []
+
 export default {
     data() {
         return {
             students: [],
             term: '',
             studentsGroup3: [],
-            list1Id: []
         }
     },
 
@@ -31,11 +32,35 @@ export default {
                 AXIOS.get('/students')
                     .then(response => {
                         this.students = response.data;
-                    })
+                        listID = []
+                        for (var i = 0; i < this.students.length; i++) {
+                            if (!listID.includes(this.students[i].userId)) {
+                                listID.push(this.students[i].userId);
+                            }
+                        }
+                    }).then(
+                        AXIOS2.get('/allStudents')
+                            .then(response => {
+                                for (var i = 0; i < response.data.length; i++) {
+                                    var s = response.data[i];
+                                    var nameArray = s.coopUserName.split(" ");
+                                    s.firstName = nameArray[0];
+                                    s.lastName = nameArray[1];
+                                    s.email = s.coopUserEmail;
+                                    var found = listID.includes(s.userID);
+                                    if (s.roleType == "Student" && !found) {
+                                        this.studentsGroup3.push(s);
+                                        if (!listID.includes(s.userID)) {
+                                            listID.push(s.userID);
+                                        }
+                                    }
+                                }
+                            }))
             }
             AXIOS.get(`/student/active/` + term, {}, {})
                 .then(response => {
                     this.students = response.data
+                    this.studentsGroup3 = []
                 });
         }
     },
@@ -44,26 +69,30 @@ export default {
         AXIOS.get('/students')
             .then(response => {
                 this.students = response.data;
-                this.list1Id = [];
+                listID = []
                 for (var i = 0; i < this.students.length; i++) {
-                    this.list1Id.push(this.students[i].userId);
-                }
-            })
-
-        AXIOS2.get('/allStudents')
-            .then(response => {
-                for (var i = 0; i < response.data.length; i++) {
-                    var s = response.data[i];
-                    var nameArray = s.coopUserName.split(" ");
-                    s.firstName = nameArray[0];
-                    s.lastName = nameArray[1];
-                    s.email = s.coopUserEmail;
-                    var found = this.list1Id.includes(s.userId);
-                    if (s.roleType == "Student" && !found) {
-                        this.studentsGroup3.push(s);
+                    if (!listID.includes(this.students[i].userId)) {
+                        listID.push(this.students[i].userId);
                     }
                 }
-            })
+            }).then(
+                AXIOS2.get('/allStudents')
+                    .then(response => {
+                        for (var i = 0; i < response.data.length; i++) {
+                            var s = response.data[i];
+                            var nameArray = s.coopUserName.split(" ");
+                            s.firstName = nameArray[0];
+                            s.lastName = nameArray[1];
+                            s.email = s.coopUserEmail;
+                            var found = listID.includes(s.userID);
+                            if (s.roleType == "Student" && !found) {
+                                this.studentsGroup3.push(s);
+                                if (!listID.includes(s.userID)) {
+                                    listID.push(s.userID);
+                                }
+                            }
+                        }
+                    }))
 
         if ((localStorage.getItem('loggedIn') != null)) {
             //if cookies expired, refresh
