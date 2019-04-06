@@ -18,4 +18,8 @@
     <string name="endtime_first">11:00</string>
     <string name="register_button">Register</string>
     <string name="refresh_button">Refresh Lists</string>
+    <string name="title_activity_view_students">ViewStudentsActivity</string>
+    <string name="title_activity_view_employers">ViewEmployersActivity</string>
+    <string name="title_activity_view_reminders">ViewRemindersActivity</string>
+    <string name="title_activity_view_stats">ViewStatsActivity</string>
 </resources>

@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.cooperator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -301,5 +302,41 @@ public class MainActivity extends AppCompatActivity {
         eventSpinner.setSelection(0);
 
         refreshErrorMessage();
+    }
+
+    /** Called when the user taps the View Students button */
+    public void viewStudents(View v) {
+        Intent intent = new Intent(this, ViewStudentsActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.editText);
+        //String message = editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the View Students button */
+    public void viewEmployers(View v) {
+        Intent intent = new Intent(this, ViewEmployersActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.editText);
+        //String message = editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the View Students button */
+    public void viewReminders(View v) {
+        Intent intent = new Intent(this, ViewRemindersActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.editText);
+        //String message = editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the View Students button */
+    public void viewStats(View v) {
+        Intent intent = new Intent(this, ViewStatsActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.editText);
+        //String message = editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
     }
 }
