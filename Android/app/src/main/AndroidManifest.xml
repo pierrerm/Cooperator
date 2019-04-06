@@ -12,6 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ViewStatsActivity"
+            android:label="@string/title_activity_view_stats"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.mcgill.ecse321.cooperator.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ViewRemindersActivity"
+            android:label="@string/title_activity_view_reminders"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.mcgill.ecse321.cooperator.MainActivity" />
+        </activity>
+        <activity
             android:name=".ViewEmployersActivity"
             android:label="@string/title_activity_view_employers"
             android:parentActivityName=".MainActivity"

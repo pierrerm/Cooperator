@@ -207,7 +207,7 @@
                 android:text="@string/newevent_button" />
 
             <Button
-                android:id="@+id/viewStudentsButton"
+                android:id="@+id/view_students_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="viewStudents"
@@ -222,14 +222,14 @@
             android:text="Reminders" />
 
         <Button
-            android:id="@+id/viewEmployersButton"
+            android:id="@+id/view_employers_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="viewEmployers"
             android:text="Employers" />
 
         <Button
-            android:id="@+id/statsButton"
+            android:id="@+id/stats_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="viewStats"
