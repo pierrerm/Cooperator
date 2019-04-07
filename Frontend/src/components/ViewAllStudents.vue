@@ -53,6 +53,21 @@
                             <td style="padding:10px">{{ student.faculty }}</td>
                             <td style="padding:10px">{{ student.phone }}</td>
                         </tr>
+                        <tr v-for="student in filteredListGroup3">
+                            <td style="padding:10px">
+                                <router-link :to="{name: 'ViewGroup3StudentCoops', params: {userId: student.userID }}">
+                                    {{ student.firstName }}
+                                </router-link>    
+                            </td>
+                            <td style="padding:10px">{{ student.lastName }}</td>
+                            <td style="padding:10px">{{ student.email }}</td>
+                            <td style="padding:10px"></td>
+                            <td style="padding:10px"></td>
+                            <td style="padding:10px"></td>
+                            <td style="padding:10px"></td>
+                            <td style="padding:10px"></td>
+                            <td style="padding:10px"></td>
+                        </tr>
                     </table>
                     <h6 align="left" style="padding-top:1.6%">Click student name to view individual coops and forms</h6>
                 </div>

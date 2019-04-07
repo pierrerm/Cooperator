@@ -48,6 +48,19 @@
                             <td style="padding:10px">{{ employer.location }}</td>
                             <td style="padding:10px">{{ employer.phone }}</td>
                         </tr>
+                        <tr v-for="employer in filteredListGroup9">
+                            <td style="padding:10px">{{ employer.firstName }}</td>
+                            <td style="padding:10px">{{ employer.lastName }}</td>
+                            <td style="padding:10px">{{ employer.email }}</td>
+                            <td style="padding:10px">{{ employer.position }}</td>
+                            <td style="padding:10px"> 
+                                <router-link :to="{name: 'ViewGroup6EmployerCoops', params: {userId: employer.coopUserId, email: employer.email, company: employer.company}}">
+                                    {{ employer.company }}
+                                </router-link>
+                            </td>
+                            <td style="padding:10px">{{ employer.location }}</td>
+                            <td style="padding:10px">{{ employer.phone }}</td>
+                        </tr>
                     </table>
 					<h6 align="left" style="padding-top:1.6%">Click employer name to view individual coops and forms</h6>
                 </div>

@@ -21,7 +21,8 @@ export default {
             students: [],
             term: '',
             studentFirstName: '',
-            studentId: ''
+            studentId: '',
+            studentsGroup3: []
         }
     },
 
@@ -42,7 +43,6 @@ export default {
         AXIOS.get('/students')
             .then(response => {
                 this.students = response.data;
-            }).then(
                 AXIOS2.get('/allStudents')
                     .then(response => {
                         for (var i = 0; i < response.data.length; i++) {
@@ -52,11 +52,11 @@ export default {
                             s.lastName = nameArray[1];
                             s.email = s.coopUserEmail;
                             if (s.roleType == "Student") {
-                                this.students.push(s);
+                                this.studentsGroup3.push(s);
                             }
                         }
-                    }))
-
+                    })
+            })
         if ((localStorage.getItem('loggedIn') != null)) {
             //if cookies expired, refresh
             if (this.$cookie.get("username") == null || this.$cookie.get("password") == null) {
@@ -103,6 +103,17 @@ export default {
                 })
             } else {
                 return this.students.filter(student => {
+                    return student.id.toString().toLowerCase().includes(this.studentId.toString().toLowerCase())
+                })
+            }
+        },
+        filteredListGroup3() {
+            if (this.studentId == '') {
+                return this.studentsGroup3.filter(student => {
+                    return student.firstName.toLowerCase().includes(this.studentFirstName.toLowerCase())
+                })
+            } else {
+                return this.studentsGroup3.filter(student => {
                     return student.id.toString().toLowerCase().includes(this.studentId.toString().toLowerCase())
                 })
             }
