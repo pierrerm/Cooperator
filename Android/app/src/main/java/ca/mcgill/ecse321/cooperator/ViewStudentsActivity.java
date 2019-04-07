@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +29,10 @@ public class ViewStudentsActivity extends AppCompatActivity {
 
     // variables
     private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mIDs = new ArrayList<>();
+    private ArrayList<String> mMajors = new ArrayList<>();
+    private ArrayList<String> mEmails = new ArrayList<>();
+    private ArrayList<String> mPhones = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -71,18 +76,39 @@ public class ViewStudentsActivity extends AppCompatActivity {
     private void initStudentNames() {
         Log.d(TAG, "initStudentNames: preparing student names.");
 
+        // Restfull call: all students
         HttpUtils.get("students/", new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 
-                //mNames.clear();
+                // Clear lists
+                mNames.clear();
+                mIDs.clear();
+                mMajors.clear();
+                mEmails.clear();
+                mPhones.clear();
                 for( int i = 0; i < response.length(); i++){
                     try {
                         Log.d(TAG, "Restful GET call succesfull (" + i + ").");
-                        Log.d(TAG, "First Name: " + response.getJSONObject(i).getString("firstName") );
-                        mNames.add(response.getJSONObject(i).getString("firstName")
-                                + " " + response.getJSONObject(i).getString("lastName"));
+
+                        // Add Student Names
+                        mNames.add(response.getJSONObject(i).getString("firstName") + " "
+                                + response.getJSONObject(i).getString("lastName"));
+
+                        // Add Student IDs
+                        mIDs.add(response.getJSONObject(i).getString("id"));
+
+                        // Add Student Majors & Years
+                        mMajors.add(response.getJSONObject(i).getString("major") + " "
+                                + response.getJSONObject(i).getString("academicYear"));
+
+                        // Add Student email
+                        mEmails.add(response.getJSONObject(i).getString("email"));
+
+                        // Add Student phone number
+                        mPhones.add(response.getJSONObject(i).getString("phone"));
+
                         initRecyclerView();
                     } catch (JSONException e) {
                         Log.d(TAG, e.getMessage());
@@ -105,13 +131,13 @@ public class ViewStudentsActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recyclerview");
         RecyclerView recyclerView = findViewById(R.id.students_recycler_view);
-        StudentsAdapter adapter = new StudentsAdapter(this, mNames);
+        StudentsAdapter adapter = new StudentsAdapter(this, mNames, mIDs, mMajors, mEmails, mPhones);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

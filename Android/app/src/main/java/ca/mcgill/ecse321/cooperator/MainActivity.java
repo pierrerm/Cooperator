@@ -54,21 +54,21 @@ public class MainActivity extends AppCompatActivity {
         });
         refreshErrorMessage();
 
-        // INSERT TO END OF THE METHOD
-        // Add adapters to spinner lists and refresh spinner content
-        Spinner personSpinner = (Spinner) findViewById(R.id.personspinner);
-        Spinner eventSpinner = (Spinner) findViewById(R.id.eventspinner);
-
-        personAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, personNames);
-        personAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        personSpinner.setAdapter(personAdapter);
-
-        eventAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, eventNames);
-        eventAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        eventSpinner.setAdapter(eventAdapter);
-
-        // Get initial content for spinners
-        refreshLists(this.getCurrentFocus());
+//        // INSERT TO END OF THE METHOD
+//        // Add adapters to spinner lists and refresh spinner content
+//        Spinner personSpinner = (Spinner) findViewById(R.id.personspinner);
+//        Spinner eventSpinner = (Spinner) findViewById(R.id.eventspinner);
+//
+//        personAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, personNames);
+//        personAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        personSpinner.setAdapter(personAdapter);
+//
+//        eventAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, eventNames);
+//        eventAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        eventSpinner.setAdapter(eventAdapter);
+//
+//        // Get initial content for spinners
+//        refreshLists(this.getCurrentFocus());
     }
 
     @Override
@@ -105,28 +105,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // When button is clicked
-    public void addPerson(View v) {
-        error = "";
-        final TextView tv = (TextView) findViewById(R.id.newperson_firstname);
-        final TextView tv2 = (TextView) findViewById(R.id.newperson_lastname);
-        HttpUtils.post("employer/810/" + tv.getText().toString() + "/" + tv2.getText().toString() + "/m@mail.ca/password/-2/position/company/location", new RequestParams(), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                refreshErrorMessage();
-                tv.setText("");
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-    }
+//    // When button is clicked
+//    public void addPerson(View v) {
+//        error = "";
+//        final TextView tv = (TextView) findViewById(R.id.newperson_firstname);
+//        final TextView tv2 = (TextView) findViewById(R.id.newperson_lastname);
+//        HttpUtils.post("employer/810/" + tv.getText().toString() + "/" + tv2.getText().toString() + "/m@mail.ca/password/-2/position/company/location", new RequestParams(), new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                refreshErrorMessage();
+//                tv.setText("");
+//            }
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                try {
+//                    error += errorResponse.get("message").toString();
+//                } catch (JSONException e) {
+//                    error += e.getMessage();
+//                }
+//                refreshErrorMessage();
+//            }
+//        });
+//    }
 
     private Bundle getTimeFromLabel(String text) {
         Bundle rtn = new Bundle();
@@ -230,79 +230,79 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void addEvent(View v) {
-        // start time
-        TextView tv = (TextView) findViewById(R.id.starttime);
-        String text = tv.getText().toString();
-        String comps[] = text.split(":");
+//    public void addEvent(View v) {
+//        // start time
+//        TextView tv = (TextView) findViewById(R.id.starttime);
+//        String text = tv.getText().toString();
+//        String comps[] = text.split(":");
+//
+//        int startHours = Integer.parseInt(comps[0]);
+//        int startMinutes = Integer.parseInt(comps[1]);
+//
+//        // end time
+//        tv = (TextView) findViewById(R.id.endtime);
+//        text = tv.getText().toString();
+//        comps = text.split(":");
+//
+//        int endHours = Integer.parseInt(comps[0]);
+//        int endMinutes = Integer.parseInt(comps[1]);
+//
+//        // date
+//        tv = (TextView) findViewById(R.id.newevent_date);
+//        text = tv.getText().toString();
+//        comps = text.split("-");
+//
+//        int year = Integer.parseInt(comps[2]);
+//        int month = Integer.parseInt(comps[1]);
+//        int day = Integer.parseInt(comps[0]);
+//
+//        // name
+//        tv = (TextView) findViewById(R.id.newevent_name);
+//        String name = tv.getText().toString();
+//
+//        // Reminder: calling the service looks like this:
+//        // http://192.168.56.50:8088/createEvent?eventName=tst&date=2013-10-23&startTime=00:00&endTime=23:59
+//
+//        RequestParams rp = new RequestParams();
+//
+//        NumberFormat formatter = new DecimalFormat("00");
+//        rp.add("date", year + "-" + formatter.format(month) + "-" + formatter.format(day));
+//        rp.add("startTime", formatter.format(startHours) + ":" + formatter.format(startMinutes));
+//        rp.add("endTime", formatter.format(endHours) + ":" + formatter.format(endMinutes));
+//
+//        HttpUtils.post("events/" + name, rp, new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                refreshErrorMessage();
+//                ((TextView) findViewById(R.id.newevent_name)).setText("");
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                try {
+//                    error += errorResponse.get("message").toString();
+//                } catch (JSONException e) {
+//                    error += e.getMessage();
+//                }
+//                refreshErrorMessage();
+//            }
+//        });
+//    }
 
-        int startHours = Integer.parseInt(comps[0]);
-        int startMinutes = Integer.parseInt(comps[1]);
-
-        // end time
-        tv = (TextView) findViewById(R.id.endtime);
-        text = tv.getText().toString();
-        comps = text.split(":");
-
-        int endHours = Integer.parseInt(comps[0]);
-        int endMinutes = Integer.parseInt(comps[1]);
-
-        // date
-        tv = (TextView) findViewById(R.id.newevent_date);
-        text = tv.getText().toString();
-        comps = text.split("-");
-
-        int year = Integer.parseInt(comps[2]);
-        int month = Integer.parseInt(comps[1]);
-        int day = Integer.parseInt(comps[0]);
-
-        // name
-        tv = (TextView) findViewById(R.id.newevent_name);
-        String name = tv.getText().toString();
-
-        // Reminder: calling the service looks like this:
-        // http://192.168.56.50:8088/createEvent?eventName=tst&date=2013-10-23&startTime=00:00&endTime=23:59
-
-        RequestParams rp = new RequestParams();
-
-        NumberFormat formatter = new DecimalFormat("00");
-        rp.add("date", year + "-" + formatter.format(month) + "-" + formatter.format(day));
-        rp.add("startTime", formatter.format(startHours) + ":" + formatter.format(startMinutes));
-        rp.add("endTime", formatter.format(endHours) + ":" + formatter.format(endMinutes));
-
-        HttpUtils.post("events/" + name, rp, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                refreshErrorMessage();
-                ((TextView) findViewById(R.id.newevent_name)).setText("");
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-    }
-
-    public void register(View v) {
-
-        final Spinner partSpinner = (Spinner) findViewById(R.id.personspinner);
-        final Spinner eventSpinner = (Spinner) findViewById(R.id.eventspinner);
-
-        error = "";
-        HttpUtils.post("student/514/" + partSpinner.toString() + "/" + eventSpinner.toString() + "/m@mail.ca/password/-2/position/company/location", new RequestParams(), new JsonHttpResponseHandler());
-
-        // Set back the spinners to the initial state after posting the request
-        partSpinner.setSelection(0);
-        eventSpinner.setSelection(0);
-
-        refreshErrorMessage();
-    }
+//    public void register(View v) {
+//
+//        final Spinner partSpinner = (Spinner) findViewById(R.id.personspinner);
+//        final Spinner eventSpinner = (Spinner) findViewById(R.id.eventspinner);
+//
+//        error = "";
+//        HttpUtils.post("student/514/" + partSpinner.toString() + "/" + eventSpinner.toString() + "/m@mail.ca/password/-2/position/company/location", new RequestParams(), new JsonHttpResponseHandler());
+//
+//        // Set back the spinners to the initial state after posting the request
+//        partSpinner.setSelection(0);
+//        eventSpinner.setSelection(0);
+//
+//        refreshErrorMessage();
+//    }
 
     /** Called when the user taps the View Students button */
     public void viewStudents(View v) {

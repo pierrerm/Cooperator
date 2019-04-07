@@ -6,6 +6,18 @@
 
 
     <TextView
+        android:id="@+id/major_and_year"
+        android:layout_width="146dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/student_name"
+        android:layout_alignStart="@+id/student_name"
+        android:layout_alignLeft="@+id/student_name"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:text="Major and Year" />
+
+    <TextView
         android:id="@+id/student_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,4 +30,42 @@
         android:text="Student Name"
         android:textColor="#000"
         android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/mcgill_id"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/student_name"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="0dp"
+        android:text="McGill ID" />
+
+    <TextView
+        android:id="@+id/student_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/major_and_year"
+        android:layout_alignStart="@+id/major_and_year"
+        android:layout_alignLeft="@+id/major_and_year"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="4dp"
+        android:text="email@mail.mcgill.ca" />
+
+    <TextView
+        android:id="@+id/student_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/student_email"
+        android:layout_alignStart="@+id/student_email"
+        android:layout_alignLeft="@+id/student_email"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="22dp"
+        android:text="514-XXX-XXXX" />
+
 </RelativeLayout>

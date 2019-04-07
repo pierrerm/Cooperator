@@ -14,7 +14,7 @@
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="580dp"
         android:orientation="vertical">
 
@@ -25,7 +25,7 @@
             android:text=""
             android:textColor="@color/colorAccent"
             android:visibility="gone" />
-
+        <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -206,13 +206,15 @@
                 android:onClick="addEvent"
                 android:text="@string/newevent_button" />
 
-            <Button
-                android:id="@+id/view_students_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="viewStudents"
-                android:text="Students" />
         </LinearLayout>
+        -->
+
+        <Button
+            android:id="@+id/view_students_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewStudents"
+            android:text="Students" />
 
         <Button
             android:id="@+id/remindersButton"

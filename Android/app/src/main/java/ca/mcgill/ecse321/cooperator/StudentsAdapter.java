@@ -19,11 +19,20 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
     private static final String TAG = "StudentsAdapter";
 
     private ArrayList<String> mStudentNames = new ArrayList<>();
+    private ArrayList<String> mStudentIDs = new ArrayList<>();
+    private ArrayList<String> mStudentMajors = new ArrayList<>();
+    private ArrayList<String> mStudentEmails = new ArrayList<>();
+    private ArrayList<String> mStudentPhones = new ArrayList<>();
     private Context mContext;
 
-    public StudentsAdapter(Context mContext, ArrayList<String> mStudentNames) {
+    public StudentsAdapter(Context mContext, ArrayList<String> mStudentNames, ArrayList<String> mStudentIDs,
+            ArrayList<String> mStudentMajors, ArrayList<String> mStudentEmails, ArrayList<String> mStudentPhones) {
         //this.mDataset = mDataset;
         this.mStudentNames = mStudentNames;
+        this.mStudentIDs = mStudentIDs;
+        this.mStudentMajors = mStudentMajors;
+        this.mStudentEmails = mStudentEmails;
+        this.mStudentPhones = mStudentPhones;
         this.mContext = mContext;
     }
 
@@ -54,8 +63,13 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
         // - replace the contents of the view with that element
         Log.d(TAG, "onBindViewHolder: called.");
 
-        holder.textView.setText(mStudentNames.get(position));
+        holder.studentName.setText(mStudentNames.get(position));
+        holder.studentID.setText(mStudentIDs.get(position));
+        holder.studentMajor.setText(mStudentMajors.get(position));
+        holder.studentEmail.setText(mStudentEmails.get(position));
+        holder.studentPhone.setText(mStudentPhones.get(position));
 
+        // Android Toast for full name of student
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,12 +98,20 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView textView;
+        public TextView studentName;
+        public TextView studentID;
+        public TextView studentMajor;
+        public TextView studentEmail;
+        public TextView studentPhone;
         public RelativeLayout parentLayout;
 
         public ViewHolder(View v) {
             super(v);
-            textView = v.findViewById(R.id.student_name);
+            studentName = v.findViewById(R.id.student_name);
+            studentID = v.findViewById(R.id.mcgill_id);
+            studentMajor = v.findViewById(R.id.major_and_year);
+            studentEmail = v.findViewById(R.id.student_email);
+            studentPhone = v.findViewById(R.id.student_phone);
             parentLayout = v.findViewById(R.id.parent_layout);
         }
     }
