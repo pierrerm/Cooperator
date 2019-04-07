@@ -18,6 +18,12 @@
                     class="btn btn-primary py-2 px-4 text-white"
                 />
                 </div>
+                <input type="text" v-model="employerName" placeholder="Search First Name" style="align:left;width: 100%;"/>
+                <br>
+                </br>
+                <input type="text" v-model="company" placeholder="Search Company" style="align:left;width: 100%;"/>
+                <br>
+                </br>
                 <div id="table">
                     <table class="info-table" style="width: 100%; height: 100%;">
                         <tr>
@@ -29,7 +35,7 @@
                             <th style="padding:10px">Location</th>
                             <th style="padding:10px">Phone Number</th>
                         </tr>
-                        <tr v-for="employer in employers">
+                        <tr v-for="employer in filteredList">
                             <td style="padding:10px">
                               <router-link :to="{name: 'ViewEmployerCoops', params: {userId: employer.userId }}">
                                 {{ employer.firstName }}

@@ -12,7 +12,9 @@ var AXIOS = axios.create({
 export default {
     data() {
         return {
-            employers: []
+            employers: [],
+            employerName: '',
+            company: '',
         }
     },
 
@@ -72,5 +74,19 @@ export default {
                         });
                 }
             }
-    }
+    },
+
+    computed: {
+        filteredList() {
+            if (this.company == '') {
+                return this.employers.filter(employer => {
+                    return employer.firstName.toLowerCase().includes(this.employerName.toLowerCase())
+                })
+            } else {
+                return this.employers.filter(employer => {
+                    return employer.company.toString().toLowerCase().includes(this.company.toString().toLowerCase())
+                })
+            }
+        }
+      }
 }

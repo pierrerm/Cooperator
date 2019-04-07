@@ -15,14 +15,13 @@ var AXIOS2 = axios.create({
     headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-var listID = []
-
 export default {
     data() {
         return {
             students: [],
             term: '',
-            studentsGroup3: [],
+            studentFirstName: '',
+            studentId: ''
         }
     },
 
@@ -53,7 +52,7 @@ export default {
                             s.lastName = nameArray[1];
                             s.email = s.coopUserEmail;
                             if (s.roleType == "Student") {
-                                this.studentsGroup3.push(s);
+                                this.students.push(s);
                             }
                         }
                     }))
@@ -92,6 +91,20 @@ export default {
                         console.log("error in post request: " + e);
                         window.location.href = "/";
                     });
+            }
+        }
+    },
+
+    computed: {
+        filteredList() {
+            if (this.studentId == '') {
+                return this.students.filter(student => {
+                    return student.firstName.toLowerCase().includes(this.studentFirstName.toLowerCase())
+                })
+            } else {
+                return this.students.filter(student => {
+                    return student.id.toString().toLowerCase().includes(this.studentId.toString().toLowerCase())
+                })
             }
         }
     }
