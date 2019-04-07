@@ -14,7 +14,8 @@ export default {
     return {
       coops: [],
       coop: '',
-      forms: []
+      forms: [],
+      counter: 0,
     }
   },
 
@@ -30,6 +31,7 @@ export default {
             AXIOS.get('/forms/'+ this.coop.coopId)
               .then(response => {
                 this.forms = response.data;
+                this.counter = this.forms.length;
               })
           }
         }

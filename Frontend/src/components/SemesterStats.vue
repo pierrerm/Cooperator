@@ -43,6 +43,7 @@
                             <th style="padding:10px">Employer Name</th>
                             <th style="padding:10px">Company</th>
 				            <th style="padding:10px">Reminders</th>
+                            <th style="padding:10px">Progress</th>
                         </tr>
                         <tr v-for="coop in coops">
                             <td style="padding:10px">
@@ -60,6 +61,7 @@
                                     {{ "View Reminders" }}
                                 </router-link>
 				            </td>
+                            <td style="padding:10px">{{ coop.progress }}</td>
                         </tr>
                     </table>
                     </div>

@@ -4,6 +4,8 @@
       <div class="site-section" style="padding-top:10%">
         <div class="container" style="align:center">
           <h1 class="page-title">Coop Forms</h1>
+          <b-progress :value="counter" :max="4" variant="success"></b-progress>
+          <br>
           <div id="table">
             <table class="info-table" style="width: 100%; height: 100%;">
               <tr>

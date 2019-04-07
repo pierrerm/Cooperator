@@ -33,7 +33,11 @@ export default {
                 });
 			AXIOS.get(`/coop/problem/` + term , {}, {})
 				.then(response => {
-					this.coops = response.data
+                    for(var i = 0; i < response.data.length ; i++){
+                        var coop = response.data[i]
+                        coop.progress = (coop.form.length * 25).toString().concat("%");
+                        this.coops.push(coop)
+                    }
 				});
 			AXIOS.get(`/form/type/` + term , {}, {})
 				.then(response => {
