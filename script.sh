@@ -11,10 +11,14 @@ curl -X POST -s -o foo.txt http://cooperator-backend-3417.herokuapp.com/student/
 curl -X POST -s -o foo.txt http://cooperator-backend-3417.herokuapp.com/student/5142238776/Olivier/Giroud/olivier.giroud@mail.mcgill.ca/password/7/260733267/U3/Engineering/Dentistry && echo "student7" &
 curl -X POST -s -o foo.txt http://cooperator-backend-3417.herokuapp.com/student/5148254236/Zinedine/Zidane/zinedine.zidane@mail.mcgill.ca/password/8/260334537/U3/Engineering/Astronomy && echo "student8" &
 curl -X POST -s -o foo.txt http://cooperator-backend-3417.herokuapp.com/employer/5148725387/Didier/Deschamps/didier.deschamps@mail.mcgill.ca/password/2/Head-Coach/FFF/Clairefontaine && echo "employer1" &
+curl -X POST -s -o foo.txt http://cooperator-backend-3417.herokuapp.com/admin/b/b/260724748/b/98a906182cdcfb1eb4eb47117600f68958e2ddd140248b47984f4bde6587b89c8215c3da895a336e94ad1aca39015c40 && echo "admin1" &
 
 wait 
 
 curl -X POST -s -o foo.txt http://cooperator-backend-3417.herokuapp.com/coop/1/true/30-04-2019/Software/123/Montreal/true/Winter/21-03-2019/1/2 && echo "coop1" &
+
+wait 
+
 curl -X POST -s -o foo.txt http://cooperator-backend-3417.herokuapp.com/coop/2/true/30-04-2019/Software/123/Montreal/true/Winter/15-03-2019/2/2 && echo "coop2" &
 curl -X POST -s -o foo.txt http://cooperator-backend-3417.herokuapp.com/coop/3/true/30-04-2019/Software/123/Montreal/true/Winter/01-04-2019/3/2 && echo "coop3" &
 curl -X POST -s -o foo.txt http://cooperator-backend-3417.herokuapp.com/coop/4/true/30-04-2019/Software/123/Montreal/true/Winter/23-03-2019/4/2 && echo "coop4" &

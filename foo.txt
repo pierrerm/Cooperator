@@ -1,0 +1,1 @@
+{"formId":16,"submissionDate":"2019-03-24","employerEvaluation":0,"workExperience":null,"softwareTechnologies":null,"usefulCourses":null,"studentWorkExperience":"Gradle-Travis-Vue","studentPerformance":10,"tasks":null,"hoursPerWeek":0,"wage":0,"training":null,"formType":"Student Evaluation","coop":6}

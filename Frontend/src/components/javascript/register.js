@@ -61,6 +61,7 @@ export default {
             var md = forge.md.sha384.create();
             md.update(password);
             var hash = md.digest().toHex();
+            console.log(hash)
             AXIOS.post(`/admin/` + firstName + "/" + lastName + "/" + userId + "/" + email + "/" + hash, {}, {})
                 .then(response => {
                     // JSON responses are automatically parsed.

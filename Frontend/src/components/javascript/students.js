@@ -112,10 +112,6 @@ export default {
                 return this.studentsGroup3.filter(student => {
                     return student.firstName.toLowerCase().includes(this.studentFirstName.toLowerCase())
                 })
-            } else {
-                return this.studentsGroup3.filter(student => {
-                    return student.id.toString().toLowerCase().includes(this.studentId.toString().toLowerCase())
-                })
             }
         }
     }
