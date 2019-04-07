@@ -25,6 +25,7 @@
             android:text=""
             android:textColor="@color/colorAccent"
             android:visibility="gone" />
+
         <!--
         <LinearLayout
             android:layout_width="match_parent"

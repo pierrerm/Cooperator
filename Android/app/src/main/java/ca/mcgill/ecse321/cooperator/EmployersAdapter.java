@@ -37,7 +37,7 @@ public class EmployersAdapter extends RecyclerView.Adapter<EmployersAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_employer_listitem, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_employer_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -50,8 +50,8 @@ public class EmployersAdapter extends RecyclerView.Adapter<EmployersAdapter.View
         Log.d(TAG, "onBindViewHolder: called.");
 
         holder.employerName.setText(mEmployerNames.get(position));
-        holder.employerID.setText(mEmployerPositions.get(position));
-        holder.employerMajor.setText(mEmployerCompanies.get(position));
+        holder.employerPosition.setText(mEmployerPositions.get(position));
+        holder.employerCompany.setText(mEmployerCompanies.get(position));
         holder.employerEmail.setText(mEmployerEmails.get(position));
         holder.employerPhone.setText(mEmployerPhones.get(position));
 
@@ -67,11 +67,10 @@ public class EmployersAdapter extends RecyclerView.Adapter<EmployersAdapter.View
         });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    // Return the size of your ArrayLists (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mEmployerNames.size();
-        //return mDataset.length;
     }
 
     // Provide a reference to the views for each data item
@@ -80,8 +79,8 @@ public class EmployersAdapter extends RecyclerView.Adapter<EmployersAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView employerName;
-        public TextView employerID;
-        public TextView employerMajor;
+        public TextView employerPosition;
+        public TextView employerCompany;
         public TextView employerEmail;
         public TextView employerPhone;
         public RelativeLayout parentLayout;
@@ -89,9 +88,9 @@ public class EmployersAdapter extends RecyclerView.Adapter<EmployersAdapter.View
         public ViewHolder(View v) {
             super(v);
             employerName = v.findViewById(R.id.employer_name);
-            employerID = v.findViewById(R.id.employer_position);
-            employerMajor = v.findViewById(R.id.company_and_location);
-            employerEmail = v.findViewById(R.id.employer_email);
+            employerPosition = v.findViewById(R.id.employer_position);
+            employerCompany = v.findViewById(R.id.student_name);
+            employerEmail = v.findViewById(R.id.student_email);
             employerPhone = v.findViewById(R.id.employer_phone);
             parentLayout = v.findViewById(R.id.parent_layout);
         }

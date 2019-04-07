@@ -100,14 +100,18 @@ public class ViewStudentsActivity extends AppCompatActivity {
                         mIDs.add(response.getJSONObject(i).getString("id"));
 
                         // Add Student Majors & Years
-                        mMajors.add(response.getJSONObject(i).getString("major") + " "
+                        mMajors.add(response.getJSONObject(i).getString("major") + ", "
                                 + response.getJSONObject(i).getString("academicYear"));
 
                         // Add Student email
                         mEmails.add(response.getJSONObject(i).getString("email"));
 
                         // Add Student phone number
-                        mPhones.add(response.getJSONObject(i).getString("phone"));
+                        mPhones.add(
+                                // Convert phone number format
+                                String.valueOf(response.getJSONObject(i).getString("phone")
+                                ).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1)-$2-$3")
+                        );
 
                         initRecyclerView();
                     } catch (JSONException e) {

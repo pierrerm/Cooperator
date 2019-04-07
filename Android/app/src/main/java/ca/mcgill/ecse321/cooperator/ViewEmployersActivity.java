@@ -84,7 +84,11 @@ public class ViewEmployersActivity extends AppCompatActivity {
                         mEmails.add(response.getJSONObject(i).getString("email"));
 
                         // Add Employer phone number
-                        mPhones.add(response.getJSONObject(i).getString("phone"));
+                        mPhones.add(
+                                // Convert phone number format
+                                String.valueOf(response.getJSONObject(i).getString("phone")
+                                ).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1)-$2-$3")
+                        );
 
                         initRecyclerView();
                     } catch (JSONException e) {

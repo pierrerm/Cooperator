@@ -127,63 +127,63 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-
-    private Bundle getTimeFromLabel(String text) {
-        Bundle rtn = new Bundle();
-        String comps[] = text.toString().split(":");
-        int hour = 12;
-        int minute = 0;
-
-        if (comps.length == 2) {
-            hour = Integer.parseInt(comps[0]);
-            minute = Integer.parseInt(comps[1]);
-        }
-
-        rtn.putInt("hour", hour);
-        rtn.putInt("minute", minute);
-
-        return rtn;
-    }
-
-    private Bundle getDateFromLabel(String text) {
-        Bundle rtn = new Bundle();
-        String comps[] = text.toString().split("-");
-        int day = 1;
-        int month = 1;
-        int year = 1;
-
-        if (comps.length == 3) {
-            day = Integer.parseInt(comps[0]);
-            month = Integer.parseInt(comps[1]);
-            year = Integer.parseInt(comps[2]);
-        }
-
-        rtn.putInt("day", day);
-        rtn.putInt("month", month-1);
-        rtn.putInt("year", year);
-
-        return rtn;
-    }
-
-    public void showTimePickerDialog(View v) {
-        TextView tf = (TextView) v;
-        Bundle args = getTimeFromLabel(tf.getText().toString());
-        args.putInt("id", v.getId());
-
-        TimePickerFragment newFragment = new TimePickerFragment();
-        newFragment.setArguments(args);
-        newFragment.show(getSupportFragmentManager(), "timePicker");
-    }
-
-    public void showDatePickerDialog(View v) {
-        TextView tf = (TextView) v;
-        Bundle args = getDateFromLabel(tf.getText().toString());
-        args.putInt("id", v.getId());
-
-        DatePickerFragment newFragment = new DatePickerFragment();
-        newFragment.setArguments(args);
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
+//
+//    private Bundle getTimeFromLabel(String text) {
+//        Bundle rtn = new Bundle();
+//        String comps[] = text.toString().split(":");
+//        int hour = 12;
+//        int minute = 0;
+//
+//        if (comps.length == 2) {
+//            hour = Integer.parseInt(comps[0]);
+//            minute = Integer.parseInt(comps[1]);
+//        }
+//
+//        rtn.putInt("hour", hour);
+//        rtn.putInt("minute", minute);
+//
+//        return rtn;
+//    }
+//
+//    private Bundle getDateFromLabel(String text) {
+//        Bundle rtn = new Bundle();
+//        String comps[] = text.toString().split("-");
+//        int day = 1;
+//        int month = 1;
+//        int year = 1;
+//
+//        if (comps.length == 3) {
+//            day = Integer.parseInt(comps[0]);
+//            month = Integer.parseInt(comps[1]);
+//            year = Integer.parseInt(comps[2]);
+//        }
+//
+//        rtn.putInt("day", day);
+//        rtn.putInt("month", month-1);
+//        rtn.putInt("year", year);
+//
+//        return rtn;
+//    }
+//
+//    public void showTimePickerDialog(View v) {
+//        TextView tf = (TextView) v;
+//        Bundle args = getTimeFromLabel(tf.getText().toString());
+//        args.putInt("id", v.getId());
+//
+//        TimePickerFragment newFragment = new TimePickerFragment();
+//        newFragment.setArguments(args);
+//        newFragment.show(getSupportFragmentManager(), "timePicker");
+//    }
+//
+//    public void showDatePickerDialog(View v) {
+//        TextView tf = (TextView) v;
+//        Bundle args = getDateFromLabel(tf.getText().toString());
+//        args.putInt("id", v.getId());
+//
+//        DatePickerFragment newFragment = new DatePickerFragment();
+//        newFragment.setArguments(args);
+//        newFragment.show(getSupportFragmentManager(), "datePicker");
+//    }
 
     public void setTime(int id, int h, int m) {
         TextView tv = (TextView) findViewById(id);
@@ -195,41 +195,41 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(String.format("%02d-%02d-%04d", d, m + 1, y));
     }
 
-    public void refreshLists(View view) {
-        refreshList(personAdapter ,personNames, "people");
-        refreshList(eventAdapter, eventNames, "events");
-    }
-
-    private void refreshList(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
-        HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                names.clear();
-                names.add("Please select...");
-                for( int i = 0; i < response.length(); i++){
-                    try {
-                        names.add(response.getJSONObject(i).getString("name"));
-                    } catch (Exception e) {
-                        error += e.getMessage();
-                    }
-                    refreshErrorMessage();
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-    }
-
+//    public void refreshLists(View view) {
+//        refreshList(personAdapter ,personNames, "people");
+//        refreshList(eventAdapter, eventNames, "events");
+//    }
+//
+//    private void refreshList(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
+//        HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+//                names.clear();
+//                names.add("Please select...");
+//                for( int i = 0; i < response.length(); i++){
+//                    try {
+//                        names.add(response.getJSONObject(i).getString("name"));
+//                    } catch (Exception e) {
+//                        error += e.getMessage();
+//                    }
+//                    refreshErrorMessage();
+//                }
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                try {
+//                    error += errorResponse.get("message").toString();
+//                } catch (JSONException e) {
+//                    error += e.getMessage();
+//                }
+//                refreshErrorMessage();
+//            }
+//        });
+//    }
+//
 //    public void addEvent(View v) {
 //        // start time
 //        TextView tv = (TextView) findViewById(R.id.starttime);
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-
+//
 //    public void register(View v) {
 //
 //        final Spinner partSpinner = (Spinner) findViewById(R.id.personspinner);
@@ -316,27 +316,13 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user taps the View Students button */
     public void viewEmployers(View v) {
         Intent intent = new Intent(this, ViewEmployersActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.editText);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
 
     /** Called when the user taps the View Students button */
     public void viewReminders(View v) {
         Intent intent = new Intent(this, ViewRemindersActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.editText);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
 
-    /** Called when the user taps the View Students button */
-    public void viewStats(View v) {
-        Intent intent = new Intent(this, ViewStatsActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.editText);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }
 }

@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.cooperator;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +44,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_student_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
 
@@ -111,10 +110,10 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
 
         public ViewHolder(View v) {
             super(v);
-            studentName = v.findViewById(R.id.employer_name);
-            studentID = v.findViewById(R.id.employer_position);
-            studentMajor = v.findViewById(R.id.company_and_location);
-            studentEmail = v.findViewById(R.id.employer_email);
+            studentName = v.findViewById(R.id.student_name);
+            studentID = v.findViewById(R.id.student_id);
+            studentMajor = v.findViewById(R.id.major_and_year);
+            studentEmail = v.findViewById(R.id.student_email);
             studentPhone = v.findViewById(R.id.student_phone);
             parentLayout = v.findViewById(R.id.parent_layout);
         }
