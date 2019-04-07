@@ -84,9 +84,9 @@ module.exports = function (browser) {
         browser
         .waitForElementVisible('#table > table:nth-child(2) > tr:nth-child(2) > td:nth-child(1)', 5000)
         .pause(1000)
-        browser.assert.containsText('#table > table:nth-child(2) > tr:nth-child(2) > td:nth-child(1)', 'Tasks Workload Report');
+        browser.assert.containsText('#table > table:nth-child(2) > tr:nth-child(3) > td:nth-child(1) > a', 'Tasks Workload Report');
         browser
-        .click('#table > table:nth-child(2) > tr:nth-child(2) > td:nth-child(1) > a')
+        .click('#table > table:nth-child(2) > tr:nth-child(3) > td:nth-child(1) > a')
         .pause(1000)
         .waitForElementVisible('body', 1000);
         browser.assert.containsText('#id > div > div > div > h1', 'View & Edit Form');
@@ -169,8 +169,6 @@ module.exports = function (browser) {
         browser
         .waitForElementVisible('#table > table:nth-child(2) > tr:nth-child(2) > td:nth-child(1)', 5000)
         .pause(1000)
-        browser.assert.containsText('#table > table:nth-child(2) > tr:nth-child(2) > td:nth-child(1)', '3');
-        browser
         .click('#table > table:nth-child(2) > tr:nth-child(2) > td:nth-child(1) > a')
         .pause(1000)
         .waitForElementVisible('body', 1000);
@@ -180,8 +178,6 @@ module.exports = function (browser) {
         browser
         .waitForElementVisible('#table > table:nth-child(2) > tr:nth-child(2) > td:nth-child(1) > a', 5000)
         .pause(1000)
-        browser.assert.containsText('#table > table:nth-child(2) > tr:nth-child(2) > td:nth-child(1) > a', 'Coop Evaluation');
-        browser
         .click('#table > table:nth-child(2) > tr:nth-child(2) > td:nth-child(1) > a')
         .pause(1000)
         .waitForElementVisible('body', 1000);
