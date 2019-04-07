@@ -22,4 +22,5 @@
     <string name="title_activity_view_employers">ViewEmployersActivity</string>
     <string name="title_activity_view_reminders">ViewRemindersActivity</string>
     <string name="title_activity_view_stats">ViewStatsActivity</string>
+    <string name="title_activity_view_coops">ViewCoopsActivity</string>
 </resources>

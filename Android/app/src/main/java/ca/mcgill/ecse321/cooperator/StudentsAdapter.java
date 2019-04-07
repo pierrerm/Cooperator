@@ -77,9 +77,13 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
 
                 Toast.makeText(mContext, mStudentNames.get(position), Toast.LENGTH_SHORT).show();
 
-//                Intent intent = new Intent(mContext, GalleryActivity.class);
-//                intent.putExtra("student_name", mStudentNames.get(position));
-//                mContext.startActivity(intent);
+                /** Called when the user taps the View Students button */
+                //Intent intent = new Intent(mContext, viewCoopsActivity.class);
+                //EditText editText = (EditText) findViewById(R.id.editText);
+                //String message = editText.getText().toString();
+                //intent.putExtra(EXTRA_MESSAGE, message);
+                //mContext.startActivity(intent);
+
             }
         });
 
@@ -107,10 +111,10 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
 
         public ViewHolder(View v) {
             super(v);
-            studentName = v.findViewById(R.id.student_name);
-            studentID = v.findViewById(R.id.mcgill_id);
-            studentMajor = v.findViewById(R.id.major_and_year);
-            studentEmail = v.findViewById(R.id.student_email);
+            studentName = v.findViewById(R.id.employer_name);
+            studentID = v.findViewById(R.id.employer_position);
+            studentMajor = v.findViewById(R.id.company_and_location);
+            studentEmail = v.findViewById(R.id.employer_email);
             studentPhone = v.findViewById(R.id.student_phone);
             parentLayout = v.findViewById(R.id.parent_layout);
         }
