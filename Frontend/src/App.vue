@@ -16,7 +16,7 @@
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col-11 col-xl-2">
-                        <img src="nameLogo.svg"/>
+                        <img src="nameLogo.png"/>
                     </div>
                     <div class="col-12 col-md-10">
                         <nav class="site-navigation position-relative text-right" role="navigation">
