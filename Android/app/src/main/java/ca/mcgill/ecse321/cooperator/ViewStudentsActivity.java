@@ -1,15 +1,12 @@
 package ca.mcgill.ecse321.cooperator;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -35,10 +32,6 @@ public class ViewStudentsActivity extends AppCompatActivity {
     private ArrayList<String> mPhones = new ArrayList<>();
     private ArrayList<String> mUserIDs = new ArrayList<>();
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,29 +41,6 @@ public class ViewStudentsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initStudentNames();
-
-//        recyclerView = (RecyclerView) findViewById(R.id.students_recycler_view);
-//
-//        // use this setting to improve performance if you know that changes
-//        // in content do not change the layout size of the RecyclerView
-//        recyclerView.setHasFixedSize(true);
-//
-//        // use a linear layout manager
-//        layoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(layoutManager);
-//
-//        // specify an adapter (see also next example)
-//        mAdapter = new StudentsAdapter(myDataset);
-//        recyclerView.setAdapter(mAdapter);
-//
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -121,11 +91,8 @@ public class ViewStudentsActivity extends AppCompatActivity {
                         initRecyclerView();
                     } catch (JSONException e) {
                         Log.d(TAG, e.getMessage());
-                        //error += e.getMessage();
                     }
-                    //refreshErrorMessage();
                 }
-                //adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -136,7 +103,6 @@ public class ViewStudentsActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-                //refreshErrorMessage();
             }
         });
 

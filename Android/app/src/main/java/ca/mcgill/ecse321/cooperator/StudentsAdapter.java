@@ -14,7 +14,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHolder> {
-    //private String[] mDataset;
 
     private static final String TAG = "StudentsAdapter";
 
@@ -29,7 +28,6 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
     public StudentsAdapter(Context mContext, ArrayList<String> mStudentNames, ArrayList<String> mStudentIDs,
             ArrayList<String> mStudentMajors, ArrayList<String> mStudentEmails, ArrayList<String> mStudentPhones,
                            ArrayList<String> mUserIDs) {
-        //this.mDataset = mDataset;
         this.mStudentNames = mStudentNames;
         this.mStudentIDs = mStudentIDs;
         this.mStudentMajors = mStudentMajors;
@@ -39,11 +37,6 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
         this.mContext = mContext;
     }
 
-//    // Provide a suitable constructor (depends on the kind of dataset)
-//    public StudentsAdapter(String[] myDataset) {
-//        mDataset = myDataset;
-//    }
-
     // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,12 +44,6 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_student_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
-
-//        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.my_text_view, parent, false);
-//
-//        ViewHolder vh = new ViewHolder(v);
-//        return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -83,22 +70,17 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
                 /** Called when the user taps the View Students button */
                 Intent intent = new Intent(mContext, ViewCoopsActivity.class);
                 String userId = mUserIDs.get(position);
-                //EditText editText = (EditText) findViewById(R.id.editText);
-                //String message = editText.getText().toString();
                 intent.putExtra("userId", userId);
                 mContext.startActivity(intent);
 
             }
         });
-
-        //holder.textView.setText(mDataset[position]);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mStudentNames.size();
-        //return mDataset.length;
     }
 
     // Provide a reference to the views for each data item

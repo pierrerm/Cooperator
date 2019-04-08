@@ -1,15 +1,12 @@
 package ca.mcgill.ecse321.cooperator;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -33,10 +30,7 @@ public class ViewEmployersActivity extends AppCompatActivity {
     private ArrayList<String> mCompanies = new ArrayList<>();
     private ArrayList<String> mEmails = new ArrayList<>();
     private ArrayList<String> mPhones = new ArrayList<>();
-
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<String> mUserIDs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +59,7 @@ public class ViewEmployersActivity extends AppCompatActivity {
                 mCompanies.clear();
                 mEmails.clear();
                 mPhones.clear();
+                mUserIDs.clear();
                 for( int i = 0; i < response.length(); i++){
                     try {
                         Log.d(TAG, "Restful GET call succesfull (" + i + ").");
@@ -90,14 +85,14 @@ public class ViewEmployersActivity extends AppCompatActivity {
                                 ).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1)-$2-$3")
                         );
 
+                        // Add User IDs
+                        mUserIDs.add(response.getJSONObject(i).getString("userId"));
+
                         initRecyclerView();
                     } catch (JSONException e) {
                         Log.d(TAG, e.getMessage());
-                        //error += e.getMessage();
                     }
-                    //refreshErrorMessage();
                 }
-                //adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -108,7 +103,6 @@ public class ViewEmployersActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-                //refreshErrorMessage();
             }
         });
 
@@ -117,7 +111,7 @@ public class ViewEmployersActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recyclerview");
         RecyclerView recyclerView = findViewById(R.id.employers_recycler_view);
-        EmployersAdapter adapter = new EmployersAdapter(this, mNames, mPositions, mCompanies, mEmails, mPhones);
+        EmployersAdapter adapter = new EmployersAdapter(this, mNames, mPositions, mCompanies, mEmails, mPhones, mUserIDs);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

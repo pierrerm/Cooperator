@@ -219,21 +219,21 @@
         <Button
             android:id="@+id/view_students_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:onClick="viewStudents"
             android:text="Students" />
 
         <Button
             android:id="@+id/remindersButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:onClick="viewReminders"
             android:text="Reminders" />
 
         <Button
             android:id="@+id/view_employers_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:onClick="viewEmployers"
             android:text="Employers" />
 

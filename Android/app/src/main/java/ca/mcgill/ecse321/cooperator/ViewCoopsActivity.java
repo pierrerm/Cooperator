@@ -32,12 +32,10 @@ public class ViewCoopsActivity extends AppCompatActivity {
     private ArrayList<String> mSemesters = new ArrayList<>();
     private ArrayList<String> mStartDates = new ArrayList<>();
     private ArrayList<String> mEndDates = new ArrayList<>();
+    private ArrayList<String> mStudents = new ArrayList<>();
+    private ArrayList<String> mEmployers = new ArrayList<>();
     private ArrayList<String> mJobDescriptions = new ArrayList<>();
     private String userId = "";
-
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +51,11 @@ public class ViewCoopsActivity extends AppCompatActivity {
     }
 
     private void initCoopNames() {
-        Log.d(TAG, "initCoopNames: preparing coop IDs. userId: " + getIntent().getStringExtra("userId"));
+        Log.d(TAG, "initCoopNames: preparing coop IDs.");
+        userId = getIntent().getStringExtra("userId");
 
-        // Restful call: all coops
-        HttpUtils.get("coops/" + getIntent().getStringExtra("userId") + "/", new RequestParams(), new JsonHttpResponseHandler() {
+        // Restful call: all coops for selected student
+        HttpUtils.get("coops/" + userId + "/", new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -66,6 +65,8 @@ public class ViewCoopsActivity extends AppCompatActivity {
                 mSemesters.clear();
                 mStartDates.clear();
                 mEndDates.clear();
+                mStudents.clear();
+                mEmployers.clear();
                 mJobDescriptions.clear();
                 for( int i = 0; i < response.length(); i++){
                     try {
@@ -83,6 +84,14 @@ public class ViewCoopsActivity extends AppCompatActivity {
                         // Add Coop End Date
                         mEndDates.add("End Date: " + response.getJSONObject(i).getString("endDate"));
 
+                        // Add Coop student
+                        mStudents.add(response.getJSONObject(i).getJSONObject("student").getString("firstName")
+                                + " " + response.getJSONObject(i).getJSONObject("student").getString("lastName"));
+
+                        // Add Coop employer
+                        mEmployers.add(response.getJSONObject(i).getJSONObject("employer").getString("firstName")
+                                + " " + response.getJSONObject(i).getJSONObject("employer").getString("lastName"));
+
                         // Add Coop Description
                         mJobDescriptions.add(response.getJSONObject(i).getString("jobDescription") + " at "
                                 + response.getJSONObject(i).getJSONObject("employer").getString("company")
@@ -91,11 +100,8 @@ public class ViewCoopsActivity extends AppCompatActivity {
                         initRecyclerView();
                     } catch (JSONException e) {
                         Log.d(TAG, e.getMessage());
-                        //error += e.getMessage();
                     }
-                    //refreshErrorMessage();
                 }
-                //adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -106,7 +112,6 @@ public class ViewCoopsActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-                //refreshErrorMessage();
             }
         });
 
@@ -115,7 +120,7 @@ public class ViewCoopsActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recyclerview");
         RecyclerView recyclerView = findViewById(R.id.coops_recycler_view);
-        CoopsAdapter adapter = new CoopsAdapter(this, mIDs, mSemesters, mStartDates, mEndDates, mJobDescriptions);
+        CoopsAdapter adapter = new CoopsAdapter(this, mIDs, mSemesters, mStartDates, mEndDates, mStudents, mEmployers, mJobDescriptions);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

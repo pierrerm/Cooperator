@@ -1,15 +1,12 @@
 package ca.mcgill.ecse321.cooperator;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -88,11 +85,8 @@ public class ViewRemindersActivity extends AppCompatActivity {
                         initRecyclerView();
                     } catch (JSONException e) {
                         Log.d(TAG, e.getMessage());
-                        //error += e.getMessage();
                     }
-                    //refreshErrorMessage();
                 }
-                //adapter.notifyDataSetChanged();
             }
 
             @Override

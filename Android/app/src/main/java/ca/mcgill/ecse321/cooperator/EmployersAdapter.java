@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.cooperator;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,15 +22,17 @@ public class EmployersAdapter extends RecyclerView.Adapter<EmployersAdapter.View
     private ArrayList<String> mEmployerCompanies = new ArrayList<>();
     private ArrayList<String> mEmployerEmails = new ArrayList<>();
     private ArrayList<String> mEmployerPhones = new ArrayList<>();
+    private ArrayList<String> mUserIDs = new ArrayList<>();
     private Context mContext;
 
     public EmployersAdapter(Context mContext, ArrayList<String> mEmployerNames, ArrayList<String> mEmployerPositions,
-                           ArrayList<String> mEmployerCompanies, ArrayList<String> mEmployerEmails, ArrayList<String> mEmployerPhones) {
+                           ArrayList<String> mEmployerCompanies, ArrayList<String> mEmployerEmails, ArrayList<String> mEmployerPhones, ArrayList<String> mUserIDs) {
         this.mEmployerNames = mEmployerNames;
         this.mEmployerPositions = mEmployerPositions;
         this.mEmployerCompanies = mEmployerCompanies;
         this.mEmployerEmails = mEmployerEmails;
         this.mEmployerPhones = mEmployerPhones;
+        this.mUserIDs = mUserIDs;
         this.mContext = mContext;
     }
 
@@ -63,6 +66,11 @@ public class EmployersAdapter extends RecyclerView.Adapter<EmployersAdapter.View
 
                 Toast.makeText(mContext, mEmployerNames.get(position), Toast.LENGTH_SHORT).show();
 
+                /** Called when the user taps the View Students button */
+                Intent intent = new Intent(mContext, ViewCoopsActivity.class);
+                String userId = mUserIDs.get(position);
+                intent.putExtra("userId", userId);
+                mContext.startActivity(intent);
             }
         });
     }

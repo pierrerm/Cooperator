@@ -20,16 +20,21 @@ public class CoopsAdapter extends RecyclerView.Adapter<CoopsAdapter.ViewHolder> 
     private ArrayList<String> mCoopSemesters = new ArrayList<>();
     private ArrayList<String> mCoopStartDates = new ArrayList<>();
     private ArrayList<String> mCoopEndDates = new ArrayList<>();
+    private ArrayList<String> mCoopStudents = new ArrayList<>();
+    private ArrayList<String> mCoopEmployers = new ArrayList<>();
     private ArrayList<String> mCoopDescriptions = new ArrayList<>();
     private Context mContext;
-    public String userId = new String();
 
     public CoopsAdapter(Context mContext, ArrayList<String> mCoopIDs, ArrayList<String> mCoopSemesters,
-                            ArrayList<String> mCoopStartDates, ArrayList<String> mCoopEndDates, ArrayList<String> mCoopDescriptions) {
+                            ArrayList<String> mCoopStartDates, ArrayList<String> mCoopEndDates,
+                        ArrayList<String> mCoopStudents, ArrayList<String> mCoopEmployers,
+                        ArrayList<String> mCoopDescriptions) {
         this.mCoopIDs = mCoopIDs;
         this.mCoopSemesters = mCoopSemesters;
         this.mCoopStartDates = mCoopStartDates;
         this.mCoopEndDates = mCoopEndDates;
+        this.mCoopStudents = mCoopStudents;
+        this.mCoopEmployers = mCoopEmployers;
         this.mCoopDescriptions = mCoopDescriptions;
         this.mContext = mContext;
     }
@@ -54,6 +59,8 @@ public class CoopsAdapter extends RecyclerView.Adapter<CoopsAdapter.ViewHolder> 
         holder.coopSemester.setText(mCoopSemesters.get(position));
         holder.coopStartDate.setText(mCoopStartDates.get(position));
         holder.coopEndDate.setText(mCoopEndDates.get(position));
+        holder.coopStudent.setText(mCoopStudents.get(position));
+        holder.coopEmployer.setText(mCoopEmployers.get(position));
         holder.coopDescription.setText(mCoopDescriptions.get(position));
 
         // Android Toast for id of Coop
@@ -61,9 +68,6 @@ public class CoopsAdapter extends RecyclerView.Adapter<CoopsAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked on: " + mCoopIDs.get(position));
-                //EditText editText = (EditText) findViewById(R.id.editText);
-                //String message = editText.getText().toString();
-                //intent.putExtra(EXTRA_MESSAGE, message);
                 Toast.makeText(mContext, mCoopIDs.get(position), Toast.LENGTH_SHORT).show();
 
             }
@@ -85,6 +89,8 @@ public class CoopsAdapter extends RecyclerView.Adapter<CoopsAdapter.ViewHolder> 
         public TextView coopSemester;
         public TextView coopStartDate;
         public TextView coopEndDate;
+        public TextView coopStudent;
+        public TextView coopEmployer;
         public TextView coopDescription;
         public RelativeLayout parentLayout;
 
@@ -94,6 +100,8 @@ public class CoopsAdapter extends RecyclerView.Adapter<CoopsAdapter.ViewHolder> 
             coopSemester = v.findViewById(R.id.coop_semester);
             coopStartDate = v.findViewById(R.id.start_date);
             coopEndDate = v.findViewById(R.id.end_date);
+            coopStudent = v.findViewById(R.id.coop_student);
+            coopEmployer = v.findViewById(R.id.coop_employer);
             coopDescription = v.findViewById(R.id.job_description);
             parentLayout = v.findViewById(R.id.parent_layout);
         }

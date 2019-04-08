@@ -23,4 +23,5 @@
     <string name="title_activity_view_reminders">ViewRemindersActivity</string>
     <string name="title_activity_view_stats">ViewStatsActivity</string>
     <string name="title_activity_view_coops">ViewCoopsActivity</string>
+    <string name="title_activity_view_forms">ViewFormsActivity</string>
 </resources>
