@@ -15,14 +15,14 @@ var AXIOS2 = axios.create({
     headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-var listID = []
-
 export default {
     data() {
         return {
             students: [],
             term: '',
-            studentsGroup3: [],
+            studentFirstName: '',
+            studentId: '',
+            studentsGroup3: []
         }
     },
 
@@ -43,7 +43,6 @@ export default {
         AXIOS.get('/students')
             .then(response => {
                 this.students = response.data;
-            }).then(
                 AXIOS2.get('/allStudents')
                     .then(response => {
                         for (var i = 0; i < response.data.length; i++) {
@@ -56,8 +55,8 @@ export default {
                                 this.studentsGroup3.push(s);
                             }
                         }
-                    }))
-
+                    })
+            })
         if ((localStorage.getItem('loggedIn') != null)) {
             //if cookies expired, refresh
             if (this.$cookie.get("username") == null || this.$cookie.get("password") == null) {
@@ -92,6 +91,27 @@ export default {
                         console.log("error in post request: " + e);
                         window.location.href = "/";
                     });
+            }
+        }
+    },
+
+    computed: {
+        filteredList() {
+            if (this.studentId == '') {
+                return this.students.filter(student => {
+                    return student.firstName.toLowerCase().includes(this.studentFirstName.toLowerCase())
+                })
+            } else {
+                return this.students.filter(student => {
+                    return student.id.toString().toLowerCase().includes(this.studentId.toString().toLowerCase())
+                })
+            }
+        },
+        filteredListGroup3() {
+            if (this.studentId == '') {
+                return this.studentsGroup3.filter(student => {
+                    return student.firstName.toLowerCase().includes(this.studentFirstName.toLowerCase())
+                })
             }
         }
     }

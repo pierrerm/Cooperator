@@ -17,7 +17,7 @@ module.exports = {
   'clickOnEmployer': function (browser) {
     utils(browser).clickEmployer();
     utils(browser).clickEmployerCoop();
-    utils(browser).clickEmployerForm();
+    //utils(browser).clickEmployerForm();
   },
   after: function (browser) {
     browser.pause(2000);
