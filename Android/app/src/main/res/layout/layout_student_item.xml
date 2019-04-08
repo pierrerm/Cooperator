@@ -10,9 +10,9 @@
         android:id="@+id/major_and_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/student_name"
-        android:layout_alignStart="@+id/student_name"
-        android:layout_alignLeft="@+id/student_name"
+        android:layout_below="@+id/employer_name"
+        android:layout_alignStart="@+id/employer_name"
+        android:layout_alignLeft="@+id/employer_name"
         android:layout_alignEnd="@+id/student_id"
         android:layout_alignRight="@+id/student_id"
         android:layout_marginStart="0dp"
@@ -23,7 +23,7 @@
         android:text="Major and Year" />
 
     <TextView
-        android:id="@+id/student_name"
+        android:id="@+id/employer_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -40,7 +40,7 @@
         android:id="@+id/student_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/student_name"
+        android:layout_alignBottom="@+id/employer_name"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="16dp"
@@ -48,8 +48,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="0dp"
-        android:layout_toEndOf="@+id/student_name"
-        android:layout_toRightOf="@+id/student_name"
+        android:layout_toEndOf="@+id/employer_name"
+        android:layout_toRightOf="@+id/employer_name"
         android:gravity="right"
         android:text="McGill ID" />
 
@@ -103,8 +103,8 @@
         android:layout_width="19dp"
         android:layout_height="19dp"
         android:layout_below="@+id/major_and_year"
-        android:layout_alignStart="@+id/student_name"
-        android:layout_alignLeft="@+id/student_name"
+        android:layout_alignStart="@+id/employer_name"
+        android:layout_alignLeft="@+id/employer_name"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="4dp"

@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.cooperator;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,16 +23,19 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
     private ArrayList<String> mStudentMajors = new ArrayList<>();
     private ArrayList<String> mStudentEmails = new ArrayList<>();
     private ArrayList<String> mStudentPhones = new ArrayList<>();
+    private ArrayList<String> mUserIDs = new ArrayList<>();
     private Context mContext;
 
     public StudentsAdapter(Context mContext, ArrayList<String> mStudentNames, ArrayList<String> mStudentIDs,
-            ArrayList<String> mStudentMajors, ArrayList<String> mStudentEmails, ArrayList<String> mStudentPhones) {
+            ArrayList<String> mStudentMajors, ArrayList<String> mStudentEmails, ArrayList<String> mStudentPhones,
+                           ArrayList<String> mUserIDs) {
         //this.mDataset = mDataset;
         this.mStudentNames = mStudentNames;
         this.mStudentIDs = mStudentIDs;
         this.mStudentMajors = mStudentMajors;
         this.mStudentEmails = mStudentEmails;
         this.mStudentPhones = mStudentPhones;
+        this.mUserIDs = mUserIDs;
         this.mContext = mContext;
     }
 
@@ -77,11 +81,12 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
                 Toast.makeText(mContext, mStudentNames.get(position), Toast.LENGTH_SHORT).show();
 
                 /** Called when the user taps the View Students button */
-                //Intent intent = new Intent(mContext, viewCoopsActivity.class);
+                Intent intent = new Intent(mContext, ViewCoopsActivity.class);
+                String userId = mUserIDs.get(position);
                 //EditText editText = (EditText) findViewById(R.id.editText);
                 //String message = editText.getText().toString();
-                //intent.putExtra(EXTRA_MESSAGE, message);
-                //mContext.startActivity(intent);
+                intent.putExtra("userId", userId);
+                mContext.startActivity(intent);
 
             }
         });
@@ -110,7 +115,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
 
         public ViewHolder(View v) {
             super(v);
-            studentName = v.findViewById(R.id.student_name);
+            studentName = v.findViewById(R.id.employer_name);
             studentID = v.findViewById(R.id.student_id);
             studentMajor = v.findViewById(R.id.major_and_year);
             studentEmail = v.findViewById(R.id.student_email);

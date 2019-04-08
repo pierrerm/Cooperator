@@ -89,7 +89,7 @@ public class RemindersAdapter extends RecyclerView.Adapter<RemindersAdapter.View
             super(v);
             reminderSubject = v.findViewById(R.id.reminder_subject);
             reminderUrgency = v.findViewById(R.id.reminder_urgency);
-            reminderStudent = v.findViewById(R.id.student_name);
+            reminderStudent = v.findViewById(R.id.employer_name);
             reminderID = v.findViewById(R.id.student_id);
             reminderDescription = v.findViewById(R.id.reminder_description);
             parentLayout = v.findViewById(R.id.parent_layout);

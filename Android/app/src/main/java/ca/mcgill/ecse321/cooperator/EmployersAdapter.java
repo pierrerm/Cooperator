@@ -89,7 +89,7 @@ public class EmployersAdapter extends RecyclerView.Adapter<EmployersAdapter.View
             super(v);
             employerName = v.findViewById(R.id.employer_name);
             employerPosition = v.findViewById(R.id.employer_position);
-            employerCompany = v.findViewById(R.id.student_name);
+            employerCompany = v.findViewById(R.id.employer_name);
             employerEmail = v.findViewById(R.id.student_email);
             employerPhone = v.findViewById(R.id.employer_phone);
             parentLayout = v.findViewById(R.id.parent_layout);

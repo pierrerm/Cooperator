@@ -33,6 +33,7 @@ public class ViewStudentsActivity extends AppCompatActivity {
     private ArrayList<String> mMajors = new ArrayList<>();
     private ArrayList<String> mEmails = new ArrayList<>();
     private ArrayList<String> mPhones = new ArrayList<>();
+    private ArrayList<String> mUserIDs = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -88,6 +89,7 @@ public class ViewStudentsActivity extends AppCompatActivity {
                 mMajors.clear();
                 mEmails.clear();
                 mPhones.clear();
+                mUserIDs.clear();
                 for( int i = 0; i < response.length(); i++){
                     try {
                         Log.d(TAG, "Restful GET call succesfull (" + i + ").");
@@ -112,6 +114,9 @@ public class ViewStudentsActivity extends AppCompatActivity {
                                 String.valueOf(response.getJSONObject(i).getString("phone")
                                 ).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1)-$2-$3")
                         );
+
+                        // Add User IDs
+                        mUserIDs.add(response.getJSONObject(i).getString("userId"));
 
                         initRecyclerView();
                     } catch (JSONException e) {
@@ -140,7 +145,7 @@ public class ViewStudentsActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recyclerview");
         RecyclerView recyclerView = findViewById(R.id.students_recycler_view);
-        StudentsAdapter adapter = new StudentsAdapter(this, mNames, mIDs, mMajors, mEmails, mPhones);
+        StudentsAdapter adapter = new StudentsAdapter(this, mNames, mIDs, mMajors, mEmails, mPhones, mUserIDs);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
