@@ -19,6 +19,12 @@
                     background-color="#ffffff"
                 />
                 </div>
+                <input type="text" v-model="studentFirstName" placeholder="Search First Name" style="align:left;width: 100%;"/>
+                <br>
+                </br>
+                <input type="text" v-model="studentId" placeholder="Search McGill ID" style="align:left;width: 100%;"/>
+                <br>
+                </br>
                 <div id="table">
                     <table class="info-table" style="width: 100%; height: 100%;">
                         <tr>
@@ -32,7 +38,7 @@
                             <th style="padding:10px">Faculty</th>
                             <th style="padding:10px">Phone</th>
                         </tr>
-                        <tr v-for="student in students">
+                        <tr v-for="student in filteredList">
                             <td style="padding:10px">
                               <router-link :to="{name: 'ViewStudentCoops', params: {userId: student.userId }}">
                                 {{ student.firstName }}
@@ -47,7 +53,7 @@
                             <td style="padding:10px">{{ student.faculty }}</td>
                             <td style="padding:10px">{{ student.phone }}</td>
                         </tr>
-                        <tr v-for="student in studentsGroup3">
+                        <tr v-for="student in filteredListGroup3">
                             <td style="padding:10px">
                                 <router-link :to="{name: 'ViewGroup3StudentCoops', params: {userId: student.userID }}">
                                     {{ student.firstName }}
