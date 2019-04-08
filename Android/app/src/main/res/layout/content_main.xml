@@ -210,6 +210,12 @@
         </LinearLayout>
         -->
 
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:srcCompat="@drawable/name_logo" />
+
         <Button
             android:id="@+id/view_students_button"
             android:layout_width="match_parent"
@@ -231,12 +237,6 @@
             android:onClick="viewEmployers"
             android:text="Employers" />
 
-        <Button
-            android:id="@+id/stats_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="viewStats"
-            android:text="Stats" />
     </LinearLayout>
 
 </RelativeLayout>
