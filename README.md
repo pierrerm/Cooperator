@@ -1,3 +1,5 @@
+### We would like to make our repository public.
+
 # ECSE321 Project Group 1
 
 **Project Overview**:
